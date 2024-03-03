@@ -107,7 +107,11 @@ class LLMRelationExtractor(RelationExtractor):
 
         for predicate, metadata in prompt_metadata['predicates'].items():
             description = metadata['description']
-            example = metadata['examples'][0]
+            try:
+                example = metadata['examples'][0]
+            except Exception:
+                print(term1.class_, term2.class_, predicate)
+                exit(-1)
 
             example_text = example['text']
 

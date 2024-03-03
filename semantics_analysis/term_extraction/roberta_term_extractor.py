@@ -107,7 +107,7 @@ class RobertaTermExtractor(TermExtractor):
         if curr_term_words:
             terms.append(normalize(' '.join(curr_term_words)))
 
-        return terms
+        return list(set(terms))
 
 
 def main():

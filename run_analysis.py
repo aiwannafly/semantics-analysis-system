@@ -97,7 +97,20 @@ def main():
         labeled_terms = term_classifier.process(text, terms)
 
     labeled_text = text
+
     for term in labeled_terms:
+        is_sub_term = False
+
+        for other_term in labeled_terms:
+            if other_term == term:
+                continue
+            if term.value in other_term.value:
+                is_sub_term = True
+                break
+
+        if is_sub_term:
+            continue
+
         labeled_text = labeled_text.replace(term.value, render_term(term))
 
     print(f'{LOG_STYLE}[CLASSIFIED TERMS]{Style.RESET_ALL}: {labeled_text}\n')

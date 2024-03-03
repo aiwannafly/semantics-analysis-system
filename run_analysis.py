@@ -78,6 +78,7 @@ def main():
 
     text = input(f'{LOG_STYLE}[      INPUT     ]{Style.RESET_ALL}: ')
 
+    text = text.replace('�', '').strip()
     print()
 
     with Spinner():

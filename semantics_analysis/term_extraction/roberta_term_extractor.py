@@ -27,6 +27,12 @@ def normalize(term: str) -> str:
     if term.endswith('.') or term.endswith(','):
         term = term[:-1]
 
+    if term.startswith('('):
+        term = term[1:]
+
+    if term.endswith(')'):
+        term = term[:-1]
+
     return (term.replace(' - ', '-')
             .replace(' %', '%')
             .replace(' . ', '.')
@@ -42,7 +48,7 @@ def normalize(term: str) -> str:
             .replace('.(', '. (')
             .replace('( ', '(')
             .replace(' / ', '/')
-            .replace(' )', ')'))
+            .replace(' )', ')')).strip()
 
 
 class RobertaTermExtractor(TermExtractor):

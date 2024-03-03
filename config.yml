@@ -1,0 +1,5 @@
+app-config:
+  huggingface-hub-token: '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'
+  device: 'cpu'
+  log-prompts: false
+  log-llm-responses: false

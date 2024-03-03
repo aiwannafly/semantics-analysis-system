@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "semantics-analysis"
+version = "0.1.0"
+description = "System of several deep learning networks responsible for terms extraction, terms classification and relations extraction."
+authors = ["aiwannafly"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+transformers = "^4.38.2"
+torch = "^2.2.1"
+PyYAML = "^6.0.1"
+colorama = "^0.4.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

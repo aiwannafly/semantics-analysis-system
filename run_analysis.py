@@ -22,31 +22,17 @@ def render_term(term: Term) -> str:
 def render_relation(relation: Relation) -> str:
     # some specific code to render relation in terminal
 
+    header_len = len('[      INPUT     ]:')
+
     term1, term2 = relation.term1, relation.term2
 
     term1_len, term2_len = len(f'({term1.value}: {term1.class_})'), len(f'({term2.value}: {term2.class_})')
 
-    space = ' ' * 10
+    space_len = 10
 
-    res = render_term(term1) + space + render_term(term2) + '\n'
+    res = ''
 
-    header = '[      INPUT     ]:'
-
-    for i in range(len(header) + int(term1_len / 2)):
-        res += ' '
-    res += '│'
-
-    edge_len = term1_len - int(term1_len / 2) - 1 + len(space) + int(term2_len / 2)
-
-    res += ' ' * edge_len
-
-    res += '│\n'
-
-    for i in range(len(header) + int(term1_len / 2)):
-        res += ' '
-    res += '└'
-
-    edge_len = term1_len - int(term1_len / 2) - 1 + len(space) + int(term2_len / 2)
+    edge_len = term1_len - int(term1_len / 2) - 1 + space_len + int(term2_len / 2)
 
     edge_start_len = int((edge_len - len(relation.predicate)) / 2)
 
@@ -54,9 +40,11 @@ def render_relation(relation: Relation) -> str:
 
     edge = '—' * edge_start_len + relation.predicate + '—' * edge_end_len
 
-    res += edge
+    res += ' ' * (int(term1_len / 2)) + '┌' + edge + '┐' + '\n'
 
-    res += '┘'
+    res += ' ' * (header_len + int(term1_len / 2)) + '|' + ' ' * len(edge) + '|' + '\n'
+
+    res += ' ' * header_len + render_term(term1) + ' ' * space_len + render_term(term2)
 
     return res
 
@@ -118,6 +106,8 @@ def main():
 
     relations = relation_extractor.process(text, labeled_terms)
 
+    relations_by_first_term = {}
+
     rel_count = 0
     while True:
         with Spinner():
@@ -127,12 +117,22 @@ def main():
         if not relation:
             break
 
-        print(f'{LOG_STYLE}[    RELATION {rel_count}  ]{Style.RESET_ALL}: ' + render_relation(relation))
+        if relation.term1 not in relations_by_first_term:
+            relations_by_first_term[relation.term1] = [relation]
+        else:
+            relations_by_first_term[relation.term1].append(relation)
+
+        log_header = '[   RELATION {: 4}]'.format(rel_count)
+        print(f'{LOG_STYLE}{log_header}{Style.RESET_ALL}:' + render_relation(relation))
         print()
         print()
 
     if rel_count == 0:
         print(f'{LOG_STYLE}[  NO RELATIONS  ]{Style.RESET_ALL}\n')
+
+    # for first_term, relations in relations_by_first_term.items():
+    #     if len(relations) > 2:
+    #         print(first_term)
 
 
 if __name__ == '__main__':

@@ -26,6 +26,9 @@ class Term:
 
         return False
 
+    def __hash__(self):
+        return hash((self.class_, self.value))
+
 
 class Relation:
     def __init__(self, term1: Term, predicate: str, term2: Term):

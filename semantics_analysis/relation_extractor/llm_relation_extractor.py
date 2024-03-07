@@ -7,29 +7,18 @@ from semantics_analysis.relation_extractor.ontology_utils import predicates_by_c
 from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
 
 
-PROMPT_TEMPLATE = '''
-Твоя задача состоит в определении отношений между терминами.
-
-Между терминами класса {class1} и {class2} возможны следующие отношения:
-{relations_list}
-Для ответа на вопрос о том, есть ли в указанном тексте отношение или нет, тебе помогут следующие вопросы:
-{questions_list}
-Примеры:
-{examples_list}
-Теперь скажи, какое отношение будет в этом случае.
-Важно: давай ответ только в контексте указанного предложения. Не используй дополнительные знания, чтобы воссоздать связи, которых нет.
-Если в рамках данного предложения связи между этими терминами нет, то и следует указать none.
-
-Следуй формату из примеров. Тебе нужно указать ровно одно из возможных предложений.
-
-{input}
-'''.strip()
-
-
 class LLMRelationExtractor(RelationExtractor):
 
-    def __init__(self, huggingface_hub_token: str, log_prompts: bool = False, log_llm_responses: bool = False):
+    def __init__(self,
+                 prompt_template_path: str,
+                 huggingface_hub_token: str,
+                 log_prompts: bool = False,
+                 log_llm_responses: bool = False):
         self.llm = InferenceClient(model='mistralai/Mistral-7B-Instruct-v0.2', timeout=8, token=huggingface_hub_token)
+
+        with open(prompt_template_path, 'r', encoding='utf-8') as f:
+            self.prompt_template = f.read().strip()
+
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
 
@@ -42,8 +31,6 @@ class LLMRelationExtractor(RelationExtractor):
 
         # so its normal to check for relation between Task and Method,
         # but it does not make sense to check for relation between InfoResource and Metric
-
-        relations = []
 
         terms_count = len(terms)
 
@@ -95,8 +82,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         return None
 
-    @staticmethod
-    def create_llm_prompt(term1: Term, term2: Term, text: str) -> str:
+    def create_llm_prompt(self, term1: Term, term2: Term, text: str) -> str:
         class1, class2 = term1.class_, term2.class_
 
         prompt_metadata = prompt_metadata_by_class_pair[(class1, class2)]
@@ -139,7 +125,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         input_text = f'Предложение: {text}\nТермин {class1}: {term1.value}\nТермин {class2}: {term2.value}\nОтношение:'
 
-        prompt = PROMPT_TEMPLATE
+        prompt = self.prompt_template
         prompt = prompt.replace('{class1}', class1)
         prompt = prompt.replace('{class2}', class2)
         prompt = prompt.replace('{relations_list}', relations_list)
@@ -151,7 +137,7 @@ class LLMRelationExtractor(RelationExtractor):
 
 
 def main():
-    extractor = LLMRelationExtractor('<place-token-here>')
+    extractor = LLMRelationExtractor('<prompt-template-path>', '<place-token-here>')
 
     relations = extractor.process('Метод AdaGrad широко используется для задачи классификации.', [
         Term('Method', 'AdaGrad'), Term('Task', 'классификации')

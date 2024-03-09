@@ -704,9 +704,9 @@ prompt_metadata_by_class_pair = {
                 'description': 'модель не создана в указанной организации',
                 'examples': [
                     {
-                        'text': 'Используя новый алгоритм упаковки, в Graphcore ускорили обработку естественного языка более чем в 2 раза при обучении BERT-Large.',
-                        'Model': 'BERT-Large',
-                        'Organization': 'Graphcore'
+                        'text': 'Модель обучали на наборе данных из более чем 7,5 млрд предложений как из базы Facebook, так и из других источников.',
+                        'Model': 'Модель',
+                        'Organization': 'Facebook'
                     }
                 ]
             }
@@ -815,7 +815,7 @@ prompt_metadata_by_class_pair = {
     ('Activity', 'Organization'): {
         'predicates': {
             'hasAuthor': {
-                'description': 'организация является автором данного исследования',
+                'description': 'организация является автором данной научной деятельности',
                 'examples': [
                     {
                         'text': 'В данной статье я бы хотел познакомить читателей с одним из проектов Apache Software Foundation сообщества — NlpCraft.',
@@ -825,7 +825,7 @@ prompt_metadata_by_class_pair = {
                 ]
             },
             'none': {
-                'description': 'организация не является автором данного исследования',
+                'description': 'организация не является автором данной научной деятельности',
                 'examples': [
                     {
                         'text': 'С 27 по 30 мая в Российском государственном гуманитарном университете (РГГУ) пройдет международная научная конференция по компьютерной лингвистике «Диалог».',
@@ -983,9 +983,9 @@ prompt_metadata_by_class_pair = {
                 'description': 'модель не используется в данном приложении',
                 'examples': [
                     {
-                        'text': 'Примером данного решения является использование парафрайзера на основе “rut5-base-paraphraser” из библиотеки huggingface.',
-                        'Model': '“rut5-base-paraphraser”',
-                        'Application': 'huggingface'
+                        'text': 'Это было сделано путем fine-tune (точной настройки) предварительно обученного трансформера HuggingFace на собранных данных Genius.',
+                        'Model': 'трансформера HuggingFace',
+                        'Application': 'Genius'
                     }
                 ]
             }
@@ -1047,7 +1047,7 @@ prompt_metadata_by_class_pair = {
                     {
                         'text': 'NlpCraft IDL - это декларативный язык, позволяющий создавать определения интентов для их последующего использования в моделях Apache NlpCraft.',
                         'Model': 'Apache NlpCraft',
-                        'Task': 'определения интентов'
+                        'Task': 'создавать определения интентов'
                     }
                 ]
             }

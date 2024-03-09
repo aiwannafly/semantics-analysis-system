@@ -59,9 +59,10 @@ def main():
     term_classifier = RobertaTermClassifier(app_config.device)
 
     relation_extractor = LLMRelationExtractor(
-        app_config.huggingface_hub_token,
-        app_config.log_prompts,
-        app_config.log_llm_responses
+        prompt_template_path='prompts/relation_extraction.txt',
+        huggingface_hub_token=app_config.huggingface_hub_token,
+        log_prompts=app_config.log_prompts,
+        log_llm_responses=app_config.log_llm_responses
     )
 
     text = input(f'{LOG_STYLE}[      INPUT     ]{Style.RESET_ALL}: ')

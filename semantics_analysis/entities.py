@@ -1,51 +1,66 @@
-import json
-from typing import Dict, Any, List, Optional
+from typing import Dict, List, Optional
 
 
 class Term:
-    def __init__(self, term_class: str, value: str):
-        self.class_ = term_class
+    def __init__(
+            self,
+            value: str,
+            end_pos: int,
+            text: str
+    ):
         self.value = value
-
-    def to_json(self) -> Dict[str, Any]:
-        return {
-            'class': self.class_,
-            'value': self.value
-        }
-
-    @staticmethod
-    def parse(term_dict):
-        return Term(term_dict['class'], term_dict['value'])
+        self.start_pos = end_pos - len(value)
+        self.end_pos = end_pos
+        self.text = text
 
     def __repr__(self):
-        return f'Term(class={self.class_}, value={self.value})'
+        return f'Term(value={self.value}, start_pos={self.start_pos}, end_pos={self.end_pos})'
 
     def __eq__(self, other):
         if isinstance(other, Term):
-            return other.value == self.value and other.class_ == self.class_
+            return other.value == self.value and other.start_pos == self.start_pos and other.end_pos == self.end_pos
 
         return False
 
     def __hash__(self):
-        return hash((self.class_, self.value))
+        return hash((self.value, self.start_pos, self.end_pos, self.text))
+
+
+class ClassifiedTerm(Term):
+
+    def __init__(
+            self,
+            term_class: str,
+            value: str,
+            end_pos: int,
+            text: str
+    ):
+        super().__init__(value, end_pos, text)
+        self.class_ = term_class
+
+    @classmethod
+    def from_term(cls, term_class: str, term: Term):
+        return cls(term_class, term.value, term.end_pos, term.text)
+
+    def __repr__(self):
+        return f'ClassifiedTerm(class={self.class_}, value={self.value}, start_pos={self.start_pos}, end_pos={self.end_pos})'
+
+    def __eq__(self, other):
+        if isinstance(other, ClassifiedTerm):
+            return (other.class_ == self.class_ and other.value == self.value and other.start_pos == self.start_pos
+                    and other.end_pos == self.end_pos)
+
+        return False
+
+    def __hash__(self):
+        return hash((self.class_, self.value, self.start_pos, self.end_pos, self.text))
 
 
 class Relation:
-    def __init__(self, term1: Term, predicate: str, term2: Term):
+    def __init__(self, term1: ClassifiedTerm, predicate: str, term2: ClassifiedTerm):
         self.term1 = term1
         self.term2 = term2
         self.predicate = predicate
-
-    def to_json(self) -> Dict[str, Any]:
-        return {
-            'term1': self.term1.to_json(),
-            'predicate': self.predicate,
-            'term2': self.term2.to_json(),
-        }
-
-    @staticmethod
-    def parse(rel_dict):
-        return Relation(Term.parse(rel_dict['term1']), rel_dict['predicate'], Term.parse(rel_dict['term2']))
 
     def __repr__(self):
         return f'Relation(term1={self.term1}, predicate={self.predicate}, term2={self.term2})'
@@ -62,15 +77,6 @@ class Sentence:
         self.terms = terms
         self.relations = relations
 
-    @staticmethod
-    def parse(sent_dict):
-        sent_id = sent_dict['sent_id']
-        text = sent_dict['text']
-        terms = sent_dict['terms']
-        relations = [Relation.parse(r) for r in sent_dict['relations']]
-
-        return Sentence(sent_id, text, terms, relations)
-
     def find_relation_by_id(self, relation_id: str) -> Optional[Relation]:
         for r in self.relations:
             if f'{r.term1.class_}_{r.predicate}_{r.term2.class_}' == relation_id:
@@ -83,29 +89,5 @@ class Sentence:
 
         return self.terms[class_id][0]
 
-    def to_json(self):
-        return {
-            'sent_id': self.id,
-            'text': self.text,
-            'terms': self.terms,
-            'relations': [r.to_json() for r in self.relations]
-        }
-
     def __repr__(self):
         return f'Sentence(id={self.id}, text="{self.text}", terms={self.terms}, relations={self.relations})'
-
-
-def main():
-    rel = Relation(
-        Term('Method', 'AdaGRAD'),
-        'solves',
-        Term('Task', 'Classification')
-    )
-
-    rel_json = json.dumps(rel.to_json())
-
-    print(rel_json)
-
-
-if __name__ == '__main__':
-    main()

@@ -2,7 +2,7 @@ from typing import List, Optional, Iterator
 
 from huggingface_hub import InferenceClient
 
-from semantics_analysis.entities import Term, Relation
+from semantics_analysis.entities import Relation, ClassifiedTerm
 from semantics_analysis.relation_extractor.ontology_utils import predicates_by_class_pair, prompt_metadata_by_class_pair
 from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
 
@@ -22,7 +22,7 @@ class LLMRelationExtractor(RelationExtractor):
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
 
-    def process(self, text: str, terms: List[Term]) -> Iterator[Relation]:
+    def __call__(self, text: str, terms: List[ClassifiedTerm]) -> Iterator[Relation]:
         # we seek only for binary relations
         # so every pair of terms can be checked
 
@@ -59,7 +59,7 @@ class LLMRelationExtractor(RelationExtractor):
 
                 yield Relation(term1, predicate, term2)
 
-    def detect_predicate(self, term1: Term, term2: Term, text: str) -> Optional[str]:
+    def detect_predicate(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> Optional[str]:
 
         prompt = self.create_llm_prompt(term1, term2, text)
 
@@ -82,7 +82,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         return None
 
-    def create_llm_prompt(self, term1: Term, term2: Term, text: str) -> str:
+    def create_llm_prompt(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> str:
         class1, class2 = term1.class_, term2.class_
 
         prompt_metadata = prompt_metadata_by_class_pair[(class1, class2)]
@@ -134,29 +134,3 @@ class LLMRelationExtractor(RelationExtractor):
         prompt = prompt.replace('{input}', input_text)
 
         return prompt.strip()
-
-
-def main():
-    extractor = LLMRelationExtractor('<prompt-template-path>', '<place-token-here>')
-
-    relations = extractor.process('Метод AdaGrad широко используется для задачи классификации.', [
-        Term('Method', 'AdaGrad'), Term('Task', 'классификации')
-    ])
-
-    print(relations)
-
-    relations = extractor.process('Метод Adam так или иначе включает в себя и другой метод: моменты Нестерова.', [
-        Term('Method', 'Метод Adam'), Term('Method', value='моменты Нестерова')
-    ])
-
-    print(relations)
-
-    relations = extractor.process('В рамках исследования мы пробовали два различных метода: классификатор на RoBERTa и генеративные нейронные сети', terms=[
-        Term('Method', 'классификатор на RoBERTa'), Term('Method', value='генеративные нейронные сети')
-    ])
-
-    print(relations)
-
-
-if __name__ == '__main__':
-    main()

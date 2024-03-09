@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from semantics_analysis.entities import Term
+from semantics_analysis.entities import Term, ClassifiedTerm
 
 
 class TermClassifier(ABC):
 
     @abstractmethod
-    def process(self, text: str, terms: List[str]) -> List[Term]:
+    def __call__(self, text: str, terms: List[Term]) -> List[ClassifiedTerm]:
         raise NotImplemented()

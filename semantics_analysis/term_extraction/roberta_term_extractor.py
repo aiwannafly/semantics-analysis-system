@@ -87,8 +87,6 @@ class RobertaTermExtractor(TermExtractor):
         is_under_term = False
         start_pos = 0
 
-        print(labels)
-
         for label, token in zip(labels, words):
             remain_text = text[len(curr_text):]
 
@@ -115,7 +113,7 @@ class RobertaTermExtractor(TermExtractor):
                     break
 
         if curr_term:
-            terms.append(Term(value=curr_term.strip(), text=text, start_pos=start_pos))
+            terms.append(Term(value=curr_term.strip(), text=text, end_pos=len(curr_text)))
 
         return terms
 

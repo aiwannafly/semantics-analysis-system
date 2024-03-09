@@ -38,6 +38,9 @@ class LLMRelationExtractor(RelationExtractor):
             for j in range(i + 1, terms_count):
                 term1, term2 = terms[i], terms[j]
 
+                if term1.value == term2.value:
+                    continue
+
                 class1, class2 = term1.class_, term2.class_
 
                 if (class1, class2) in predicates_by_class_pair:

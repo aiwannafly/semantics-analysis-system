@@ -6,6 +6,8 @@ from semantics_analysis.entities import Relation, ClassifiedTerm
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.term_classification.roberta_term_classifier import RobertaTermClassifier
 from semantics_analysis.term_extraction.roberta_term_extractor import RobertaTermExtractor
+from semantics_analysis.term_post_processing.computer_science_term_post_processor import \
+    ComputerScienceTermPostProcessor
 from spinner import Spinner
 
 LOG_STYLE = Style.DIM
@@ -55,6 +57,8 @@ def main():
 
     term_extractor = RobertaTermExtractor(app_config.device)
 
+    term_postprocessor = ComputerScienceTermPostProcessor()
+
     term_classifier = RobertaTermClassifier(app_config.device)
 
     relation_extractor = LLMRelationExtractor(
@@ -90,6 +94,7 @@ def main():
 
     with Spinner():
         labeled_terms = term_classifier(text, terms)
+        labeled_terms = term_postprocessor(labeled_terms)
 
     offset = 0
     labeled_terms = sorted(labeled_terms, key=lambda t: t.start_pos)

@@ -9,18 +9,20 @@ from semantics_analysis.term_classification.term_classifier import TermClassifie
 label_list = [
     'Method',
     'Activity',
+    'Science',
     'Object',
     'Person',
+    'InfoResource',
     'Task',
     'Organization',
+    'Environment',
     'Model',
     'Metric',
     'Value',
+    'Application',
     'Date',
     'Lang',
-    'Dataset',
-    'Application',
-    'Science'
+    'Dataset'
 ]
 
 id2label = {i: label_list[i] for i in range(len(label_list))}

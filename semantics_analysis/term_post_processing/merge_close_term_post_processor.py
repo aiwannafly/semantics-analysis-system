@@ -30,17 +30,24 @@ class MergeCloseTermPostProcessor(TermPostProcessor):
                 processed_terms.append(term)
                 continue
 
-            if term.end_pos + 1 != next_term.start_pos:
+            if term.end_pos == next_term.start_pos:
+                processed_terms.append(ClassifiedTerm(
+                    value=term.value + next_term.value,
+                    end_pos=next_term.end_pos,
+                    term_class=term.class_,
+                    text=term.text
+                ))
+                merged_prev_term = True
+            elif term.end_pos + 1 == next_term.start_pos:
+                processed_terms.append(ClassifiedTerm(
+                    value=term.value + ' ' + next_term.value,
+                    end_pos=next_term.end_pos,
+                    term_class=term.class_,
+                    text=term.text
+                ))
+                merged_prev_term = True
+            else:
                 processed_terms.append(term)
-                continue
-
-            processed_terms.append(ClassifiedTerm(
-                value=term.value + ' ' + next_term.value,
-                end_pos=next_term.end_pos,
-                term_class=term.class_,
-                text=term.text
-            ))
-            merged_prev_term = True
 
         if not merged_prev_term:  # last term is not merged
             processed_terms.append(terms[-1])

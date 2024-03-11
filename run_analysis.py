@@ -1,15 +1,22 @@
+from typing import List
+
 from colorama import Fore, Style
 from colorama import init as colorama_init
 
 from semantics_analysis.config import load_config
 from semantics_analysis.entities import Relation, ClassifiedTerm
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
+from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
 from semantics_analysis.term_classification.roberta_term_classifier import RobertaTermClassifier
+from semantics_analysis.term_classification.term_classifier import TermClassifier
 from semantics_analysis.term_extraction.roberta_term_extractor import RobertaTermExtractor
+from semantics_analysis.term_extraction.term_extractor import TermExtractor
 from semantics_analysis.term_post_processing.computer_science_term_post_processor import \
     ComputerScienceTermPostProcessor
 from semantics_analysis.term_post_processing.merge_close_term_post_processor import MergeCloseTermPostProcessor
+from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 from spinner import Spinner
+import inquirer
 
 LOG_STYLE = Style.DIM
 TERM_STYLE = Fore.LIGHTCYAN_EX
@@ -51,27 +58,12 @@ def render_relation(relation: Relation) -> str:
     return res
 
 
-def main():
-    colorama_init()
-
-    app_config = load_config('config.yml')
-
-    term_extractor = RobertaTermExtractor(app_config.device)
-
-    term_postprocessors = [
-        ComputerScienceTermPostProcessor(),
-        MergeCloseTermPostProcessor()
-    ]
-
-    term_classifier = RobertaTermClassifier(app_config.device)
-
-    relation_extractor = LLMRelationExtractor(
-        prompt_template_path='prompts/relation_extraction.txt',
-        huggingface_hub_token=app_config.huggingface_hub_token,
-        log_prompts=app_config.log_prompts,
-        log_llm_responses=app_config.log_llm_responses
-    )
-
+def analyze_text(
+        term_extractor: TermExtractor,
+        term_classifier: TermClassifier,
+        relation_extractor: RelationExtractor,
+        term_postprocessors: List[TermPostProcessor]
+):
     text = input(f'{LOG_STYLE}[      INPUT     ]{Style.RESET_ALL}: ')
 
     text = text.replace('�', '').strip()
@@ -141,9 +133,43 @@ def main():
     if rel_count == 0:
         print(f'{LOG_STYLE}[  NO RELATIONS  ]{Style.RESET_ALL}\n')
 
-    # for first_term, relations in relations_by_first_term.items():
-    #     if len(relations) > 2:
-    #         print(first_term)
+
+def main():
+    colorama_init()
+
+    app_config = load_config('config.yml')
+
+    term_extractor = RobertaTermExtractor(app_config.device)
+
+    term_postprocessors = [
+        ComputerScienceTermPostProcessor(),
+        MergeCloseTermPostProcessor()
+    ]
+
+    term_classifier = RobertaTermClassifier(app_config.device)
+
+    relation_extractor = LLMRelationExtractor(
+        prompt_template_path='prompts/relation_extraction.txt',
+        huggingface_hub_token=app_config.huggingface_hub_token,
+        log_prompts=app_config.log_prompts,
+        log_llm_responses=app_config.log_llm_responses
+    )
+
+    while True:
+        analyze_text(term_extractor, term_classifier, relation_extractor, term_postprocessors)
+
+        question = inquirer.questions.List(
+            name='answer',
+            message='Продолжить анализировать тексты дальше?',
+            choices=['Нет.', 'Да.']
+        )
+
+        answer = inquirer.prompt([question])['answer']
+
+        if answer == 'Да.':
+            continue
+        else:
+            break
 
 
 if __name__ == '__main__':

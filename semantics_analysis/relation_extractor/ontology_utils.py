@@ -37,7 +37,10 @@ predicates_by_class_pair = {
     ('Metric', 'Metric'): ['isAlternativeNameFor'],
     ('Application', 'Application'): ['isAlternativeNameFor'],
     ('InfoResource', 'Lang'): ['Language'],
-    ('InfoResource', 'InfoResource'): ['isAlternativeNameFor']
+    ('InfoResource', 'InfoResource'): ['isAlternativeNameFor'],
+    ('Organization', 'Organization'): ['isAlternativeNameFor'],
+    ('Dataset', 'Lang'): ['Language'],
+    ('Dataset', 'Dataset'): ['isAlternativeNameFor']
 }
 
 
@@ -1041,8 +1044,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Вы можете попробовать интегрировать алгоритм BERT (Bi-directional Encoder Representation from Transformer) в окончательный набор текстов, описание которого доступно здесь.',
-                        'Model': 'BERT',
-                        'Model': 'Bi-directional Encoder Representation from Transformer'
+                        'Model_1': 'BERT',
+                        'Model_2': 'Bi-directional Encoder Representation from Transformer'
                     }
                 ]
             },
@@ -1051,8 +1054,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Самой качественной моделью оказался mUSE, самой быстрой из предобученных – FastText.',
-                        'Model': 'mUSE',
-                        'Model': 'FastText'
+                        'Model_1': 'mUSE',
+                        'Model_2': 'FastText'
                     }
                 ]
             }
@@ -1072,8 +1075,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Для сверточных нейросетей хорошо настроенный метод стохастического градиента (SGD) почти всегда немного превосходит Adam.',
-                        'Method': 'SGD',
-                        'Method': 'метод стохастического градиента'
+                        'Method_1': 'SGD',
+                        'Method_2': 'метод стохастического градиента'
                     }
                 ]
             },
@@ -1082,8 +1085,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Для сверточных нейросетей хорошо настроенный метод стохастического градиента (SGD) почти всегда немного превосходит Adam.',
-                        'Method': 'SGD',
-                        'Method': 'Adam'
+                        'Method_1': 'SGD',
+                        'Method_2': 'Adam'
                     }
                 ]
             }
@@ -1103,8 +1106,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Сентиментный анализ (анализ тональности) – это область компьютерной лингвистики.',
-                        'Science': 'анализ тональности',
-                        'Science': 'Сентиментный анализ'
+                        'Science_1': 'анализ тональности',
+                        'Science_2': 'Сентиментный анализ'
                     }
                 ]
             },
@@ -1113,8 +1116,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Сентиментный анализ (анализ тональности) – это область компьютерной лингвистики.',
-                        'Science': 'анализ тональности',
-                        'Science': 'область компьютерной лингвистики'
+                        'Science_1': 'анализ тональности',
+                        'Science_2': 'область компьютерной лингвистики'
                     }
                 ]
             }
@@ -1134,8 +1137,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Также одним из способов оценить работу модели в целом можно по кривой ROC-AUC, которая описывает площадь под кривой (Area Under Curve – Receiver Operating Characteristic).',
-                        'Metric': 'ROC-AUC',
-                        'Metric': 'Area Under Curve – Receiver Operating Characteristic'
+                        'Metric_1': 'ROC-AUC',
+                        'Metric_2': 'Area Under Curve – Receiver Operating Characteristic'
                     }
                 ]
             },
@@ -1144,8 +1147,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Возьмем для примера статистические метрики (критерии Колмогорова–Смирнова и Хи-квадрат).',
-                        'Metric': 'критерии Колмогорова–Смирнова',
-                        'Metric': 'статистические метрики'
+                        'Metric_1': 'критерии Колмогорова–Смирнова',
+                        'Metric_2': 'статистические метрики'
                     }
                 ]
             }
@@ -1165,8 +1168,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Gretel или Gretel Synthetics – это пакет Python с открытым исходным кодом, основанный на рекуррентной нейронной сети для создания структурированных и не структурированных данных.',
-                        'Application': 'Gretel Synthetics',
-                        'Application': 'Gretel'
+                        'Application_1': 'Gretel Synthetics',
+                        'Application_2': 'Gretel'
                     }
                 ]
             },
@@ -1175,8 +1178,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Мы начали со внутреннего инструмента Яндекса — библиотеки регулярных выражений под названием Remorph.',
-                        'Application': 'Remorph',
-                        'Application': 'библиотеки регулярных выражений'
+                        'Application_1': 'Remorph',
+                        'Application_2': 'библиотеки регулярных выражений'
                     }
                 ]
             }
@@ -1227,8 +1230,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Одним из основных переломных моментов в этой области стал выпуск Стэнфордского набора данных для ответов на вопросы (SQuAD).',
-                        'InfoResource': 'SQuAD',
-                        'InfoResource': 'Стэнфордского набора данных для ответов на вопросы'
+                        'InfoResource_1': 'SQuAD',
+                        'InfoResource_2': 'Стэнфордского набора данных для ответов на вопросы'
                     }
                 ]
             },
@@ -1237,8 +1240,8 @@ prompt_metadata_by_class_pair = {
                 'examples': [
                     {
                         'text': 'Чтобы натренировать свою нейросеть на основе загруженных файлов, Димсон рекомендует воспользоваться контентом Apple Dictionary или Urban Dictionary.',
-                        'InfoResource': 'Apple Dictionary',
-                        'InfoResource': 'Urban Dictionary'
+                        'InfoResource_1': 'Apple Dictionary',
+                        'InfoResource_2': 'Urban Dictionary'
                     }
                 ]
             }
@@ -1249,6 +1252,100 @@ prompt_metadata_by_class_pair = {
             "Какое альтернативное имя используется для этого информационного ресурса?",
             "Какой альтернативный термин используется для обозначения этого ресурса?",
             "Какое синонимичное наименование применяется к этому информационному ресурсу?"
+        ]
+    },
+    ('Organization', 'Organization'): {
+        'predicates': {
+            'isAlternativeNameFor': {
+                'description': 'организация является альтернативным названием организации',
+                'examples': [
+                    {
+                        'text': 'Российские ученые из Института проблем управления им. В.А. Трапезникова РАН (ИПУ РАН) несколько лет назад начали разработку подобного ИИ.',
+                        'Organization_1': 'ИПУ РАН',
+                        'Organization_2': 'Института проблем управления им. В.А. Трапезникова РАН'
+                    }
+                ]
+            },
+            'none': {
+                'description': 'организация не является альтернативным названием организации',
+                'examples': [
+                    {
+                        'text': 'OpenAI и Google не делились своим кодом и не делали свои модели общедоступными.',
+                        'Organization_1': 'OpenAI',
+                        'Organization_2': 'Google'
+                    }
+                ]
+            }
+        },
+        'evaluation-questions': [
+            "Под каким альтернативным наименованием известна данная организация?",
+            "Как называется данная организация по-другому?",
+            "Какое другое название присуще этой организации?",
+            "Какое альтернативное обозначение используется для этой организации?",
+            "По какому другому названию известна данная организация?"
+        ]
+    },
+    ('Dataset', 'Lang'): {
+        'predicates': {
+            'Language': {
+                'description': 'информационный ресурс поддерживает данный язык',
+                'examples': [
+                    {
+                        'text': 'Сегодня Common Voice является одним из крупнейших в мире мультиязычных корпусов, с более чем 9 тысячами часов голосовых данных на 60 различных языках, включая такие редкие языки, как валлийский и киньяруанда.',
+                        'Dataset': 'Common Voice',
+                        'Lang': 'валлийский'
+                    }
+                ]
+            },
+            'none': {
+                'description': 'информационный ресурс не поддерживает данный язык',
+                'examples': [
+                    {
+                        'text': 'Для сравнения с русскоязычными датасетами, размер хорошего английского корпуса The Pile составляет более 800Гб.',
+                        'Dataset': 'The Pile',
+                        'Lang': 'русскоязычными'
+                    }
+                ]
+            }
+        },
+        'evaluation-questions': [
+            "На каком языке представлен этот датасет?",
+            "На каком языке доступен данный датасет?",
+            "Какой язык используется на данном датасет?",
+            "На каком языке представлена информация в данном датасете?",
+            "Какой язык применяется для представления контента в данном датасете?"
+        ]
+    },
+
+    ('Dataset', 'Dataset'): {
+        'predicates': {
+            'isAlternativeNameFor': {
+                'description': 'датасет является альтернативным названием датасета',
+                'examples': [
+                    {
+                        'text': 'Одним из основных переломных моментов в этой области стал выпуск Стэнфордского набора данных для ответов на вопросы (SQuAD)',
+                        'Dataset_1': 'SQuAD',
+                        'Dataset_2': 'Стэнфордского набора данных для ответов на вопросы'
+                    }
+                ]
+            },
+            'none': {
+                'description': 'датасет не является альтернативным названием датасета',
+                'examples': [
+                    {
+                        'text': 'Чтобы натренировать свою нейросеть на основе загруженных файлов, Димсон рекомендует воспользоваться контентом Apple Dictionary или Urban Dictionary.',
+                        'Dataset_1': 'Apple Dictionary',
+                        'Dataset_2': 'Urban Dictionary'
+                    }
+                ]
+            }
+        },
+        'evaluation-questions': [
+            "Под каким альтернативным наименованием известен данный датасет?",
+            "Какое другое обозначение присуще данному датасету?",
+            "Какое альтернативное имя используется для этого датасета?",
+            "Какой альтернативный термин используется для обозначения этого датасета?",
+            "Какое синонимичное наименование применяется к этому датасету?"
         ]
     }
 }

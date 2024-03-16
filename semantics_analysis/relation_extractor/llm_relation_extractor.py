@@ -66,7 +66,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         prompt = self.create_llm_prompt(term1, term2, text)
 
-        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=10).strip()
+        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=25).strip()
 
         if self.log_prompts:
             print(f'[INPUT PROMPT]: {prompt}\n')
@@ -80,7 +80,7 @@ class LLMRelationExtractor(RelationExtractor):
         predicates = predicates_by_class_pair[(term1.class_, term2.class_)]
 
         for predicate in predicates:
-            if response.startswith(predicate):
+            if predicate in response: #.startswith(predicate):
                 return predicate
 
         return None
@@ -111,15 +111,17 @@ class LLMRelationExtractor(RelationExtractor):
                 example_term1 = example[class1 + '_1']
                 example_term2 = example[class1 + '_2']
 
-            relations_list += f' - {predicate} : {description}\n'
+            if (predicate != 'none'):
+                relations_list += f' - {predicate} : {description}\n'
 
             answer = 'Нет' if predicate == 'none' else 'Да'
 
             examples_list += f'{counter}. В этих примерах {description}:\n'
             examples_list += '```\n'
             examples_list += (f'Предложение: {example_text}\nТермин {class1}: {example_term1}\n'
-                              f'Термин {class2}: {example_term2}\nЕсть ли в указанном тексте отношение между этими терминами? {answer}\n'
-                              f'Отношение: {predicate}\n')
+                              f'Термин {class2}: {example_term2}\nЕсть ли в указанном тексте отношение между этими терминами? {answer}\n')
+            if (predicate != 'none'):
+                examples_list += (f'Отношение: {predicate}\n')
             examples_list += '```\n'
 
             counter += 1

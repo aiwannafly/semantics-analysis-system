@@ -113,10 +113,13 @@ class LLMRelationExtractor(RelationExtractor):
 
             relations_list += f' - {predicate} : {description}\n'
 
+            answer = 'Нет' if predicate == 'none' else 'Да'
+
             examples_list += f'{counter}. В этих примерах {description}:\n'
             examples_list += '```\n'
             examples_list += (f'Предложение: {example_text}\nТермин {class1}: {example_term1}\n'
-                              f'Термин {class2}: {example_term2}\nОтношение: {predicate}\n')
+                              f'Термин {class2}: {example_term2}\nЕсть ли в указанном тексте отношение между этими терминами? {answer}\n'
+                              f'Отношение: {predicate}\n')
             examples_list += '```\n'
 
             counter += 1
@@ -126,7 +129,7 @@ class LLMRelationExtractor(RelationExtractor):
         for question in prompt_metadata['evaluation-questions']:
             questions_list += f' - {question}\n'
 
-        input_text = f'Предложение: {text}\nТермин {class1}: {term1.value}\nТермин {class2}: {term2.value}\nОтношение:'
+        input_text = f'Предложение: {text}\nТермин {class1}: {term1.value}\nТермин {class2}: {term2.value}\nЕсть ли в указанном тексте отношение между этими терминами?'
 
         prompt = self.prompt_template
         prompt = prompt.replace('{class1}', class1)

@@ -80,7 +80,7 @@ class LLMRelationExtractor(RelationExtractor):
         predicates = predicates_by_class_pair[(term1.class_, term2.class_)]
 
         for predicate in predicates:
-            if predicate in response: #.startswith(predicate):
+            if predicate in response and 'Нет' not in response and 'нет' not in response: #.startswith(predicate):
                 return predicate
 
         return None

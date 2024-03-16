@@ -31,7 +31,7 @@ predicates_by_class_pair = {
     ('Model', 'Application'): ['isUsedIn'],
     ('Model', 'Lang'): ['Language'],
     ('Model', 'Task'): ['isUsedForSolving'],
-    ('Model', 'Model'): ['isShortNameFor'],
+    ('Model', 'Model'): ['isShortNameFor'],  # new rel: , 'isModificationOf'
     ('Method', 'Method'): ['isAlternativeNameFor'],
     ('Science', 'Science'): ['isAlternativeNameFor'],
     ('Metric', 'Metric'): ['isAlternativeNameFor'],
@@ -41,6 +41,21 @@ predicates_by_class_pair = {
     ('Organization', 'Organization'): ['isAlternativeNameFor'],
     ('Dataset', 'Lang'): ['Language'],
     ('Dataset', 'Dataset'): ['isAlternativeNameFor']
+
+
+    # ('Library', 'Library'): ['isAlternativeNameFor'],
+    # ('Date', 'Library'): ['isDateOf'],
+    # ('Method', 'Library'): ['isUsedIn'],
+    # ('Library', 'Science'): ['isUsedIn'],
+    # ('Library', 'Object'): ['isAppliedTo'],
+    # ('Library', 'Organization'): ['hasAuthor'],
+    # ('Library', 'Task'): ['isUsedForSolving'],
+    # ('Library', 'Person'): ['hasAuthor'],
+    # ('Library', 'Library'): ['isUsedIn'],
+    # ('Model', 'Library'): ['isIncludedIn'],
+
+    # ('Model', 'Method'): ['uses'],
+    # ('Method', 'Model'): ['isUsedForTraining'],
 }
 
 

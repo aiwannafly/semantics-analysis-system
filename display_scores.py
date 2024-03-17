@@ -11,6 +11,10 @@ with open('tests/scores.json', 'r', encoding='utf-8') as f:
 groups = []
 curr_group = []
 
+avg_recall = 0
+avg_precision = 0
+count = 0
+
 for relation, scores in scores_by_relation.items():
     correct = scores['predicted']['correct']['count']
     incorrect = scores['predicted']['incorrect']['count']
@@ -33,6 +37,10 @@ for relation, scores in scores_by_relation.items():
 
     recall = int(recall * 100) / 100.0
     precision = int(precision * 100) / 100.0
+
+    avg_recall += recall
+    avg_precision += precision
+    count += 1
 
     occurrences_count = max(found + not_found, correct + incorrect)
 
@@ -78,30 +86,5 @@ for group in groups:
     layouts.append(layout)
     print(layout)
 
-
-
-# data1 = {"Recall": 0.8, "Precision": 0.7}
-# data2 = {"Recall": 0.5, "Precision": 0.9}
-#
-# chart1 = termcharts.bar(data1, title="Method_solves_Task", rich=True)
-# chart2 = termcharts.bar(data2, title="Method_includes_Method", rich=True)  # vertical
-#
-# layout = Layout()
-# layout.split_column(Layout(name="upper"), Layout(name="lower"))
-# layout["upper"].split_row(
-#     Layout(name="uleft"),
-#     Layout(name="uright"),
-# )
-# layout["lower"].split_row(
-#     Layout(name="lleft"),
-#     Layout(name="lright"),
-# )
-# layout["uleft"].update(Panel(chart1))
-# layout["uright"].update(Panel(chart2))
-# layout["lleft"].update(Panel(Text('Empty')))
-# layout["lright"].update(Panel(Text('Empty')))
-#
-# print(layout)
-
-
-
+print('Average recall: {:.2f}'.format(avg_recall / count))
+print('Average precision: {:.2f}'.format(avg_precision / count))

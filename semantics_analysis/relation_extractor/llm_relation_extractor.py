@@ -66,7 +66,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         prompt = self.create_llm_prompt(term1, term2, text)
 
-        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=25).strip()
+        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=25, stop_sequences=['.']).strip()
 
         if self.log_prompts:
             print(f'[INPUT PROMPT]: {prompt}\n')
@@ -94,6 +94,8 @@ class LLMRelationExtractor(RelationExtractor):
         examples_list = ''
         counter = 1
 
+        predicates = []
+
         for predicate, metadata in prompt_metadata['predicates'].items():
             description = metadata['description']
             try:
@@ -111,17 +113,20 @@ class LLMRelationExtractor(RelationExtractor):
                 example_term1 = example[class1 + '_1']
                 example_term2 = example[class1 + '_2']
 
-            if (predicate != 'none'):
+            if predicate != 'none':
+                predicates.append(predicate)
                 relations_list += f' - {predicate} : {description}\n'
 
-            answer = 'Нет' if predicate == 'none' else 'Да'
+            answer = 'Нет.' if predicate == 'none' else 'Да'
 
             examples_list += f'{counter}. В этих примерах {description}:\n'
             examples_list += '```\n'
-            examples_list += (f'Текст: {example_text}\nТермин {class1}: {example_term1}\n'
-                              f'Термин {class2}: {example_term2}\nЕсть ли в указанном тексте отношение между этими терминами? {answer}\n')
-            if (predicate != 'none'):
-                examples_list += (f'Отношение: {predicate}\n')
+            examples_list += (f'Текст: {example_text}\n'
+                              f'Термин {class1}: {example_term1}\n'
+                              f'Термин {class2}: {example_term2}\n'
+                              f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}"? {answer}\n')
+            if predicate != 'none':
+                examples_list += (f'Отношение: {predicate}.\n')
             examples_list += '```\n'
 
             counter += 1
@@ -131,7 +136,10 @@ class LLMRelationExtractor(RelationExtractor):
         for question in prompt_metadata['evaluation-questions']:
             questions_list += f' - {question}\n'
 
-        input_text = f'Текст: {text}\nТермин {class1}: {term1.value}\nТермин {class2}: {term2.value}\nЕсть ли в указанном тексте отношение между этими терминами?'
+        input_text = (f'Текст: {text}\n'
+                      f'Термин {class1}: {term1.value}\n'
+                      f'Термин {class2}: {term2.value}\n'
+                      f'Есть ли подходящее отношение между терминами "{term1.value}" и "{term2.value}"?')
 
         prompt = self.prompt_template
         prompt = prompt.replace('{class1}', class1)
@@ -139,6 +147,7 @@ class LLMRelationExtractor(RelationExtractor):
         prompt = prompt.replace('{relations_list}', relations_list)
         prompt = prompt.replace('{examples_list}', examples_list)
         prompt = prompt.replace('{questions_list}', questions_list)
+        prompt = prompt.replace('{relation_names}', str(predicates))
         prompt = prompt.replace('{input}', input_text)
 
         return prompt.strip()

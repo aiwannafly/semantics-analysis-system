@@ -92,6 +92,12 @@ class Relation:
     def __hash__(self):
         return hash((self.term1, self.predicate, self.term2))
 
+    def as_str(self):
+        return f'({self.term1.value}) {self.predicate} ({self.term2.value})'
+
+    def get_id(self) -> str:
+        return f'{self.term1.class_}_{self.predicate}_{self.term2.class_}'
+
     def to_json(self):
         return {
             'term1': self.term1.to_json(),

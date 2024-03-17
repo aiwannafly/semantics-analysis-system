@@ -18,7 +18,8 @@ TOKENS = [
     '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',
     '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',
     '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',
-    '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'
+    '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',
+    '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'
 ]
 
 
@@ -174,7 +175,7 @@ def main():
 
     relation_extractor = LLMRelationExtractor(
         prompt_template_path='prompts/relation_extraction.txt',
-        huggingface_hub_token='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'
+        huggingface_hub_token='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'
     )
 
     prev_last_sent_id = last_sent_id

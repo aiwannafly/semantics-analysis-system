@@ -3,7 +3,7 @@ from typing import List
 from colorama import Fore, Style
 from colorama import init as colorama_init
 
-from semantics_analysis.config import load_config
+from semantics_analysis.config import load_config, Config
 from semantics_analysis.entities import Relation, ClassifiedTerm
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
@@ -17,11 +17,13 @@ from semantics_analysis.term_post_processing.merge_close_term_post_processor imp
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 from spinner import Spinner
 import inquirer
+import nltk
 
 LOG_STYLE = Style.DIM
 TERM_STYLE = Fore.LIGHTCYAN_EX
 LABELED_TERM_STYLE = Fore.CYAN
 PREDICATE_STYLE = Style.BRIGHT
+SEPARATOR_STYLE = Style.DIM
 
 
 def render_term(term: ClassifiedTerm) -> str:
@@ -59,14 +61,15 @@ def render_relation(relation: Relation) -> str:
 
 
 def analyze_text(
+        text: str,
+        split_on_sentences: bool,
         term_extractor: TermExtractor,
         term_classifier: TermClassifier,
         relation_extractor: RelationExtractor,
         term_postprocessors: List[TermPostProcessor]
 ):
-    text = input(f'{LOG_STYLE}[      INPUT     ]{Style.RESET_ALL}: ')
-
     text = text.replace('�', '').strip()
+
     print()
 
     with Spinner():
@@ -76,7 +79,6 @@ def analyze_text(
         print(f'{LOG_STYLE}[ TERMS NOT FOUND]\n')
         return
 
-    terms = sorted(terms, key=lambda t: t.start_pos)
     offset = 0
     labeled_text = text
 
@@ -95,7 +97,6 @@ def analyze_text(
             labeled_terms = term_postprocessor(labeled_terms)
 
     offset = 0
-    labeled_terms = sorted(labeled_terms, key=lambda t: t.start_pos)
     labeled_text = text
 
     for term in labeled_terms:
@@ -107,28 +108,38 @@ def analyze_text(
 
     print(f'{LOG_STYLE}[CLASSIFIED TERMS]{Style.RESET_ALL}: {labeled_text}\n')
 
-    relations = relation_extractor(text, labeled_terms)
-
-    relations_by_first_term = {}
-
     rel_count = 0
-    while True:
-        with Spinner():
-            relation = next(relations, None)
+
+    if split_on_sentences:
+        text_and_terms = []
+        text_parts = nltk.tokenize.sent_tokenize(text)
+        
+        for text_part in text_parts:
+            start_pos = text.index(text_part)
+            end_pos = start_pos + len(text_part)
+
+            part_terms = [t for t in labeled_terms if t.start_pos >= start_pos and t.end_pos <= end_pos]
+
+            text_and_terms.append((text_part, part_terms))
+    else:
+        text_and_terms = [(text, labeled_terms)]
+
+    for text_part, labeled_terms in text_and_terms:
+        relations = relation_extractor(text_part, labeled_terms)
+
+        while True:
+            with Spinner():
+                relation = next(relations, None)
+
+            if not relation:
+                break
+
             rel_count += 1
 
-        if not relation:
-            break
-
-        if relation.term1 not in relations_by_first_term:
-            relations_by_first_term[relation.term1] = [relation]
-        else:
-            relations_by_first_term[relation.term1].append(relation)
-
-        log_header = '[   RELATION {: 4}]'.format(rel_count)
-        print(f'{LOG_STYLE}{log_header}{Style.RESET_ALL}:' + render_relation(relation))
-        print()
-        print()
+            log_header = '[   RELATION {: 4}]'.format(rel_count)
+            print(f'{LOG_STYLE}{log_header}{Style.RESET_ALL}:' + render_relation(relation))
+            print()
+            print()
 
     if rel_count == 0:
         print(f'{LOG_STYLE}[  NO RELATIONS  ]{Style.RESET_ALL}\n')
@@ -156,7 +167,16 @@ def main():
     )
 
     while True:
-        analyze_text(term_extractor, term_classifier, relation_extractor, term_postprocessors)
+        text = input(f'{LOG_STYLE}[      INPUT     ]{Style.RESET_ALL}: ')
+
+        analyze_text(
+            text,
+            app_config.split_on_sentences,
+            term_extractor,
+            term_classifier,
+            relation_extractor,
+            term_postprocessors
+        )
 
         question = inquirer.questions.List(
             name='answer',

@@ -2,6 +2,7 @@ import yaml
 
 
 class Config:
+    llm: str
     huggingface_hub_token: str
     device: str
     split_on_sentences: bool
@@ -10,12 +11,14 @@ class Config:
 
     def __init__(
             self,
+            llm: str,
             token: str,
             device: str,
             split_on_sentences: bool,
             log_prompts: bool,
             log_llm_responses: bool
     ):
+        self.llm = llm
         self.huggingface_hub_token = token
         self.device = device
         self.split_on_sentences = split_on_sentences
@@ -28,6 +31,7 @@ def load_config(file_path: str) -> Config:
         config_dict = yaml.safe_load(stream)['app-config']
 
     return Config(
+        config_dict['llm'],
         config_dict['huggingface-hub-token'],
         config_dict['device'],
         config_dict['split-on-sentences'],

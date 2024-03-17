@@ -1,5 +1,6 @@
 app-config:
-  huggingface-hub-token: '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'
+  llm: 'mistralai/Mistral-7B-Instruct-v0.2'
+  huggingface-hub-token: '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'
   device: 'cpu'
   split-on-sentences: true
   log-prompts: false

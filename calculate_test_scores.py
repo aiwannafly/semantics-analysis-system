@@ -1,8 +1,9 @@
 import json
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any
 
 from huggingface_hub.utils import HfHubHTTPError
 
+from semantics_analysis.config import load_config
 from semantics_analysis.entities import read_sentences, Sentence
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.relation_extractor.ontology_utils import predicates_by_class_pair
@@ -160,6 +161,8 @@ def calculate_scores(
 
 
 def main():
+    config = load_config('config.yml')
+
     sentences = read_sentences('tests/sentences.json')
 
     try:
@@ -173,6 +176,7 @@ def main():
         last_sent_id = 0
 
     relation_extractor = LLMRelationExtractor(
+        model=config.llm,
         prompt_template_path='prompts/relation_extraction.txt',
         huggingface_hub_token='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'
     )

@@ -160,6 +160,7 @@ def main():
     term_classifier = RobertaTermClassifier(app_config.device)
 
     relation_extractor = LLMRelationExtractor(
+        model=app_config.llm,
         prompt_template_path='prompts/relation_extraction.txt',
         huggingface_hub_token=app_config.huggingface_hub_token,
         log_prompts=app_config.log_prompts,

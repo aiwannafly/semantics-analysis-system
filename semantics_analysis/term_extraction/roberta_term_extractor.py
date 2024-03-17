@@ -7,7 +7,7 @@ from semantics_analysis.entities import Term
 from semantics_analysis.term_extraction.term_extractor import TermExtractor
 
 LABEL_LIST = ['O', 'B-TERM', 'I-TERM']
-PUNCTUATION_SYMBOLS = [',', ':', '&', '?', '!', '-', ')', '(', '[', ']', '{', '}']
+PUNCTUATION_SYMBOLS = [',', ':', '&', '?', '!', '-', '—', ')', '(', '[', ']', '{', '}']
 
 
 def tag2int(tag: str) -> int:
@@ -85,7 +85,6 @@ class RobertaTermExtractor(TermExtractor):
         curr_text = ''
         curr_term = ''
         is_under_term = False
-        start_pos = 0
 
         for label, token in zip(labels, words):
             remain_text = text[len(curr_text):]
@@ -114,6 +113,12 @@ class RobertaTermExtractor(TermExtractor):
 
         if curr_term:
             terms.append(Term(value=curr_term.strip(), text=text, end_pos=len(curr_text)))
+
+        for term in terms:
+            for s in PUNCTUATION_SYMBOLS:
+                while term.value.endswith(s):
+                    term.value = term.value[:-1]
+                    term.end_pos -= 1
 
         return terms
 

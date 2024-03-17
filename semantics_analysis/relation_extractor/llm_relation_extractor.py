@@ -12,9 +12,10 @@ class LLMRelationExtractor(RelationExtractor):
     def __init__(self,
                  prompt_template_path: str,
                  huggingface_hub_token: str,
+                 model: str = 'mistralai/Mistral-7B-Instruct-v0.2',
                  log_prompts: bool = False,
                  log_llm_responses: bool = False):
-        self.llm = InferenceClient(model='mistralai/Mistral-7B-Instruct-v0.2', timeout=8, token=huggingface_hub_token)
+        self.llm = InferenceClient(model=model, timeout=8, token=huggingface_hub_token)
 
         with open(prompt_template_path, 'r', encoding='utf-8') as f:
             self.prompt_template = f.read().strip()

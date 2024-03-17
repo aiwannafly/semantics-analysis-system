@@ -1,5 +1,6 @@
 app-config:
   huggingface-hub-token: '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'
   device: 'cpu'
+  split-on-sentences: true
   log-prompts: false
   log-llm-responses: false

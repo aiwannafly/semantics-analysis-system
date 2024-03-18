@@ -7,7 +7,7 @@ from semantics_analysis.entities import Term
 from semantics_analysis.term_extraction.term_extractor import TermExtractor
 
 LABEL_LIST = ['O', 'B-TERM', 'I-TERM']
-PUNCTUATION_SYMBOLS = [',', ':', '&', '?', '!', '-', '—', ')', '(', '[', ']', '{', '}']
+PUNCTUATION_SYMBOLS = [',', ':', '&', '?', '!', '-', '—', ')', '(', '[', ']', '{', '}', '"', "'", '«', '»']
 
 
 def tag2int(tag: str) -> int:

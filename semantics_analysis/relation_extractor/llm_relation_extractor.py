@@ -69,7 +69,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         prompt = self.create_llm_prompt(term1, term2, text)
 
-        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=40, stop_sequences=['.']).strip()
+        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=100, stop_sequences=['.']).strip()
 
         if self.log_prompts:
             print(f'[INPUT PROMPT]: {prompt}\n')

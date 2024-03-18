@@ -159,9 +159,12 @@ def main():
 
     term_classifier = RobertaTermClassifier(app_config.device)
 
+    prompt_template_path = 'prompts/relation_extraction_with_explanation.txt' \
+        if app_config.show_explanation else 'prompts/relation_extraction.txt'
+
     relation_extractor = LLMRelationExtractor(
         model=app_config.llm,
-        prompt_template_path='prompts/relation_extraction.txt',
+        prompt_template_path=prompt_template_path,
         huggingface_hub_token=app_config.huggingface_hub_token,
         log_prompts=app_config.log_prompts,
         log_llm_responses=app_config.log_llm_responses

@@ -164,6 +164,7 @@ def main():
 
     relation_extractor = LLMRelationExtractor(
         model=app_config.llm,
+        show_explanation=app_config.show_explanation,
         prompt_template_path=prompt_template_path,
         huggingface_hub_token=app_config.huggingface_hub_token,
         log_prompts=app_config.log_prompts,

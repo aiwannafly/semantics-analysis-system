@@ -13,6 +13,7 @@ class LLMRelationExtractor(RelationExtractor):
                  prompt_template_path: str,
                  huggingface_hub_token: str,
                  model: str = 'mistralai/Mistral-7B-Instruct-v0.2',
+                 show_explanation: bool = False,
                  log_prompts: bool = False,
                  log_llm_responses: bool = False):
         self.llm = InferenceClient(model=model, timeout=8, token=huggingface_hub_token)
@@ -20,6 +21,7 @@ class LLMRelationExtractor(RelationExtractor):
         with open(prompt_template_path, 'r', encoding='utf-8') as f:
             self.prompt_template = f.read().strip()
 
+        self.show_explanation = show_explanation
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
 
@@ -128,7 +130,10 @@ class LLMRelationExtractor(RelationExtractor):
                               f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}" в этом тексте? {answer}\n')
 
             if predicate != 'none':
-                examples_list += f'{predicate}.\n'
+                if not self.show_explanation:
+                    examples_list += f'{predicate}.\n'
+                else:
+                    examples_list += f'{predicate}\nОбъяснение: отношение семантически подходит.\n'
             examples_list += '```\n'
 
             counter += 1

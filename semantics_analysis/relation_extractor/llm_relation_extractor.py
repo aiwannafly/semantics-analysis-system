@@ -133,7 +133,7 @@ class LLMRelationExtractor(RelationExtractor):
                 if not self.show_explanation:
                     examples_list += f'{predicate}.\n'
                 else:
-                    examples_list += f'{predicate}\nОбъяснение: отношение семантически подходит.\n'
+                    examples_list += f'{predicate}\nОбъяснение: <объяснение>.\n'
             examples_list += '```\n'
 
             counter += 1

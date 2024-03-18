@@ -67,7 +67,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         prompt = self.create_llm_prompt(term1, term2, text)
 
-        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=25, stop_sequences=['.']).strip()
+        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=40, stop_sequences=['.']).strip()
 
         if self.log_prompts:
             print(f'[INPUT PROMPT]: {prompt}\n')
@@ -118,16 +118,17 @@ class LLMRelationExtractor(RelationExtractor):
                 predicates.append(predicate)
                 relations_list += f' - {predicate} : {description}\n'
 
-            answer = 'Нет.' if predicate == 'none' else 'Да'
+            answer = 'нет.' if predicate == 'none' else 'да'
 
             examples_list += f'{counter}. В этих примерах {description}:\n'
             examples_list += '```\n'
             examples_list += (f'Текст: {example_text}\n'
                               f'Термин {class1}: {example_term1}\n'
                               f'Термин {class2}: {example_term2}\n'
-                              f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}"? {answer}\n')
+                              f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}" в этом тексте? {answer}\n')
+
             if predicate != 'none':
-                examples_list += (f'Отношение: {predicate}.\n')
+                examples_list += f'{predicate}.\n'
             examples_list += '```\n'
 
             counter += 1
@@ -140,7 +141,7 @@ class LLMRelationExtractor(RelationExtractor):
         input_text = (f'Текст: {text}\n'
                       f'Термин {class1}: {term1.value}\n'
                       f'Термин {class2}: {term2.value}\n'
-                      f'Есть ли подходящее отношение между терминами "{term1.value}" и "{term2.value}"?')
+                      f'Есть ли подходящее отношение между терминами "{term1.value}" и "{term2.value}" в этом тексте?')
 
         prompt = self.prompt_template
         prompt = prompt.replace('{class1}', class1)

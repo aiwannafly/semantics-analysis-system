@@ -1,6 +1,8 @@
 import json
+import sys
 
 import conllu
+import os
 from conllu import TokenList
 
 from semantics_analysis.entities import ClassifiedTerm, Relation, Sentence
@@ -98,7 +100,15 @@ def parse_sentence(sent_bio: TokenList) -> Sentence:
     return Sentence(text=text, terms=terms, relations=relations, sent_id=int(metadata['sent_id']))
 
 
-sentences_bio = conllu.parse_incr(open('data/relations.conllu', 'r', encoding='utf-8'))
+args = sys.argv
+
+if len(sys.argv) != 1 + 2:
+    print('[USAGE]: python convert_conllu_to_json.py <input>.conllu <output>.json')
+    exit(0)
+
+input_file_name, output_file_name = sys.argv[-2], sys.argv[-1]
+
+sentences_bio = conllu.parse_incr(open(input_file_name, 'r', encoding='utf-8'))
 
 sentences = []
 
@@ -114,4 +124,4 @@ sentences_json = {
     'sentences': [s.to_json() for s in sentences]
 }
 
-json.dump(sentences_json, open('tests/sentences.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
+json.dump(sentences_json, open(output_file_name, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)

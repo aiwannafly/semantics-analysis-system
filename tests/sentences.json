@@ -4580,6 +4580,19 @@
             "value": "классификация тональности",
             "start_pos": 60
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "CNN",
+            "start_pos": 101
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "Word2vec",
+            "start_pos": 122
+          }
         }
       ]
     },
@@ -5034,8 +5047,8 @@
         },
         {
           "class": "Model",
-          "value": "HuggingFace",
-          "start_pos": 91
+          "value": "трансформера HuggingFace",
+          "start_pos": 78
         },
         {
           "class": "Dataset",
@@ -5044,6 +5057,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "трансформера HuggingFace",
+            "start_pos": 78
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "Genius",
+            "start_pos": 124
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -5066,8 +5092,21 @@
           "predicate": "isUsedForTraining",
           "term2": {
             "class": "Model",
-            "value": "HuggingFace",
-            "start_pos": 91
+            "value": "трансформера HuggingFace",
+            "start_pos": 78
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "точной настройки",
+            "start_pos": 34
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "трансформера HuggingFace",
+            "start_pos": 78
           }
         }
       ]
@@ -5655,8 +5694,8 @@
         },
         {
           "class": "Model",
-          "value": "Transformer",
-          "start_pos": 63
+          "value": "модели Transformer",
+          "start_pos": 56
         }
       ],
       "relations": []
@@ -6379,6 +6418,19 @@
             "class": "Model",
             "value": "свёрточной нейронной сети",
             "start_pos": 81
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "бинарным анализом тональности русскоязычных текстов",
+            "start_pos": 19
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "Word2Vec",
+            "start_pos": 187
           }
         }
       ]
@@ -11899,17 +11951,44 @@
           "start_pos": 9
         },
         {
-          "class": "Corpus",
+          "class": "Dataset",
           "value": "ruscorpora",
           "start_pos": 43
         },
         {
-          "class": "Corpus",
+          "class": "Dataset",
           "value": "araneum",
           "start_pos": 87
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "fasttext embeddings",
+            "start_pos": 9
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "ruscorpora",
+            "start_pos": 43
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "fasttext embeddings",
+            "start_pos": 9
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "araneum",
+            "start_pos": 87
+          }
+        }
+      ]
     },
     {
       "id": 327,
@@ -12387,7 +12466,21 @@
           "start_pos": 95
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruGPT-3",
+            "start_pos": 51
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Corpus",
+            "value": "Common Crawl",
+            "start_pos": 95
+          }
+        }
+      ]
     },
     {
       "id": 346,
@@ -13358,7 +13451,21 @@
           "start_pos": 119
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LDA",
+            "start_pos": 17
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "20 newsgroups dataset",
+            "start_pos": 80
+          }
+        }
+      ]
     },
     {
       "id": 374,
@@ -14376,15 +14483,34 @@
     },
     {
       "id": 407,
-      "text": "Для её обучения был использован гигантский датасет mC4, включающий в себя 6,6 млрд веб-страниц на 101 языке.",
+      "text": "Для обучения модели был использован гигантский датасет mC4, включающий в себя 6,6 млрд веб-страниц на 101 языке.",
       "terms": [
+        {
+          "class": "Model",
+          "value": "модели",
+          "start_pos": 13
+        },
         {
           "class": "Dataset",
           "value": "mC4",
-          "start_pos": 51
+          "start_pos": 55
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "модели",
+            "start_pos": 13
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "mC4",
+            "start_pos": 55
+          }
+        }
+      ]
     },
     {
       "id": 408,
@@ -14458,7 +14584,21 @@
           "start_pos": 172
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "мультитасковая модель",
+            "start_pos": 172
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Corpus",
+            "value": "корпусов",
+            "start_pos": 13
+          }
+        }
+      ]
     },
     {
       "id": 410,
@@ -15739,6 +15879,19 @@
         },
         {
           "term1": {
+            "class": "Model",
+            "value": "ruscorpora_upos_cbow_300_20_2019",
+            "start_pos": 93
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Corpus",
+            "value": "НКРЯ",
+            "start_pos": 72
+          }
+        },
+        {
+          "term1": {
             "class": "Corpus",
             "value": "НКРЯ",
             "start_pos": 72
@@ -15788,6 +15941,19 @@
         },
         {
           "term1": {
+            "class": "Model",
+            "value": "ruscorpora_upos_cbow_300_20_2019",
+            "start_pos": 41
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Corpus",
+            "value": "НКРЯ",
+            "start_pos": 125
+          }
+        },
+        {
+          "term1": {
             "class": "Corpus",
             "value": "НКРЯ",
             "start_pos": 125
@@ -15833,6 +15999,19 @@
             "class": "Corpus",
             "value": "Национальном Корпусе Русского Языка",
             "start_pos": 48
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruscorpora_upos_cbow_300_20_2019",
+            "start_pos": 105
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Corpus",
+            "value": "НКРЯ",
+            "start_pos": 85
           }
         },
         {
@@ -18076,11 +18255,11 @@
             "value": "RNN",
             "start_pos": 45
           },
-          "predicate": "isAlternativeNameFor",
+          "predicate": "includes",
           "term2": {
             "class": "Model",
-            "value": "рекурентно-нейронная сеть",
-            "start_pos": 18
+            "value": "SequenceEncoder",
+            "start_pos": 0
           }
         }
       ]
@@ -22050,6 +22229,19 @@
             "value": "обработки естественного языка",
             "start_pos": 132
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "ансамблей моделей",
+            "start_pos": 227
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "mGPT",
+            "start_pos": 29
+          }
         }
       ]
     },
@@ -23644,6 +23836,19 @@
             "value": "ruGPT-3",
             "start_pos": 43
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "JARVIS",
+            "start_pos": 97
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "ruGPT-3",
+            "start_pos": 43
+          }
         }
       ]
     },
@@ -23719,6 +23924,19 @@
             "start_pos": 2
           },
           "predicate": "isDateOf",
+          "term2": {
+            "class": "Model",
+            "value": "ruGPT-3",
+            "start_pos": 62
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "JARVIS",
+            "start_pos": 143
+          },
+          "predicate": "isUsedForTraining",
           "term2": {
             "class": "Model",
             "value": "ruGPT-3",
@@ -25156,6 +25374,19 @@
             "value": "модели",
             "start_pos": 109
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "технические способы",
+            "start_pos": 45
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "модели",
+            "start_pos": 109
+          }
         }
       ]
     },
@@ -25447,9 +25678,9 @@
           "start_pos": 53
         },
         {
-          "class": "Method",
-          "value": "подхода BERT",
-          "start_pos": 62
+          "class": "Model",
+          "value": "BERT",
+          "start_pos": 70
         },
         {
           "class": "Value",
@@ -25460,15 +25691,28 @@
       "relations": [
         {
           "term1": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 70
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "DataTurcks",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
             "class": "Metric",
             "value": "Точность",
             "start_pos": 53
           },
-          "predicate": "isAppliedTo",
+          "predicate": "isUsedFor",
           "term2": {
-            "class": "Method",
-            "value": "подхода BERT",
-            "start_pos": 62
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 70
           }
         },
         {
@@ -26382,7 +26626,21 @@
           "start_pos": 92
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "Модель",
+            "start_pos": 0
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "медицинской сфере",
+            "start_pos": 34
+          }
+        }
+      ]
     },
     {
       "id": 717,
@@ -26912,19 +27170,6 @@
         }
       ],
       "relations": [
-        {
-          "term1": {
-            "class": "Date",
-            "value": "1966 году",
-            "start_pos": 85
-          },
-          "predicate": "isDateOf",
-          "term2": {
-            "class": "Application",
-            "value": "виртуальный собеседник",
-            "start_pos": 42
-          }
-        },
         {
           "term1": {
             "class": "Date",
@@ -28136,7 +28381,7 @@
           "start_pos": 52
         },
         {
-          "class": "Model",
+          "class": "Library",
           "value": "DeepPavlov",
           "start_pos": 93
         }
@@ -28632,21 +28877,7 @@
           "start_pos": 117
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "InfoResource",
-            "value": "SQuAD",
-            "start_pos": 117
-          },
-          "predicate": "isAlternativeNameFor",
-          "term2": {
-            "class": "InfoResource",
-            "value": "Стэнфордского набора данных для ответов на вопросы",
-            "start_pos": 65
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 762,
@@ -28663,21 +28894,7 @@
           "start_pos": 70
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "InfoResource",
-            "value": "SQuAD",
-            "start_pos": 70
-          },
-          "predicate": "isAlternativeNameFor",
-          "term2": {
-            "class": "InfoResource",
-            "value": "Стэнфордский набор данных для ответов на вопросы",
-            "start_pos": 20
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 763,
@@ -30757,7 +30974,34 @@
           "start_pos": 139
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "самовнимании",
+            "start_pos": 124
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "Трансформеры",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "self-attention",
+            "start_pos": 139
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "Трансформеры",
+            "start_pos": 0
+          }
+        }
+      ]
     },
     {
       "id": 807,
@@ -34564,7 +34808,7 @@
       "text": "При создании нашей системы рекомендации кандидатов на позиции мы использовали нейронную сеть — StarSpace.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "нейронную сеть",
           "start_pos": 78
         },
@@ -34574,7 +34818,21 @@
           "start_pos": 95
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "нейронную сеть",
+            "start_pos": 78
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "StarSpace",
+            "start_pos": 95
+          }
+        }
+      ]
     },
     {
       "id": 927,
@@ -40102,6 +40360,32 @@
         {
           "term1": {
             "class": "Method",
+            "value": "федеративного обучения",
+            "start_pos": 41
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "FPB",
+            "start_pos": 20
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "FL",
+            "start_pos": 65
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "FPB",
+            "start_pos": 20
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "DL",
             "start_pos": 126
           },
@@ -40559,6 +40843,1393 @@
             "class": "Method",
             "value": "Transformer",
             "start_pos": 46
+          }
+        }
+      ]
+    },
+    {
+      "id": 1064,
+      "text": "В 1966 году Джозефом Вейценбаумом был создан виртуальный собеседник ELIZA, который стал первым успешным примером реализации чат-бота.",
+      "terms": [
+        {
+          "class": "Date",
+          "value": "1966 году",
+          "start_pos": 2
+        },
+        {
+          "class": "Person",
+          "value": "Джозефом Вейценбаумом",
+          "start_pos": 12
+        },
+        {
+          "class": "Application",
+          "value": "ELIZA",
+          "start_pos": 68
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ELIZA",
+            "start_pos": 68
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Джозефом Вейценбаумом",
+            "start_pos": 12
+          }
+        },
+        {
+          "term1": {
+            "class": "Date",
+            "value": "1966 году",
+            "start_pos": 2
+          },
+          "predicate": "isDateOf",
+          "term2": {
+            "class": "Application",
+            "value": "ELIZA",
+            "start_pos": 68
+          }
+        }
+      ]
+    },
+    {
+      "id": 1065,
+      "text": "Dusha представляет собой самый обширный открытый корпус данных на русском языке, предназначенный для анализа эмоций в речи.",
+      "terms": [
+        {
+          "class": "Dataset",
+          "value": "Dusha",
+          "start_pos": 0
+        },
+        {
+          "class": "Lang",
+          "value": "русском языке",
+          "start_pos": 66
+        },
+        {
+          "class": "Task",
+          "value": "анализа эмоций",
+          "start_pos": 101
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "Dusha",
+            "start_pos": 0
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русском языке",
+            "start_pos": 66
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "Dusha",
+            "start_pos": 0
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "анализа эмоций",
+            "start_pos": 101
+          }
+        }
+      ]
+    },
+    {
+      "id": 1066,
+      "text": "В одном из выдающихся решений применялся особый FastText, предварительно обученный на корпусе текстов RuDReC, включающем отзывы на русском языке о медикаментозной продукции.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "FastText",
+          "start_pos": 48
+        },
+        {
+          "class": "Dataset",
+          "value": "RuDReC",
+          "start_pos": 102
+        },
+        {
+          "class": "Lang",
+          "value": "русском языке",
+          "start_pos": 131
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "RuDReC",
+            "start_pos": 102
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русском языке",
+            "start_pos": 131
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "FastText",
+            "start_pos": 48
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "RuDReC",
+            "start_pos": 102
+          }
+        }
+      ]
+    },
+    {
+      "id": 1067,
+      "text": "Набор данных IEMOCAP на английском языке является эталоном для анализа эмоций.",
+      "terms": [
+        {
+          "class": "Dataset",
+          "value": "IEMOCAP",
+          "start_pos": 13
+        },
+        {
+          "class": "Lang",
+          "value": "английском языке",
+          "start_pos": 24
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "IEMOCAP",
+            "start_pos": 13
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "английском языке",
+            "start_pos": 24
+          }
+        }
+      ]
+    },
+    {
+      "id": 1068,
+      "text": "SentEval был первой известной попыткой системного сопоставления английских векторных представлений предложений, объединяющей лингвистические задачи с практическими применениями.",
+      "terms": [
+        {
+          "class": "Dataset",
+          "value": "SentEval",
+          "start_pos": 0
+        },
+        {
+          "class": "Lang",
+          "value": "английских",
+          "start_pos": 64
+        },
+        {
+          "class": "Task",
+          "value": "лингвистические задачи",
+          "start_pos": 125
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "SentEval",
+            "start_pos": 0
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "английских",
+            "start_pos": 64
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "SentEval",
+            "start_pos": 0
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "лингвистические задачи",
+            "start_pos": 125
+          }
+        }
+      ]
+    },
+    {
+      "id": 1069,
+      "text": "На данный момент модели ALBERT, RoBERTa и DistilBERT из репозитория Hugging Face пользуются наибольшей популярностью.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "ALBERT",
+          "start_pos": 24
+        },
+        {
+          "class": "Model",
+          "value": "RoBERTa",
+          "start_pos": 32
+        },
+        {
+          "class": "Model",
+          "value": "DistilBERT",
+          "start_pos": 42
+        },
+        {
+          "class": "Library",
+          "value": "Hugging Face",
+          "start_pos": 68
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ALBERT",
+            "start_pos": 24
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 68
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RoBERTa",
+            "start_pos": 32
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 68
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "DistilBERT",
+            "start_pos": 42
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 68
+          }
+        }
+      ]
+    },
+    {
+      "id": 1070,
+      "text": "На сегодняшний день модели ALBERT, RoBERTa и DistilBERT из репозитория Hugging Face наиболее востребованы.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "ALBERT",
+          "start_pos": 27
+        },
+        {
+          "class": "Model",
+          "value": "RoBERTa",
+          "start_pos": 35
+        },
+        {
+          "class": "Model",
+          "value": "DistilBERT",
+          "start_pos": 45
+        },
+        {
+          "class": "Library",
+          "value": "Hugging Face",
+          "start_pos": 71
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ALBERT",
+            "start_pos": 27
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 71
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RoBERTa",
+            "start_pos": 35
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 71
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "DistilBERT",
+            "start_pos": 45
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 71
+          }
+        }
+      ]
+    },
+    {
+      "id": 1071,
+      "text": "Этот подход иллюстрируется применением парафразатора, основанного на \"rut5-base-paraphraser\" из репозитория Hugging Face.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "rut5-base-paraphraser",
+          "start_pos": 70
+        },
+        {
+          "class": "Library",
+          "value": "Hugging Face",
+          "start_pos": 108
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-base-paraphraser",
+            "start_pos": 70
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 108
+          }
+        }
+      ]
+    },
+    {
+      "id": 1072,
+      "text": "SequenceEncoder представляет собой рекуррентную нейронную сеть (RNN), применяемую для анализа последовательностей в данных о транзакциях и кликах.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "SequenceEncoder",
+          "start_pos": 0
+        },
+        {
+          "class": "Model",
+          "value": "рекуррентную нейронную сеть",
+          "start_pos": 35
+        },
+        {
+          "class": "Model",
+          "value": "RNN",
+          "start_pos": 64
+        },
+        {
+          "class": "Task",
+          "value": "анализа",
+          "start_pos": 86
+        },
+        {
+          "class": "Task",
+          "value": "последовательностей",
+          "start_pos": 94
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 64
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть",
+            "start_pos": 35
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть",
+            "start_pos": 35
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "SequenceEncoder",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 64
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "SequenceEncoder",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "SequenceEncoder",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "анализа",
+            "start_pos": 86
+          }
+        }
+      ]
+    },
+    {
+      "id": 1073,
+      "text": "Суть BERT заключается в том, что это предварительно обученная модель, основанная на стеке энкодеров Трансформера.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "BERT",
+          "start_pos": 5
+        },
+        {
+          "class": "Model",
+          "value": "энкодеров Трансформера",
+          "start_pos": 90
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "энкодеров Трансформера",
+            "start_pos": 90
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": 1074,
+      "text": "UDPipe представляет собой transition-based архитектуру на основе переходов: она обеспечивает быструю обработку, проходя по всем токенам один раз за линейное время.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "UDPipe",
+          "start_pos": 0
+        },
+        {
+          "class": "Model",
+          "value": "transition-based",
+          "start_pos": 26
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "transition-based",
+            "start_pos": 26
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "UDPipe",
+            "start_pos": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": 1075,
+      "text": "Среди замечательных подходов один из участников предложил использовать BiLSTM с уровнем CRF.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "BiLSTM",
+          "start_pos": 71
+        },
+        {
+          "class": "Model",
+          "value": "CRF",
+          "start_pos": 88
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "CRF",
+            "start_pos": 88
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "BiLSTM",
+            "start_pos": 71
+          }
+        }
+      ]
+    },
+    {
+      "id": 1076,
+      "text": "Один из участников выделил BiLSTM-архитектуру с добавлением слоя CRF в качестве интересного решения.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "BiLSTM-архитектуру",
+          "start_pos": 27
+        },
+        {
+          "class": "Model",
+          "value": "CRF",
+          "start_pos": 65
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "CRF",
+            "start_pos": 65
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "BiLSTM-архитектуру",
+            "start_pos": 27
+          }
+        }
+      ]
+    },
+    {
+      "id": 1077,
+      "text": "Появление модели BERT в 2018 году отметило своеобразный поворотный пункт в прогрессе развития моделей обработки естественного языка (NLP).",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "BERT",
+          "start_pos": 17
+        },
+        {
+          "class": "Date",
+          "value": "2018 году",
+          "start_pos": 24
+        },
+        {
+          "class": "Model",
+          "value": "моделей обработки естественного языка",
+          "start_pos": 94
+        },
+        {
+          "class": "Science",
+          "value": "NLP",
+          "start_pos": 133
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Date",
+            "value": "2018 году",
+            "start_pos": 24
+          },
+          "predicate": "isDateOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 17
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "моделей обработки естественного языка",
+            "start_pos": 94
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 17
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 17
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "NLP",
+            "start_pos": 133
+          }
+        }
+      ]
+    },
+    {
+      "id": 1078,
+      "text": "Голосовые ассистенты (ГА, IVA) распознают намерения пользователей и выполняют указания.",
+      "terms": [
+        {
+          "class": "Application",
+          "value": "Голосовые ассистенты",
+          "start_pos": 0
+        },
+        {
+          "class": "Application",
+          "value": "ГА",
+          "start_pos": 22
+        },
+        {
+          "class": "Application",
+          "value": "IVA",
+          "start_pos": 26
+        },
+        {
+          "class": "Object",
+          "value": "намерения",
+          "start_pos": 42
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ГА",
+            "start_pos": 22
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "Голосовые ассистенты",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "IVA",
+            "start_pos": 26
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "Голосовые ассистенты",
+            "start_pos": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": 1079,
+      "text": "Голосовые виртуальные помощники (ГВП, ИВА) распознают намерения пользователей и выполняют указания.",
+      "terms": [
+        {
+          "class": "Application",
+          "value": "Голосовые виртуальные помощники",
+          "start_pos": 0
+        },
+        {
+          "class": "Application",
+          "value": "ГВП",
+          "start_pos": 33
+        },
+        {
+          "class": "Application",
+          "value": "ИВА",
+          "start_pos": 38
+        },
+        {
+          "class": "Object",
+          "value": "намерения",
+          "start_pos": 54
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ГВП",
+            "start_pos": 33
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "Голосовые виртуальные помощники",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ИВА",
+            "start_pos": 38
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "Голосовые виртуальные помощники",
+            "start_pos": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": 1080,
+      "text": "На сегодняшний день мы поделимся информацией о нашем вкладе в разработку и внедрение корпоративной интеллектуальной информационно-поисковой системы (КИИПС) для НПО \"Энергомаш\".",
+      "terms": [
+        {
+          "class": "Application",
+          "value": "корпоративной интеллектуальной информационно-поисковой системы",
+          "start_pos": 85
+        },
+        {
+          "class": "Application",
+          "value": "КИИПС",
+          "start_pos": 149
+        },
+        {
+          "class": "Organization",
+          "value": "НПО \"Энергомаш\"",
+          "start_pos": 160
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "корпоративной интеллектуальной информационно-поисковой системы",
+            "start_pos": 85
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "НПО \"Энергомаш\"",
+            "start_pos": 160
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "КИИПС",
+            "start_pos": 149
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "НПО \"Энергомаш\"",
+            "start_pos": 160
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "КИИПС",
+            "start_pos": 149
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "корпоративной интеллектуальной информационно-поисковой системы",
+            "start_pos": 85
+          }
+        }
+      ]
+    },
+    {
+      "id": 1081,
+      "text": "Objective Revision Evaluation Service (ORES), разработанная Wikimedia Foundation, проверяет наличие спама.",
+      "terms": [
+        {
+          "class": "Application",
+          "value": "Objective Revision Evaluation Service",
+          "start_pos": 0
+        },
+        {
+          "class": "Application",
+          "value": "ORES",
+          "start_pos": 39
+        },
+        {
+          "class": "Organization",
+          "value": "Wikimedia Foundation",
+          "start_pos": 60
+        },
+        {
+          "class": "Task",
+          "value": "наличие спама",
+          "start_pos": 92
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Objective Revision Evaluation Service",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "наличие спама",
+            "start_pos": 92
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ORES",
+            "start_pos": 39
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "наличие спама",
+            "start_pos": 92
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ORES",
+            "start_pos": 39
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "Objective Revision Evaluation Service",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Objective Revision Evaluation Service",
+            "start_pos": 0
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Wikimedia Foundation",
+            "start_pos": 60
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ORES",
+            "start_pos": 39
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Wikimedia Foundation",
+            "start_pos": 60
+          }
+        }
+      ]
+    },
+    {
+      "id": 1082,
+      "text": "Сервис Objective Revision Evaluation Service (ORES) будет производить анализ всех изменений с целью выявления признаков спама или троллинга.",
+      "terms": [
+        {
+          "class": "Application",
+          "value": "Objective Revision Evaluation Service",
+          "start_pos": 7
+        },
+        {
+          "class": "Application",
+          "value": "ORES",
+          "start_pos": 46
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ORES",
+            "start_pos": 46
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "Objective Revision Evaluation Service",
+            "start_pos": 7
+          }
+        }
+      ]
+    },
+    {
+      "id": 1083,
+      "text": "Для этого использовалась точная настройка (fine-tune ) предварительно обученной модели трансформера от HuggingFace на данных, собранных с платформы Genius.",
+      "terms": [
+        {
+          "class": "Method",
+          "value": "точная настройка",
+          "start_pos": 25
+        },
+        {
+          "class": "Method",
+          "value": "fine-tune",
+          "start_pos": 43
+        },
+        {
+          "class": "Model",
+          "value": "модели трансформера",
+          "start_pos": 80
+        },
+        {
+          "class": "Library",
+          "value": "HuggingFace",
+          "start_pos": 103
+        },
+        {
+          "class": "Application",
+          "value": "Genius",
+          "start_pos": 148
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "модели трансформера",
+            "start_pos": 80
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "HuggingFace",
+            "start_pos": 103
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "fine-tune",
+            "start_pos": 43
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Method",
+            "value": "точная настройка",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "точная настройка",
+            "start_pos": 25
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "модели трансформера",
+            "start_pos": 80
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "fine-tune",
+            "start_pos": 43
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "модели трансформера",
+            "start_pos": 80
+          }
+        }
+      ]
+    },
+    {
+      "id": 1084,
+      "text": "Я расскажу вам о проведении бинарного анализа тональности русскоязычных текстов с использованием сверточной нейронной сети, векторные представления слов для которой были созданы с использованием обученной модели Word2Vec.",
+      "terms": [
+        {
+          "class": "Method",
+          "value": "бинарного анализа тональности",
+          "start_pos": 28
+        },
+        {
+          "class": "Object",
+          "value": "русскоязычных текстов",
+          "start_pos": 58
+        },
+        {
+          "class": "Model",
+          "value": "сверточной нейронной сети",
+          "start_pos": 97
+        },
+        {
+          "class": "Object",
+          "value": "векторные представления слов",
+          "start_pos": 124
+        },
+        {
+          "class": "Model",
+          "value": "Word2Vec",
+          "start_pos": 212
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "бинарного анализа тональности",
+            "start_pos": 28
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "русскоязычных текстов",
+            "start_pos": 58
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "бинарного анализа тональности",
+            "start_pos": 28
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "сверточной нейронной сети",
+            "start_pos": 97
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "бинарного анализа тональности",
+            "start_pos": 28
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "Word2Vec",
+            "start_pos": 212
+          }
+        }
+      ]
+    },
+    {
+      "id": 1085,
+      "text": "Я представлю вам анализ тональности русскоязычных текстов с применением сверточной нейронной сети, используя векторные представления слов, полученные из обученной модели Word2Vec.",
+      "terms": [
+        {
+          "class": "Method",
+          "value": "анализ тональности",
+          "start_pos": 17
+        },
+        {
+          "class": "Object",
+          "value": "русскоязычных текстов",
+          "start_pos": 36
+        },
+        {
+          "class": "Model",
+          "value": "сверточной нейронной сети",
+          "start_pos": 72
+        },
+        {
+          "class": "Object",
+          "value": "векторные представления слов",
+          "start_pos": 109
+        },
+        {
+          "class": "Model",
+          "value": "Word2Vec",
+          "start_pos": 170
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "анализ тональности",
+            "start_pos": 17
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "русскоязычных текстов",
+            "start_pos": 36
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "анализ тональности",
+            "start_pos": 17
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "сверточной нейронной сети",
+            "start_pos": 72
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "анализ тональности",
+            "start_pos": 17
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "Word2Vec",
+            "start_pos": 170
+          }
+        }
+      ]
+    },
+    {
+      "id": 1086,
+      "text": "Давайте обратимся к этой статье, где была исследована классификация тональности с использованием модели Word2vec в архитектуре CNN.",
+      "terms": [
+        {
+          "class": "Task",
+          "value": "классификация тональности",
+          "start_pos": 54
+        },
+        {
+          "class": "Model",
+          "value": "Word2vec",
+          "start_pos": 104
+        },
+        {
+          "class": "Method",
+          "value": "CNN",
+          "start_pos": 127
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "CNN",
+            "start_pos": 127
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "классификация тональности",
+            "start_pos": 54
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "Word2vec",
+            "start_pos": 104
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "классификация тональности",
+            "start_pos": 54
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "CNN",
+            "start_pos": 127
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "Word2vec",
+            "start_pos": 104
+          }
+        }
+      ]
+    },
+    {
+      "id": 1087,
+      "text": "В этом случае эмбеддинги fastText, обученные на ruscorpora, продемонстрировали более высокую эффективность по сравнению с теми, которые были обучены на корпусе araneum.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "fastText",
+          "start_pos": 25
+        },
+        {
+          "class": "Dataset",
+          "value": "ruscorpora",
+          "start_pos": 48
+        },
+        {
+          "class": "Dataset",
+          "value": "araneum",
+          "start_pos": 160
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "fastText",
+            "start_pos": 25
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "ruscorpora",
+            "start_pos": 48
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "fastText",
+            "start_pos": 25
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "araneum",
+            "start_pos": 160
+          }
+        }
+      ]
+    },
+    {
+      "id": 1088,
+      "text": "В процессе обучения модели text-davinci-003 применяются наборы данных текстов и программного кода, собранные OpenAI к концу 2021 года.",
+      "terms": [
+        {
+          "class": "Model",
+          "value": "text-davinci-003",
+          "start_pos": 27
+        },
+        {
+          "class": "Dataset",
+          "value": "наборы данных текстов и программного кода",
+          "start_pos": 56
+        },
+        {
+          "class": "Organization",
+          "value": "OpenAI",
+          "start_pos": 109
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "text-davinci-003",
+            "start_pos": 27
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "наборы данных текстов и программного кода",
+            "start_pos": 56
+          }
+        }
+      ]
+    },
+    {
+      "id": 1088,
+      "text": "Давайте проверим эффективность этого подхода, обучив модель на наборе данных California Housing.",
+      "terms": [
+        {
+          "class": "Method",
+          "value": "подхода",
+          "start_pos": 37
+        },
+        {
+          "class": "Model",
+          "value": "модель",
+          "start_pos": 53
+        },
+        {
+          "class": "Dataset",
+          "value": "California Housing",
+          "start_pos": 77
+        }
+      ],
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "подхода",
+            "start_pos": 37
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "модель",
+            "start_pos": 53
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "модель",
+            "start_pos": 53
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "California Housing",
+            "start_pos": 77
           }
         }
       ]

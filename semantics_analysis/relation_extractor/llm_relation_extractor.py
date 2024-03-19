@@ -98,50 +98,53 @@ class LLMRelationExtractor(RelationExtractor):
         counter = 1
 
         predicates = []
-
-        for predicate, metadata in prompt_metadata['predicates'].items():
-            description = metadata['description']
-            try:
-                example = metadata['examples'][0]
-            except Exception:
-                print(term1.class_, term2.class_, predicate)
-                exit(-1)
-
-            example_text = example['text']
-
-            if class1 != class2:
-                example_term1 = example[class1]
-                example_term2 = example[class2]
-            else:
-                example_term1 = example[class1 + '_1']
-                example_term2 = example[class1 + '_2']
-
-            if predicate != 'none':
-                predicates.append(predicate)
-                relations_list += f' - {predicate} : {description}\n'
-
-            answer = 'нет.' if predicate == 'none' else 'да'
-
-            examples_list += f'{counter}. В этих примерах {description}:\n'
-            examples_list += '```\n'
-            examples_list += (f'Текст: {example_text}\n'
-                              f'Термин {class1}: {example_term1}\n'
-                              f'Термин {class2}: {example_term2}\n'
-                              f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}" в этом тексте? {answer}\n')
-
-            if predicate != 'none':
-                if not self.show_explanation:
-                    examples_list += f'{predicate}.\n'
-                else:
-                    examples_list += f'{predicate}\nОбъяснение: <объяснение>.\n'
-            examples_list += '```\n'
-
-            counter += 1
-
         questions_list = ''
 
-        for question in prompt_metadata['evaluation-questions']:
-            questions_list += f' - {question}\n'
+        for predicate, metadata in prompt_metadata.items():
+            predicates.append(predicate)
+
+            description = metadata['yes']['description']
+            relations_list += f' - {predicate} : {description}\n'
+
+            for answer in ['yes', 'no']:
+                description = metadata[answer]['description']
+                try:
+                    example = metadata[answer]['examples'][0]
+                except Exception as e:
+                    print(f'Error for the triple while parsing metadata: {term1.class_, term2.class_, predicate}', e)
+                    exit(-1)
+
+                example_text = example['text']
+
+                if class1 != class2:
+                    example_term1 = example[class1]
+                    example_term2 = example[class2]
+                else:
+                    example_term1 = example[class1 + '_1']
+                    example_term2 = example[class1 + '_2']
+
+                answer = 'нет.' if answer == 'no' else 'да'
+
+                examples_list += f'{counter}. В этих примерах {description}:\n'
+                examples_list += '```\n'
+                examples_list += (f'Текст: {example_text}\n'
+                                  f'Термин {class1}: {example_term1}\n'
+                                  f'Термин {class2}: {example_term2}\n'
+                                  f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}" в этом тексте? {answer}\n')
+
+                if answer == 'yes':
+                    if not self.show_explanation:
+                        examples_list += f'{predicate}.\n'
+                    else:
+                        examples_list += f'{predicate}\nОбъяснение: <объяснение>.\n'
+                examples_list += '```\n'
+
+                counter += 1
+
+            questions_list += f' - Отношение {predicate}:'
+
+            for question in prompt_metadata[predicate]['evaluation-questions']:
+                questions_list += f'   - {question}\n'
 
         input_text = (f'Текст: {text}\n'
                       f'Термин {class1}: {term1.value}\n'

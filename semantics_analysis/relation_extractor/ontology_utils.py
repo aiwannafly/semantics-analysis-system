@@ -31,7 +31,7 @@ predicates_by_class_pair = {
     ('Model', 'Application'): ['isUsedIn'],
     ('Model', 'Lang'): ['Language'],
     ('Model', 'Task'): ['isUsedForSolving'],
-    ('Model', 'Model'): ['isShortNameFor'],  # new rel: , 'isModificationOf'
+    ('Model', 'Model'): ['isAlternativeNameFor'],  # new rel: , 'isModificationOf'
     ('Method', 'Method'): ['isAlternativeNameFor'],
     ('Science', 'Science'): ['isAlternativeNameFor'],
     ('Metric', 'Metric'): ['isAlternativeNameFor'],
@@ -342,7 +342,7 @@ prompt_metadata_by_class_pair = {
     ('Application', 'Person'): {
         'predicates': {
             'hasAuthor': {
-                'description': 'персона является автором приложения',
+                'description': 'персона является создателем приложения',
                 'examples': [
                     {
                         'text': 'Его мне любезно предоставил разработчик приложения GoTrans, Александр Козлов.',
@@ -352,7 +352,7 @@ prompt_metadata_by_class_pair = {
                 ]
             },
             'none': {
-                'description': 'персона не является автором приложения',
+                'description': 'персона не является создателем приложения',
                 'examples': [
                     {
                         'text': 'Если кому интересно посмотреть, как работает автоматический анализатор — можно поэкспериментировать на сайте С.А. Старостина.',
@@ -559,7 +559,7 @@ prompt_metadata_by_class_pair = {
     ('Application', 'Organization'): {
         'predicates': {
             'hasAuthor': {
-                'description': 'организация является автором приложения',
+                'description': 'организация является создателем приложения',
                 'examples': [
                     {
                         'text': 'Google запускает Coral ai – аналог raspberry pi, мини-компьютер для внедрения нейросетей в экспериментальные установки.',
@@ -569,7 +569,7 @@ prompt_metadata_by_class_pair = {
                 ]
             },
             'none': {
-                'description': 'организация не является автором приложения',
+                'description': 'организация не является создателем приложения',
                 'examples': [
                     {
                         'text': 'МТИ Technology Review протестировали два инструмента — MyInterview и Curious Thing.',
@@ -1054,7 +1054,7 @@ prompt_metadata_by_class_pair = {
     },
     ('Model', 'Model'): {
         'predicates': {
-            'isShortNameFor': {
+            'isAlternativeNameFor': {
                 'description': 'модель является коротким названием модели',
                 'examples': [
                     {

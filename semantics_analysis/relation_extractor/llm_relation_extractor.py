@@ -141,7 +141,7 @@ class LLMRelationExtractor(RelationExtractor):
 
                 counter += 1
 
-            questions_list += f' - Отношение {predicate}:'
+            questions_list += f' - Отношение {predicate}:\n'
 
             for question in prompt_metadata[predicate]['evaluation-questions']:
                 questions_list += f'   - {question}\n'

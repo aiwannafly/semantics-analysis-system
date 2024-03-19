@@ -79,6 +79,10 @@ class Relation:
         self.term1 = term1
         self.term2 = term2
         self.predicate = predicate
+        self.id = f'{self.term1.class_}_{self.predicate}_{self.term2.class_}'
+
+        if not predicate:
+            raise ValueError('Got empty predicate.')
 
     def __repr__(self):
         return f'Relation(term1={self.term1}, predicate={self.predicate}, term2={self.term2})'
@@ -95,15 +99,15 @@ class Relation:
     def as_str(self):
         return f'({self.term1.value}) {self.predicate} ({self.term2.value})'
 
-    def get_id(self) -> str:
-        return f'{self.term1.class_}_{self.predicate}_{self.term2.class_}'
-
     def to_json(self):
         return {
             'term1': self.term1.to_json(),
             'predicate': self.predicate,
             'term2': self.term2.to_json()
         }
+
+    def inverse(self):
+        return Relation(term1=self.term2, predicate=self.predicate, term2=self.term1)
 
     @staticmethod
     def from_json(rel_json: Dict[str, Any], text: str = ''):

@@ -1,29 +1,71 @@
 import json
-from typing import List, Dict, Any
+from time import sleep
+from typing import List, Dict, Any, Set
 
 from huggingface_hub.utils import HfHubHTTPError
 
 from semantics_analysis.config import load_config
-from semantics_analysis.entities import read_sentences, Sentence
+from semantics_analysis.entities import read_sentences, Sentence, Relation
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
-from semantics_analysis.relation_extractor.ontology_utils import predicates_by_class_pair
-from tqdm import tqdm
+from semantics_analysis.relation_extractor.ontology_utils import (predicates_by_class_pair, is_symmetric,
+                                                                  loaded_relation_ids)
+from rich.progress import Progress
 
 from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
 
-TOKENS = [
-    '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',
-    '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',
-    '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',
-    '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',
-    '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',
-    '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',
-    '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',
-    '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',
-    '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',
-    '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',
-    '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'
-]
+
+def update_scores(
+        sent: Sentence,
+        predicted_relations: Set[Relation],
+        expected_relations: Set[Relation],
+        ignored_relations: Set[Relation],
+        scores: Dict[str, Any]
+):
+    temp = predicted_relations
+
+    predicted_relations = set()
+
+    for rel in temp:
+        if rel.id not in loaded_relation_ids:
+            ignored_relations.add(rel.id)
+            continue
+
+        if is_symmetric[rel.id]:
+            inverse_rel = rel.inverse()
+            if rel not in expected_relations and inverse_rel in expected_relations:
+                predicted_relations.add(inverse_rel)
+            else:
+                predicted_relations.add(rel)
+        else:
+            predicted_relations.add(rel)
+
+    for rel in expected_relations:
+        if rel.id not in scores:
+            ignored_relations.add(rel.id)
+            continue
+
+        if rel in predicted_relations:
+            scores[rel.id]['expected']['found']['count'] += 1
+            scores[rel.id]['expected']['found']['examples'].append(
+                {'text': sent.text, 'relation': rel.as_str()})
+        else:
+            scores[rel.id]['expected']['not_found']['count'] += 1
+            scores[rel.id]['expected']['not_found']['examples'].append(
+                {'text': sent.text, 'relation': rel.as_str()})
+
+    for rel in predicted_relations:
+        if rel.id not in scores:
+            ignored_relations.add(rel.id)
+            continue
+
+        if rel in expected_relations:
+            scores[rel.id]['predicted']['correct']['count'] += 1
+            scores[rel.id]['predicted']['correct']['examples'].append(
+                {'text': sent.text, 'relation': rel.as_str()})
+        else:
+            scores[rel.id]['predicted']['incorrect']['count'] += 1
+            scores[rel.id]['predicted']['incorrect']['examples'].append(
+                {'text': sent.text, 'relation': rel.as_str()})
 
 
 def calculate_scores(
@@ -32,19 +74,7 @@ def calculate_scores(
         sentences: List[Sentence],
         last_sent_id: int
 ) -> int:
-    sentences_to_check = []
-
-    for sent in sentences:
-        has_expected_relations = False
-
-        #  we consider only those relations, that are actually covered at the current moment
-        for rel in sent.relations:
-            if (rel.term1.class_, rel.term2.class_) in predicates_by_class_pair:
-                has_expected_relations = True
-                break
-
-        if has_expected_relations:
-            sentences_to_check.append(sent)
+    sentences_to_check = sentences
 
     for (class1, class2), predicates in predicates_by_class_pair.items():
         for predicate in predicates:
@@ -76,86 +106,84 @@ def calculate_scores(
                 },
             }
 
-    # def get_next_token() -> Optional[str]:
-    #     tqdm_tokens = tqdm(TOKENS, colour='red')
-    #
-    #     for idx, token_ in enumerate(tqdm_tokens):
-    #         tqdm_tokens.set_description(desc=f'Token {idx + 1}/{len(TOKENS)}')
-    #         yield token_
-    #
-    #     yield None
-
     ignored_relations = set()
 
-    # relation_extractor = LLMRelationExtractor(
-    #     huggingface_hub_token=get_next_token(),
-    #     prompt_template_path='prompts/relation_extraction.txt'
-    # )
-
-    tqdm_sentences = tqdm(sentences_to_check, colour='green', leave=False)
-
     counter = 1
-    for sent in tqdm_sentences:
-        tqdm_sentences.set_description(desc=f'Sentence {counter}/{len(sentences_to_check)}')
 
-        tqdm_sentences.set_postfix({'sent_id': sent.id})
+    total_sentences = len(sentences_to_check)
 
-        if sent.id <= last_sent_id:
-            counter += 1
-            continue
+    with Progress() as progress:
+        sentence_task = progress.add_task(
+            description=f'[green]Sentence {counter}/{total_sentences}',
+            total=total_sentences
+        )
 
-        expected_relations = set()
+        for sent in sentences_to_check:
+            if sent.id <= last_sent_id:
+                counter += 1
+                progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
+                continue
 
-        #  we consider only those relations, that are actually covered at the current moment
-        for rel in sent.relations:
-            if (rel.term1.class_, rel.term2.class_) in predicates_by_class_pair:
-                expected_relations.add(rel)
+            expected_relations = set()
 
-        if not expected_relations:
-            continue
+            #  we consider only those relations, that are actually covered at the current moment
+            for rel in sent.relations:
+                if rel.id in loaded_relation_ids:
+                    expected_relations.add(rel)
 
-        try:
-            predicted_relations = set(relation_extractor(sent.text, sent.terms))
-        except HfHubHTTPError as e:
-            if 'Rate limit reached' in e.server_message:
-                print('[DETECTED TOKEN LIMIT]')
-                break
-            else:
+            if not expected_relations:
+                counter += 1
+                progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
+                continue
+
+            try:
+                term_pairs = relation_extractor.get_pairs_to_consider(sent.terms)
+
+                predicted_relations = set()
+
+                total_pairs = len(term_pairs)
+                pair_count = 1
+
+                extract_rel_task = progress.add_task(
+                    description=f'[cyan]Term pair {pair_count}/{total_pairs}',
+                    total=total_pairs
+                )
+
+                progress.update(
+                    extract_rel_task,
+                    description=f'[cyan]Term pair {pair_count}/{total_pairs}',
+                    advance=1
+                )
+
+                for rel in relation_extractor.analyze_term_pairs(sent.text, term_pairs):
+                    pair_count += 1
+
+                    if rel:
+                        predicted_relations.add(rel)
+                    progress.update(
+                        extract_rel_task,
+                        description=f'[cyan]Term pair {pair_count}/{total_pairs}',
+                        advance=1
+                    )
+
+                progress.remove_task(extract_rel_task)
+
+            except HfHubHTTPError as e:
+                if 'Rate limit reached' in e.server_message:
+                    print('[DETECTED TOKEN LIMIT]')
+                    break
+                else:
+                    print(e)
+                    break
+            except Exception as e:
                 print(e)
-                break
-        except Exception as e:
-            print(e)
-            return last_sent_id
+                return last_sent_id
 
-        for rel in expected_relations:
-            if rel.get_id() not in scores:
-                ignored_relations.add(rel.get_id())
-                continue
+            update_scores(sent, predicted_relations, expected_relations, ignored_relations, scores)
 
-            if rel in predicted_relations:
-                scores[rel.get_id()]['expected']['found']['count'] += 1
-                scores[rel.get_id()]['expected']['found']['examples'].append(
-                    {'text': sent.text, 'relation': rel.as_str()})
-            else:
-                scores[rel.get_id()]['expected']['not_found']['count'] += 1
-                scores[rel.get_id()]['expected']['not_found']['examples'].append(
-                    {'text': sent.text, 'relation': rel.as_str()})
-
-        for rel in predicted_relations:
-            if rel.get_id() not in scores:
-                ignored_relations.add(rel.get_id())
-                continue
-
-            if rel in expected_relations:
-                scores[rel.get_id()]['predicted']['correct']['count'] += 1
-                scores[rel.get_id()]['predicted']['correct']['examples'].append(
-                    {'text': sent.text, 'relation': rel.as_str()})
-            else:
-                scores[rel.get_id()]['predicted']['incorrect']['count'] += 1
-                scores[rel.get_id()]['predicted']['incorrect']['examples'].append(
-                    {'text': sent.text, 'relation': rel.as_str()})
-        counter += 1
-        last_sent_id = sent.id
+            counter += 1
+            progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
+            last_sent_id = sent.id
 
     if ignored_relations:
         print(f'Ignored these relations: {ignored_relations}')
@@ -178,26 +206,45 @@ def main():
         scores = {}
         last_sent_id = 0
 
-    relation_extractor = LLMRelationExtractor(
-        model=config.llm,
-        prompt_template_path='prompts/relation_extraction.txt',
-        huggingface_hub_token='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'
-    )
+    tokens = [
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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'
+    ]
 
-    prev_last_sent_id = last_sent_id
+    token_idx = 6
+    while True:
+        prev_last_sent_id = last_sent_id
 
-    last_sent_id = calculate_scores(scores, relation_extractor, sentences, last_sent_id)
+        relation_extractor = LLMRelationExtractor(
+            model=config.llm,
+            prompt_template_path='prompts/relation_extraction.txt',
+            huggingface_hub_token=tokens[token_idx]
+        )
 
-    if prev_last_sent_id == last_sent_id:
-        return
+        last_sent_id = calculate_scores(scores, relation_extractor, sentences, last_sent_id)
 
-    with open('tests/last_stop.lock', 'w', encoding='utf-8') as f:
-        f.write(f'{last_sent_id}')
+        if prev_last_sent_id == last_sent_id:
+            break
+        else:
+            token_idx = (token_idx + 1) % len(tokens)
+            with open('tests/last_stop.lock', 'w', encoding='utf-8') as f:
+                f.write(f'{last_sent_id}')
 
-    with open('tests/scores.json', 'w', encoding='utf-8') as f:
-        json.dump(scores, f, ensure_ascii=False, indent=2)
+            with open('tests/scores.json', 'w', encoding='utf-8') as f:
+                json.dump(scores, f, ensure_ascii=False, indent=2)
 
-    print('Scores are saved at "tests/scores.json".')
+            sleep_time_secs = 5
+            print(f'Scores were updated. Sleep for {sleep_time_secs} secs until new attempt.')
+            sleep(sleep_time_secs)
 
 
 if __name__ == '__main__':

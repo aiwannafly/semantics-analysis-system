@@ -24,14 +24,14 @@
         {
           "term1": {
             "class": "Science",
-            "value": "NLP",
-            "start_pos": 35
+            "value": "Natural Language Processing",
+            "start_pos": 73
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Science",
-            "value": "Natural Language Processing",
-            "start_pos": 73
+            "value": "NLP",
+            "start_pos": 35
           }
         }
       ]
@@ -55,14 +55,14 @@
         {
           "term1": {
             "class": "Science",
-            "value": "NLP",
-            "start_pos": 11
+            "value": "Natural Language Processing",
+            "start_pos": 16
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Science",
-            "value": "Natural Language Processing",
-            "start_pos": 16
+            "value": "NLP",
+            "start_pos": 11
           }
         }
       ]
@@ -900,6 +900,32 @@
       "relations": [
         {
           "term1": {
+            "class": "Task",
+            "value": "оценка личности персонажей пьес Шекспира",
+            "start_pos": 109
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "искусстве",
+            "start_pos": 98
+          }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "оценки состояния пациентов",
+            "start_pos": 64
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "психотерапии",
+            "start_pos": 47
+          }
+        },
+        {
+          "term1": {
             "class": "Application",
             "value": "Personality Insights",
             "start_pos": 10
@@ -1003,6 +1029,32 @@
       "relations": [
         {
           "term1": {
+            "class": "Task",
+            "value": "анализ личности персонажей пьес Шекспира",
+            "start_pos": 94
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "искусстве",
+            "start_pos": 83
+          }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "оценки состояния пациентов",
+            "start_pos": 53
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "психотерапии",
+            "start_pos": 36
+          }
+        },
+        {
+          "term1": {
             "class": "Application",
             "value": "Personality Insights",
             "start_pos": 0
@@ -1102,6 +1154,19 @@
         {
           "term1": {
             "class": "Metric",
+            "value": "MAE",
+            "start_pos": 122
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
+            "value": "Watson",
+            "start_pos": 47
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
             "value": "коэффициента корреляции",
             "start_pos": 129
           },
@@ -1171,6 +1236,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "MAE",
+            "start_pos": 106
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
+            "value": "Watson",
+            "start_pos": 41
+          }
+        },
         {
           "term1": {
             "class": "Metric",
@@ -1375,17 +1453,17 @@
           "start_pos": 60
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "рекуррентную нейронную сеть",
           "start_pos": 71
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "GRU",
           "start_pos": 107
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "gated recurrent unit",
           "start_pos": 112
         }
@@ -1393,13 +1471,26 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
-            "value": "gated recurrent unit",
-            "start_pos": 112
+            "class": "Model",
+            "value": "GRU",
+            "start_pos": 107
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
+            "class": "Model",
+            "value": "gated recurrent unit",
+            "start_pos": 112
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть",
+            "start_pos": 71
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
             "value": "GRU",
             "start_pos": 107
           }
@@ -1416,12 +1507,12 @@
           "start_pos": 10
         },
         {
-          "class": "Method",
+          "class": "Metric",
           "value": "MSE",
           "start_pos": 35
         },
         {
-          "class": "Method",
+          "class": "Metric",
           "value": "среднеквадратичное отклонение",
           "start_pos": 40
         }
@@ -1429,15 +1520,41 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Metric",
             "value": "среднеквадратичное отклонение",
             "start_pos": 40
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
+            "class": "Metric",
             "value": "MSE",
             "start_pos": 35
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "MSE",
+            "start_pos": 35
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
+            "value": "модель",
+            "start_pos": 10
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "среднеквадратичное отклонение",
+            "start_pos": 40
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
+            "value": "модель",
+            "start_pos": 10
           }
         }
       ]
@@ -1457,21 +1574,7 @@
           "start_pos": 72
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Method",
-            "value": "Сигмоидная функция активации",
-            "start_pos": 0
-          },
-          "predicate": "solves",
-          "term2": {
-            "class": "Task",
-            "value": "регрессии",
-            "start_pos": 72
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 45,
@@ -1874,7 +1977,21 @@
           "start_pos": 98
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "federated learning",
+            "start_pos": 33
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "Генеративные модели",
+            "start_pos": 0
+          }
+        }
+      ]
     },
     {
       "id": 58,
@@ -1949,6 +2066,32 @@
         {
           "term1": {
             "class": "Application",
+            "value": "Чатботы",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NLU",
+            "start_pos": 69
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Чатботы",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "Natural Language Understanding",
+            "start_pos": 75
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
             "value": "искусственный интеллект",
             "start_pos": 10
           },
@@ -1957,6 +2100,32 @@
             "class": "Task",
             "value": "понимания естественного языка",
             "start_pos": 38
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "искусственный интеллект",
+            "start_pos": 10
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NLU",
+            "start_pos": 69
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "искусственный интеллект",
+            "start_pos": 10
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "Natural Language Understanding",
+            "start_pos": 75
           }
         }
       ]
@@ -2007,6 +2176,32 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Task",
+            "value": "генерация",
+            "start_pos": 176
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "AI",
+            "start_pos": 5
+          }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "NLG",
+            "start_pos": 187
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "AI",
+            "start_pos": 5
+          }
+        },
         {
           "term1": {
             "class": "Task",
@@ -2140,6 +2335,58 @@
       "relations": [
         {
           "term1": {
+            "class": "Application",
+            "value": "Элиза",
+            "start_pos": 73
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного обучения",
+            "start_pos": 145
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "A.L.I.C.E.",
+            "start_pos": 390
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного обучения",
+            "start_pos": 145
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "A.L.I.C.E.",
+            "start_pos": 390
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Ричардом Уэлсом",
+            "start_pos": 321
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "A.L.I.C.E.",
+            "start_pos": 390
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Richard Wallace",
+            "start_pos": 338
+          }
+        },
+        {
+          "term1": {
             "class": "Method",
             "value": "AIML",
             "start_pos": 245
@@ -2147,8 +2394,21 @@
           "predicate": "isUsedIn",
           "term2": {
             "class": "Application",
-            "value": "Элиза",
-            "start_pos": 73
+            "value": "A.L.I.C.E.",
+            "start_pos": 390
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Artificial Intelligence Markup Language",
+            "start_pos": 251
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Application",
+            "value": "A.L.I.C.E.",
+            "start_pos": 390
           }
         },
         {
@@ -2173,8 +2433,34 @@
           "predicate": "hasAuthor",
           "term2": {
             "class": "Person",
-            "value": "Алана Тьюринга",
-            "start_pos": 46
+            "value": "Richard Wallace",
+            "start_pos": 338
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Artificial Intelligence Markup Language",
+            "start_pos": 251
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Ричардом Уэлсом",
+            "start_pos": 321
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Artificial Intelligence Markup Language",
+            "start_pos": 251
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Richard Wallace",
+            "start_pos": 338
           }
         },
         {
@@ -2192,15 +2478,54 @@
         },
         {
           "term1": {
-            "class": "Method",
-            "value": "AIML",
-            "start_pos": 245
+            "class": "Date",
+            "value": "2001-м",
+            "start_pos": 309
           },
-          "predicate": "isAlternativeNameFor",
+          "predicate": "isDateOf",
           "term2": {
             "class": "Method",
             "value": "Artificial Intelligence Markup Language",
             "start_pos": 251
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Artificial Intelligence Markup Language",
+            "start_pos": 251
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Method",
+            "value": "AIML",
+            "start_pos": 245
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "AIML",
+            "start_pos": 245
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного обучения",
+            "start_pos": 145
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Artificial Intelligence Markup Language",
+            "start_pos": 251
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного обучения",
+            "start_pos": 145
           }
         }
       ]
@@ -2467,6 +2792,71 @@
             "value": "Алиса",
             "start_pos": 110
           },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "намерения",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Cortana",
+            "start_pos": 88
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "намерения",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Siri",
+            "start_pos": 73
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "намерения",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Google Assistant",
+            "start_pos": 45
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "намерения",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Alexa",
+            "start_pos": 28
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "намерения",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Алиса",
+            "start_pos": 110
+          },
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
@@ -2706,6 +3096,11 @@
       "terms": [
         {
           "class": "Task",
+          "value": "понимания естественного языка",
+          "start_pos": 9
+        },
+        {
+          "class": "Task",
           "value": "Natural Language Understanding",
           "start_pos": 40
         },
@@ -2740,8 +3135,34 @@
           "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
+            "value": "понимания естественного языка",
+            "start_pos": 9
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "DeBERTa",
+            "start_pos": 87
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
             "value": "Natural Language Understanding",
             "start_pos": 40
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "DeBERTa",
+            "start_pos": 87
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NLU",
+            "start_pos": 72
           }
         },
         {
@@ -2821,19 +3242,6 @@
             "class": "Task",
             "value": "дать правильный ответ на вопрос на базе прочитанного абзаца",
             "start_pos": 149
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "SuperGLUE",
-            "start_pos": 5
-          },
-          "predicate": "isAppliedTo",
-          "term2": {
-            "class": "Object",
-            "value": "многозначное слово",
-            "start_pos": 248
           }
         }
       ]
@@ -2949,7 +3357,7 @@
             "value": "Turing NLRv4",
             "start_pos": 96
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Model",
             "value": "Тьюринговой модели Microsoft Turing",
@@ -2990,7 +3398,7 @@
             "value": "Turing NLRv4",
             "start_pos": 82
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Model",
             "value": "Microsoft Turing",
@@ -3002,6 +3410,32 @@
             "class": "Model",
             "value": "Microsoft Turing",
             "start_pos": 64
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Microsoft",
+            "start_pos": 99
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "DeBERTa",
+            "start_pos": 15
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Microsoft",
+            "start_pos": 99
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "Turing NLRv4",
+            "start_pos": 82
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -3173,6 +3607,71 @@
             "class": "Organization",
             "value": "Microsoft",
             "start_pos": 50
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Bing",
+            "start_pos": 65
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "создание контента",
+            "start_pos": 271
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Office",
+            "start_pos": 71
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "создание контента",
+            "start_pos": 271
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Dynamics",
+            "start_pos": 79
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "создание контента",
+            "start_pos": 271
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Azure Cognitive Services",
+            "start_pos": 90
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "создание контента",
+            "start_pos": 271
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "чат-ботами",
+            "start_pos": 168
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "создание контента",
+            "start_pos": 271
           }
         }
       ]
@@ -3388,6 +3887,19 @@
             "value": "Томита-парсер",
             "start_pos": 77
           },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Яндексом",
+            "start_pos": 68
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Томита-парсер",
+            "start_pos": 77
+          },
           "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
@@ -3485,6 +3997,32 @@
       "relations": [
         {
           "term1": {
+            "class": "Application",
+            "value": "Томита-парсер",
+            "start_pos": 156
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текста",
+            "start_pos": 46
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "контекстно-свободных грамматик",
+            "start_pos": 63
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Application",
+            "value": "Томита-парсер",
+            "start_pos": 156
+          }
+        },
+        {
+          "term1": {
             "class": "Method",
             "value": "контекстно-свободных грамматик",
             "start_pos": 63
@@ -3507,6 +4045,32 @@
             "class": "Task",
             "value": "извлечения фактов",
             "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Томита-парсер",
+            "start_pos": 156
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "извлечения фактов",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "контекстно-свободных грамматик",
+            "start_pos": 63
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текста",
+            "start_pos": 46
           }
         }
       ]
@@ -3542,6 +4106,19 @@
             "class": "Application",
             "value": "TomitaPooledParser",
             "start_pos": 31
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "парсинга",
+            "start_pos": 65
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Томиты",
+            "start_pos": 22
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -3839,7 +4416,7 @@
           "start_pos": 51
         },
         {
-          "class": "Application",
+          "class": "Library",
           "value": "pymorphy2",
           "start_pos": 80
         },
@@ -3857,7 +4434,7 @@
       "relations": [
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "pymorphy2",
             "start_pos": 80
           },
@@ -3880,7 +4457,7 @@
           "start_pos": 60
         },
         {
-          "class": "Application",
+          "class": "Library",
           "value": "pymorphy2",
           "start_pos": 89
         },
@@ -3898,7 +4475,7 @@
       "relations": [
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "pymorphy2",
             "start_pos": 89
           },
@@ -3985,6 +4562,19 @@
             "start_pos": 101
           },
           "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "классификация тональности",
+            "start_pos": 60
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "Word2vec",
+            "start_pos": 122
+          },
+          "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
             "value": "классификация тональности",
@@ -4222,7 +4812,7 @@
           "start_pos": 31
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "AWD-LSTM",
           "start_pos": 61
         }
@@ -4230,11 +4820,11 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "AWD-LSTM",
             "start_pos": 61
           },
-          "predicate": "solves",
+          "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
             "value": "моделирования",
@@ -4247,11 +4837,11 @@
             "value": "ULMFit",
             "start_pos": 31
           },
-          "predicate": "isUsedForSolving",
+          "predicate": "includes",
           "term2": {
-            "class": "Task",
-            "value": "моделирования",
-            "start_pos": 11
+            "class": "Model",
+            "value": "AWD-LSTM",
+            "start_pos": 61
           }
         }
       ]
@@ -4448,7 +5038,7 @@
           "start_pos": 91
         },
         {
-          "class": "Application",
+          "class": "Dataset",
           "value": "Genius",
           "start_pos": 124
         }
@@ -4465,6 +5055,19 @@
             "class": "Method",
             "value": "fine-tune",
             "start_pos": 23
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "fine-tune",
+            "start_pos": 23
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "HuggingFace",
+            "start_pos": 91
           }
         }
       ]
@@ -4589,6 +5192,32 @@
         },
         {
           "term1": {
+            "class": "Method",
+            "value": "методы машинного обучения",
+            "start_pos": 181
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "анализ тональности",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "методы машинного обучения",
+            "start_pos": 181
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "компьютерной лингвистики",
+            "start_pos": 86
+          }
+        },
+        {
+          "term1": {
             "class": "Science",
             "value": "анализ тональности",
             "start_pos": 41
@@ -4639,6 +5268,32 @@
             "class": "Science",
             "value": "Сентимент-анализ",
             "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "методов машинного обучения",
+            "start_pos": 144
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "анализ тональности",
+            "start_pos": 22
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "методов машинного обучения",
+            "start_pos": 144
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "компьютерной лингвистики",
+            "start_pos": 60
           }
         },
         {
@@ -4898,7 +5553,34 @@
           "start_pos": 221
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "FastText",
+            "start_pos": 137
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Библиотека",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "Gensim3",
+            "start_pos": 221
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Библиотека",
+            "start_pos": 0
+          }
+        }
+      ]
     },
     {
       "id": 126,
@@ -5448,6 +6130,19 @@
             "value": "Мэтью Гинсберг",
             "start_pos": 25
           }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Dr Fill",
+            "start_pos": 90
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Matthew Ginsberg",
+            "start_pos": 41
+          }
         }
       ]
     },
@@ -5457,13 +6152,8 @@
       "terms": [
         {
           "class": "Application",
-          "value": "Dr",
+          "value": "Dr Fill",
           "start_pos": 10
-        },
-        {
-          "class": "Application",
-          "value": "Fill",
-          "start_pos": 13
         },
         {
           "class": "Person",
@@ -5490,7 +6180,7 @@
         {
           "term1": {
             "class": "Application",
-            "value": "Dr",
+            "value": "Dr Fill",
             "start_pos": 10
           },
           "predicate": "isAppliedTo",
@@ -5503,7 +6193,7 @@
         {
           "term1": {
             "class": "Application",
-            "value": "Dr",
+            "value": "Dr Fill",
             "start_pos": 10
           },
           "predicate": "hasAuthor",
@@ -5511,6 +6201,19 @@
             "class": "Person",
             "value": "Мэтью Гинсбергом",
             "start_pos": 59
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Dr Fill",
+            "start_pos": 10
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Matthew Ginsberg",
+            "start_pos": 77
           }
         }
       ]
@@ -5600,19 +6303,6 @@
       "relations": [
         {
           "term1": {
-            "class": "Task",
-            "value": "обработки изображений",
-            "start_pos": 36
-          },
-          "predicate": "isSolvedIn",
-          "term2": {
-            "class": "Science",
-            "value": "автоматической обработки текстов",
-            "start_pos": 115
-          }
-        },
-        {
-          "term1": {
             "class": "Method",
             "value": "CNN",
             "start_pos": 0
@@ -5622,6 +6312,19 @@
             "class": "Task",
             "value": "обработки изображений",
             "start_pos": 36
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "CNN",
+            "start_pos": 0
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "автоматической обработки текстов",
+            "start_pos": 115
           }
         }
       ]
@@ -5636,7 +6339,7 @@
           "start_pos": 19
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "свёрточной нейронной сети",
           "start_pos": 81
         },
@@ -5663,6 +6366,19 @@
             "class": "Object",
             "value": "векторные представления слов",
             "start_pos": 120
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "бинарным анализом тональности русскоязычных текстов",
+            "start_pos": 19
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "свёрточной нейронной сети",
+            "start_pos": 81
           }
         }
       ]
@@ -5797,6 +6513,19 @@
             "value": "Института искусственного интеллекта",
             "start_pos": 96
           }
+        },
+        {
+          "term1": {
+            "class": "Activity",
+            "value": "RoboHow",
+            "start_pos": 187
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Бременском университете",
+            "start_pos": 136
+          }
         }
       ]
     },
@@ -5837,6 +6566,19 @@
             "class": "Organization",
             "value": "Института искусственного интеллекта",
             "start_pos": 12
+          }
+        },
+        {
+          "term1": {
+            "class": "Activity",
+            "value": "RoboHow",
+            "start_pos": 106
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Бременском университете",
+            "start_pos": 52
           }
         }
       ]
@@ -5879,6 +6621,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "PR2",
+            "start_pos": 42
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Бременском университете",
+            "start_pos": 12
+          }
+        },
         {
           "term1": {
             "class": "Application",
@@ -6302,6 +7057,19 @@
             "value": "перевода",
             "start_pos": 51
           }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "нейросеть",
+            "start_pos": 18
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русский",
+            "start_pos": 63
+          }
         }
       ]
     },
@@ -6571,6 +7339,19 @@
         },
         {
           "term1": {
+            "class": "Method",
+            "value": "генеративная нейронная сеть",
+            "start_pos": 4
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "NLP",
+            "start_pos": 99
+          }
+        },
+        {
+          "term1": {
             "class": "Task",
             "value": "NLP",
             "start_pos": 99
@@ -6665,7 +7446,21 @@
           "start_pos": 118
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "алгоритм упаковки",
+            "start_pos": 16
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-Large",
+            "start_pos": 118
+          }
+        }
+      ]
     },
     {
       "id": 187,
@@ -6800,6 +7595,19 @@
             "value": "Graphcore",
             "start_pos": 15
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "NNLSHP",
+            "start_pos": 134
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Graphcore",
+            "start_pos": 15
+          }
         }
       ]
     },
@@ -6847,6 +7655,19 @@
             "class": "Method",
             "value": "алгоритм гистограммной упаковки с использованием неотрицательных наименьших квадратов",
             "start_pos": 66
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Graphcore",
+            "start_pos": 28
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "NNLSHP",
+            "start_pos": 153
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -6997,27 +7818,17 @@
     },
     {
       "id": 195,
-      "text": "Компания объясняла, что ее технология не разбивает текст на отдельные слова, а рассматривает его целиком, чтобы лучше передать смысл.В июне Яндекс открыл доступ к нейросети «Балабоба» для всех пользователей.",
+      "text": "\"В июне Яндекс открыл доступ к нейросети «Балабоба» для всех пользователей.\"",
       "terms": [
-        {
-          "class": "Object",
-          "value": "текст",
-          "start_pos": 51
-        },
-        {
-          "class": "Object",
-          "value": "слова",
-          "start_pos": 70
-        },
         {
           "class": "Organization",
           "value": "Яндекс",
-          "start_pos": 140
+          "start_pos": 8
         },
         {
           "class": "Application",
           "value": "Балабоба",
-          "start_pos": 174
+          "start_pos": 42
         }
       ],
       "relations": [
@@ -7025,13 +7836,13 @@
           "term1": {
             "class": "Application",
             "value": "Балабоба",
-            "start_pos": 174
+            "start_pos": 42
           },
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
             "value": "Яндекс",
-            "start_pos": 140
+            "start_pos": 8
           }
         }
       ]
@@ -7055,14 +7866,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "YaLM",
-            "start_pos": 45
-          },
-          "predicate": "IsShortNameFor",
-          "term2": {
-            "class": "Model",
             "value": "Yet another Language Model",
             "start_pos": 51
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "YaLM",
+            "start_pos": 45
           }
         }
       ]
@@ -7086,14 +7897,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "YaLM",
-            "start_pos": 44
-          },
-          "predicate": "IsShortNameFor",
-          "term2": {
-            "class": "Model",
             "value": "Yet another Language Model",
             "start_pos": 50
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "YaLM",
+            "start_pos": 44
           }
         }
       ]
@@ -7681,7 +8492,21 @@
           "start_pos": 78
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "N-граммной статистики",
+            "start_pos": 78
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "модель",
+            "start_pos": 48
+          }
+        }
+      ]
     },
     {
       "id": 226,
@@ -8475,6 +9300,32 @@
             "value": "токенизатор",
             "start_pos": 30
           },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "идентифицировать",
+            "start_pos": 57
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Emphasis",
+            "start_pos": 12
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "идентифицировать",
+            "start_pos": 57
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "токенизатор",
+            "start_pos": 30
+          },
           "predicate": "isAppliedTo",
           "term2": {
             "class": "Object",
@@ -8682,8 +9533,8 @@
         },
         {
           "class": "Object",
-          "value": "выборка",
-          "start_pos": 91
+          "value": "обучающая выборка",
+          "start_pos": 81
         },
         {
           "class": "Object",
@@ -8699,6 +9550,32 @@
       "relations": [
         {
           "term1": {
+            "class": "Object",
+            "value": "обучающая выборка",
+            "start_pos": 81
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Object",
+            "value": "устойчивые группы",
+            "start_pos": 114
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "обучающая выборка",
+            "start_pos": 81
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Object",
+            "value": "кластеры",
+            "start_pos": 136
+          }
+        },
+        {
+          "term1": {
             "class": "Method",
             "value": "методом обучения без учителя",
             "start_pos": 9
@@ -8712,28 +9589,28 @@
         },
         {
           "term1": {
-            "class": "Object",
-            "value": "выборка",
-            "start_pos": 91
+            "class": "Method",
+            "value": "методом обучения без учителя",
+            "start_pos": 9
           },
-          "predicate": "includes",
+          "predicate": "isAppliedTo",
           "term2": {
             "class": "Object",
-            "value": "устойчивые группы",
-            "start_pos": 114
+            "value": "обучающая выборка",
+            "start_pos": 81
           }
         },
         {
           "term1": {
-            "class": "Object",
-            "value": "выборка",
-            "start_pos": 91
+            "class": "Method",
+            "value": "кластеризация",
+            "start_pos": 47
           },
-          "predicate": "includes",
+          "predicate": "isAppliedTo",
           "term2": {
             "class": "Object",
-            "value": "кластеры",
-            "start_pos": 136
+            "value": "обучающая выборка",
+            "start_pos": 81
           }
         }
       ]
@@ -8764,21 +9641,24 @@
         },
         {
           "class": "Task",
-          "value": "выявить",
+          "value": "выявить в неразмеченных текстах основные тематики",
           "start_pos": 116
-        },
-        {
-          "class": "Object",
-          "value": "неразмеченных текстах",
-          "start_pos": 126
-        },
-        {
-          "class": "Object",
-          "value": "основные тематики",
-          "start_pos": 148
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "текстов",
+            "start_pos": 39
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "выявить в неразмеченных текстах основные тематики",
+            "start_pos": 116
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -8808,13 +9688,65 @@
         {
           "term1": {
             "class": "Method",
+            "value": "topic modeling",
+            "start_pos": 87
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текстов",
+            "start_pos": 39
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "подход обучения без учителя",
+            "start_pos": 7
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текстов",
+            "start_pos": 39
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "тематическим моделированием",
             "start_pos": 58
           },
           "predicate": "solves",
           "term2": {
             "class": "Task",
-            "value": "выявить",
+            "value": "выявить в неразмеченных текстах основные тематики",
+            "start_pos": 116
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "подход обучения без учителя",
+            "start_pos": 7
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "выявить в неразмеченных текстах основные тематики",
+            "start_pos": 116
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "topic modeling",
+            "start_pos": 87
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "выявить в неразмеченных текстах основные тематики",
             "start_pos": 116
           }
         },
@@ -8829,6 +9761,32 @@
             "class": "Object",
             "value": "текстов",
             "start_pos": 39
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "подход обучения без учителя",
+            "start_pos": 7
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текстов",
+            "start_pos": 39
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "topic modeling",
+            "start_pos": 87
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Method",
+            "value": "тематическим моделированием",
+            "start_pos": 58
           }
         }
       ]
@@ -9558,6 +10516,19 @@
             "value": "Wikimedia Foundation",
             "start_pos": 60
           }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Objective Revision Evaluation Service",
+            "start_pos": 6
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Wikimedia Foundation",
+            "start_pos": 60
+          }
         }
       ]
     },
@@ -10168,7 +11139,21 @@
           "start_pos": 20
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "InstructGPT",
+            "start_pos": 20
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "GPT-3",
+            "start_pos": 13
+          }
+        }
+      ]
     },
     {
       "id": 302,
@@ -10180,14 +11165,19 @@
           "start_pos": 81
         },
         {
-          "class": "Metric",
+          "class": "Model",
           "value": "HFM",
           "start_pos": 120
         },
         {
-          "class": "Metric",
+          "class": "Model",
           "value": "Hierarchical Fusion Model",
           "start_pos": 125
+        },
+        {
+          "class": "Model",
+          "value": "нейросеть",
+          "start_pos": 190
         },
         {
           "class": "Value",
@@ -10205,7 +11195,7 @@
           "start_pos": 237
         },
         {
-          "class": "Metric",
+          "class": "Model",
           "value": "HFM",
           "start_pos": 243
         }
@@ -10227,8 +11217,8 @@
         {
           "term1": {
             "class": "Metric",
-            "value": "HFM",
-            "start_pos": 243
+            "value": "точности",
+            "start_pos": 213
           },
           "predicate": "hasValue",
           "term2": {
@@ -10239,13 +11229,13 @@
         },
         {
           "term1": {
-            "class": "Metric",
+            "class": "Model",
             "value": "Hierarchical Fusion Model",
             "start_pos": 125
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Metric",
+            "class": "Model",
             "value": "HFM",
             "start_pos": 120
           }
@@ -10877,6 +11867,19 @@
             "value": "Cohen's kappa coefficient",
             "start_pos": 71
           },
+          "predicate": "hasValue",
+          "term2": {
+            "class": "Value",
+            "value": "0.57",
+            "start_pos": 106
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "Cohen's kappa coefficient",
+            "start_pos": 71
+          },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Metric",
@@ -10937,6 +11940,32 @@
         {
           "term1": {
             "class": "Application",
+            "value": "корпоративную интеллектуальную информационно-поисковую систему",
+            "start_pos": 56
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "НПО Энергомаш",
+            "start_pos": 34
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "КИИПС",
+            "start_pos": 120
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "НПО Энергомаш",
+            "start_pos": 34
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
             "value": "КИИПС",
             "start_pos": 120
           },
@@ -10970,6 +11999,32 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "корпоративной интеллектуальной информационно-поисковой системы",
+            "start_pos": 93
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "НПО \"Энергомаш\"",
+            "start_pos": 49
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "КИИПС",
+            "start_pos": 157
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "НПО \"Энергомаш\"",
+            "start_pos": 49
+          }
+        },
         {
           "term1": {
             "class": "Application",
@@ -11359,24 +12414,77 @@
           "start_pos": 139
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruT5-large",
+            "start_pos": 54
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "TERRa",
+            "start_pos": 131
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruT5-large",
+            "start_pos": 54
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "DaNetQA",
+            "start_pos": 139
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruRoBERTa-large",
+            "start_pos": 107
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "TERRa",
+            "start_pos": 131
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruRoBERTa-large",
+            "start_pos": 107
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "DaNetQA",
+            "start_pos": 139
+          }
+        }
+      ]
     },
     {
       "id": 347,
       "text": "А на некоторых заданиях лучших результатов удалось достичь на few-shot, т. е. без дообучения модели (задача RCB и RuCoS, YaLM от Яндекса).",
       "terms": [
         {
-          "class": "Method",
+          "class": "Task",
           "value": "few-shot",
           "start_pos": 62
         },
         {
-          "class": "Model",
+          "class": "Task",
           "value": "RCB",
           "start_pos": 108
         },
         {
-          "class": "Model",
+          "class": "Dataset",
           "value": "RuCoS",
           "start_pos": 114
         },
@@ -11395,8 +12503,8 @@
         {
           "term1": {
             "class": "Model",
-            "value": "RCB",
-            "start_pos": 108
+            "value": "YaLM",
+            "start_pos": 121
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -11404,20 +12512,101 @@
             "value": "Яндекса",
             "start_pos": 129
           }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "RuCoS",
+            "start_pos": 114
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "few-shot",
+            "start_pos": 62
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "YaLM",
+            "start_pos": 121
+          },
+          "predicate": "isTrainedOn",
+          "term2": {
+            "class": "Dataset",
+            "value": "RuCoS",
+            "start_pos": 114
+          }
         }
       ]
     },
     {
       "id": 348,
-      "text": "Эти три модели из библиотеки Hugging Face — самые популярные на сегодняшний день.",
+      "text": "Модели ALBERT, RoBERTa и DistilBERT из библиотеки Hugging Face — самые популярные на сегодняшний день.",
       "terms": [
+        {
+          "class": "Model",
+          "value": "ALBERT",
+          "start_pos": 7
+        },
+        {
+          "class": "Model",
+          "value": "RoBERTa",
+          "start_pos": 15
+        },
+        {
+          "class": "Model",
+          "value": "DistilBERT",
+          "start_pos": 25
+        },
         {
           "class": "Library",
           "value": "Hugging Face",
-          "start_pos": 29
+          "start_pos": 50
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ALBERT",
+            "start_pos": 7
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 50
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RoBERTa",
+            "start_pos": 15
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 50
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "DistilBERT",
+            "start_pos": 25
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Hugging Face",
+            "start_pos": 50
+          }
+        }
+      ]
     },
     {
       "id": 349,
@@ -11765,14 +12954,14 @@
         {
           "term1": {
             "class": "Dataset",
-            "value": "Гансом",
-            "start_pos": 21
+            "value": "Heuristic Analysis for Natural-Language-Inference Systems",
+            "start_pos": 29
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Dataset",
-            "value": "Heuristic Analysis for Natural-Language-Inference Systems",
-            "start_pos": 29
+            "value": "Гансом",
+            "start_pos": 21
           }
         },
         {
@@ -11784,8 +12973,8 @@
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Dataset",
-            "value": "Heuristic Analysis for Natural-Language-Inference Systems",
-            "start_pos": 29
+            "value": "Гансом",
+            "start_pos": 21
           }
         }
       ]
@@ -12154,7 +13343,7 @@
       "text": "Примеры обучения LDA часто демонстрируются на \"образцовых\" датасетах, например \"20 newsgroups dataset\", который есть в sklearn.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LDA",
           "start_pos": 17
         },
@@ -12578,6 +13767,32 @@
         {
           "term1": {
             "class": "Metric",
+            "value": "MacroAVG F-меру",
+            "start_pos": 100
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
+            "value": "FriendBERT",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "MacroAVG F-меру",
+            "start_pos": 100
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
+            "value": "ChatBERT",
+            "start_pos": 38
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
             "value": "точность",
             "start_pos": 90
           },
@@ -12632,6 +13847,32 @@
             "class": "Metric",
             "value": "точность",
             "start_pos": 90
+          },
+          "predicate": "hasValue",
+          "term2": {
+            "class": "Value",
+            "value": "69,5%",
+            "start_pos": 142
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "MacroAVG F-меру",
+            "start_pos": 100
+          },
+          "predicate": "hasValue",
+          "term2": {
+            "class": "Value",
+            "value": "73%",
+            "start_pos": 125
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "MacroAVG F-меру",
+            "start_pos": 100
           },
           "predicate": "hasValue",
           "term2": {
@@ -13058,8 +14299,8 @@
         {
           "term1": {
             "class": "Application",
-            "value": "Visual Studio Code",
-            "start_pos": 69
+            "value": "IDE",
+            "start_pos": 119
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -13210,6 +14451,11 @@
           "class": "Library",
           "value": "russian_paraphrases",
           "start_pos": 138
+        },
+        {
+          "class": "Model",
+          "value": "мультитасковая модель",
+          "start_pos": 172
         }
       ],
       "relations": []
@@ -13363,7 +14609,7 @@
           "start_pos": 71
         },
         {
-          "class": "Dataset",
+          "class": "InfoResource",
           "value": "Kaggle",
           "start_pos": 104
         }
@@ -13552,8 +14798,34 @@
         {
           "term1": {
             "class": "Dataset",
+            "value": "датасет",
+            "start_pos": 30
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "распознавания эмоций",
+            "start_pos": 42
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
             "value": "Dusha",
             "start_pos": 0
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русском языке",
+            "start_pos": 80
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "датасет",
+            "start_pos": 30
           },
           "predicate": "Language",
           "term2": {
@@ -13606,8 +14878,34 @@
         {
           "term1": {
             "class": "Dataset",
+            "value": "набор данных",
+            "start_pos": 32
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "распознавания эмоций в речи",
+            "start_pos": 66
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
             "value": "Dusha",
             "start_pos": 0
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русском языке",
+            "start_pos": 48
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "набор данных",
+            "start_pos": 32
           },
           "predicate": "Language",
           "term2": {
@@ -13830,6 +15128,19 @@
             "class": "Application",
             "value": "Amazon Translate",
             "start_pos": 18
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "перевод",
+            "start_pos": 103
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Active Custom Translation",
+            "start_pos": 47
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -14741,13 +16052,8 @@
         },
         {
           "class": "Method",
-          "value": "логистическую",
+          "value": "логистическую регрессию",
           "start_pos": 104
-        },
-        {
-          "class": "Method",
-          "value": "регрессию",
-          "start_pos": 118
         },
         {
           "class": "Method",
@@ -14769,21 +16075,8 @@
         {
           "term1": {
             "class": "Method",
-            "value": "логистическую",
+            "value": "логистическую регрессию",
             "start_pos": 104
-          },
-          "predicate": "solves",
-          "term2": {
-            "class": "Task",
-            "value": "классификации",
-            "start_pos": 89
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "регрессию",
-            "start_pos": 118
           },
           "predicate": "solves",
           "term2": {
@@ -14810,6 +16103,19 @@
             "class": "Method",
             "value": "случайный лес",
             "start_pos": 134
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "классификации",
+            "start_pos": 89
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "бустинг",
+            "start_pos": 149
           },
           "predicate": "solves",
           "term2": {
@@ -15200,13 +16506,8 @@
         },
         {
           "class": "Organization",
-          "value": "AGI NLP",
+          "value": "AGI NLP Сбербанка",
           "start_pos": 35
-        },
-        {
-          "class": "Organization",
-          "value": "Сбербанка",
-          "start_pos": 43
         },
         {
           "class": "Organization",
@@ -15239,21 +16540,8 @@
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
-            "value": "AGI NLP",
+            "value": "AGI NLP Сбербанка",
             "start_pos": 35
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "SuperGLUE",
-            "start_pos": 224
-          },
-          "predicate": "hasAuthor",
-          "term2": {
-            "class": "Organization",
-            "value": "Сбербанка",
-            "start_pos": 43
           }
         },
         {
@@ -15272,14 +16560,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "Russian SuperGLUE",
-            "start_pos": 135
+            "value": "SuperGLUE",
+            "start_pos": 224
           },
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
-            "value": "AGI NLP",
-            "start_pos": 35
+            "value": "ВШЭ",
+            "start_pos": 115
           }
         },
         {
@@ -15291,8 +16579,8 @@
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
-            "value": "Сбербанка",
-            "start_pos": 43
+            "value": "AGI NLP Сбербанка",
+            "start_pos": 35
           }
         },
         {
@@ -15306,6 +16594,19 @@
             "class": "Organization",
             "value": "Noah’s Ark Huawei",
             "start_pos": 66
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Russian SuperGLUE",
+            "start_pos": 135
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "ВШЭ",
+            "start_pos": 115
           }
         },
         {
@@ -15395,9 +16696,27 @@
           "class": "Application",
           "value": "IDE",
           "start_pos": 55
+        },
+        {
+          "class": "Science",
+          "value": "машинного обучения",
+          "start_pos": 63
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Application",
+            "value": "SageMaker Studio",
+            "start_pos": 29
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного обучения",
+            "start_pos": 63
+          }
+        },
         {
           "term1": {
             "class": "Date",
@@ -15490,6 +16809,58 @@
             "class": "Application",
             "value": "ChatGPT",
             "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ChatGPT",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "написание кода",
+            "start_pos": 90
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ChatGPT",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "создание текстов",
+            "start_pos": 106
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ChatGPT",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "перевода",
+            "start_pos": 136
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ChatGPT",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "получения точных ответов",
+            "start_pos": 146
           }
         }
       ]
@@ -16480,6 +17851,19 @@
             "value": "транзакции",
             "start_pos": 241
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "метод генерации эмбеддингов транзакционных данных",
+            "start_pos": 135
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "кликстрим",
+            "start_pos": 254
+          }
         }
       ]
     },
@@ -16634,17 +18018,17 @@
       "text": "SequenceEncoder – рекурентно-нейронная сеть (RNN), совместно используемая для транзакций и кликов.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "SequenceEncoder",
           "start_pos": 0
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "рекурентно-нейронная сеть",
           "start_pos": 18
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "RNN",
           "start_pos": 45
         },
@@ -16662,41 +18046,41 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
-            "value": "SequenceEncoder",
-            "start_pos": 0
-          },
-          "predicate": "isAppliedTo",
-          "term2": {
-            "class": "Object",
-            "value": "транзакций",
-            "start_pos": 78
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "RNN",
             "start_pos": 45
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "рекурентно-нейронная сеть",
             "start_pos": 18
           }
         },
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "рекурентно-нейронная сеть",
             "start_pos": 18
           },
           "predicate": "includes",
           "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "SequenceEncoder",
             "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 45
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "рекурентно-нейронная сеть",
+            "start_pos": 18
           }
         }
       ]
@@ -16733,6 +18117,19 @@
             "class": "Value",
             "value": "0.2819",
             "start_pos": 108
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "R1",
+            "start_pos": 95
+          },
+          "predicate": "hasValue",
+          "term2": {
+            "class": "Value",
+            "value": "0.2949",
+            "start_pos": 118
           }
         }
       ]
@@ -16779,6 +18176,19 @@
         {
           "term1": {
             "class": "Model",
+            "value": "DABUS",
+            "start_pos": 99
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Stephen L. Thaler",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
             "value": "Device for the Autonomous Boot-strapping of Unified Sentience",
             "start_pos": 106
           },
@@ -16795,11 +18205,24 @@
             "value": "DABUS",
             "start_pos": 99
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "hasAuthor",
           "term2": {
+            "class": "Organization",
+            "value": "Imagination Engines",
+            "start_pos": 20
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "Device for the Autonomous Boot-strapping of Unified Sentience",
             "start_pos": 106
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "DABUS",
+            "start_pos": 99
           }
         }
       ]
@@ -16846,6 +18269,19 @@
         {
           "term1": {
             "class": "Model",
+            "value": "DABUS",
+            "start_pos": 99
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Стивен Л. Тейлер",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
             "value": "Device for the Autonomous Boot-strapping of Unified Sentience",
             "start_pos": 106
           },
@@ -16862,11 +18298,24 @@
             "value": "DABUS",
             "start_pos": 99
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "hasAuthor",
           "term2": {
+            "class": "Organization",
+            "value": "Imagination Engines",
+            "start_pos": 38
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "Device for the Autonomous Boot-strapping of Unified Sentience",
             "start_pos": 106
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "DABUS",
+            "start_pos": 99
           }
         }
       ]
@@ -17154,6 +18603,19 @@
             "value": "задачу",
             "start_pos": 7
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "ГА",
+            "start_pos": 97
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "задачу",
+            "start_pos": 7
+          }
         }
       ]
     },
@@ -17201,14 +18663,27 @@
         {
           "term1": {
             "class": "Method",
-            "value": "NEAT",
-            "start_pos": 27
+            "value": "NeuroEvolution of Augmenting Topologies",
+            "start_pos": 33
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Method",
-            "value": "NeuroEvolution of Augmenting Topologies",
-            "start_pos": 33
+            "value": "NEAT",
+            "start_pos": 27
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "NEAT",
+            "start_pos": 313
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Application",
+            "value": "фреймворк",
+            "start_pos": 290
           }
         },
         {
@@ -17241,13 +18716,26 @@
           "term1": {
             "class": "Method",
             "value": "NEAT",
-            "start_pos": 313
+            "start_pos": 27
           },
-          "predicate": "isUsedIn",
+          "predicate": "hasAuthor",
           "term2": {
-            "class": "Application",
-            "value": "фреймворк",
-            "start_pos": 290
+            "class": "Person",
+            "value": "Кеннетом Стенли",
+            "start_pos": 88
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "NEAT",
+            "start_pos": 27
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Ристо Мииккулайненом",
+            "start_pos": 106
           }
         }
       ]
@@ -17289,6 +18777,32 @@
             "class": "Method",
             "value": "морфологической разметке",
             "start_pos": 11
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "морфологической разметке",
+            "start_pos": 11
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текстов",
+            "start_pos": 73
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "part of speech tagging",
+            "start_pos": 37
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текстов",
+            "start_pos": 73
           }
         }
       ]
@@ -17540,7 +19054,7 @@
             "value": "GAN",
             "start_pos": 101
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Model",
             "value": "генеративную состязательную сеть",
@@ -17669,13 +19183,8 @@
         },
         {
           "class": "Task",
-          "value": "улучшения",
+          "value": "улучшения данных",
           "start_pos": 107
-        },
-        {
-          "class": "Object",
-          "value": "данных",
-          "start_pos": 117
         }
       ],
       "relations": [
@@ -17694,15 +19203,15 @@
         },
         {
           "term1": {
-            "class": "Object",
-            "value": "данных",
-            "start_pos": 117
+            "class": "Method",
+            "value": "методе Propensity Score Adjustment",
+            "start_pos": 29
           },
-          "predicate": "isUsedInSolving",
+          "predicate": "solves",
           "term2": {
             "class": "Task",
-            "value": "коррекции смещений",
-            "start_pos": 86
+            "value": "улучшения данных",
+            "start_pos": 107
           }
         }
       ]
@@ -17785,6 +19294,19 @@
         {
           "term1": {
             "class": "Method",
+            "value": "Weighting",
+            "start_pos": 13
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "коррекции",
+            "start_pos": 49
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "Взвешивание",
             "start_pos": 0
           },
@@ -17804,8 +19326,34 @@
           "predicate": "includes",
           "term2": {
             "class": "Object",
+            "value": "социально-демографическим атрибутам",
+            "start_pos": 90
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
             "value": "перекосов выборок",
             "start_pos": 69
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "коррекции",
+            "start_pos": 49
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "социально-демографическим атрибутам",
+            "start_pos": 90
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "коррекции",
+            "start_pos": 49
           }
         }
       ]
@@ -17857,6 +19405,19 @@
         {
           "term1": {
             "class": "Method",
+            "value": "random forest",
+            "start_pos": 129
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "корректировки",
+            "start_pos": 76
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "случайных лесов",
             "start_pos": 112
           },
@@ -17865,6 +19426,32 @@
             "class": "Object",
             "value": "онлайн-опросов",
             "start_pos": 90
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "random forest",
+            "start_pos": 129
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "онлайн-опросов",
+            "start_pos": 90
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "онлайн-опросов",
+            "start_pos": 90
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "корректировки",
+            "start_pos": 76
           }
         }
       ]
@@ -17915,6 +19502,19 @@
             "value": "онлайн-панелей",
             "start_pos": 190
           }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "онлайн-панелей",
+            "start_pos": 190
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "коррекции",
+            "start_pos": 180
+          }
         }
       ]
     },
@@ -17951,11 +19551,11 @@
       "relations": [
         {
           "term1": {
-            "class": "Organization",
-            "value": "French National Center for Scientific Research",
-            "start_pos": 100
+            "class": "Model",
+            "value": "BLOOM",
+            "start_pos": 210
           },
-          "predicate": "isAlternativeNameFor",
+          "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
             "value": "Французского национального центра научных исследований",
@@ -17981,7 +19581,46 @@
             "value": "BLOOM",
             "start_pos": 210
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "French National Center for Scientific Research",
+            "start_pos": 100
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BigScience Large Open-science Open-access Multilingual Language Model",
+            "start_pos": 238
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "French National Center for Scientific Research",
+            "start_pos": 100
+          }
+        },
+        {
+          "term1": {
+            "class": "Organization",
+            "value": "French National Center for Scientific Research",
+            "start_pos": 100
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Organization",
+            "value": "Французского национального центра научных исследований",
+            "start_pos": 44
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BLOOM",
+            "start_pos": 210
+          },
+          "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Model",
             "value": "BigScience Large Open-science Open-access Multilingual Language Model",
@@ -18036,6 +19675,19 @@
             "value": "Французского национального центра научных исследований",
             "start_pos": 18
           }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BLOOM",
+            "start_pos": 147
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "French National Center for Scientific Research",
+            "start_pos": 74
+          }
         }
       ]
     },
@@ -18085,6 +19737,19 @@
             "value": "Французского национального центра научных исследований",
             "start_pos": 63
           }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BLOOM",
+            "start_pos": 25
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "French National Center for Scientific Research",
+            "start_pos": 119
+          }
         }
       ]
     },
@@ -18107,14 +19772,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "LLM",
-            "start_pos": 28
-          },
-          "predicate": "IsShortNameFor",
-          "term2": {
-            "class": "Model",
             "value": "Large Language Models",
             "start_pos": 33
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 28
           }
         }
       ]
@@ -18766,6 +20431,19 @@
             "value": "Алан Тьюринг",
             "start_pos": 17
           }
+        },
+        {
+          "term1": {
+            "class": "Date",
+            "value": "1950",
+            "start_pos": 32
+          },
+          "predicate": "isDateOf",
+          "term2": {
+            "class": "Method",
+            "value": "тест",
+            "start_pos": 129
+          }
         }
       ]
     },
@@ -19069,6 +20747,19 @@
             "value": "поиска",
             "start_pos": 72
           }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Интернете",
+            "start_pos": 81
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "поиска",
+            "start_pos": 72
+          }
         }
       ]
     },
@@ -19087,7 +20778,21 @@
           "start_pos": 31
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "краудсорсинге",
+            "start_pos": 31
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "модели",
+            "start_pos": 9
+          }
+        }
+      ]
     },
     {
       "id": 589,
@@ -19148,19 +20853,9 @@
           "start_pos": 13
         },
         {
-          "class": "Method",
-          "value": "генерация",
+          "class": "Task",
+          "value": "генерация автоматической аннотации и автоматического summary",
           "start_pos": 53
-        },
-        {
-          "class": "Object",
-          "value": "автоматической аннотации",
-          "start_pos": 63
-        },
-        {
-          "class": "Object",
-          "value": "автоматического summary",
-          "start_pos": 90
         },
         {
           "class": "Task",
@@ -19180,11 +20875,37 @@
             "value": "семантический анализ",
             "start_pos": 13
           },
-          "predicate": "isAppliedTo",
+          "predicate": "solves",
           "term2": {
-            "class": "Object",
-            "value": "автоматической аннотации",
-            "start_pos": 63
+            "class": "Task",
+            "value": "генерация автоматической аннотации и автоматического summary",
+            "start_pos": 53
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "семантический анализ",
+            "start_pos": 13
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "перевод",
+            "start_pos": 115
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "семантический анализ",
+            "start_pos": 13
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "создание документов",
+            "start_pos": 125
           }
         }
       ]
@@ -19768,6 +21489,45 @@
             "value": "skip-gramm",
             "start_pos": 139
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "методы построения",
+            "start_pos": 42
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "векторных представлений слов",
+            "start_pos": 61
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "word2vec",
+            "start_pos": 113
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "векторных представлений слов",
+            "start_pos": 61
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "skip-gramm",
+            "start_pos": 139
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "векторных представлений слов",
+            "start_pos": 61
+          }
         }
       ]
     },
@@ -20066,7 +21826,7 @@
           "start_pos": 42
         },
         {
-          "class": "Activity",
+          "class": "Task",
           "value": "генерировать тексты",
           "start_pos": 59
         }
@@ -20083,6 +21843,19 @@
             "class": "Organization",
             "value": "Сбер",
             "start_pos": 1
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "mGPT",
+            "start_pos": 18
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "GPT-3",
+            "start_pos": 42
           }
         }
       ]
@@ -20228,6 +22001,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Task",
+            "value": "генерации текста",
+            "start_pos": 70
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "обработки естественного языка",
+            "start_pos": 132
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "mGPT",
             "start_pos": 29
@@ -20250,6 +22036,19 @@
             "class": "Organization",
             "value": "Сбер",
             "start_pos": 1
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "ансамблей моделей",
+            "start_pos": 227
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "обработки естественного языка",
+            "start_pos": 132
           }
         }
       ]
@@ -20309,6 +22108,19 @@
             "class": "Task",
             "value": "zero-shot learning",
             "start_pos": 101
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "mGPT",
+            "start_pos": 34
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "few-shot",
+            "start_pos": 90
           }
         },
         {
@@ -21636,6 +23448,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Application",
+            "value": "Салют",
+            "start_pos": 134
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Сбер",
+            "start_pos": 13
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "версию нейросети GPT-3",
             "start_pos": 44
@@ -21770,6 +23595,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Date",
+            "value": "ноябре 2021 года",
+            "start_pos": 2
+          },
+          "predicate": "isDateOf",
+          "term2": {
+            "class": "Method",
+            "value": "JARVIS",
+            "start_pos": 97
+          }
+        },
+        {
+          "term1": {
             "class": "Method",
             "value": "JARVIS",
             "start_pos": 97
@@ -21835,6 +23673,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Date",
+            "value": "ноябре 2021 года",
+            "start_pos": 2
+          },
+          "predicate": "isDateOf",
+          "term2": {
+            "class": "Method",
+            "value": "JARVIS",
+            "start_pos": 143
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -22059,7 +23910,7 @@
           "start_pos": 9
         },
         {
-          "class": "Task",
+          "class": "Science",
           "value": "информационном поиске",
           "start_pos": 83
         }
@@ -22067,15 +23918,15 @@
       "relations": [
         {
           "term1": {
-            "class": "Task",
-            "value": "информационном поиске",
-            "start_pos": 83
-          },
-          "predicate": "isSolvedIn",
-          "term2": {
             "class": "Science",
             "value": "NLP",
             "start_pos": 9
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Science",
+            "value": "информационном поиске",
+            "start_pos": 83
           }
         }
       ]
@@ -22396,6 +24247,19 @@
             "value": "Machine Learning",
             "start_pos": 49
           }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "многоклассовая классификация",
+            "start_pos": 74
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "ML",
+            "start_pos": 67
+          }
         }
       ]
     },
@@ -22445,6 +24309,19 @@
             "value": "Machine Learning",
             "start_pos": 20
           }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "многоклассовая классификация",
+            "start_pos": 52
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "ML",
+            "start_pos": 38
+          }
         }
       ]
     },
@@ -22493,6 +24370,19 @@
             "class": "Science",
             "value": "Machine Learning",
             "start_pos": 52
+          }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "Многоклассовая классификация",
+            "start_pos": 0
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "ML",
+            "start_pos": 70
           }
         }
       ]
@@ -22670,6 +24560,19 @@
             "class": "Application",
             "value": "библиотеки регулярных выражений",
             "start_pos": 47
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Яндекса",
+            "start_pos": 37
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Remorph",
+            "start_pos": 93
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -22928,6 +24831,19 @@
             "class": "Model",
             "value": "BERT",
             "start_pos": 143
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "распознаванием смысла и контекста",
+            "start_pos": 107
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "Bidirectional Encoder Representations from Transformers",
+            "start_pos": 149
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -23405,19 +25321,6 @@
             "value": "регулярные выражения",
             "start_pos": 62
           },
-          "predicate": "isAppliedTo",
-          "term2": {
-            "class": "Object",
-            "value": "MVP",
-            "start_pos": 20
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "регулярные выражения",
-            "start_pos": 62
-          },
           "predicate": "solves",
           "term2": {
             "class": "Task",
@@ -23448,6 +25351,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "точность",
+            "start_pos": 72
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
+            "value": "модели",
+            "start_pos": 24
+          }
+        },
         {
           "term1": {
             "class": "Metric",
@@ -23864,6 +25780,19 @@
             "value": "точность",
             "start_pos": 7
           },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Task",
+            "value": "выделения жестов",
+            "start_pos": 16
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "точность",
+            "start_pos": 7
+          },
           "predicate": "hasValue",
           "term2": {
             "class": "Value",
@@ -24211,6 +26140,19 @@
             "class": "Organization",
             "value": "Mediapipe",
             "start_pos": 112
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "алгоритма для качественного удаления",
+            "start_pos": 46
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "фона",
+            "start_pos": 83
           }
         }
       ]
@@ -24985,9 +26927,22 @@
         },
         {
           "term1": {
+            "class": "Date",
+            "value": "1966 году",
+            "start_pos": 85
+          },
+          "predicate": "isDateOf",
+          "term2": {
             "class": "Application",
-            "value": "виртуальный собеседник",
-            "start_pos": 42
+            "value": "ELIZA",
+            "start_pos": 65
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ELIZA",
+            "start_pos": 65
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -25180,8 +27135,47 @@
         {
           "term1": {
             "class": "Method",
-            "value": "разметки",
-            "start_pos": 119
+            "value": "AIML",
+            "start_pos": 130
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Application",
+            "value": "A.L.I.C.E.",
+            "start_pos": 53
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Artificial Intelligence Markup Language",
+            "start_pos": 142
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Application",
+            "value": "A.L.I.C.E.",
+            "start_pos": 53
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "AIML",
+            "start_pos": 130
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Ричард Уоллес",
+            "start_pos": 77
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Artificial Intelligence Markup Language",
+            "start_pos": 142
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -25206,14 +27200,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "AIML",
-            "start_pos": 130
+            "value": "Artificial Intelligence Markup Language",
+            "start_pos": 142
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Method",
-            "value": "Artificial Intelligence Markup Language",
-            "start_pos": 142
+            "value": "AIML",
+            "start_pos": 130
           }
         }
       ]
@@ -25256,6 +27250,19 @@
             "value": "Марк-1",
             "start_pos": 97
           }
+        },
+        {
+          "term1": {
+            "class": "Date",
+            "value": "1958 году",
+            "start_pos": 123
+          },
+          "predicate": "isDateOf",
+          "term2": {
+            "class": "Application",
+            "value": "нейрокомпьютер",
+            "start_pos": 81
+          }
         }
       ]
     },
@@ -25295,9 +27302,22 @@
         },
         {
           "term1": {
+            "class": "Date",
+            "value": "1970 г.",
+            "start_pos": 0
+          },
+          "predicate": "isDateOf",
+          "term2": {
             "class": "Method",
-            "value": "Машинный перевод на основе правил",
-            "start_pos": 8
+            "value": ". RBMT",
+            "start_pos": 47
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": ". RBMT",
+            "start_pos": 47
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
@@ -25344,9 +27364,22 @@
         },
         {
           "term1": {
+            "class": "Date",
+            "value": "1984 г.",
+            "start_pos": 0
+          },
+          "predicate": "isDateOf",
+          "term2": {
             "class": "Method",
-            "value": "Машинный перевод на основе примеров",
-            "start_pos": 8
+            "value": "EBMT",
+            "start_pos": 51
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "EBMT",
+            "start_pos": 51
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
@@ -25398,15 +27431,54 @@
         },
         {
           "term1": {
+            "class": "Date",
+            "value": "1990 г.",
+            "start_pos": 0
+          },
+          "predicate": "isDateOf",
+          "term2": {
             "class": "Method",
-            "value": "Статистический машинный перевод",
-            "start_pos": 8
+            "value": "SMT",
+            "start_pos": 47
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "SMT",
+            "start_pos": 47
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Method",
             "value": "Статистический машинный перевод",
             "start_pos": 8
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Статистический машинный перевод",
+            "start_pos": 8
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "языковые корпуса",
+            "start_pos": 119
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "SMT",
+            "start_pos": 47
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "языковые корпуса",
+            "start_pos": 119
           }
         }
       ]
@@ -25581,14 +27653,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "LSTM",
-            "start_pos": 25
+            "value": "Long short-term memory",
+            "start_pos": 37
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Method",
-            "value": "Long short-term memory",
-            "start_pos": 37
+            "value": "LSTM",
+            "start_pos": 25
           }
         }
       ]
@@ -25892,6 +27964,19 @@
         },
         {
           "term1": {
+            "class": "Model",
+            "value": "#DeepPavlov",
+            "start_pos": 8
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "МФТИ",
+            "start_pos": 92
+          }
+        },
+        {
+          "term1": {
             "class": "Date",
             "value": "2019",
             "start_pos": 22
@@ -25948,6 +28033,19 @@
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
+            "value": "МФТИ",
+            "start_pos": 90
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "DeepPavlov",
+            "start_pos": 7
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
             "value": "Московского физико-технического института",
             "start_pos": 47
           }
@@ -25986,6 +28084,19 @@
             "class": "Organization",
             "value": "Московского физико-технического института",
             "start_pos": 26
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "DeepPavlov",
+            "start_pos": 94
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "МФТИ",
+            "start_pos": 69
           }
         },
         {
@@ -26055,13 +28166,8 @@
         },
         {
           "class": "Task",
-          "value": "классификация",
+          "value": "классификация текста",
           "start_pos": 38
-        },
-        {
-          "class": "Object",
-          "value": "текста",
-          "start_pos": 52
         },
         {
           "class": "Task",
@@ -26082,19 +28188,6 @@
       "relations": [
         {
           "term1": {
-            "class": "Object",
-            "value": "текста",
-            "start_pos": 52
-          },
-          "predicate": "isUsedInSolving",
-          "term2": {
-            "class": "Task",
-            "value": "классификация",
-            "start_pos": 38
-          }
-        },
-        {
-          "term1": {
             "class": "Model",
             "value": "DeepPavlov",
             "start_pos": 0
@@ -26102,7 +28195,7 @@
           "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
-            "value": "классификация",
+            "value": "классификация текста",
             "start_pos": 38
           }
         },
@@ -26330,16 +28423,11 @@
       "terms": [
         {
           "class": "Task",
-          "value": "классификации",
+          "value": "классификации текста",
           "start_pos": 23
         },
         {
-          "class": "Object",
-          "value": "текста",
-          "start_pos": 37
-        },
-        {
-          "class": "Model",
+          "class": "Library",
           "value": "DeepPavlov",
           "start_pos": 44
         },
@@ -26362,6 +28450,32 @@
       "relations": [
         {
           "term1": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 81
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "классификации текста",
+            "start_pos": 23
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 81
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "DeepPavlov",
+            "start_pos": 44
+          }
+        },
+        {
+          "term1": {
             "class": "Task",
             "value": "NER",
             "start_pos": 127
@@ -26376,8 +28490,8 @@
         {
           "term1": {
             "class": "Model",
-            "value": "DeepPavlov",
-            "start_pos": 44
+            "value": "BERT",
+            "start_pos": 81
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -26389,26 +28503,13 @@
         {
           "term1": {
             "class": "Model",
-            "value": "DeepPavlov",
-            "start_pos": 44
+            "value": "BERT",
+            "start_pos": 81
           },
           "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
-            "value": "классификации",
-            "start_pos": 23
-          }
-        },
-        {
-          "term1": {
-            "class": "Object",
-            "value": "текста",
-            "start_pos": 37
-          },
-          "predicate": "isUsedInSolving",
-          "term2": {
-            "class": "Task",
-            "value": "классификации",
+            "value": "классификации текста",
             "start_pos": 23
           }
         }
@@ -26729,6 +28830,32 @@
             "value": "DeepPavlov Agent 1.0",
             "start_pos": 63
           }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "DeepPavlov Agent 1.0",
+            "start_pos": 63
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "создания многозадачных чат-ботов",
+            "start_pos": 100
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "DeepPavlov Agent 1.0",
+            "start_pos": 63
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "задачи",
+            "start_pos": 17
+          }
         }
       ]
     },
@@ -26754,7 +28881,7 @@
           "start_pos": 40
         },
         {
-          "class": "Organization",
+          "class": "Library",
           "value": "DeepPavlov",
           "start_pos": 56
         },
@@ -26802,9 +28929,9 @@
             "value": "NLP моделями",
             "start_pos": 40
           },
-          "predicate": "hasAuthor",
+          "predicate": "isIncludedIn",
           "term2": {
-            "class": "Organization",
+            "class": "Library",
             "value": "DeepPavlov",
             "start_pos": 56
           }
@@ -26831,7 +28958,7 @@
           "start_pos": 102
         },
         {
-          "class": "Organization",
+          "class": "Library",
           "value": "DeepPavlov",
           "start_pos": 118
         }
@@ -26869,9 +28996,9 @@
             "value": "моделями NLP",
             "start_pos": 102
           },
-          "predicate": "hasAuthor",
+          "predicate": "isIncludedIn",
           "term2": {
-            "class": "Organization",
+            "class": "Library",
             "value": "DeepPavlov",
             "start_pos": 118
           }
@@ -26951,21 +29078,21 @@
         {
           "term1": {
             "class": "Task",
-            "value": "Оценка состояния диалога",
-            "start_pos": 0
+            "value": "DST",
+            "start_pos": 26
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Task",
-            "value": "DST",
-            "start_pos": 26
+            "value": "Оценка состояния диалога",
+            "start_pos": 0
           }
         },
         {
           "term1": {
             "class": "Task",
-            "value": "Оценка состояния диалога",
-            "start_pos": 0
+            "value": "Dialogue State Traking",
+            "start_pos": 32
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
@@ -27052,11 +29179,24 @@
             "value": "GOLOMB",
             "start_pos": 55
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "isUsedForSolving",
           "term2": {
+            "class": "Task",
+            "value": "отслеживания состояния диалога",
+            "start_pos": 184
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "GOaL-Oriented Multi-task BERT-based dialogue state tracker",
             "start_pos": 63
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "GOLOMB",
+            "start_pos": 55
           }
         }
       ]
@@ -27103,14 +29243,27 @@
         {
           "term1": {
             "class": "Model",
-            "value": "BERT",
-            "start_pos": 135
+            "value": "GOaL-Oriented Multi-task BERT-based dialogue state tracker",
+            "start_pos": 159
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "isUsedForSolving",
           "term2": {
+            "class": "Task",
+            "value": "отслеживания состояния диалога",
+            "start_pos": 87
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "GOLOMB",
             "start_pos": 151
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 135
           }
         }
       ]
@@ -27273,6 +29426,32 @@
         },
         {
           "term1": {
+            "class": "Task",
+            "value": "Задача распознавания текста",
+            "start_pos": 0
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "NLP",
+            "start_pos": 80
+          }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "Задача распознавания текста",
+            "start_pos": 0
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "natural language processing",
+            "start_pos": 85
+          }
+        },
+        {
+          "term1": {
             "class": "Science",
             "value": "natural language processing",
             "start_pos": 85
@@ -27293,8 +29472,8 @@
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Science",
-            "value": "natural language processing",
-            "start_pos": 85
+            "value": "обработки естественного языка",
+            "start_pos": 46
           }
         }
       ]
@@ -27340,6 +29519,32 @@
         },
         {
           "term1": {
+            "class": "Task",
+            "value": "Распознавание текста",
+            "start_pos": 0
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "NLP",
+            "start_pos": 73
+          }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "Распознавание текста",
+            "start_pos": 0
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "Natural Language Processing",
+            "start_pos": 78
+          }
+        },
+        {
+          "term1": {
             "class": "Science",
             "value": "Natural Language Processing",
             "start_pos": 78
@@ -27360,8 +29565,8 @@
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Science",
-            "value": "Natural Language Processing",
-            "start_pos": 78
+            "value": "область обработки естественного языка",
+            "start_pos": 30
           }
         }
       ]
@@ -27398,6 +29603,19 @@
             "class": "Science",
             "value": "NLP",
             "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "анализ данных",
+            "start_pos": 71
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "искусственного интеллекта",
+            "start_pos": 18
           }
         }
       ]
@@ -27568,6 +29786,19 @@
             "class": "Method",
             "value": "LSTM",
             "start_pos": 91
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "точности",
+            "start_pos": 33
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Method",
+            "value": "сети с долгой краткосрочной памятью",
+            "start_pos": 97
           }
         },
         {
@@ -27764,21 +29995,7 @@
           "start_pos": 35
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Method",
-            "value": "RNN",
-            "start_pos": 13
-          },
-          "predicate": "solves",
-          "term2": {
-            "class": "Task",
-            "value": "захвате долгосрочных зависимостей",
-            "start_pos": 35
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 796,
@@ -27904,6 +30121,19 @@
             "value": "генерации текстов",
             "start_pos": 36
           }
+        },
+        {
+          "term1": {
+            "class": "Task",
+            "value": "генерации текстов",
+            "start_pos": 36
+          },
+          "predicate": "isSolvedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинном переводе",
+            "start_pos": 8
+          }
         }
       ]
     },
@@ -27989,11 +30219,24 @@
             "value": "BERT",
             "start_pos": 0
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "hasAuthor",
           "term2": {
+            "class": "Organization",
+            "value": "Google",
+            "start_pos": 104
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "Bidirectional Encoder Representations from Transformers",
             "start_pos": 10
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 0
           }
         }
       ]
@@ -28038,11 +30281,24 @@
             "value": "BERT",
             "start_pos": 0
           },
-          "predicate": "IsShortNameFor",
+          "predicate": "hasAuthor",
           "term2": {
+            "class": "Organization",
+            "value": "Google",
+            "start_pos": 131
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "Bidirectional Encoder Representations from Transformers",
             "start_pos": 20
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 0
           }
         }
       ]
@@ -28211,13 +30467,8 @@
         },
         {
           "class": "Organization",
-          "value": "UW",
+          "value": "UW CSE",
           "start_pos": 267
-        },
-        {
-          "class": "Organization",
-          "value": "CSE",
-          "start_pos": 270
         },
         {
           "class": "Model",
@@ -28271,6 +30522,45 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ELMo",
+            "start_pos": 221
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Person",
+            "value": "Matthew Peters",
+            "start_pos": 227
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "OpenAI Transformer",
+            "start_pos": 318
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "OpenAI Radford",
+            "start_pos": 352
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Semi-supervised Sequence learning",
+            "start_pos": 163
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "NLP",
+            "start_pos": 129
+          }
+        },
         {
           "term1": {
             "class": "Model",
@@ -28332,7 +30622,7 @@
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
-            "value": "UW",
+            "value": "UW CSE",
             "start_pos": 267
           }
         },
@@ -28383,6 +30673,19 @@
           },
           "predicate": "hasAuthor",
           "term2": {
+            "class": "Organization",
+            "value": "UW CSE",
+            "start_pos": 267
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ELMo",
+            "start_pos": 221
+          },
+          "predicate": "hasAuthor",
+          "term2": {
             "class": "Person",
             "value": "Matthew Peters",
             "start_pos": 227
@@ -28391,8 +30694,8 @@
         {
           "term1": {
             "class": "Method",
-            "value": "трансферное обучение",
-            "start_pos": 140
+            "value": "Semi-supervised Sequence learning",
+            "start_pos": 163
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -28404,8 +30707,8 @@
         {
           "term1": {
             "class": "Method",
-            "value": "трансферное обучение",
-            "start_pos": 140
+            "value": "Semi-supervised Sequence learning",
+            "start_pos": 163
           },
           "predicate": "hasAuthor",
           "term2": {
@@ -28624,14 +30927,14 @@
         {
           "term1": {
             "class": "Task",
-            "value": "NER",
-            "start_pos": 177
+            "value": "Named Entity Recognition",
+            "start_pos": 183
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Task",
-            "value": "Named Entity Recognition",
-            "start_pos": 183
+            "value": "NER",
+            "start_pos": 177
           }
         }
       ]
@@ -28655,14 +30958,14 @@
         {
           "term1": {
             "class": "Science",
-            "value": "NLP",
-            "start_pos": 65
+            "value": "Natural Language Processing",
+            "start_pos": 70
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Science",
-            "value": "Natural Language Processing",
-            "start_pos": 70
+            "value": "NLP",
+            "start_pos": 65
           }
         }
       ]
@@ -28691,27 +30994,27 @@
         {
           "term1": {
             "class": "Science",
-            "value": "области обработки естественного языка",
-            "start_pos": 42
+            "value": "Natural Language Processing",
+            "start_pos": 81
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Science",
-            "value": "Natural Language Processing",
-            "start_pos": 81
+            "value": "области обработки естественного языка",
+            "start_pos": 42
           }
         },
         {
           "term1": {
             "class": "Science",
-            "value": "области обработки естественного языка",
-            "start_pos": 42
+            "value": "NLP",
+            "start_pos": 110
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Science",
-            "value": "NLP",
-            "start_pos": 110
+            "value": "области обработки естественного языка",
+            "start_pos": 42
           }
         }
       ]
@@ -28786,11 +31089,6 @@
           "class": "Metric",
           "value": "метрика",
           "start_pos": 40
-        },
-        {
-          "class": "Metric",
-          "value": "весом",
-          "start_pos": 79
         },
         {
           "class": "Value",
@@ -28878,7 +31176,7 @@
           "start_pos": 9
         },
         {
-          "class": "Method",
+          "class": "Metric",
           "value": "logloss",
           "start_pos": 37
         },
@@ -28892,8 +31190,8 @@
         {
           "term1": {
             "class": "Metric",
-            "value": "sklearn.metrics.log_loss",
-            "start_pos": 87
+            "value": "logloss",
+            "start_pos": 37
           },
           "predicate": "isUsedIn",
           "term2": {
@@ -28904,11 +31202,11 @@
         },
         {
           "term1": {
-            "class": "Method",
-            "value": "logloss",
-            "start_pos": 37
+            "class": "Metric",
+            "value": "sklearn.metrics.log_loss",
+            "start_pos": 87
           },
-          "predicate": "solves",
+          "predicate": "isUsedIn",
           "term2": {
             "class": "Task",
             "value": "классификации",
@@ -28950,38 +31248,59 @@
           "class": "Object",
           "value": "слова",
           "start_pos": 223
-        },
-        {
-          "class": "Method",
-          "value": "разметкой",
-          "start_pos": 291
         }
       ],
       "relations": [
         {
           "term1": {
             "class": "Object",
-            "value": "токены",
-            "start_pos": 205
+            "value": "текста",
+            "start_pos": 94
           },
-          "predicate": "includes",
+          "predicate": "isUsedInSolving",
           "term2": {
-            "class": "Object",
-            "value": "слова",
-            "start_pos": 223
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 9
           }
         },
         {
           "term1": {
             "class": "Object",
-            "value": "текста",
-            "start_pos": 94
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "индексы",
             "start_pos": 123
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 9
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "токены",
+            "start_pos": 205
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 9
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "слова",
+            "start_pos": 223
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 9
           }
         },
         {
@@ -29033,26 +31352,12 @@
           "start_pos": 12
         },
         {
-          "class": "Science",
-          "value": "Data Science",
+          "class": "Activity",
+          "value": "Data Science чемпионата",
           "start_pos": 79
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Task",
-            "value": "задачи распознавания симптомов",
-            "start_pos": 12
-          },
-          "predicate": "isSolvedIn",
-          "term2": {
-            "class": "Science",
-            "value": "Data Science",
-            "start_pos": 79
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 826,
@@ -29197,7 +31502,21 @@
           "start_pos": 109
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-base-paraphraser",
+            "start_pos": 72
+          },
+          "predicate": "isIncludedIn",
+          "term2": {
+            "class": "Library",
+            "value": "huggingface",
+            "start_pos": 109
+          }
+        }
+      ]
     },
     {
       "id": 831,
@@ -29343,6 +31662,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "RuDReC",
+            "start_pos": 106
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русском языке",
+            "start_pos": 154
+          }
+        },
         {
           "term1": {
             "class": "Model",
@@ -29980,14 +32312,14 @@
         {
           "term1": {
             "class": "Library",
-            "value": "Synthetic Data Vault",
-            "start_pos": 0
+            "value": "SDV",
+            "start_pos": 22
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Library",
-            "value": "SDV",
-            "start_pos": 22
+            "value": "Synthetic Data Vault",
+            "start_pos": 0
           }
         },
         {
@@ -30086,14 +32418,14 @@
         {
           "term1": {
             "class": "Library",
-            "value": "Synthetic Data Vault",
-            "start_pos": 10
+            "value": "SDV",
+            "start_pos": 32
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Library",
-            "value": "SDV",
-            "start_pos": 32
+            "value": "Synthetic Data Vault",
+            "start_pos": 10
           }
         },
         {
@@ -30505,14 +32837,14 @@
         {
           "term1": {
             "class": "Corpus",
-            "value": "НКРЯ",
-            "start_pos": 0
+            "value": "Национальный Корпус Русского Языка",
+            "start_pos": 47
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Corpus",
-            "value": "Национальный Корпус Русского Языка",
-            "start_pos": 47
+            "value": "НКРЯ",
+            "start_pos": 0
           }
         }
       ]
@@ -30536,14 +32868,14 @@
         {
           "term1": {
             "class": "Corpus",
-            "value": "Национальный Корпус Русского Языка",
-            "start_pos": 0
+            "value": "НКРЯ",
+            "start_pos": 40
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Corpus",
-            "value": "НКРЯ",
-            "start_pos": 40
+            "value": "Национальный Корпус Русского Языка",
+            "start_pos": 0
           }
         }
       ]
@@ -30579,14 +32911,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "CBOW",
-            "start_pos": 0
+            "value": "Continuous Bag of Words",
+            "start_pos": 24
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Method",
-            "value": "Continuous Bag of Words",
-            "start_pos": 24
+            "value": "CBOW",
+            "start_pos": 0
           }
         }
       ]
@@ -31368,9 +33700,14 @@
       "text": "Возможности этого сервиса в области анализа речи и естественного языка пока ограничиваются английским языком, однако многие другие сервисы поддерживают русский язык, например, полностью бесплатный wit.ai, приобретённый Facebook, и его российский конкурент api.ai (понимание текстовых и голосовых команд и вопросов на естественных языках, преобразование речи в текст), IBM AlchemyAPI (анализ тональности текста, выявление сущностей и ключевых слов), Google Natural Language API (классификация текстов, графы связей, извлечение информации из текстов, анализ тональности, намерений, извлечение инсайтов; поддерживает русский язык с помощью технологии машинного перевода Google Translate, использует глубокое обучение и word2vec).",
       "terms": [
         {
-          "class": "Task",
-          "value": "анализа речи",
-          "start_pos": 36
+          "class": "Science",
+          "value": "области анализа речи и естественного языка",
+          "start_pos": 28
+        },
+        {
+          "class": "Lang",
+          "value": "английским языком",
+          "start_pos": 91
         },
         {
           "class": "Lang",
@@ -31462,6 +33799,32 @@
         {
           "term1": {
             "class": "Application",
+            "value": "Google Natural Language API",
+            "start_pos": 449
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "графы связей",
+            "start_pos": 501
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Google Natural Language API",
+            "start_pos": 449
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного перевода",
+            "start_pos": 648
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
             "value": "Google Translate",
             "start_pos": 667
           },
@@ -31470,6 +33833,19 @@
             "class": "Science",
             "value": "машинного перевода",
             "start_pos": 648
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Google Natural Language API",
+            "start_pos": 449
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "анализ тональности",
+            "start_pos": 549
           }
         },
         {
@@ -31501,8 +33877,8 @@
         {
           "term1": {
             "class": "Application",
-            "value": "Google Natural Language API",
-            "start_pos": 449
+            "value": "IBM AlchemyAPI",
+            "start_pos": 368
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -31527,8 +33903,8 @@
         {
           "term1": {
             "class": "Application",
-            "value": "IBM AlchemyAPI",
-            "start_pos": 368
+            "value": "api.ai",
+            "start_pos": 256
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -31553,14 +33929,79 @@
         {
           "term1": {
             "class": "Application",
-            "value": "api.ai",
-            "start_pos": 256
+            "value": "wit.ai",
+            "start_pos": 197
           },
-          "predicate": "isUsedForSolving",
+          "predicate": "isUsedIn",
           "term2": {
-            "class": "Task",
-            "value": "анализа речи",
-            "start_pos": 36
+            "class": "Science",
+            "value": "области анализа речи и естественного языка",
+            "start_pos": 28
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "wit.ai",
+            "start_pos": 197
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного перевода",
+            "start_pos": 648
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "IBM AlchemyAPI",
+            "start_pos": 368
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "области анализа речи и естественного языка",
+            "start_pos": 28
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Google Natural Language API",
+            "start_pos": 449
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "области анализа речи и естественного языка",
+            "start_pos": 28
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Google Translate",
+            "start_pos": 667
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "области анализа речи и естественного языка",
+            "start_pos": 28
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "word2vec",
+            "start_pos": 716
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "области анализа речи и естественного языка",
+            "start_pos": 28
           }
         }
       ]
@@ -31601,6 +34042,19 @@
             "class": "Application",
             "value": "Google Natural Language API",
             "start_pos": 0
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного перевода",
+            "start_pos": 76
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Google Translate",
+            "start_pos": 95
           },
           "predicate": "isUsedIn",
           "term2": {
@@ -31727,11 +34181,6 @@
           "class": "Task",
           "value": "находить информацию о фильме",
           "start_pos": 45
-        },
-        {
-          "class": "Object",
-          "value": "информацию о картине",
-          "start_pos": 90
         }
       ],
       "relations": [
@@ -32256,6 +34705,19 @@
             "value": "репрезентации текстов",
             "start_pos": 59
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "skip-gram",
+            "start_pos": 88
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "репрезентации текстов",
+            "start_pos": 59
+          }
         }
       ]
     },
@@ -32520,6 +34982,19 @@
         {
           "term1": {
             "class": "Model",
+            "value": "GPT-2",
+            "start_pos": 53
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "генерации текста",
+            "start_pos": 34
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
             "value": "Модель",
             "start_pos": 0
           },
@@ -32707,7 +35182,21 @@
           "start_pos": 82
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "SentEval",
+            "start_pos": 82
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "английские",
+            "start_pos": 44
+          }
+        }
+      ]
     },
     {
       "id": 943,
@@ -32720,7 +35209,7 @@
         },
         {
           "class": "Model",
-          "value": "NLU",
+          "value": "NLU моделей",
           "start_pos": 68
         },
         {
@@ -32738,14 +35227,40 @@
         {
           "term1": {
             "class": "Model",
-            "value": "NLU",
-            "start_pos": 68
+            "value": "RussianSuperGLUE",
+            "start_pos": 80
           },
-          "predicate": "includes",
+          "predicate": "isModificationOf",
           "term2": {
+            "class": "Model",
+            "value": "NLU моделей",
+            "start_pos": 68
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "RussianSuperGLUE",
             "start_pos": 80
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русского",
+            "start_pos": 4
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RussianSuperGLUE",
+            "start_pos": 80
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NLP задач",
+            "start_pos": 117
           }
         }
       ]
@@ -32897,14 +35412,183 @@
         {
           "term1": {
             "class": "Model",
+            "value": "sbert_large_nlu_ru",
+            "start_pos": 47
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "sbert_large_mt_nlu_ru",
+            "start_pos": 67
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruRoberta-large",
+            "start_pos": 92
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rubert-base-cased-sentence",
+            "start_pos": 118
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rubert-base-cased-conversational",
+            "start_pos": 146
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "distilrubert-tiny-cased-conversational",
+            "start_pos": 180
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
             "value": "distilrubert-base-cased-conversational",
             "start_pos": 222
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rubert-tiny",
+            "start_pos": 282
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rubert-tiny2",
+            "start_pos": 296
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LaBSE",
+            "start_pos": 324
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LaBSE-en-ru",
+            "start_pos": 353
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "bert-base-multilingual-cased",
+            "start_pos": 382
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "sbert_large_nlu_ru",
+            "start_pos": 47
           },
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
-            "value": "DeepPavlov",
-            "start_pos": 264
+            "value": "Сбера",
+            "start_pos": 111
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "sbert_large_mt_nlu_ru",
+            "start_pos": 67
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Сбера",
+            "start_pos": 111
           }
         },
         {
@@ -32923,170 +35607,53 @@
         {
           "term1": {
             "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
+            "value": "rubert-base-cased-sentence",
+            "start_pos": 118
           },
-          "predicate": "includes",
+          "predicate": "hasAuthor",
           "term2": {
-            "class": "Model",
-            "value": "bert-base-multilingual-cased",
-            "start_pos": 382
+            "class": "Organization",
+            "value": "DeepPavlov",
+            "start_pos": 264
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "LaBSE-en-ru",
-            "start_pos": 353
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "LaBSE",
-            "start_pos": 324
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "rubert-tiny2",
-            "start_pos": 296
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "rubert-tiny",
-            "start_pos": 282
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "distilrubert-base-cased-conversational",
-            "start_pos": 222
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "distilrubert-tiny-cased-conversational",
-            "start_pos": 180
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "rubert-base-cased-conversational",
             "start_pos": 146
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "DeepPavlov",
+            "start_pos": 264
           }
         },
         {
           "term1": {
             "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
+            "value": "distilrubert-tiny-cased-conversational",
+            "start_pos": 180
           },
-          "predicate": "includes",
+          "predicate": "hasAuthor",
           "term2": {
-            "class": "Model",
-            "value": "rubert-base-cased-sentence",
-            "start_pos": 118
+            "class": "Organization",
+            "value": "DeepPavlov",
+            "start_pos": 264
           }
         },
         {
           "term1": {
             "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
+            "value": "distilrubert-base-cased-conversational",
+            "start_pos": 222
           },
-          "predicate": "includes",
+          "predicate": "hasAuthor",
           "term2": {
-            "class": "Model",
-            "value": "ruRoberta-large",
-            "start_pos": 92
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "sbert_large_mt_nlu_ru",
-            "start_pos": 67
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "sbert_large_mt_nlu_ru",
-            "start_pos": 67
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "sbert_large_nlu_ru",
-            "start_pos": 47
+            "class": "Organization",
+            "value": "DeepPavlov",
+            "start_pos": 264
           }
         }
       ]
@@ -33389,8 +35956,21 @@
         {
           "term1": {
             "class": "Dataset",
-            "value": "XNLI",
-            "start_pos": 295
+            "value": "SentiRuEval2016",
+            "start_pos": 335
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "SA",
+            "start_pos": 321
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "SentiRuEval2016",
+            "start_pos": 335
           },
           "predicate": "isTrainedForSolving",
           "term2": {
@@ -33401,15 +35981,15 @@
         },
         {
           "term1": {
-            "class": "Task",
-            "value": "SA",
-            "start_pos": 321
+            "class": "Dataset",
+            "value": "XNLI",
+            "start_pos": 295
           },
-          "predicate": "isAlternativeNameFor",
+          "predicate": "isTrainedForSolving",
           "term2": {
             "class": "Task",
-            "value": "Sentiment analysis",
-            "start_pos": 301
+            "value": "NLI",
+            "start_pos": 278
           }
         },
         {
@@ -33428,6 +36008,19 @@
         {
           "term1": {
             "class": "Task",
+            "value": "SA",
+            "start_pos": 321
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Task",
+            "value": "Sentiment analysis",
+            "start_pos": 301
+          }
+        },
+        {
+          "term1": {
+            "class": "Task",
             "value": "NLI",
             "start_pos": 278
           },
@@ -33436,6 +36029,19 @@
             "class": "Task",
             "value": "Natural language inference",
             "start_pos": 250
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "paraphraser.ru",
+            "start_pos": 235
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "PI",
+            "start_pos": 212
           }
         },
         {
@@ -33462,6 +36068,19 @@
             "class": "Task",
             "value": "Paraphrase identification",
             "start_pos": 185
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "STS-B",
+            "start_pos": 178
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "STS",
+            "start_pos": 140
           }
         },
         {
@@ -33564,6 +36183,45 @@
             "value": "NLU-evaluation-data",
             "start_pos": 300
           },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русский",
+            "start_pos": 356
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "NLU-evaluation-data",
+            "start_pos": 300
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "IC",
+            "start_pos": 254
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "NLU-evaluation-data",
+            "start_pos": 300
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "Intent classification",
+            "start_pos": 231
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "NLU-evaluation-data",
+            "start_pos": 300
+          },
           "predicate": "isTrainedForSolving",
           "term2": {
             "class": "Task",
@@ -33593,6 +36251,19 @@
           "predicate": "isTrainedForSolving",
           "term2": {
             "class": "Task",
+            "value": "II",
+            "start_pos": 205
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "датасете Сколтеха",
+            "start_pos": 212
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
             "value": "Inappropriateness identification",
             "start_pos": 171
           }
@@ -33608,6 +36279,19 @@
             "class": "Task",
             "value": "Inappropriateness identification",
             "start_pos": 171
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "датасете токсичных комментариев",
+            "start_pos": 127
+          },
+          "predicate": "isTrainedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "TI",
+            "start_pos": 120
           }
         },
         {
@@ -33718,6 +36402,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "NE2",
+            "start_pos": 80
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Dataset",
+            "value": "RuDReC",
+            "start_pos": 72
+          }
+        },
         {
           "term1": {
             "class": "Dataset",
@@ -33867,6 +36564,32 @@
             "value": "accuracy",
             "start_pos": 134
           },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Task",
+            "value": "NLI",
+            "start_pos": 4
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "точность",
+            "start_pos": 124
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Task",
+            "value": "NLI",
+            "start_pos": 4
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "accuracy",
+            "start_pos": 134
+          },
           "predicate": "isUsedFor",
           "term2": {
             "class": "Model",
@@ -33946,6 +36669,32 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "accuracy",
+            "start_pos": 155
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Task",
+            "value": "NLI",
+            "start_pos": 11
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "точность",
+            "start_pos": 145
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Task",
+            "value": "NLI",
+            "start_pos": 11
+          }
+        },
         {
           "term1": {
             "class": "Metric",
@@ -34311,6 +37060,45 @@
       "relations": [
         {
           "term1": {
+            "class": "Metric",
+            "value": "macro F1",
+            "start_pos": 148
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 43
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "логистическую регрессию",
+            "start_pos": 62
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "токенов",
+            "start_pos": 104
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "логистическую регрессию",
+            "start_pos": 62
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "эмбеддингов",
+            "start_pos": 125
+          }
+        },
+        {
+          "term1": {
             "class": "Task",
             "value": "NER",
             "start_pos": 43
@@ -34333,6 +37121,19 @@
             "class": "Task",
             "value": "извлечения именованных сущностей",
             "start_pos": 9
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "логистическую регрессию",
+            "start_pos": 62
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 43
           }
         },
         {
@@ -34702,6 +37503,32 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "грамматики зависимостей",
+            "start_pos": 104
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "синтаксических корпусов",
+            "start_pos": 59
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "грамматики зависимостей",
+            "start_pos": 104
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "трибанков",
+            "start_pos": 84
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -35958,6 +38785,19 @@
             "value": "выявление негативности/позитивности атрибутов объекта тональности",
             "start_pos": 50
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "feature-based/aspect-based sentiment analysis",
+            "start_pos": 117
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "выявление негативности/позитивности атрибутов объекта тональности",
+            "start_pos": 50
+          }
         }
       ]
     },
@@ -35986,7 +38826,7 @@
           "start_pos": 144
         },
         {
-          "class": "Model",
+          "class": "Method",
           "value": "регрессии",
           "start_pos": 177
         },
@@ -36019,6 +38859,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Model",
+            "value": "Байесовы модели",
+            "start_pos": 144
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "классификации",
+            "start_pos": 52
+          }
+        },
+        {
+          "term1": {
             "class": "Method",
             "value": "метод опорных векторов",
             "start_pos": 114
@@ -36034,13 +38887,26 @@
           "term1": {
             "class": "Method",
             "value": "SVM",
-            "start_pos": 319
+            "start_pos": 138
           },
-          "predicate": "isAlternativeNameFor",
+          "predicate": "solves",
           "term2": {
+            "class": "Task",
+            "value": "классификации",
+            "start_pos": 52
+          }
+        },
+        {
+          "term1": {
             "class": "Method",
-            "value": "сентимент анализу",
-            "start_pos": 254
+            "value": "регрессии",
+            "start_pos": 177
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "классификации",
+            "start_pos": 52
           }
         },
         {
@@ -36129,6 +38995,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "алгоритмы семантической близости",
+            "start_pos": 203
+          },
+          "predicate": "solves",
+          "term2": {
+            "class": "Task",
+            "value": "определение тональности",
+            "start_pos": 23
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -36352,6 +39231,19 @@
             "class": "Method",
             "value": "Мешок слов",
             "start_pos": 76
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текст",
+            "start_pos": 56
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Bag-of-words",
+            "start_pos": 88
           },
           "predicate": "isAppliedTo",
           "term2": {
@@ -36598,14 +39490,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "BERT",
-            "start_pos": 65
-          },
-          "predicate": "IsShortNameFor",
-          "term2": {
-            "class": "Model",
             "value": "Bi-directional Encoder Representation from Transformer",
             "start_pos": 71
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 65
           }
         }
       ]
@@ -36629,14 +39521,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "BERT",
-            "start_pos": 45
-          },
-          "predicate": "IsShortNameFor",
-          "term2": {
-            "class": "Model",
             "value": "Bi-directional Encoder Representation from Transformer",
             "start_pos": 51
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 45
           }
         }
       ]
@@ -36952,17 +39844,17 @@
       "text": "Поэтому в статье предлагается способ обнаружения фишинговых сообщений, называемый Federated Phish Bowl (далее FPB), использующий федеративное обучение и рекуррентную нейронную сеть с долгой краткосрочной памятью (LSTM).",
       "terms": [
         {
-          "class": "Task",
-          "value": "обнаружения фишинговых сообщений",
-          "start_pos": 37
+          "class": "Method",
+          "value": "способ обнаружения фишинговых сообщений",
+          "start_pos": 30
         },
         {
-          "class": "Task",
+          "class": "Method",
           "value": "Federated Phish Bowl",
           "start_pos": 82
         },
         {
-          "class": "Task",
+          "class": "Method",
           "value": "FPB",
           "start_pos": 110
         },
@@ -36972,12 +39864,12 @@
           "start_pos": 129
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "рекуррентную нейронную сеть с долгой краткосрочной памятью",
           "start_pos": 153
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 213
         }
@@ -36986,66 +39878,105 @@
         {
           "term1": {
             "class": "Method",
-            "value": "рекуррентную нейронную сеть с долгой краткосрочной памятью",
-            "start_pos": 153
-          },
-          "predicate": "solves",
-          "term2": {
-            "class": "Task",
-            "value": "обнаружения фишинговых сообщений",
-            "start_pos": 37
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "федеративное обучение",
-            "start_pos": 129
-          },
-          "predicate": "solves",
-          "term2": {
-            "class": "Task",
-            "value": "обнаружения фишинговых сообщений",
-            "start_pos": 37
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "LSTM",
-            "start_pos": 213
-          },
-          "predicate": "isAlternativeNameFor",
-          "term2": {
-            "class": "Method",
-            "value": "рекуррентную нейронную сеть с долгой краткосрочной памятью",
-            "start_pos": 153
-          }
-        },
-        {
-          "term1": {
-            "class": "Task",
-            "value": "Federated Phish Bowl",
-            "start_pos": 82
-          },
-          "predicate": "isAlternativeNameFor",
-          "term2": {
-            "class": "Task",
-            "value": "обнаружения фишинговых сообщений",
-            "start_pos": 37
-          }
-        },
-        {
-          "term1": {
-            "class": "Task",
             "value": "FPB",
             "start_pos": 110
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Task",
-            "value": "обнаружения фишинговых сообщений",
-            "start_pos": 37
+            "class": "Method",
+            "value": "Federated Phish Bowl",
+            "start_pos": 82
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LSTM",
+            "start_pos": 213
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть с долгой краткосрочной памятью",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "способ обнаружения фишинговых сообщений",
+            "start_pos": 30
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть с долгой краткосрочной памятью",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Federated Phish Bowl",
+            "start_pos": 82
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть с долгой краткосрочной памятью",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "FPB",
+            "start_pos": 110
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть с долгой краткосрочной памятью",
+            "start_pos": 153
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "способ обнаружения фишинговых сообщений",
+            "start_pos": 30
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "LSTM",
+            "start_pos": 213
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Federated Phish Bowl",
+            "start_pos": 82
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "LSTM",
+            "start_pos": 213
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "FPB",
+            "start_pos": 110
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "LSTM",
+            "start_pos": 213
           }
         }
       ]

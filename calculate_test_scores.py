@@ -207,6 +207,10 @@ def main():
         last_sent_id = 0
 
     tokens = [
+        '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',
+        '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',
+        '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',
+        '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',   
         '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',
         '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',
         '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',
@@ -215,12 +219,10 @@ def main():
         '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',
         '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',
         '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',
-        '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',
-        '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',
-        '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'
+        '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'             
     ]
 
-    token_idx = 6
+    token_idx = 0
     while True:
         prev_last_sent_id = last_sent_id
 

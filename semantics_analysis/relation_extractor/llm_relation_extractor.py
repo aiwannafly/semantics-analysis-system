@@ -65,6 +65,49 @@ class LLMRelationExtractor(RelationExtractor):
 
                 yield Relation(term1, predicate, term2)
 
+    def get_pairs_to_consider(self, terms: List[ClassifiedTerm]) -> List:
+        terms_count = len(terms)
+
+        pairs_to_consider = []
+
+        for i in range(terms_count):
+            for j in range(i + 1, terms_count):
+                term1, term2 = terms[i], terms[j]
+
+                if term1.value == term2.value:
+                    continue
+
+                class1, class2 = term1.class_, term2.class_
+
+                if (class1, class2) in predicates_by_class_pair:
+                    predicates = predicates_by_class_pair[(class1, class2)]
+                elif (class2, class1) in predicates_by_class_pair:
+                    predicates = predicates_by_class_pair[(class2, class1)]
+
+                    term1, term2 = term2, term1
+                else:
+                    predicates = []
+
+                if not predicates:
+                    continue
+
+                pairs_to_consider.append((term1, term2))
+
+        return pairs_to_consider
+
+    def analyze_term_pairs(
+            self,
+            text: str,
+            term_pairs: List
+    ) -> Iterator[Optional[Relation]]:
+        for term1, term2 in term_pairs:
+            predicate = self.detect_predicate(term1, term2, text)
+
+            if predicate is None:
+                yield None
+            else:
+                yield Relation(term1, predicate, term2)
+
     def detect_predicate(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> Optional[str]:
 
         prompt = self.create_llm_prompt(term1, term2, text)

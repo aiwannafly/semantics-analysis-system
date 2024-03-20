@@ -1,19 +1,16 @@
 import json
-import termcharts
-from rich import print
-from rich.layout import Layout
-from rich.panel import Panel
-from rich.text import Text
+from colorama import Style, init
+from rich.progress import Progress, TextColumn, BarColumn
+
 
 with open('tests/scores.json', 'r', encoding='utf-8') as f:
     scores_by_relation = json.load(f)
 
-groups = []
-curr_group = []
-
 avg_recall = 0
 avg_precision = 0
 count = 0
+
+rel_cnt_scores = []
 
 for relation, scores in scores_by_relation.items():
     correct = scores['predicted']['correct']['count']
@@ -44,47 +41,66 @@ for relation, scores in scores_by_relation.items():
 
     occurrences_count = max(found + not_found, correct + incorrect)
 
-    curr_group.append((relation, occurrences_count, {'Recall': recall, 'Precision': precision}))
+    rel_cnt_scores.append((relation, occurrences_count, {'Recall': recall, 'Precision': precision}))
 
-    if len(curr_group) == 4:
-        groups.append(curr_group)
-        curr_group = []
+color_by_metric = {
+    'Recall': 'green',
+    'Precision': 'magenta'
+}
 
-if curr_group:
-    while len(curr_group) < 4:
-        curr_group.append(None)
-    groups.append(curr_group)
+description_length = 20
 
-layouts = []
-for group in groups:
-    rendered = []
+init()
 
-    for score in group:
-        if score:
-            title, occurrences_count, scores = score
+rel_cnt_scores = sorted(rel_cnt_scores, key=lambda x: x[2]['Precision'], reverse=True)
 
-            title = f'{occurrences_count} {title}'
-            rendered.append(Panel(termcharts.bar(scores, title=title, rich=True)))
-        else:
-            rendered.append(Panel(Text('Empty cell')))
+for relation, occurrences_count, scores in rel_cnt_scores:
+    print()
+    print(f'{Style.DIM}—————————————————————————————————————————————————————————————{Style.RESET_ALL}')
+    print()
+    print(f'[{occurrences_count}] {Style.BRIGHT}{relation}{Style.RESET_ALL}\n')
 
-    layout = Layout()
-    layout.split_column(Layout(name="upper"), Layout(name="lower"))
-    layout["upper"].split_row(
-        Layout(name="uleft"),
-        Layout(name="uright"),
-    )
-    layout["lower"].split_row(
-        Layout(name="lleft"),
-        Layout(name="lright"),
-    )
-    layout["uleft"].update(rendered[0])
-    layout["uright"].update(rendered[1])
-    layout["lleft"].update(rendered[2])
-    layout["lright"].update(rendered[3])
+    for metric, value in scores.items():
+        color = color_by_metric[metric]
 
-    layouts.append(layout)
-    print(layout)
+        diff = description_length - len(f'{metric}: {value}')
 
-print('Average recall: {:.2f}'.format(avg_recall / count))
-print('Average precision: {:.2f}'.format(avg_precision / count))
+        description = f'[{color}]{metric}: {value}'
+
+        if diff > 0:
+            description = ' ' * diff + description
+
+        with Progress(TextColumn(text_format=description, justify='right'),
+                      BarColumn(complete_style=color)) as progress:
+            metric_task = progress.add_task(total=1.0, description='')
+
+            progress.update(metric_task, description='', advance=value)
+
+    print()
+
+print(f'{Style.DIM}—————————————————————————————————————————————————————————————{Style.RESET_ALL}')
+print()
+print(f'{Style.BRIGHT}[AVERAGE SCORES]{Style.RESET_ALL}\n')
+
+scores = {
+    'Recall': int(100 * avg_recall / count) / 100,
+    'Precision': int(100 * avg_precision / count) / 100
+}
+
+description_length = 16
+
+for metric, value in scores.items():
+    color = color_by_metric[metric]
+
+    diff = description_length - len(f'{metric}: {value}')
+
+    description = f'[{color}]{metric}: {value}'
+
+    if diff > 0:
+        description = ' ' * diff + description
+
+    with Progress(TextColumn(text_format=description, justify='right'),
+                  BarColumn(complete_style=color)) as progress:
+        metric_task = progress.add_task(total=1.0, description='')
+
+        progress.update(metric_task, description='', advance=value)

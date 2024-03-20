@@ -1426,7 +1426,7 @@
       "text": "В более современных работах присутствуют сверточные нейронные сети [15, 16], а также предобученные модели BERT [17]",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "сверточные нейронные сети",
           "start_pos": 41
         },
@@ -3997,6 +3997,32 @@
       "relations": [
         {
           "term1": {
+            "class": "Library",
+            "value": "Yagry",
+            "start_pos": 183
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "текста",
+            "start_pos": 46
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "контекстно-свободных грамматик",
+            "start_pos": 63
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Yagry",
+            "start_pos": 183
+          }
+        },
+        {
+          "term1": {
             "class": "Application",
             "value": "Томита-парсер",
             "start_pos": 156
@@ -5617,6 +5643,19 @@
             "class": "Library",
             "value": "Библиотека",
             "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Library",
+            "value": "Библиотека",
+            "start_pos": 0
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "эмбеддингов",
+            "start_pos": 100
           }
         }
       ]
@@ -9047,21 +9086,7 @@
           "start_pos": 56
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Environment",
-            "value": "Python",
-            "start_pos": 21
-          },
-          "predicate": "isUsedIn",
-          "term2": {
-            "class": "Library",
-            "value": "Keras",
-            "start_pos": 56
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 242,
@@ -19079,6 +19104,19 @@
             "value": "выравнивания воспользуемся",
             "start_pos": 4
           }
+        },
+        {
+          "term1": {
+            "class": "Environment",
+            "value": "python",
+            "start_pos": 134
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "lingtrain-aligner",
+            "start_pos": 43
+          }
         }
       ]
     },
@@ -25010,7 +25048,7 @@
       "text": "На самом деле уже существуют продвинутые и проверенные методы ее обработки, использующие нейронные сети, с распознаванием смысла и контекста – BERT (Bidirectional Encoder Representations from Transformers).",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "нейронные сети",
           "start_pos": 89
         },
@@ -25033,22 +25071,22 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
-            "value": "нейронные сети",
-            "start_pos": 89
+            "class": "Model",
+            "value": "Bidirectional Encoder Representations from Transformers",
+            "start_pos": 149
           },
-          "predicate": "solves",
+          "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Task",
-            "value": "распознаванием смысла и контекста",
-            "start_pos": 107
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 143
           }
         },
         {
           "term1": {
             "class": "Model",
-            "value": "BERT",
-            "start_pos": 143
+            "value": "Bidirectional Encoder Representations from Transformers",
+            "start_pos": 149
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -25060,8 +25098,21 @@
         {
           "term1": {
             "class": "Model",
-            "value": "Bidirectional Encoder Representations from Transformers",
-            "start_pos": 149
+            "value": "нейронные сети",
+            "start_pos": 89
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "распознаванием смысла и контекста",
+            "start_pos": 107
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 143
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -26360,6 +26411,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Library",
+            "value": "фреймворка",
+            "start_pos": 98
+          },
+          "predicate": "isAppliedTo",
+          "term2": {
+            "class": "Object",
+            "value": "фона",
+            "start_pos": 83
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -27947,7 +28011,7 @@
           "start_pos": 68
         },
         {
-          "class": "Application",
+          "class": "Library",
           "value": "NLP Architect",
           "start_pos": 86
         },
@@ -27957,7 +28021,7 @@
           "start_pos": 103
         },
         {
-          "class": "Application",
+          "class": "Library",
           "value": "PyTorch",
           "start_pos": 113
         },
@@ -27975,7 +28039,7 @@
       "relations": [
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "NLP Architect",
             "start_pos": 86
           },
@@ -27988,7 +28052,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "PyTorch",
             "start_pos": 113
           },
@@ -28001,7 +28065,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "NLP Architect",
             "start_pos": 86
           },
@@ -28014,7 +28078,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "PyTorch",
             "start_pos": 113
           },
@@ -28027,7 +28091,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "PyTorch",
             "start_pos": 113
           },
@@ -28050,7 +28114,7 @@
           "start_pos": 68
         },
         {
-          "class": "Application",
+          "class": "Library",
           "value": "NLP Architect",
           "start_pos": 109
         },
@@ -28060,7 +28124,7 @@
           "start_pos": 126
         },
         {
-          "class": "Application",
+          "class": "Library",
           "value": "PyTorch",
           "start_pos": 134
         },
@@ -28078,7 +28142,7 @@
       "relations": [
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "NLP Architect",
             "start_pos": 109
           },
@@ -28091,7 +28155,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "PyTorch",
             "start_pos": 134
           },
@@ -28104,7 +28168,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "NLP Architect",
             "start_pos": 109
           },
@@ -28117,7 +28181,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "PyTorch",
             "start_pos": 134
           },
@@ -28130,7 +28194,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "PyTorch",
             "start_pos": 134
           },
@@ -29473,14 +29537,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "GOLOMB",
-            "start_pos": 151
+            "value": "GOaL-Oriented Multi-task BERT-based dialogue state tracker",
+            "start_pos": 159
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Model",
-            "value": "BERT",
-            "start_pos": 135
+            "value": "GOLOMB",
+            "start_pos": 151
           }
         }
       ]
@@ -31731,7 +31795,7 @@
       "text": "Примером данного решения является использование парафрайзера на основе “rut5-base-paraphraser” из библиотеки huggingface.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "парафрайзера",
           "start_pos": 48
         },
@@ -31750,14 +31814,27 @@
         {
           "term1": {
             "class": "Model",
-            "value": "rut5-base-paraphraser",
-            "start_pos": 72
+            "value": "парафрайзера",
+            "start_pos": 48
           },
           "predicate": "isIncludedIn",
           "term2": {
             "class": "Library",
             "value": "huggingface",
             "start_pos": 109
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "парафрайзера",
+            "start_pos": 48
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "rut5-base-paraphraser",
+            "start_pos": 72
           }
         }
       ]
@@ -32375,6 +32452,19 @@
         },
         {
           "term1": {
+            "class": "Environment",
+            "value": "Python",
+            "start_pos": 41
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Synthetic Data Vault",
+            "start_pos": 8
+          }
+        },
+        {
+          "term1": {
             "class": "Library",
             "value": "SDV",
             "start_pos": 0
@@ -32442,6 +32532,19 @@
         },
         {
           "term1": {
+            "class": "Environment",
+            "value": "Python",
+            "start_pos": 44
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "SDV",
+            "start_pos": 22
+          }
+        },
+        {
+          "term1": {
             "class": "Library",
             "value": "Synthetic Data Vault",
             "start_pos": 0
@@ -32481,6 +32584,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "математические методы",
+            "start_pos": 32
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "SDV",
+            "start_pos": 0
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -32553,6 +32669,32 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "математических методов",
+            "start_pos": 59
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Synthetic Data Vault",
+            "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "математических методов",
+            "start_pos": 59
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "SDV",
+            "start_pos": 22
+          }
+        },
         {
           "term1": {
             "class": "Library",
@@ -32764,7 +32906,21 @@
           "start_pos": 35
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "evaluate",
+            "start_pos": 23
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "SDV",
+            "start_pos": 35
+          }
+        }
+      ]
     },
     {
       "id": 861,
@@ -32866,7 +33022,7 @@
           "start_pos": 41
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "рекуррентной нейронной сети",
           "start_pos": 89
         }
@@ -32874,9 +33030,9 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
-            "value": "рекуррентной нейронной сети",
-            "start_pos": 89
+            "class": "Environment",
+            "value": "Python",
+            "start_pos": 41
           },
           "predicate": "isUsedIn",
           "term2": {
@@ -32894,8 +33050,8 @@
           "predicate": "isUsedIn",
           "term2": {
             "class": "Library",
-            "value": "Gretel",
-            "start_pos": 0
+            "value": "Gretel Synthetics",
+            "start_pos": 11
           }
         },
         {
@@ -32954,6 +33110,32 @@
         },
         {
           "term1": {
+            "class": "Environment",
+            "value": "Python",
+            "start_pos": 51
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "Gretel Synthetics",
+            "start_pos": 8
+          }
+        },
+        {
+          "term1": {
+            "class": "Environment",
+            "value": "Python",
+            "start_pos": 51
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "GS",
+            "start_pos": 27
+          }
+        },
+        {
+          "term1": {
             "class": "Library",
             "value": "Gretel Synthetics",
             "start_pos": 8
@@ -32976,6 +33158,19 @@
             "class": "Library",
             "value": "Gretel",
             "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Library",
+            "value": "GS",
+            "start_pos": 27
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Library",
+            "value": "Gretel Synthetics",
+            "start_pos": 8
           }
         }
       ]
@@ -34034,7 +34229,7 @@
           "start_pos": 667
         },
         {
-          "class": "Application",
+          "class": "Library",
           "value": "word2vec",
           "start_pos": 716
         }
@@ -34237,7 +34432,7 @@
         },
         {
           "term1": {
-            "class": "Application",
+            "class": "Library",
             "value": "word2vec",
             "start_pos": 716
           },
@@ -34275,7 +34470,7 @@
           "start_pos": 95
         },
         {
-          "class": "Application",
+          "class": "Library",
           "value": "word2vec",
           "start_pos": 144
         }
@@ -34296,9 +34491,9 @@
         },
         {
           "term1": {
-            "class": "Application",
-            "value": "Google Translate",
-            "start_pos": 95
+            "class": "Library",
+            "value": "word2vec",
+            "start_pos": 144
           },
           "predicate": "isUsedIn",
           "term2": {
@@ -40341,7 +40536,7 @@
           "start_pos": 88
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "глобальную модель",
           "start_pos": 107
         },
@@ -40386,14 +40581,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "DL",
-            "start_pos": 126
+            "value": "LSTM",
+            "start_pos": 187
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Method",
-            "value": "глобальную модель",
-            "start_pos": 107
+            "value": "DL",
+            "start_pos": 126
           }
         },
         {

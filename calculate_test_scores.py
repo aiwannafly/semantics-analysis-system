@@ -219,10 +219,13 @@ def main():
         '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',
         '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',
         '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',
-        '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'             
+        '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',
+        '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',
+        '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',
+        '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'
     ]
 
-    token_idx = 0
+    token_idx = 3
     while True:
         prev_last_sent_id = last_sent_id
 

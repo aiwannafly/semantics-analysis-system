@@ -1,9 +1,28 @@
 import json
+import sys
+
 from colorama import Style, init
 from rich.progress import Progress, TextColumn, BarColumn
 
+from semantics_analysis.relation_extractor.ontology_utils import loaded_relation_ids
 
-with open('tests/scores.json', 'r', encoding='utf-8') as f:
+relations_to_consider = []
+
+for arg in sys.argv[1:]:
+    if arg in loaded_relation_ids:
+        relations_to_consider.append(arg)
+    else:
+        print(f'Invalid relation id: {arg}')
+        exit(0)
+
+if relations_to_consider:
+    total_id = '_and_'.join(relations_to_consider)
+
+    scores_path = f'tests/{total_id}/scores.json'
+else:
+    scores_path = 'tests/scores.json'
+
+with open(scores_path, 'r', encoding='utf-8') as f:
     scores_by_relation = json.load(f)
 
 avg_recall = 0
@@ -13,6 +32,9 @@ count = 0
 rel_cnt_scores = []
 
 for relation, scores in scores_by_relation.items():
+    if relations_to_consider and relation not in relations_to_consider:
+        continue
+
     correct = scores['predicted']['correct']['count']
     incorrect = scores['predicted']['incorrect']['count']
 

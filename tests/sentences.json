@@ -7550,6 +7550,19 @@
             "value": "BERT-Large",
             "start_pos": 118
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "алгоритм упаковки",
+            "start_pos": 16
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Graphcore",
+            "start_pos": 37
+          }
         }
       ]
     },
@@ -7631,6 +7644,19 @@
             "class": "Science",
             "value": "геномики",
             "start_pos": 91
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "алгоритм упаковки",
+            "start_pos": 25
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Graphcore",
+            "start_pos": 2
           }
         }
       ]
@@ -13093,6 +13119,19 @@
             "class": "Dataset",
             "value": "Гансом",
             "start_pos": 21
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "HANS",
+            "start_pos": 88
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Dataset",
+            "value": "Heuristic Analysis for Natural-Language-Inference Systems",
+            "start_pos": 29
           }
         }
       ]
@@ -24872,6 +24911,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Object",
+            "value": "статьях",
+            "start_pos": 162
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "переписывать устаревшие предложения",
+            "start_pos": 124
+          }
+        },
+        {
+          "term1": {
             "class": "Application",
             "value": "систему искусственного интеллекта",
             "start_pos": 72
@@ -28759,6 +28811,45 @@
       "relations": [
         {
           "term1": {
+            "class": "Library",
+            "value": "DeepPavlov",
+            "start_pos": 44
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "классификации текста",
+            "start_pos": 23
+          }
+        },
+        {
+          "term1": {
+            "class": "Library",
+            "value": "DeepPavlov",
+            "start_pos": 44
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "распознавания именованных сущностей",
+            "start_pos": 90
+          }
+        },
+        {
+          "term1": {
+            "class": "Library",
+            "value": "DeepPavlov",
+            "start_pos": 44
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 127
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "BERT",
             "start_pos": 81
@@ -29441,6 +29532,32 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "GOLOMB",
+            "start_pos": 55
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 175
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "GOaL-Oriented Multi-task BERT-based dialogue state tracker",
+            "start_pos": 63
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 175
+          }
+        },
         {
           "term1": {
             "class": "Model",
@@ -31064,6 +31181,32 @@
             "value": "Трансформеры",
             "start_pos": 0
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "самовнимании",
+            "start_pos": 124
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинном обучении",
+            "start_pos": 15
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "self-attention",
+            "start_pos": 139
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинном обучении",
+            "start_pos": 15
+          }
         }
       ]
     },
@@ -31905,6 +32048,45 @@
         },
         {
           "term1": {
+            "class": "Object",
+            "value": "текстах",
+            "start_pos": 64
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 45
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "слова",
+            "start_pos": 86
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "задача выделения симптомов",
+            "start_pos": 17
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "слова",
+            "start_pos": 86
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 45
+          }
+        },
+        {
+          "term1": {
             "class": "Task",
             "value": "NER",
             "start_pos": 45
@@ -32430,6 +32612,19 @@
             "value": "Synthetic Data Vault",
             "start_pos": 8
           },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "генерации синтетических данных",
+            "start_pos": 52
+          }
+        },
+        {
+          "term1": {
+            "class": "Library",
+            "value": "Synthetic Data Vault",
+            "start_pos": 8
+          },
           "predicate": "isAlternativeNameFor",
           "term2": {
             "class": "Library",
@@ -32548,6 +32743,19 @@
             "class": "Library",
             "value": "Synthetic Data Vault",
             "start_pos": 0
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "генерации синтетических данных",
+            "start_pos": 71
+          }
+        },
+        {
+          "term1": {
+            "class": "Library",
+            "value": "SDV",
+            "start_pos": 22
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -32736,6 +32944,19 @@
         },
         {
           "term1": {
+            "class": "Library",
+            "value": "SDV",
+            "start_pos": 22
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "создает данные",
+            "start_pos": 27
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "моделей машинного обучения",
             "start_pos": 84
@@ -32819,6 +33040,19 @@
             "class": "Library",
             "value": "Synthetic Data Vault",
             "start_pos": 10
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "обработаны данные",
+            "start_pos": 48
+          }
+        },
+        {
+          "term1": {
+            "class": "Library",
+            "value": "SDV",
+            "start_pos": 32
           },
           "predicate": "isUsedForSolving",
           "term2": {
@@ -37511,6 +37745,84 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "токенов",
+            "start_pos": 104
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "извлечения именованных сущностей",
+            "start_pos": 9
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "токенов",
+            "start_pos": 104
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 43
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "токенов",
+            "start_pos": 104
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "классификации",
+            "start_pos": 90
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "эмбеддингов",
+            "start_pos": 125
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "извлечения именованных сущностей",
+            "start_pos": 9
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "эмбеддингов",
+            "start_pos": 125
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 43
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
+            "value": "эмбеддингов",
+            "start_pos": 125
+          },
+          "predicate": "isUsedInSolving",
+          "term2": {
+            "class": "Task",
+            "value": "классификации",
+            "start_pos": 90
+          }
+        },
         {
           "term1": {
             "class": "Metric",

@@ -1,4 +1,6 @@
 import json
+import os
+import sys
 from time import sleep
 from typing import List, Dict, Any, Set
 
@@ -71,11 +73,9 @@ def update_scores(
 def calculate_scores(
         scores: Dict[str, Any],
         relation_extractor: RelationExtractor,
-        sentences: List[Sentence],
+        sentences_to_check: List[Sentence],
         last_sent_id: int
-) -> int:
-    sentences_to_check = sentences
-
+) -> (int, bool):
     for (class1, class2), predicates in predicates_by_class_pair.items():
         for predicate in predicates:
             rel_id = f'{class1}_{predicate}_{class2}'
@@ -177,7 +177,7 @@ def calculate_scores(
                     break
             except Exception as e:
                 print(e)
-                return last_sent_id
+                return last_sent_id, False
 
             update_scores(sent, predicted_relations, expected_relations, ignored_relations, scores)
 
@@ -188,19 +188,59 @@ def calculate_scores(
     if ignored_relations:
         print(f'Ignored these relations: {ignored_relations}')
 
-    return last_sent_id
+    return last_sent_id, True
 
 
 def main():
+    relations_to_consider = []
+
+    for arg in sys.argv[1:]:
+        if arg in loaded_relation_ids:
+            relations_to_consider.append(arg)
+        else:
+            print(f'Invalid relation id: {arg}')
+            return 0
+
     config = load_config('config.yml')
 
     sentences = read_sentences('tests/sentences.json')
 
+    if not relations_to_consider:
+        sentences_to_check = sentences
+    else:
+        sentences_to_check = []
+
+        class_pairs_to_consider = []
+        for rel in relations_to_consider:
+            class1, _, class2 = rel.split('_')
+
+            if (class1, class2) not in class_pairs_to_consider:
+                class_pairs_to_consider.append((class1, class2))
+
+        for sent in sentences:
+            for class1, class2 in class_pairs_to_consider:
+                if sent.find_term_by_class_id(class1) and sent.find_term_by_class_id(class2):
+                    sentences_to_check.append(sent)
+                    break
+
+
+    if relations_to_consider:
+        total_id = '_and_'.join(relations_to_consider)
+
+        if not os.path.exists(f'tests/{total_id}'):
+            os.makedirs(f'tests/{total_id}')
+
+        lock_path = f'tests/{total_id}/last_stop.lock'
+        scores_path = f'tests/{total_id}/scores.json'
+    else:
+        lock_path = 'tests/last_stop.lock'
+        scores_path = 'tests/scores.json'
+
     try:
-        with open('tests/last_stop.lock', 'r', encoding='utf-8') as f:
+        with open(lock_path, 'r', encoding='utf-8') as f:
             last_sent_id = int(f.readline().strip())
 
-        with open('tests/scores.json', 'r', encoding='utf-8') as f:
+        with open(scores_path, 'r', encoding='utf-8') as f:
             scores = json.load(f)
     except Exception:
         scores = {}
@@ -225,7 +265,7 @@ def main():
         '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'
     ]
 
-    token_idx = 3
+    token_idx = 0
     while True:
         prev_last_sent_id = last_sent_id
 
@@ -235,17 +275,21 @@ def main():
             huggingface_hub_token=tokens[token_idx]
         )
 
-        last_sent_id = calculate_scores(scores, relation_extractor, sentences, last_sent_id)
+        last_sent_id, finished = calculate_scores(scores, relation_extractor, sentences_to_check, last_sent_id)
 
         if prev_last_sent_id == last_sent_id:
             break
         else:
             token_idx = (token_idx + 1) % len(tokens)
-            with open('tests/last_stop.lock', 'w', encoding='utf-8') as f:
+            with open(lock_path, 'w', encoding='utf-8') as f:
                 f.write(f'{last_sent_id}')
 
-            with open('tests/scores.json', 'w', encoding='utf-8') as f:
+            with open(scores_path, 'w', encoding='utf-8') as f:
                 json.dump(scores, f, ensure_ascii=False, indent=2)
+
+            if finished:
+                print('Scores were saved.')
+                break
 
             sleep_time_secs = 5
             print(f'Scores were updated. Sleep for {sleep_time_secs} secs until new attempt.')

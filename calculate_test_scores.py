@@ -247,6 +247,10 @@ def main():
         last_sent_id = 0
 
     tokens = [
+        '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',
+        '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',
+        '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',
+        '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',   
         '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',
         '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',
         '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',
@@ -256,11 +260,16 @@ def main():
         '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',
         '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',
         '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',
-        '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',
-        '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'
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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'
     ]
 
-    token_idx = 0
+    token_idx = 8
     while True:
         prev_last_sent_id = last_sent_id
 

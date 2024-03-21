@@ -64,9 +64,9 @@ for relation, scores in scores_by_relation.items():
 
     occurrences_count = max(found + not_found, correct + incorrect)
 
-    avg_recall += recall * occurrences_count
-    avg_precision += precision * occurrences_count
-    count += occurrences_count
+    avg_recall += recall
+    avg_precision += precision
+    count += 1
 
     rel_cnt_scores.append((relation, occurrences_count, {'Recall': recall, 'Precision': precision}))
 

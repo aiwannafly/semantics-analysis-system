@@ -35,6 +35,11 @@ for relation, scores in scores_by_relation.items():
     if relations_to_consider and relation not in relations_to_consider:
         continue
 
+    class1, _, class2 = relation.split('_')
+
+    # if class1 == class2:
+    #     continue
+
     correct = scores['predicted']['correct']['count']
     incorrect = scores['predicted']['incorrect']['count']
 
@@ -57,11 +62,11 @@ for relation, scores in scores_by_relation.items():
     recall = int(recall * 100) / 100.0
     precision = int(precision * 100) / 100.0
 
-    avg_recall += recall
-    avg_precision += precision
-    count += 1
-
     occurrences_count = max(found + not_found, correct + incorrect)
+
+    avg_recall += recall * occurrences_count
+    avg_precision += precision * occurrences_count
+    count += occurrences_count
 
     rel_cnt_scores.append((relation, occurrences_count, {'Recall': recall, 'Precision': precision}))
 

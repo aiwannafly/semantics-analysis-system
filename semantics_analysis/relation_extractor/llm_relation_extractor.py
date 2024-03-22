@@ -112,10 +112,10 @@ class LLMRelationExtractor(RelationExtractor):
 
         prompt = self.create_llm_prompt(term1, term2, text)
 
-        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=100, stop_sequences=['.']).strip()
-
         if self.log_prompts:
             print(f'[INPUT PROMPT]: {prompt}\n')
+
+        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=100, stop_sequences=['.']).strip()
 
         if self.log_llm_responses:
             print(f'[LLM RESPONSE]: {response}\n')
@@ -164,19 +164,29 @@ class LLMRelationExtractor(RelationExtractor):
                         example_term1 = example[class1 + '_1']
                         example_term2 = example[class1 + '_2']
 
-                    reply = 'нет.' if answer == 'no' else 'да'
+                    description = None if 'description' not in example else example['description']
+
+                    reply = ''
+                    if answer == 'no':
+                        reply += 'нет'
+                    else:
+                        reply += f'да\n{predicate}'
+
+                    if not description and not self.show_explanation:
+                        reply += '.'
+                    else:
+                        reply += '\n'
+                        if description:
+                            description = description.replace('.', '')
+                            reply += f'Объяснение: {description}.\n'
+                        elif self.show_explanation:
+                            reply += f'Объяснение: <объяснение>.\n'
 
                     examples_list += '```\n'
                     examples_list += (f'Текст: {example_text}\n'
                                       f'Термин {class1}: {example_term1}\n'
                                       f'Термин {class2}: {example_term2}\n'
                                       f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}" в этом тексте? {reply}\n')
-
-                    if answer == 'yes':
-                        if not self.show_explanation:
-                            examples_list += f'{predicate}.\n'
-                        else:
-                            examples_list += f'{predicate}\nОбъяснение: <объяснение>.\n'
                     examples_list += '```\n'
 
                     counter += 1

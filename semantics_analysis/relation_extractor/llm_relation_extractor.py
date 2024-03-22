@@ -178,9 +178,9 @@ class LLMRelationExtractor(RelationExtractor):
                         reply += '\n'
                         if description:
                             description = description.replace('.', '')
-                            reply += f'Объяснение: {description}.\n'
+                            reply += f'Объяснение: {description}.'
                         elif self.show_explanation:
-                            reply += f'Объяснение: <объяснение>.\n'
+                            reply += f'Объяснение: <объяснение>.'
 
                     examples_list += '```\n'
                     examples_list += (f'Текст: {example_text}\n'

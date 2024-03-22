@@ -39,8 +39,9 @@ class MergeCloseTermPostProcessor(TermPostProcessor):
                 ))
                 merged_prev_term = True
             elif term.end_pos + 1 == next_term.start_pos:
+                merge_symbol = term.text[term.end_pos]
                 processed_terms.append(ClassifiedTerm(
-                    value=term.value + ' ' + next_term.value,
+                    value=term.value + merge_symbol + next_term.value,
                     end_pos=next_term.end_pos,
                     term_class=term.class_,
                     text=term.text

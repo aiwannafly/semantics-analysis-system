@@ -35900,7 +35900,7 @@
           "start_pos": 68
         },
         {
-          "class": "Model",
+          "class": "Metric",
           "value": "RussianSuperGLUE",
           "start_pos": 80
         },
@@ -35913,11 +35913,11 @@
       "relations": [
         {
           "term1": {
-            "class": "Model",
+            "class": "Metric",
             "value": "RussianSuperGLUE",
             "start_pos": 80
           },
-          "predicate": "isModificationOf",
+          "predicate": "isUsedFor",
           "term2": {
             "class": "Model",
             "value": "NLU моделей",
@@ -35927,23 +35927,23 @@
         {
           "term1": {
             "class": "Model",
-            "value": "RussianSuperGLUE",
-            "start_pos": 80
+            "value": "NLU моделей",
+            "start_pos": 68
           },
-          "predicate": "Language",
+          "predicate": "isUsedInSolving",
           "term2": {
-            "class": "Lang",
-            "value": "русского",
-            "start_pos": 4
+            "class": "Task",
+            "value": "NLP задач",
+            "start_pos": 117
           }
         },
         {
           "term1": {
-            "class": "Model",
+            "class": "Metric",
             "value": "RussianSuperGLUE",
             "start_pos": 80
           },
-          "predicate": "isUsedForSolving",
+          "predicate": "isUsedIn",
           "term2": {
             "class": "Task",
             "value": "NLP задач",

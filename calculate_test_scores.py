@@ -188,7 +188,7 @@ def calculate_scores(
     if ignored_relations:
         print(f'Ignored these relations: {ignored_relations}')
 
-    return last_sent_id, True
+    return last_sent_id, counter >= total_sentences
 
 
 def main():
@@ -274,7 +274,7 @@ def main():
         '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'
     ]
 
-    token_idx = 0
+    token_idx = 3
     while True:
         prev_last_sent_id = last_sent_id
 

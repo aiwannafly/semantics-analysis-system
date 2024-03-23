@@ -247,6 +247,11 @@ def main():
         last_sent_id = 0
 
     tokens = [
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
         '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',
         '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',
         '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',
@@ -269,13 +274,12 @@ def main():
         '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'
     ]
 
-    token_idx = 8
+    token_idx = 0
     while True:
         prev_last_sent_id = last_sent_id
 
         relation_extractor = LLMRelationExtractor(
             model=config.llm,
-            prompt_template_path='prompts/relation_extraction.txt',
             huggingface_hub_token=tokens[token_idx]
         )
 

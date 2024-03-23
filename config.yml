@@ -1,5 +1,6 @@
 app-config:
   device: 'cpu'
+  display-graph: true
   show-class-predictions: false
   llm: 'mistralai/Mixtral-8x7B-Instruct-v0.1'
   huggingface-hub-token: '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'

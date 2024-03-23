@@ -2,6 +2,7 @@ import yaml
 
 
 class Config:
+    display_graph: bool
     show_class_predictions: bool
     llm: str
     huggingface_hub_token: str
@@ -13,6 +14,7 @@ class Config:
 
     def __init__(
             self,
+            display_graph: bool,
             show_class_predictions: bool,
             llm: str,
             token: str,
@@ -22,6 +24,7 @@ class Config:
             log_prompts: bool,
             log_llm_responses: bool
     ):
+        self.display_graph = display_graph
         self.show_class_predictions = show_class_predictions
         self.llm = llm
         self.huggingface_hub_token = token
@@ -40,6 +43,7 @@ def load_config(file_path: str) -> Config:
         config_dict = yaml.safe_load(stream)['app-config']
 
     return Config(
+        config_dict['display-graph'],
         config_dict['show-class-predictions'],
         config_dict['llm'],
         config_dict['huggingface-hub-token'],

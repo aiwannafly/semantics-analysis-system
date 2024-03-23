@@ -2,6 +2,7 @@ import yaml
 
 
 class Config:
+    show_class_predictions: bool
     llm: str
     huggingface_hub_token: str
     device: str
@@ -12,6 +13,7 @@ class Config:
 
     def __init__(
             self,
+            show_class_predictions: bool,
             llm: str,
             token: str,
             device: str,
@@ -20,6 +22,7 @@ class Config:
             log_prompts: bool,
             log_llm_responses: bool
     ):
+        self.show_class_predictions = show_class_predictions
         self.llm = llm
         self.huggingface_hub_token = token
         self.device = device
@@ -37,6 +40,7 @@ def load_config(file_path: str) -> Config:
         config_dict = yaml.safe_load(stream)['app-config']
 
     return Config(
+        config_dict['show-class-predictions'],
         config_dict['llm'],
         config_dict['huggingface-hub-token'],
         config_dict['device'],

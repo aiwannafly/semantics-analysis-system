@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Iterator, Optional
+from typing import List, Iterator, Optional, Tuple
 
 from semantics_analysis.entities import Relation, ClassifiedTerm
 
@@ -11,13 +11,13 @@ class RelationExtractor(ABC):
         pass
 
     @abstractmethod
-    def get_pairs_to_consider(self, terms: List[ClassifiedTerm]) -> List:
+    def get_pairs_to_consider(self, terms: List[ClassifiedTerm]) -> List[Tuple[ClassifiedTerm, ClassifiedTerm]]:
         pass
 
     @abstractmethod
     def analyze_term_pairs(
             self,
             text: str,
-            term_pairs: List
+            term_pairs: List[Tuple[ClassifiedTerm, ClassifiedTerm]]
     ) -> Iterator[Optional[Relation]]:
         pass

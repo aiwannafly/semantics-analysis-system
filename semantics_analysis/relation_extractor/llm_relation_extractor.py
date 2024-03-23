@@ -1,4 +1,4 @@
-from typing import List, Optional, Iterator
+from typing import List, Optional, Iterator, Tuple
 
 from huggingface_hub import InferenceClient
 
@@ -65,7 +65,7 @@ class LLMRelationExtractor(RelationExtractor):
 
                 yield Relation(term1, predicate, term2)
 
-    def get_pairs_to_consider(self, terms: List[ClassifiedTerm]) -> List:
+    def get_pairs_to_consider(self, terms: List[ClassifiedTerm]) -> List[Tuple[ClassifiedTerm, ClassifiedTerm]]:
         terms_count = len(terms)
 
         pairs_to_consider = []
@@ -98,7 +98,7 @@ class LLMRelationExtractor(RelationExtractor):
     def analyze_term_pairs(
             self,
             text: str,
-            term_pairs: List
+            term_pairs: List[Tuple[ClassifiedTerm, ClassifiedTerm]]
     ) -> Iterator[Optional[Relation]]:
         for term1, term2 in term_pairs:
             predicate = self.detect_predicate(term1, term2, text)

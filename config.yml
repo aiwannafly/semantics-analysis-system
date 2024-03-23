@@ -1,8 +1,9 @@
 app-config:
+  device: 'cpu'
+  show-class-predictions: false
   llm: 'mistralai/Mixtral-8x7B-Instruct-v0.1'
   huggingface-hub-token: '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'
-  device: 'cpu'
-  show-explanation: true
-  split-on-sentences: true
+  show-explanation: false
+  split-on-sentences: false
   log-prompts: false
   log-llm-responses: false

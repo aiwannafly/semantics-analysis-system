@@ -1,5 +1,6 @@
-from typing import List
+from typing import List, Dict, Tuple
 
+import torch
 from torch import inference_mode
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
@@ -44,6 +45,14 @@ class RobertaTermClassifier(TermClassifier):
         self.model.to(device)
 
     def __call__(self, text: str, terms: List[Term]) -> List[ClassifiedTerm]:
+        return self.run_and_save_predictions(text, terms, {})
+
+    def run_and_save_predictions(
+            self,
+            text: str,
+            terms: List[Term],
+            predictions: Dict[Term, List[Tuple[str, float]]]
+    ) -> List[ClassifiedTerm]:
         classified_terms = []
 
         for term in terms:
@@ -51,6 +60,10 @@ class RobertaTermClassifier(TermClassifier):
 
             with inference_mode():
                 outputs = self.model.forward(**self.tokenizer(markup_text, return_tensors='pt').to(device=self.device))
+
+            probs = torch.squeeze(torch.softmax(outputs.logits, dim=1))
+
+            predictions[term] = [(class_, p.item()) for class_, p in zip(label_list, probs)]
 
             idx = outputs.logits.argmax(dim=1)[0].item()
 

@@ -1,10 +1,11 @@
-from typing import List
+from typing import List, Tuple, Dict
 
 from colorama import Fore, Style
 from colorama import init as colorama_init
+from rich.progress import Progress, TextColumn, BarColumn
 
 from semantics_analysis.config import load_config, Config
-from semantics_analysis.entities import Relation, ClassifiedTerm
+from semantics_analysis.entities import Relation, ClassifiedTerm, Term
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
 from semantics_analysis.term_classification.roberta_term_classifier import RobertaTermClassifier
@@ -62,6 +63,7 @@ def render_relation(relation: Relation) -> str:
 
 def analyze_text(
         text: str,
+        show_class_predictions: bool,
         split_on_sentences: bool,
         term_extractor: TermExtractor,
         term_classifier: TermClassifier,
@@ -90,8 +92,10 @@ def analyze_text(
 
     print(f'{LOG_STYLE}[   FOUND TERMS  ]{Style.RESET_ALL}: {labeled_text}\n')
 
+    predictions_by_term: Dict[Term, List[Tuple[str, float]]] = {}
+
     with Spinner():
-        labeled_terms = term_classifier(text, terms)
+        labeled_terms = term_classifier.run_and_save_predictions(text, terms, predictions_by_term)
 
         for term_postprocessor in term_postprocessors:
             labeled_terms = term_postprocessor(labeled_terms)
@@ -107,6 +111,39 @@ def analyze_text(
         offset += len(labeled_text) - prev_len
 
     print(f'{LOG_STYLE}[CLASSIFIED TERMS]{Style.RESET_ALL}: {labeled_text}\n')
+
+    if show_class_predictions:
+        colors = ['green', 'magenta', 'white']
+
+        for term, predictions in predictions_by_term.items():
+            print()
+            print(f'{Style.DIM}—————————————————————————————————————————————————————————————{Style.RESET_ALL}')
+            print()
+            print(f'[{term.start_pos}] {TERM_STYLE}{term.value}{Style.RESET_ALL}\n')
+
+            predictions = sorted(predictions, key=lambda pair: pair[1], reverse=True)[:len(colors)]
+
+            count = 0
+            for class_, p in predictions:
+                color = colors[count]
+                count += 1
+
+                p = int(p * 100) / 100.0
+
+                diff = 20 - len(f'{class_}: {p}')
+
+                description = f'[{color}]{class_}: {p}'
+
+                if diff > 0:
+                    description = ' ' * diff + description
+
+                with Progress(TextColumn(text_format=description, justify='right'),
+                              BarColumn(complete_style=color)) as progress:
+                    class_task = progress.add_task(total=1.0, description='')
+
+                    progress.update(class_task, description='', advance=p)
+
+            print()
 
     rel_count = 0
 
@@ -176,6 +213,7 @@ def main():
 
         analyze_text(
             text,
+            app_config.show_class_predictions,
             app_config.split_on_sentences,
             term_extractor,
             term_classifier,

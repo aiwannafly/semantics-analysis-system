@@ -134,12 +134,15 @@ class Sentence:
                 return r
         return None
 
-    def find_term_by_class_id(self, class_id: str) -> Optional[str]:
+    def find_term_by_class(self, class_id: str) -> Optional[Term]:
         for term in self.terms:
             if term.class_ == class_id:
-                return term.value
+                return term
 
         return None
+
+    def find_terms_by_class(self, class_id: str) -> List[Term]:
+        return [t for t in self.terms if t.class_ == class_id]
 
     def to_json(self):
         return {

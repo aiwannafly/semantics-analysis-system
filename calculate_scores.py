@@ -2,7 +2,7 @@ import json
 import os
 import sys
 from time import sleep
-from typing import List, Dict, Any, Set
+from typing import List, Dict, Any, Set, Optional
 
 from huggingface_hub.utils import HfHubHTTPError
 
@@ -74,7 +74,8 @@ def calculate_scores(
         scores: Dict[str, Any],
         relation_extractor: RelationExtractor,
         sentences_to_check: List[Sentence],
-        last_sent_id: int
+        last_sent_id: int,
+        relation_to_consider: Optional[str] = None
 ) -> (int, bool):
     for (class1, class2), predicates in predicates_by_class_pair.items():
         for predicate in predicates:
@@ -139,6 +140,11 @@ def calculate_scores(
             try:
                 term_pairs = relation_extractor.get_pairs_to_consider(sent.terms)
 
+                if relation_to_consider:
+                    class1, _, class2 = relation_to_consider.split('_')
+
+                    term_pairs = [pair for pair in term_pairs if pair[0].class_ == class1 and pair[1].class_ == class2]
+
                 predicted_relations = set()
 
                 total_pairs = len(term_pairs)
@@ -192,46 +198,41 @@ def calculate_scores(
 
 
 def main():
-    relations_to_consider = []
+    relation_to_consider = None
 
-    for arg in sys.argv[1:]:
-        if arg in loaded_relation_ids:
-            relations_to_consider.append(arg)
-        else:
-            print(f'Invalid relation id: {arg}')
+    if len(sys.argv) > 1:
+        relation_to_consider = sys.argv[1]
+
+        if relation_to_consider not in loaded_relation_ids:
+            print(f'Invalid relation id: {relation_to_consider}')
             return 0
 
     config = load_config('config.yml')
 
     sentences = read_sentences('tests/sentences.json')
 
-    if not relations_to_consider:
+    if not relation_to_consider:
         sentences_to_check = sentences
     else:
         sentences_to_check = []
 
-        class_pairs_to_consider = []
-        for rel in relations_to_consider:
-            class1, _, class2 = rel.split('_')
-
-            if (class1, class2) not in class_pairs_to_consider:
-                class_pairs_to_consider.append((class1, class2))
+        class1, _, class2 = relation_to_consider.split('_')
 
         for sent in sentences:
-            for class1, class2 in class_pairs_to_consider:
-                if sent.find_term_by_class_id(class1) and sent.find_term_by_class_id(class2):
-                    sentences_to_check.append(sent)
-                    break
+            if class1 == class2 and len(sent.find_terms_by_class(class1)) >= 2:
+                sentences_to_check.append(sent)
+                continue
 
+            if class1 != class2 and sent.find_term_by_class(class1) and sent.find_term_by_class(class2):
+                sentences_to_check.append(sent)
+                continue
 
-    if relations_to_consider:
-        total_id = '_and_'.join(relations_to_consider)
+    if relation_to_consider:
+        if not os.path.exists(f'tests/{relation_to_consider}'):
+            os.makedirs(f'tests/{relation_to_consider}')
 
-        if not os.path.exists(f'tests/{total_id}'):
-            os.makedirs(f'tests/{total_id}')
-
-        lock_path = f'tests/{total_id}/last_stop.lock'
-        scores_path = f'tests/{total_id}/scores.json'
+        lock_path = f'tests/{relation_to_consider}/last_stop.lock'
+        scores_path = f'tests/{relation_to_consider}/scores.json'
     else:
         lock_path = 'tests/last_stop.lock'
         scores_path = 'tests/scores.json'
@@ -274,7 +275,7 @@ def main():
         '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'
     ]
 
-    token_idx = 3
+    token_idx = 15
     while True:
         prev_last_sent_id = last_sent_id
 

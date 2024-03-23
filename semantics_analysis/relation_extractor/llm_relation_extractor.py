@@ -24,6 +24,9 @@ class LLMRelationExtractor(RelationExtractor):
         with open('prompts/directed_relation_extraction.txt', 'r', encoding='utf-8') as f:
             self.same_class_prompt_template = f.read().strip()
 
+        with open('prompts/synonyms.txt', 'r', encoding='utf-8') as f:
+            self.check_synonyms_prompt_template = f.read().strip()
+
         self.show_explanation = show_explanation
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
@@ -60,6 +63,15 @@ class LLMRelationExtractor(RelationExtractor):
 
                 if not predicates:
                     continue
+
+                are_synonyms = self.check_if_synonyms(term1, term2, text)
+
+                if are_synonyms:
+                    if 'isAlternativeNameFor' in predicates:
+                        yield Relation(term1, 'isAlternativeNameFor', term2)
+                        continue
+                    else:
+                        continue
 
                 predicate, should_reverse = self.detect_predicate(term1, term2, text)
 
@@ -107,6 +119,10 @@ class LLMRelationExtractor(RelationExtractor):
             term_pairs: List[Tuple[ClassifiedTerm, ClassifiedTerm]]
     ) -> Iterator[Optional[Relation]]:
         for term1, term2 in term_pairs:
+            if self.check_if_synonyms(term1, term2, text):
+                yield Relation(term1, 'isAlternativeNameFor', term2)
+                continue
+
             predicate, should_reverse = self.detect_predicate(term1, term2, text)
 
             if predicate is None:
@@ -117,7 +133,36 @@ class LLMRelationExtractor(RelationExtractor):
                 else:
                     yield Relation(term1, predicate, term2)
 
+    def check_if_synonyms(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> bool:
+        if term1.class_ != term2.class_:
+            return False
+
+        input_text = (f'Текст: {text}\n'
+                      f'Являются ли синонимами "{term1.value}" и "{term2.value}" в этом контексте?\n'
+                      f'Ответ:')
+
+        prompt = self.check_synonyms_prompt_template
+        prompt = prompt.replace('{input}', input_text)
+
+        if self.log_prompts:
+            print(f'[INPUT PROMPT]: {prompt}\n')
+
+        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=2, stop_sequences=['.']).strip()
+
+        if self.log_llm_responses:
+            print(f'[ SYNONYMS ]: {response}\n')
+
+        response = response.lower()
+
+        return 'да' in response
+
     def detect_predicate(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> (Optional[str], bool):
+        predicates = predicates_by_class_pair[(term1.class_, term2.class_)]
+
+        predicates = [p for p in predicates if p != 'isAlternativeNameFor']
+
+        if not predicates:
+            return None, False
 
         prompt = self.create_llm_prompt(term1, term2, text)
 
@@ -129,37 +174,37 @@ class LLMRelationExtractor(RelationExtractor):
         if self.log_llm_responses:
             print(f'[LLM RESPONSE]: {response}\n')
 
+        no_answers = ['none', 'нет', 'Нет', ' no ', 'not', ' не ']
+
         if response.startswith('none'):
             return None, False
 
-        predicates = predicates_by_class_pair[(term1.class_, term2.class_)]
+        for no in no_answers:
+            if no in response:
+                return None, False
 
         for predicate in predicates:
             rel_is_symmetric = is_symmetric[f'{term1.class_}_{predicate}_{term2.class_}']
 
-            if predicate in response and 'Нет' not in response and 'нет' not in response: #.startswith(predicate):
+            if predicate in response:
 
-                if term1.class_ != term2.class_ or rel_is_symmetric:
+                if term1.class_ != term2.class_:
                     return predicate, False
                 else:
+                    if term1.value not in response or term2.value not in response:
+                        return None, False
+
+                    if rel_is_symmetric:
+                        return predicate, False
+
                     predicate_pos = response.index(predicate)
 
-                    if term1.value in response:
-                        term1_pos = response.index(term1.value)
+                    term1_pos = response.index(term1.value)
 
-                        if term1_pos > predicate_pos:
-                            return predicate, True
-                        else:
-                            return predicate, False
-                    if term2.value in response:
-                        term2_pos = response.index(term2.value)
-
-                        if term2_pos < predicate_pos:
-                            return predicate, True
-                        else:
-                            return predicate, False
-
-                    return predicate, False
+                    if term1_pos > predicate_pos:
+                        return predicate, True
+                    else:
+                        return predicate, False
 
         return None, False
 
@@ -263,6 +308,9 @@ class LLMRelationExtractor(RelationExtractor):
         questions_list = ''
 
         for predicate, metadata in prompt_metadata.items():
+            if predicate == 'isAlternativeNameFor':
+                continue
+
             predicates.append(predicate)
 
             description = metadata['yes']['description']

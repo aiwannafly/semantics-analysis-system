@@ -11,7 +11,7 @@ from semantics_analysis.entities import read_sentences, Sentence, Relation
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.relation_extractor.ontology_utils import (predicates_by_class_pair, is_symmetric,
                                                                   loaded_relation_ids)
-from rich.progress import Progress
+from rich.progress import Progress, TextColumn, BarColumn
 
 from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
 
@@ -75,6 +75,7 @@ def calculate_scores(
         relation_extractor: RelationExtractor,
         sentences_to_check: List[Sentence],
         last_sent_id: int,
+        progress: Progress = Progress(),
         relation_to_consider: Optional[str] = None
 ) -> (int, bool):
     for (class1, class2), predicates in predicates_by_class_pair.items():
@@ -85,26 +86,26 @@ def calculate_scores(
                 continue
 
             scores[rel_id] = {
-                'expected': {
-                    'found': {
-                        'count': 0,
-                        'examples': []
-                    },
-                    'not_found': {
-                        'count': 0,
-                        'examples': []
-                    }
-                },
                 'predicted': {
-                    'correct': {
-                        'count': 0,
-                        'examples': []
-                    },
                     'incorrect': {
                         'count': 0,
                         'examples': []
+                    },
+                    'correct': {
+                        'count': 0,
+                        'examples': []
                     }
                 },
+                'expected': {
+                    'not_found': {
+                        'count': 0,
+                        'examples': []
+                    },
+                    'found': {
+                        'count': 0,
+                        'examples': []
+                    }
+                }
             }
 
     ignored_relations = set()
@@ -113,86 +114,88 @@ def calculate_scores(
 
     total_sentences = len(sentences_to_check)
 
-    with Progress() as progress:
-        sentence_task = progress.add_task(
-            description=f'[green]Sentence {counter}/{total_sentences}',
-            total=total_sentences
+    sentence_task = progress.add_task(
+        description=f'[green]Sentence {counter}/{total_sentences}',
+        total=total_sentences
+    )
+
+    for sent in sentences_to_check:
+        if sent.id <= last_sent_id:
+            counter += 1
+            progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
+            continue
+
+        expected_relations = set()
+
+        #  we consider only those relations, that are actually covered at the current moment
+        for rel in sent.relations:
+            if rel.id in loaded_relation_ids:
+                expected_relations.add(rel)
+
+        if not expected_relations:
+            counter += 1
+            progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
+            continue
+
+        term_pairs = relation_extractor.get_pairs_to_consider(sent.terms)
+
+        if relation_to_consider:
+            class1, _, class2 = relation_to_consider.split('_')
+
+            term_pairs = [pair for pair in term_pairs if pair[0].class_ == class1 and pair[1].class_ == class2]
+
+        total_pairs = len(term_pairs)
+        pair_count = 1
+
+        extract_rel_task = progress.add_task(
+            description=f'[cyan]Term pair {pair_count}/{total_pairs}',
+            total=total_pairs
         )
 
-        for sent in sentences_to_check:
-            if sent.id <= last_sent_id:
-                counter += 1
-                progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
-                continue
+        progress.update(
+            extract_rel_task,
+            description=f'[cyan]Term pair {pair_count}/{total_pairs}',
+            advance=1
+        )
 
-            expected_relations = set()
+        predicted_relations = set()
 
-            #  we consider only those relations, that are actually covered at the current moment
-            for rel in sent.relations:
-                if rel.id in loaded_relation_ids:
-                    expected_relations.add(rel)
+        try:
+            relations = relation_extractor.analyze_term_pairs(sent.text, term_pairs)
 
-            if not expected_relations:
-                counter += 1
-                progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
-                continue
+            for rel in relations:
+                pair_count += 1
 
-            try:
-                term_pairs = relation_extractor.get_pairs_to_consider(sent.terms)
-
-                if relation_to_consider:
-                    class1, _, class2 = relation_to_consider.split('_')
-
-                    term_pairs = [pair for pair in term_pairs if pair[0].class_ == class1 and pair[1].class_ == class2]
-
-                predicted_relations = set()
-
-                total_pairs = len(term_pairs)
-                pair_count = 1
-
-                extract_rel_task = progress.add_task(
-                    description=f'[cyan]Term pair {pair_count}/{total_pairs}',
-                    total=total_pairs
-                )
+                if rel:
+                    predicted_relations.add(rel)
 
                 progress.update(
                     extract_rel_task,
                     description=f'[cyan]Term pair {pair_count}/{total_pairs}',
                     advance=1
                 )
+        except HfHubHTTPError as e:
+            progress.remove_task(extract_rel_task)
 
-                for rel in relation_extractor.analyze_term_pairs(sent.text, term_pairs):
-                    pair_count += 1
+            if 'Rate limit reached' in e.server_message:
+                break
+            else:
+                break
+        except Exception:
+            progress.remove_task(sentence_task)
+            progress.remove_task(extract_rel_task)
+            return last_sent_id, False
 
-                    if rel:
-                        predicted_relations.add(rel)
-                    progress.update(
-                        extract_rel_task,
-                        description=f'[cyan]Term pair {pair_count}/{total_pairs}',
-                        advance=1
-                    )
+        progress.remove_task(extract_rel_task)
 
-                progress.remove_task(extract_rel_task)
+        update_scores(sent, predicted_relations, expected_relations, ignored_relations, scores)
 
-            except HfHubHTTPError as e:
-                if 'Rate limit reached' in e.server_message:
-                    print('[DETECTED TOKEN LIMIT]')
-                    break
-                else:
-                    print(e)
-                    break
-            except Exception as e:
-                print(e)
-                return last_sent_id, False
+        counter += 1
+        progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
+        last_sent_id = sent.id
 
-            update_scores(sent, predicted_relations, expected_relations, ignored_relations, scores)
-
-            counter += 1
-            progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
-            last_sent_id = sent.id
-
-    if ignored_relations:
-        print(f'Ignored these relations: {ignored_relations}')
+    if counter < total_sentences:
+        progress.remove_task(sentence_task)
 
     return last_sent_id, counter >= total_sentences
 
@@ -256,7 +259,7 @@ def main():
         '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',
         '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',
         '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',
-        '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',   
+        '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',
         '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',
         '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',
         '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',
@@ -275,34 +278,66 @@ def main():
         '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'
     ]
 
-    token_idx = 15
-    while True:
-        prev_last_sent_id = last_sent_id
+    token_idx = 0
+    no_move_count = 0
 
-        relation_extractor = LLMRelationExtractor(
-            model=config.llm,
-            huggingface_hub_token=tokens[token_idx]
+    with Progress() as progress:
+        token_task = progress.add_task(
+            total=len(tokens),
+            description=f'Token {token_idx}/{len(tokens)}',
+            completed=token_idx
         )
 
-        last_sent_id, finished = calculate_scores(scores, relation_extractor, sentences_to_check, last_sent_id)
+        while True:
+            prev_last_sent_id = last_sent_id
 
-        if prev_last_sent_id == last_sent_id:
-            break
-        else:
-            token_idx = (token_idx + 1) % len(tokens)
-            with open(lock_path, 'w', encoding='utf-8') as f:
-                f.write(f'{last_sent_id}')
+            relation_extractor = LLMRelationExtractor(
+                model=config.llm,
+                huggingface_hub_token=tokens[token_idx]
+            )
 
-            with open(scores_path, 'w', encoding='utf-8') as f:
-                json.dump(scores, f, ensure_ascii=False, indent=2)
+            last_sent_id, finished = calculate_scores(
+                scores,
+                relation_extractor,
+                sentences_to_check,
+                last_sent_id,
+                progress=progress
+            )
 
             if finished:
+                with open(lock_path, 'w', encoding='utf-8') as f:
+                    f.write(f'{last_sent_id}')
+
+                with open(scores_path, 'w', encoding='utf-8') as f:
+                    json.dump(scores, f, ensure_ascii=False, indent=2)
                 print('Scores were saved.')
                 break
 
-            sleep_time_secs = 5
-            print(f'Scores were updated. Sleep for {sleep_time_secs} secs until new attempt.')
-            sleep(sleep_time_secs)
+            token_idx = (token_idx + 1) % len(tokens)
+            progress.update(token_task, description=f'Token {token_idx}/{len(tokens)}', completed=token_idx)
+
+            if prev_last_sent_id == last_sent_id:
+                no_move_count += 1
+
+                if no_move_count >= len(tokens):
+                    print('No tokens are available.')
+                    break
+            else:
+                no_move_count = 0
+                with open(lock_path, 'w', encoding='utf-8') as f:
+                    f.write(f'{last_sent_id}')
+
+                with open(scores_path, 'w', encoding='utf-8') as f:
+                    json.dump(scores, f, ensure_ascii=False, indent=2)
+
+                sleep_time_secs = 5
+
+                wait_task = progress.add_task(description='Token reset...', total=sleep_time_secs, completed=1)
+
+                for i in range(sleep_time_secs):
+                    sleep(1)
+                    progress.update(wait_task, description='Token reset...', advance=1)
+                progress.remove_task(wait_task)
 
 
 if __name__ == '__main__':

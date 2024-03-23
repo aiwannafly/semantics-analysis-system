@@ -4,7 +4,7 @@ from colorama import Fore, Style
 from colorama import init as colorama_init
 from rich.progress import Progress, TextColumn, BarColumn
 
-from semantics_analysis.config import load_config, Config
+from semantics_analysis.config import load_config
 from semantics_analysis.entities import Relation, ClassifiedTerm, Term
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
@@ -196,13 +196,9 @@ def main():
 
     term_classifier = RobertaTermClassifier(app_config.device)
 
-    prompt_template_path = 'prompts/relation_extraction_with_explanation.txt' \
-        if app_config.show_explanation else 'prompts/relation_extraction.txt'
-
     relation_extractor = LLMRelationExtractor(
         model=app_config.llm,
         show_explanation=app_config.show_explanation,
-        prompt_template_path=prompt_template_path,
         huggingface_hub_token=app_config.huggingface_hub_token,
         log_prompts=app_config.log_prompts,
         log_llm_responses=app_config.log_llm_responses

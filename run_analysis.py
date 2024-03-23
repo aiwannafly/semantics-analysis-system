@@ -113,7 +113,7 @@ def analyze_text(
     print(f'{LOG_STYLE}[CLASSIFIED TERMS]{Style.RESET_ALL}: {labeled_text}\n')
 
     if show_class_predictions:
-        colors = ['green', 'magenta', 'white']
+        colors = ['green', 'magenta', 'purple3']
 
         for term, predictions in predictions_by_term.items():
             print()

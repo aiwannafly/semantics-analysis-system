@@ -8,12 +8,13 @@ from huggingface_hub.utils import HfHubHTTPError
 
 from semantics_analysis.config import load_config
 from semantics_analysis.entities import read_sentences, Sentence, Relation
-from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
-from semantics_analysis.relation_extractor.ontology_utils import (predicates_by_class_pair, is_symmetric,
-                                                                  loaded_relation_ids)
-from rich.progress import Progress, TextColumn, BarColumn
+from semantics_analysis.reference_resolution.llm_reference_resolver import LLMReferenceResolver
+from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
+from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
+from semantics_analysis.relation_extraction.ontology_utils import predicates_by_class_pair, loaded_relation_ids
+from rich.progress import Progress
 
-from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
+from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
 
 
 def update_scores(
@@ -31,13 +32,6 @@ def update_scores(
         if rel.id not in loaded_relation_ids:
             ignored_relations.add(rel.id)
             continue
-
-        if is_symmetric[rel.id]:
-            inverse_rel = rel.inverse()
-            if rel not in expected_relations and inverse_rel in expected_relations:
-                predicted_relations.add(inverse_rel)
-            else:
-                predicted_relations.add(rel)
         else:
             predicted_relations.add(rel)
 
@@ -73,6 +67,7 @@ def update_scores(
 def calculate_scores(
         scores: Dict[str, Any],
         relation_extractor: RelationExtractor,
+        reference_resolver: ReferenceResolver,
         sentences_to_check: List[Sentence],
         last_sent_id: int,
         progress: Progress = Progress(),
@@ -137,12 +132,27 @@ def calculate_scores(
             progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
             continue
 
-        term_pairs = relation_extractor.get_pairs_to_consider(sent.terms)
+        sent_terms = []
+
+        term_names = set()
+
+        for term in sent.terms:
+            name = term.value.lower()
+
+            if name in term_names:
+                continue
+
+            sent_terms.append(term)
+            term_names.add(term.value.lower())
+
+        term_pairs = relation_extractor.get_pairs_to_consider(sent_terms)
 
         if relation_to_consider:
             class1, _, class2 = relation_to_consider.split('_')
 
             term_pairs = [pair for pair in term_pairs if pair[0].class_ == class1 and pair[1].class_ == class2]
+
+        predicted_relations = set()
 
         total_pairs = len(term_pairs)
         pair_count = 1
@@ -157,9 +167,6 @@ def calculate_scores(
             description=f'[cyan]Term pair {pair_count}/{total_pairs}',
             advance=1
         )
-
-        predicted_relations = set()
-
         try:
             relations = relation_extractor.analyze_term_pairs(sent.text, term_pairs)
 
@@ -296,9 +303,15 @@ def main():
                 huggingface_hub_token=tokens[token_idx]
             )
 
+            reference_resolver = LLMReferenceResolver(
+                model=config.llm,
+                huggingface_hub_token=tokens[token_idx]
+            )
+
             last_sent_id, finished = calculate_scores(
                 scores,
                 relation_extractor,
+                reference_resolver,
                 sentences_to_check,
                 last_sent_id,
                 progress=progress,

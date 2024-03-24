@@ -20173,6 +20173,45 @@
         {
           "term1": {
             "class": "Model",
+            "value": "LLM",
+            "start_pos": 6
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 65
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 6
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "GPT-3",
+            "start_pos": 74
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 6
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "LaMDA",
+            "start_pos": 92
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
             "value": "GPT-3",
             "start_pos": 74
           },

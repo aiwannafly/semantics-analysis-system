@@ -8,7 +8,7 @@ loaded_relation_ids = set()
 
 loaded_classes = set()
 
-attribute_classes = {'Date', 'Language', 'Value'}
+attribute_classes = {'Date', 'Lang', 'Value'}
 
 with open('metadata/relations.json', 'r', encoding='utf-8') as f:
     metadata = json.load(f)

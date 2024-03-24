@@ -19,12 +19,12 @@ class Term:
 
     def __eq__(self, other):
         if isinstance(other, Term):
-            return other.value == self.value and other.start_pos == self.start_pos and other.end_pos == self.end_pos
+            return other.value == self.value
 
         return False
 
     def __hash__(self):
-        return hash((self.value, self.start_pos))
+        return hash(self.value)
 
 
 class ClassifiedTerm(Term):
@@ -65,13 +65,12 @@ class ClassifiedTerm(Term):
 
     def __eq__(self, other):
         if isinstance(other, ClassifiedTerm):
-            return (other.class_ == self.class_ and other.value == self.value and other.start_pos == self.start_pos
-                    and other.end_pos == self.end_pos)
+            return other.class_ == self.class_ and other.value == self.value
 
         return False
 
     def __hash__(self):
-        return hash((self.class_, self.value, self.start_pos))
+        return hash((self.class_, self.value))
 
 
 class GroupedTerm:

@@ -6,6 +6,8 @@ prompt_metadata_by_class_pair = {}
 
 loaded_relation_ids = set()
 
+attribute_classes = {'Date', 'Language', 'Value'}
+
 with open('metadata/relations.json', 'r', encoding='utf-8') as f:
     metadata = json.load(f)
 

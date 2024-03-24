@@ -3,6 +3,7 @@ from typing import List, Tuple, Iterator
 from huggingface_hub import InferenceClient
 
 from semantics_analysis.entities import ClassifiedTerm, GroupedTerm
+from semantics_analysis.ontology_utils import attribute_classes
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
 
 
@@ -33,6 +34,10 @@ class LLMReferenceResolver(ReferenceResolver):
             group_by_term = {}
 
             curr_group_id = 0
+
+            if class_ in attribute_classes:  # these classes should not have grouping
+                grouped_terms.extend([GroupedTerm(class_, [t]) for t in terms if t not in group_by_term])
+                continue
 
             for i in range(len(terms)):
                 for j in range(i + 1, len(terms)):

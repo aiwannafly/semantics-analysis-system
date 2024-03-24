@@ -4,6 +4,7 @@ from colorama import Fore, Style
 from colorama import init as colorama_init
 from rich.progress import Progress, TextColumn, BarColumn
 
+from plot_graph import display_relation_graph
 from semantics_analysis.config import load_config
 from semantics_analysis.entities import Relation, ClassifiedTerm, Term
 from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
@@ -63,6 +64,7 @@ def render_relation(relation: Relation) -> str:
 
 def analyze_text(
         text: str,
+        display_graph: bool,
         show_class_predictions: bool,
         split_on_sentences: bool,
         term_extractor: TermExtractor,
@@ -161,6 +163,7 @@ def analyze_text(
     else:
         text_and_terms = [(text, labeled_terms)]
 
+    found_relations = []
     for text_part, labeled_terms in text_and_terms:
         relations = relation_extractor(text_part, labeled_terms)
 
@@ -172,6 +175,7 @@ def analyze_text(
                 break
 
             rel_count += 1
+            found_relations.append(relation)
 
             log_header = '[   RELATION {: 4}]'.format(rel_count)
             print(f'{LOG_STYLE}{log_header}{Style.RESET_ALL}:' + render_relation(relation))
@@ -180,6 +184,8 @@ def analyze_text(
 
     if rel_count == 0:
         print(f'{LOG_STYLE}[  NO RELATIONS  ]{Style.RESET_ALL}\n')
+    elif display_graph:
+        display_relation_graph(found_relations)
 
 
 def main():
@@ -209,6 +215,7 @@ def main():
 
         analyze_text(
             text,
+            app_config.display_graph,
             app_config.show_class_predictions,
             app_config.split_on_sentences,
             term_extractor,

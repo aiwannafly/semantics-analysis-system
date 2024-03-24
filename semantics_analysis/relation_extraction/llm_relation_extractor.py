@@ -3,7 +3,7 @@ from typing import List, Optional, Iterator, Tuple
 from huggingface_hub import InferenceClient
 
 from semantics_analysis.entities import Relation, ClassifiedTerm
-from semantics_analysis.relation_extraction.ontology_utils import predicates_by_class_pair, \
+from semantics_analysis.ontology_utils import predicates_by_class_pair, \
     prompt_metadata_by_class_pair
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
 

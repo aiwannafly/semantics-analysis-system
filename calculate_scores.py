@@ -4,14 +4,12 @@ import sys
 from time import sleep
 from typing import List, Dict, Any, Set, Optional
 
-from huggingface_hub.utils import HfHubHTTPError
-
 from semantics_analysis.config import load_config
 from semantics_analysis.entities import read_sentences, Sentence, Relation
 from semantics_analysis.reference_resolution.llm_reference_resolver import LLMReferenceResolver
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
 from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
-from semantics_analysis.relation_extraction.ontology_utils import predicates_by_class_pair, loaded_relation_ids
+from semantics_analysis.ontology_utils import predicates_by_class_pair, loaded_relation_ids
 from rich.progress import Progress
 
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
@@ -28,12 +26,30 @@ def update_scores(
 
     predicted_relations = set()
 
+    alternative_name_pairs = []
+
     for rel in temp:
         if rel.id not in loaded_relation_ids:
             ignored_relations.add(rel.id)
             continue
         else:
-            predicted_relations.add(rel)
+            if rel.predicate == 'isAlternativeNameFor':
+                term1, term2 = rel.term1.value.lower(), rel.term2.value.lower()
+
+                if (term1, term2) in alternative_name_pairs:
+                    continue
+                else:
+                    alternative_name_pairs.append((term1, term2))
+
+                if rel.term2.value == rel.term1.value:
+                    continue
+
+                if rel not in expected_relations and rel.inverse() in expected_relations:
+                    predicted_relations.add(rel.inverse())
+                else:
+                    predicted_relations.add(rel)
+            else:
+                predicted_relations.add(rel)
 
     for rel in expected_relations:
         if rel.id not in scores:
@@ -73,35 +89,34 @@ def calculate_scores(
         progress: Progress = Progress(),
         relation_to_consider: Optional[str] = None
 ) -> (int, bool):
-    for (class1, class2), predicates in predicates_by_class_pair.items():
-        for predicate in predicates:
-            rel_id = f'{class1}_{predicate}_{class2}'
+    relations_to_consider = {relation_to_consider} if relation_to_consider else loaded_relation_ids
 
-            if rel_id in scores:
-                continue
+    for rel_id in relations_to_consider:
+        if rel_id in scores:
+            continue
 
-            scores[rel_id] = {
-                'predicted': {
-                    'incorrect': {
-                        'count': 0,
-                        'examples': []
-                    },
-                    'correct': {
-                        'count': 0,
-                        'examples': []
-                    }
+        scores[rel_id] = {
+            'predicted': {
+                'incorrect': {
+                    'count': 0,
+                    'examples': []
                 },
-                'expected': {
-                    'not_found': {
-                        'count': 0,
-                        'examples': []
-                    },
-                    'found': {
-                        'count': 0,
-                        'examples': []
-                    }
+                'correct': {
+                    'count': 0,
+                    'examples': []
+                }
+            },
+            'expected': {
+                'not_found': {
+                    'count': 0,
+                    'examples': []
+                },
+                'found': {
+                    'count': 0,
+                    'examples': []
                 }
             }
+        }
 
     ignored_relations = set()
 
@@ -153,6 +168,17 @@ def calculate_scores(
             term_pairs = [pair for pair in term_pairs if pair[0].class_ == class1 and pair[1].class_ == class2]
 
         predicted_relations = set()
+
+        for grouped_term in grouped_terms:
+            if grouped_term.size() == 1:
+                continue
+
+            for i in range(len(grouped_term.terms)):
+                for j in range(i + 1, len(grouped_term.terms)):
+                    term1 = grouped_term.terms[i]
+                    term2 = grouped_term.terms[j]
+
+                    predicted_relations.add(Relation(term1, 'isAlternativeNameFor', term2))
 
         total_pairs = len(term_pairs)
         pair_count = 1

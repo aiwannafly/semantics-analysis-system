@@ -6,6 +6,8 @@ prompt_metadata_by_class_pair = {}
 
 loaded_relation_ids = set()
 
+loaded_classes = set()
+
 attribute_classes = {'Date', 'Language', 'Value'}
 
 with open('metadata/relations.json', 'r', encoding='utf-8') as f:
@@ -13,6 +15,9 @@ with open('metadata/relations.json', 'r', encoding='utf-8') as f:
 
 for key, predicates in metadata.items():
     class1, class2 = key.split('_')
+
+    loaded_classes.add(class1)
+    loaded_classes.add(class2)
 
     predicates_by_class_pair[(class1, class2)] = list(predicates.keys())
 
@@ -22,3 +27,9 @@ for key, predicates in metadata.items():
         rel_id = f'{class1}_{predicate}_{class2}'
 
         loaded_relation_ids.add(rel_id)
+
+for class_ in loaded_classes:
+    if class_ in attribute_classes:
+        continue
+
+    loaded_relation_ids.add(f'{class_}_isAlternativeNameFor_{class_}')

@@ -4,7 +4,7 @@ import sys
 from colorama import Style, init
 from rich.progress import Progress, TextColumn, BarColumn
 
-from semantics_analysis.relation_extraction.ontology_utils import loaded_relation_ids
+from semantics_analysis.ontology_utils import loaded_relation_ids
 
 relations_to_consider = []
 

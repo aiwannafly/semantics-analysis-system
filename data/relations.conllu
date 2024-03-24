@@ -16330,7 +16330,7 @@
 
 # sent_id = 633
 # text =   21 апреля 2022 года команда разработчиков SberDevices представила многоязычную версию нейросети GPT-3 под названием mGPT.
-# relations = "Model_hasAuthor_Organization 1 0, Date_isDateOf_Model 0 1"
+# relations = "Model_hasAuthor_Organization 1 0, Date_isDateOf_Model 0 1, Model_isModificationOf_Model 1 0"
 1	21 B-Date
 2	апреля I-Date
 3	2022 I-Date
@@ -16350,7 +16350,7 @@
 
 # sent_id = 634
 # text =   21 апреля 2022 года SberDevices представили многоязычную версию нейросети GPT-3 под названием mGPT.
-# relations = "Model_hasAuthor_Organization 1 0, Date_isDateOf_Model 0 1"
+# relations = "Model_hasAuthor_Organization 1 0, Date_isDateOf_Model 0 1, Model_isModificationOf_Model 1 0"
 1	21 B-Date
 2	апреля I-Date
 3	2022 I-Date
@@ -17548,7 +17548,7 @@
 
 # sent_id = 676
 # text =   На самом деле уже существуют продвинутые и проверенные методы ее обработки, использующие нейронные сети, с распознаванием смысла и контекста – BERT (Bidirectional Encoder Representations from Transformers).
-# relations = "Model_isAlternativeNameFor_Model 2 1, Model_isUsedForSolving_Task 2 0, Model_isUsedForSolving_Task 0 0, Model_isUsedForSolving_Task 1 0"
+# relations = "Model_includes_Model 0 1, Model_includes_Model 0 2, Model_isAlternativeNameFor_Model 2 1, Model_isUsedForSolving_Task 2 0, Model_isUsedForSolving_Task 0 0, Model_isUsedForSolving_Task 1 0"
 1	На O
 2	самом O
 3	деле O
@@ -20032,7 +20032,7 @@
 
 # sent_id = 776
 # text =   В рамках участия в DSTC8 команда разработала целеориентированную мультизадачную модель отслеживания состояния диалога с использованием BERT, названную GOLOMB (GOaL-Oriented Multi-task BERT-based dialogue state tracker).
-# relations = "Model_isUsedForSolving_Task 1 0, Model_isUsedForSolving_Task 2 0, Model_isAlternativeNameFor_Model 2 1"
+# relations = "Model_isModificationOf_Model 1 0, Model_isModificationOf_Model 2 0, Model_isUsedForSolving_Task 1 0, Model_isUsedForSolving_Task 2 0, Model_isAlternativeNameFor_Model 2 1"
 1	В O
 2	рамках O
 3	участия O
@@ -20879,7 +20879,7 @@
 
 # sent_id = 808
 # text = По своей сути BERT — это обученный стек энкодеров Трансформера.
-# relations = "Model_includes_Model 1 0"
+# relations = "Model_isModificationOf_Model 1 0"
 1	По O
 2	своей O
 3	сути O

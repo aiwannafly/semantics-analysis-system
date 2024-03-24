@@ -37264,6 +37264,19 @@
             "value": "accuracy",
             "start_pos": 134
           },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Metric",
+            "value": "точность",
+            "start_pos": 124
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "accuracy",
+            "start_pos": 134
+          },
           "predicate": "isUsedIn",
           "term2": {
             "class": "Task",
@@ -37369,6 +37382,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "accuracy",
+            "start_pos": 155
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Metric",
+            "value": "точность",
+            "start_pos": 145
+          }
+        },
         {
           "term1": {
             "class": "Metric",
@@ -37495,6 +37521,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "accuracy",
+            "start_pos": 126
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Metric",
+            "value": "точность",
+            "start_pos": 116
+          }
+        },
         {
           "term1": {
             "class": "Metric",

@@ -1931,12 +1931,12 @@
       "text": "Federated learning – направление ML, в котором отдельные модели учатся независимо друг от друга, а затем объединяются в единую модель (без централизации исходных данных), с поправками на редкие события, аномалии, персонализацию и т.д.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Science",
           "value": "Federated learning",
           "start_pos": 0
         },
         {
-          "class": "Method",
+          "class": "Science",
           "value": "ML",
           "start_pos": 33
         }
@@ -1944,13 +1944,13 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Science",
             "value": "ML",
             "start_pos": 33
           },
           "predicate": "includes",
           "term2": {
-            "class": "Method",
+            "class": "Science",
             "value": "Federated learning",
             "start_pos": 0
           }

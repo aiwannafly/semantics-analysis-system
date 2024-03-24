@@ -301,7 +301,8 @@ def main():
                 relation_extractor,
                 sentences_to_check,
                 last_sent_id,
-                progress=progress
+                progress=progress,
+                relation_to_consider=relation_to_consider
             )
 
             if finished:

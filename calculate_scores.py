@@ -132,18 +132,18 @@ def calculate_scores(
             progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
             continue
 
-        sent_terms = []
+        group_task = progress.add_task(description='Grouping terms')
 
-        term_names = set()
+        try:
+            grouped_terms = reference_resolver(sent.terms, sent.text)
+        except Exception:
+            progress.remove_task(group_task)
+            progress.remove_task(sentence_task)
+            return last_sent_id, False
 
-        for term in sent.terms:
-            name = term.value.lower()
+        progress.remove_task(group_task)
 
-            if name in term_names:
-                continue
-
-            sent_terms.append(term)
-            term_names.add(term.value.lower())
+        sent_terms = [t.as_single() for t in grouped_terms]
 
         term_pairs = relation_extractor.get_pairs_to_consider(sent_terms)
 
@@ -181,13 +181,6 @@ def calculate_scores(
                     description=f'[cyan]Term pair {pair_count}/{total_pairs}',
                     advance=1
                 )
-        except HfHubHTTPError as e:
-            progress.remove_task(extract_rel_task)
-
-            if 'Rate limit reached' in e.server_message:
-                break
-            else:
-                break
         except Exception:
             progress.remove_task(sentence_task)
             progress.remove_task(extract_rel_task)

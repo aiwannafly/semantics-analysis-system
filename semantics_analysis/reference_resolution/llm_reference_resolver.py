@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Tuple, Iterator
 
 from huggingface_hub import InferenceClient
 

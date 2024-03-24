@@ -22180,6 +22180,19 @@
             "value": "mGPT",
             "start_pos": 116
           }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "mGPT",
+            "start_pos": 116
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "GPT-3",
+            "start_pos": 96
+          }
         }
       ]
     },
@@ -22233,6 +22246,19 @@
             "class": "Model",
             "value": "mGPT",
             "start_pos": 94
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "mGPT",
+            "start_pos": 94
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "GPT-3",
+            "start_pos": 74
           }
         }
       ]
@@ -25134,6 +25160,32 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "нейронные сети",
+            "start_pos": 89
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 143
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "нейронные сети",
+            "start_pos": 89
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "Bidirectional Encoder Representations from Transformers",
+            "start_pos": 149
+          }
+        },
         {
           "term1": {
             "class": "Model",
@@ -29644,6 +29696,32 @@
             "value": "GOLOMB",
             "start_pos": 151
           },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 135
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "GOaL-Oriented Multi-task BERT-based dialogue state tracker",
+            "start_pos": 159
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 135
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "GOLOMB",
+            "start_pos": 151
+          },
           "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
@@ -31257,7 +31335,7 @@
             "value": "энкодеров Трансформера",
             "start_pos": 40
           },
-          "predicate": "includes",
+          "predicate": "isModificationOf",
           "term2": {
             "class": "Model",
             "value": "BERT",

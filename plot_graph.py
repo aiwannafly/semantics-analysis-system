@@ -3,7 +3,7 @@ from typing import List
 import networkx as nx
 import matplotlib.pyplot as plt
 
-from semantics_analysis.entities import Relation
+from semantics_analysis.entities import Relation, read_sentences
 
 
 def draw_labeled_multigraph(G, ax=None):
@@ -38,6 +38,7 @@ def draw_labeled_multigraph(G, ax=None):
         pos,
         labels,
         font_color="purple",
+        label_pos=0.4,
         font_size=font_size,
         bbox={"alpha": 0},
         ax=ax,
@@ -64,6 +65,7 @@ def display_relation_graph(relations: List[Relation]):
     fig.set_figheight(8)
     ax.axis('off')
     ax.set_title('Relations graph')
+    fig.canvas.manager.set_window_title('Relations graph')
 
     plt.show()
 

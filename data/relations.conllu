@@ -14782,7 +14782,7 @@
 
 # sent_id = 567
 # text =   Новая LLM с открытым исходным кодом в отличие от таких известных LLM, как GPT-3 от OpenAI и LaMDA от Google, BLOOM является открытой языковой моделью, а исследователи охотно делятся подробностями о тех данных, на которых она обучалась, рассказывают о проблемах в ее разработке и о том, как они оценивали производительность BLOOM.
-# relations = "Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 3 1"
+# relations = "Model_includes_Model 0 1, Model_includes_Model 0 2, Model_includes_Model 0 3, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 3 1"
 1	Новая O
 2	LLM B-Model
 3	с O

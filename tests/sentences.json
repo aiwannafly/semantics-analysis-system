@@ -3370,7 +3370,7 @@
             "value": "Turing NLRv4",
             "start_pos": 96
           },
-          "predicate": "isAlternativeNameFor",
+          "predicate": "isModificationOf",
           "term2": {
             "class": "Model",
             "value": "Тьюринговой модели Microsoft Turing",
@@ -3411,7 +3411,7 @@
             "value": "Turing NLRv4",
             "start_pos": 82
           },
-          "predicate": "isAlternativeNameFor",
+          "predicate": "isModificationOf",
           "term2": {
             "class": "Model",
             "value": "Microsoft Turing",
@@ -36354,6 +36354,162 @@
             "class": "Organization",
             "value": "DeepPavlov",
             "start_pos": 264
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "sbert_large_nlu_ru",
+            "start_pos": 47
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "sbert_large_mt_nlu_ru",
+            "start_pos": 67
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "ruRoberta-large",
+            "start_pos": 92
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "rubert-base-cased-sentence",
+            "start_pos": 118
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "rubert-base-cased-conversational",
+            "start_pos": 146
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "distilrubert-tiny-cased-conversational",
+            "start_pos": 180
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "distilrubert-base-cased-conversational",
+            "start_pos": 222
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "rubert-tiny",
+            "start_pos": 282
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "rubert-tiny2",
+            "start_pos": 296
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "LaBSE",
+            "start_pos": 324
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "LaBSE-en-ru",
+            "start_pos": 353
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
+          },
+          "predicate": "includes",
+          "term2": {
+            "class": "Model",
+            "value": "bert-base-multilingual-cased",
+            "start_pos": 382
           }
         }
       ]

@@ -4,16 +4,15 @@ import sys
 from time import sleep
 from typing import List, Dict, Any, Set, Optional
 
-from huggingface_hub.utils import HfHubHTTPError
-
 from semantics_analysis.config import load_config
 from semantics_analysis.entities import read_sentences, Sentence, Relation
-from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
-from semantics_analysis.relation_extractor.ontology_utils import (predicates_by_class_pair, is_symmetric,
-                                                                  loaded_relation_ids)
-from rich.progress import Progress, TextColumn, BarColumn
+from semantics_analysis.reference_resolution.llm_reference_resolver import LLMReferenceResolver
+from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
+from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
+from semantics_analysis.ontology_utils import predicates_by_class_pair, loaded_relation_ids
+from rich.progress import Progress
 
-from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
+from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
 
 
 def update_scores(
@@ -27,19 +26,30 @@ def update_scores(
 
     predicted_relations = set()
 
+    alternative_name_pairs = []
+
     for rel in temp:
         if rel.id not in loaded_relation_ids:
             ignored_relations.add(rel.id)
             continue
+        else:
+            if rel.predicate == 'isAlternativeNameFor':
+                term1, term2 = rel.term1.value.lower(), rel.term2.value.lower()
 
-        if is_symmetric[rel.id]:
-            inverse_rel = rel.inverse()
-            if rel not in expected_relations and inverse_rel in expected_relations:
-                predicted_relations.add(inverse_rel)
+                if (term1, term2) in alternative_name_pairs:
+                    continue
+                else:
+                    alternative_name_pairs.append((term1, term2))
+
+                if rel.term2.value == rel.term1.value:
+                    continue
+
+                if rel not in expected_relations and rel.inverse() in expected_relations:
+                    predicted_relations.add(rel.inverse())
+                else:
+                    predicted_relations.add(rel)
             else:
                 predicted_relations.add(rel)
-        else:
-            predicted_relations.add(rel)
 
     for rel in expected_relations:
         if rel.id not in scores:
@@ -73,40 +83,40 @@ def update_scores(
 def calculate_scores(
         scores: Dict[str, Any],
         relation_extractor: RelationExtractor,
+        reference_resolver: ReferenceResolver,
         sentences_to_check: List[Sentence],
         last_sent_id: int,
         progress: Progress = Progress(),
         relation_to_consider: Optional[str] = None
 ) -> (int, bool):
-    for (class1, class2), predicates in predicates_by_class_pair.items():
-        for predicate in predicates:
-            rel_id = f'{class1}_{predicate}_{class2}'
+    relations_to_consider = {relation_to_consider} if relation_to_consider else loaded_relation_ids
 
-            if rel_id in scores:
-                continue
+    for rel_id in relations_to_consider:
+        if rel_id in scores:
+            continue
 
-            scores[rel_id] = {
-                'predicted': {
-                    'incorrect': {
-                        'count': 0,
-                        'examples': []
-                    },
-                    'correct': {
-                        'count': 0,
-                        'examples': []
-                    }
+        scores[rel_id] = {
+            'predicted': {
+                'incorrect': {
+                    'count': 0,
+                    'examples': []
                 },
-                'expected': {
-                    'not_found': {
-                        'count': 0,
-                        'examples': []
-                    },
-                    'found': {
-                        'count': 0,
-                        'examples': []
-                    }
+                'correct': {
+                    'count': 0,
+                    'examples': []
+                }
+            },
+            'expected': {
+                'not_found': {
+                    'count': 0,
+                    'examples': []
+                },
+                'found': {
+                    'count': 0,
+                    'examples': []
                 }
             }
+        }
 
     ignored_relations = set()
 
@@ -137,12 +147,38 @@ def calculate_scores(
             progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
             continue
 
-        term_pairs = relation_extractor.get_pairs_to_consider(sent.terms)
+        group_task = progress.add_task(description='Grouping terms')
+
+        try:
+            grouped_terms = reference_resolver(sent.terms, sent.text)
+        except Exception:
+            progress.remove_task(group_task)
+            progress.remove_task(sentence_task)
+            return last_sent_id, False
+
+        progress.remove_task(group_task)
+
+        sent_terms = [t.as_single() for t in grouped_terms]
+
+        term_pairs = relation_extractor.get_pairs_to_consider(sent_terms)
 
         if relation_to_consider:
             class1, _, class2 = relation_to_consider.split('_')
 
             term_pairs = [pair for pair in term_pairs if pair[0].class_ == class1 and pair[1].class_ == class2]
+
+        predicted_relations = set()
+
+        for grouped_term in grouped_terms:
+            if grouped_term.size() == 1:
+                continue
+
+            for i in range(len(grouped_term.terms)):
+                for j in range(i + 1, len(grouped_term.terms)):
+                    term1 = grouped_term.terms[i]
+                    term2 = grouped_term.terms[j]
+
+                    predicted_relations.add(Relation(term1, 'isAlternativeNameFor', term2))
 
         total_pairs = len(term_pairs)
         pair_count = 1
@@ -157,9 +193,6 @@ def calculate_scores(
             description=f'[cyan]Term pair {pair_count}/{total_pairs}',
             advance=1
         )
-
-        predicted_relations = set()
-
         try:
             relations = relation_extractor.analyze_term_pairs(sent.text, term_pairs)
 
@@ -174,13 +207,6 @@ def calculate_scores(
                     description=f'[cyan]Term pair {pair_count}/{total_pairs}',
                     advance=1
                 )
-        except HfHubHTTPError as e:
-            progress.remove_task(extract_rel_task)
-
-            if 'Rate limit reached' in e.server_message:
-                break
-            else:
-                break
         except Exception:
             progress.remove_task(sentence_task)
             progress.remove_task(extract_rel_task)
@@ -296,9 +322,15 @@ def main():
                 huggingface_hub_token=tokens[token_idx]
             )
 
+            reference_resolver = LLMReferenceResolver(
+                model=config.llm,
+                huggingface_hub_token=tokens[token_idx]
+            )
+
             last_sent_id, finished = calculate_scores(
                 scores,
                 relation_extractor,
+                reference_resolver,
                 sentences_to_check,
                 last_sent_id,
                 progress=progress,

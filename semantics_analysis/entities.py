@@ -74,6 +74,33 @@ class ClassifiedTerm(Term):
         return hash((self.class_, self.value, self.start_pos))
 
 
+class GroupedTerm:
+    def __init__(self, class_name: str, terms: List[ClassifiedTerm]):
+        if not terms:
+            raise ValueError('Terms must be non-empty.')
+
+        self.terms = terms
+        self.class_ = class_name
+
+    def size(self) -> int:
+        return len(self.terms)
+
+    def as_single(self) -> ClassifiedTerm:
+        return self.terms[0]
+
+    def __repr__(self):
+        return f'GroupedTerm(class={self.class_}, terms={self.terms})'
+
+    def __eq__(self, other):
+        if isinstance(other, GroupedTerm):
+            return other.class_ == self.class_ and other.terms == self.terms
+
+        return False
+
+    def __hash__(self):
+        return hash((self.class_, self.terms))
+
+
 class Relation:
     def __init__(self, term1: ClassifiedTerm, predicate: str, term2: ClassifiedTerm):
         self.term1 = term1
@@ -114,7 +141,11 @@ class Relation:
         term1 = ClassifiedTerm.from_json(rel_json['term1'], text)
         term2 = ClassifiedTerm.from_json(rel_json['term2'], text)
 
-        return Relation(term1=term1, predicate=rel_json['predicate'], term2=term2)
+        return Relation(
+            term1=term1,
+            predicate=rel_json['predicate'],
+            term2=term2
+        )
 
 
 class Sentence:

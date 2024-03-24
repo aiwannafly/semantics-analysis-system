@@ -6,9 +6,11 @@ from rich.progress import Progress, TextColumn, BarColumn
 
 from plot_graph import display_relation_graph
 from semantics_analysis.config import load_config
-from semantics_analysis.entities import Relation, ClassifiedTerm, Term
-from semantics_analysis.relation_extractor.llm_relation_extractor import LLMRelationExtractor
-from semantics_analysis.relation_extractor.relation_extractor import RelationExtractor
+from semantics_analysis.entities import Relation, ClassifiedTerm, Term, GroupedTerm
+from semantics_analysis.reference_resolution.llm_reference_resolver import LLMReferenceResolver
+from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
+from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
+from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
 from semantics_analysis.term_classification.roberta_term_classifier import RobertaTermClassifier
 from semantics_analysis.term_classification.term_classifier import TermClassifier
 from semantics_analysis.term_extraction.roberta_term_extractor import RobertaTermExtractor
@@ -24,12 +26,19 @@ import nltk
 LOG_STYLE = Style.DIM
 TERM_STYLE = Fore.LIGHTCYAN_EX
 LABELED_TERM_STYLE = Fore.CYAN
+GROUPED_TERM_STYLE = Fore.MAGENTA
 PREDICATE_STYLE = Style.BRIGHT
 SEPARATOR_STYLE = Style.DIM
 
 
 def render_term(term: ClassifiedTerm) -> str:
     return f'{LABELED_TERM_STYLE}({term.value}: {term.class_}){Style.RESET_ALL}'
+
+
+def render_grouped_term(term: GroupedTerm) -> str:
+    values = ', '.join([t.value for t in term.terms])
+
+    return f'{GROUPED_TERM_STYLE}({values}: {term.class_}){Style.RESET_ALL}'
 
 
 def render_relation(relation: Relation) -> str:
@@ -69,6 +78,7 @@ def analyze_text(
         split_on_sentences: bool,
         term_extractor: TermExtractor,
         term_classifier: TermClassifier,
+        reference_resolver: ReferenceResolver,
         relation_extractor: RelationExtractor,
         term_postprocessors: List[TermPostProcessor]
 ):
@@ -147,6 +157,21 @@ def analyze_text(
 
             print()
 
+    with Spinner():
+        grouped_terms = reference_resolver(labeled_terms, text)
+
+    non_single_terms = [t for t in grouped_terms if t.size() > 1]
+
+    term_count = 1
+    for term in non_single_terms:
+        log_header = '[   GROUP    {: 4}]'.format(term_count)
+        term_count += 1
+
+        print(f'{LOG_STYLE}{log_header}{Style.RESET_ALL}: ' + render_grouped_term(term))
+        print()
+
+    labeled_terms = [t.as_single() for t in grouped_terms]
+
     rel_count = 0
 
     if split_on_sentences:
@@ -210,6 +235,14 @@ def main():
         log_llm_responses=app_config.log_llm_responses
     )
 
+    reference_resolver = LLMReferenceResolver(
+        model=app_config.llm,
+        show_explanation=app_config.show_explanation,
+        huggingface_hub_token=app_config.huggingface_hub_token,
+        log_prompts=app_config.log_prompts,
+        log_llm_responses=app_config.log_llm_responses
+    )
+
     while True:
         text = input(f'{LOG_STYLE}[      INPUT     ]{Style.RESET_ALL}: ')
 
@@ -220,6 +253,7 @@ def main():
             app_config.split_on_sentences,
             term_extractor,
             term_classifier,
+            reference_resolver,
             relation_extractor,
             term_postprocessors
         )

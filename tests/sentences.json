@@ -495,27 +495,27 @@
         {
           "term1": {
             "class": "Method",
-            "value": "разметочные функции",
-            "start_pos": 2
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "правила",
             "start_pos": 70
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "разметочные функции",
+            "start_pos": 2
           }
         },
         {
           "term1": {
             "class": "Method",
-            "value": "labeling functions",
-            "start_pos": 23
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "правила",
             "start_pos": 70
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "labeling functions",
+            "start_pos": 23
           }
         },
         {
@@ -1945,14 +1945,14 @@
         {
           "term1": {
             "class": "Science",
-            "value": "ML",
-            "start_pos": 33
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Science",
             "value": "Federated learning",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Science",
+            "value": "ML",
+            "start_pos": 33
           }
         }
       ]
@@ -4886,14 +4886,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "ULMFit",
-            "start_pos": 31
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "AWD-LSTM",
             "start_pos": 61
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "ULMFit",
+            "start_pos": 31
           }
         }
       ]
@@ -8255,14 +8255,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "Recurrent Neural Network",
-            "start_pos": 6
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "GRU",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "Recurrent Neural Network",
+            "start_pos": 6
           }
         }
       ]
@@ -9667,40 +9667,40 @@
         {
           "term1": {
             "class": "Object",
-            "value": "обучающая выборка",
-            "start_pos": 81
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "устойчивые группы",
             "start_pos": 114
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "обучающая выборка",
+            "start_pos": 81
           }
         },
         {
           "term1": {
-            "class": "Object",
-            "value": "обучающая выборка",
-            "start_pos": 81
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Object",
             "value": "кластеры",
             "start_pos": 136
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "обучающая выборка",
+            "start_pos": 81
           }
         },
         {
           "term1": {
             "class": "Method",
-            "value": "методом обучения без учителя",
-            "start_pos": 9
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "кластеризация",
             "start_pos": 47
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "методом обучения без учителя",
+            "start_pos": 9
           }
         },
         {
@@ -9778,14 +9778,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "подход обучения без учителя",
-            "start_pos": 7
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "тематическим моделированием",
             "start_pos": 58
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "подход обучения без учителя",
+            "start_pos": 7
           }
         },
         {
@@ -9936,14 +9936,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "методам обучения с учителем",
-            "start_pos": 76
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "классификации",
             "start_pos": 142
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "методам обучения с учителем",
+            "start_pos": 76
           }
         }
       ]
@@ -16618,6 +16618,19 @@
         },
         {
           "term1": {
+            "class": "Model",
+            "value": "GPT3",
+            "start_pos": 40
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "архитектур – трансформеров",
+            "start_pos": 54
+          }
+        },
+        {
+          "term1": {
             "class": "Date",
             "value": "2020",
             "start_pos": 15
@@ -17993,53 +18006,53 @@
         {
           "term1": {
             "class": "Object",
-            "value": "сложноструктурированных данных",
-            "start_pos": 39
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "слов",
             "start_pos": 81
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "сложноструктурированных данных",
+            "start_pos": 39
           }
         },
         {
           "term1": {
-            "class": "Object",
-            "value": "сложноструктурированных данных",
-            "start_pos": 39
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Object",
             "value": "текстов",
             "start_pos": 87
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "сложноструктурированных данных",
+            "start_pos": 39
           }
         },
         {
           "term1": {
-            "class": "Object",
-            "value": "сложноструктурированных данных",
-            "start_pos": 39
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Object",
             "value": "атрибутов событий",
             "start_pos": 96
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "сложноструктурированных данных",
+            "start_pos": 39
           }
         },
         {
           "term1": {
             "class": "Object",
-            "value": "сложноструктурированных данных",
-            "start_pos": 39
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "событий",
             "start_pos": 115
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "сложноструктурированных данных",
+            "start_pos": 39
           }
         }
       ]
@@ -18316,27 +18329,27 @@
         {
           "term1": {
             "class": "Model",
-            "value": "рекурентно-нейронная сеть",
-            "start_pos": 18
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "SequenceEncoder",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "рекурентно-нейронная сеть",
+            "start_pos": 18
           }
         },
         {
           "term1": {
             "class": "Model",
-            "value": "RNN",
-            "start_pos": 45
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "SequenceEncoder",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 45
           }
         }
       ]
@@ -19589,14 +19602,14 @@
         {
           "term1": {
             "class": "Object",
-            "value": "перекосов выборок",
-            "start_pos": 69
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "социально-демографическим атрибутам",
             "start_pos": 90
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "перекосов выборок",
+            "start_pos": 69
           }
         },
         {
@@ -19818,6 +19831,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BLOOM",
+            "start_pos": 210
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 8
+          }
+        },
         {
           "term1": {
             "class": "Model",
@@ -20173,40 +20199,27 @@
         {
           "term1": {
             "class": "Model",
-            "value": "LLM",
-            "start_pos": 6
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
-            "value": "LLM",
-            "start_pos": 65
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "LLM",
-            "start_pos": 6
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "GPT-3",
             "start_pos": 74
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 6
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "LLM",
-            "start_pos": 6
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "LaMDA",
             "start_pos": 92
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 6
           }
         },
         {
@@ -21775,27 +21788,27 @@
         {
           "term1": {
             "class": "Method",
-            "value": "методы построения",
-            "start_pos": 42
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "word2vec",
             "start_pos": 113
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "методы построения",
+            "start_pos": 42
           }
         },
         {
           "term1": {
             "class": "Method",
-            "value": "методы построения",
-            "start_pos": 42
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "skip-gramm",
             "start_pos": 139
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "методы построения",
+            "start_pos": 42
           }
         },
         {
@@ -21882,14 +21895,14 @@
         {
           "term1": {
             "class": "Object",
-            "value": "базис",
-            "start_pos": 22
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "случайных векторов",
             "start_pos": 31
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "базис",
+            "start_pos": 22
           }
         }
       ]
@@ -21925,14 +21938,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "анализ семантики без учителя",
-            "start_pos": 21
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "анализом скрытой (латентной) семантики",
             "start_pos": 72
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "анализ семантики без учителя",
+            "start_pos": 21
           }
         }
       ]
@@ -21956,14 +21969,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "латентно-семантическому анализу",
-            "start_pos": 28
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "латентно-семантическое индексирование",
             "start_pos": 66
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "латентно-семантическому анализу",
+            "start_pos": 28
           }
         }
       ]
@@ -22042,14 +22055,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "техника факторизации матрицы",
-            "start_pos": 79
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "техника вероятностного латентно-семантического индекса",
             "start_pos": 18
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "техника факторизации матрицы",
+            "start_pos": 79
           }
         }
       ]
@@ -22078,14 +22091,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "классической факторизацией",
-            "start_pos": 15
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "сингулярного разложения",
             "start_pos": 52
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "классической факторизацией",
+            "start_pos": 15
           }
         }
       ]
@@ -24292,14 +24305,14 @@
         {
           "term1": {
             "class": "Science",
-            "value": "NLP",
-            "start_pos": 9
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Science",
             "value": "информационном поиске",
             "start_pos": 83
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Science",
+            "value": "NLP",
+            "start_pos": 9
           }
         }
       ]
@@ -25202,27 +25215,27 @@
         {
           "term1": {
             "class": "Model",
-            "value": "нейронные сети",
-            "start_pos": 89
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "BERT",
             "start_pos": 143
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "нейронные сети",
+            "start_pos": 89
           }
         },
         {
           "term1": {
             "class": "Model",
-            "value": "нейронные сети",
-            "start_pos": 89
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "Bidirectional Encoder Representations from Transformers",
             "start_pos": 149
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "нейронные сети",
+            "start_pos": 89
           }
         },
         {
@@ -26046,14 +26059,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "Continuous Learning",
-            "start_pos": 48
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "методы использования новых данных для поддержания эффективности моделей",
             "start_pos": 103
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "Continuous Learning",
+            "start_pos": 48
           }
         },
         {
@@ -28025,14 +28038,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "статистический метод анализа текста",
-            "start_pos": 12
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "word2vec",
             "start_pos": 48
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "статистический метод анализа текста",
+            "start_pos": 12
           }
         },
         {
@@ -30227,14 +30240,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "математическая модель",
-            "start_pos": 35
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "Искусственная нейронная сеть",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "математическая модель",
+            "start_pos": 35
           }
         }
       ]
@@ -30280,14 +30293,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "рекуррентными нейронными сетями",
-            "start_pos": 58
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "LSTM",
             "start_pos": 91
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "рекуррентными нейронными сетями",
+            "start_pos": 58
           }
         },
         {
@@ -30373,14 +30386,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "рекуррентных нейронных сетей",
-            "start_pos": 73
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "LSTM",
             "start_pos": 113
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "рекуррентных нейронных сетей",
+            "start_pos": 73
           }
         },
         {
@@ -30868,14 +30881,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "NLP-моделей",
-            "start_pos": 67
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "BERT",
             "start_pos": 6
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "NLP-моделей",
+            "start_pos": 67
           }
         }
       ]
@@ -30922,14 +30935,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "моделей обработки естественного языка",
-            "start_pos": 79
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "BERT",
             "start_pos": 13
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "моделей обработки естественного языка",
+            "start_pos": 79
           }
         }
       ]
@@ -31619,14 +31632,14 @@
         {
           "term1": {
             "class": "Object",
-            "value": "текста",
-            "start_pos": 20
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "Спаны",
             "start_pos": 0
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "текста",
+            "start_pos": 20
           }
         }
       ]
@@ -32156,7 +32169,7 @@
             "value": "текстах",
             "start_pos": 64
           },
-          "predicate": "includes",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Object",
             "value": "текстах",
@@ -32460,14 +32473,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "BiLSTM-сеть",
-            "start_pos": 52
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "CRF",
             "start_pos": 66
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BiLSTM-сеть",
+            "start_pos": 52
           }
         }
       ]
@@ -35381,14 +35394,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "нейронную сеть",
-            "start_pos": 78
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "StarSpace",
             "start_pos": 95
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "нейронную сеть",
+            "start_pos": 78
           }
         }
       ]
@@ -35567,40 +35580,40 @@
         {
           "term1": {
             "class": "Method",
-            "value": "методы графовой репрезентации",
-            "start_pos": 32
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "DeepWalk",
             "start_pos": 85
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "методы графовой репрезентации",
+            "start_pos": 32
           }
         },
         {
           "term1": {
-            "class": "Method",
-            "value": "методы графовой репрезентации",
-            "start_pos": 32
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Method",
             "value": "Node2vec",
             "start_pos": 95
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "методы графовой репрезентации",
+            "start_pos": 32
           }
         },
         {
           "term1": {
             "class": "Method",
-            "value": "методы графовой репрезентации",
-            "start_pos": 32
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "Graph2vec",
             "start_pos": 105
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "методы графовой репрезентации",
+            "start_pos": 32
           }
         }
       ]
@@ -36476,157 +36489,157 @@
         {
           "term1": {
             "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "sbert_large_nlu_ru",
             "start_pos": 47
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "sbert_large_mt_nlu_ru",
             "start_pos": 67
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "ruRoberta-large",
             "start_pos": 92
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "rubert-base-cased-sentence",
             "start_pos": 118
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "rubert-base-cased-conversational",
             "start_pos": 146
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "distilrubert-tiny-cased-conversational",
             "start_pos": 180
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "distilrubert-base-cased-conversational",
             "start_pos": 222
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "rubert-tiny",
             "start_pos": 282
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "rubert-tiny2",
             "start_pos": 296
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "LaBSE",
             "start_pos": 324
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Model",
             "value": "LaBSE-en-ru",
             "start_pos": 353
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         },
         {
           "term1": {
             "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "bert-base-multilingual-cased",
             "start_pos": 382
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT-подобные модели",
+            "start_pos": 25
           }
         }
       ]
@@ -36677,6 +36690,84 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-small",
+            "start_pos": 101
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-base",
+            "start_pos": 113
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-base-multitask",
+            "start_pos": 124
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-base-paraphraser",
+            "start_pos": 147
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruT5-base",
+            "start_pos": 183
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruT5-large",
+            "start_pos": 195
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
         {
           "term1": {
             "class": "Model",
@@ -39201,14 +39292,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "transition-based",
-            "start_pos": 13
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "UDPipe",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "transition-based",
+            "start_pos": 13
           }
         }
       ]
@@ -39737,14 +39828,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "сентимент анализа",
-            "start_pos": 10
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "объектной тональностью",
             "start_pos": 39
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "сентимент анализа",
+            "start_pos": 10
           }
         },
         {
@@ -39791,40 +39882,40 @@
         {
           "term1": {
             "class": "Object",
-            "value": "тональность высказывания",
-            "start_pos": 15
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "тональной оценкой",
             "start_pos": 187
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "тональность высказывания",
+            "start_pos": 15
           }
         },
         {
           "term1": {
-            "class": "Object",
-            "value": "тональность высказывания",
-            "start_pos": 15
-          },
-          "predicate": "includes",
-          "term2": {
             "class": "Object",
             "value": "объектом тональности",
             "start_pos": 118
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "тональность высказывания",
+            "start_pos": 15
           }
         },
         {
           "term1": {
             "class": "Object",
-            "value": "тональность высказывания",
-            "start_pos": 15
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Object",
             "value": "субъектом тональности",
             "start_pos": 73
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "тональность высказывания",
+            "start_pos": 15
           }
         }
       ]
@@ -39853,14 +39944,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "сентимент анализа",
-            "start_pos": 23
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "feature-based/aspect-based sentiment analysis",
             "start_pos": 117
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "сентимент анализа",
+            "start_pos": 23
           }
         },
         {
@@ -40205,14 +40296,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "алгоритмы семантической близости",
-            "start_pos": 203
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "латентное размещение Дирихле",
             "start_pos": 284
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "алгоритмы семантической близости",
+            "start_pos": 203
           }
         },
         {
@@ -40231,14 +40322,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "алгоритмы семантической близости",
-            "start_pos": 203
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "латентно-семантический анализ",
             "start_pos": 247
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "алгоритмы семантической близости",
+            "start_pos": 203
           }
         },
         {
@@ -41131,14 +41222,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "метод машинного обучения",
-            "start_pos": 28
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "Федеративное обучение",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "метод машинного обучения",
+            "start_pos": 28
           }
         }
       ]
@@ -41667,14 +41758,14 @@
         {
           "term1": {
             "class": "Method",
-            "value": "классификатора",
-            "start_pos": 11
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Method",
             "value": "Transformer",
             "start_pos": 46
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Method",
+            "value": "классификатора",
+            "start_pos": 11
           }
         }
       ]
@@ -42118,27 +42209,27 @@
         {
           "term1": {
             "class": "Model",
-            "value": "рекуррентную нейронную сеть",
-            "start_pos": 35
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "SequenceEncoder",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть",
+            "start_pos": 35
           }
         },
         {
           "term1": {
             "class": "Model",
-            "value": "RNN",
-            "start_pos": 64
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "SequenceEncoder",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 64
           }
         },
         {
@@ -42175,14 +42266,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "энкодеров Трансформера",
-            "start_pos": 90
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "BERT",
             "start_pos": 5
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "энкодеров Трансформера",
+            "start_pos": 90
           }
         }
       ]
@@ -42206,14 +42297,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "transition-based",
-            "start_pos": 26
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "UDPipe",
             "start_pos": 0
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "transition-based",
+            "start_pos": 26
           }
         }
       ]
@@ -42237,14 +42328,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "CRF",
-            "start_pos": 88
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "BiLSTM",
             "start_pos": 71
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "CRF",
+            "start_pos": 88
           }
         }
       ]
@@ -42268,14 +42359,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "CRF",
-            "start_pos": 65
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "BiLSTM-архитектуру",
             "start_pos": 27
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "CRF",
+            "start_pos": 65
           }
         }
       ]
@@ -42322,14 +42413,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "моделей обработки естественного языка",
-            "start_pos": 94
-          },
-          "predicate": "includes",
-          "term2": {
-            "class": "Model",
             "value": "BERT",
             "start_pos": 17
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "моделей обработки естественного языка",
+            "start_pos": 94
           }
         },
         {

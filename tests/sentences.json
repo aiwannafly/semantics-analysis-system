@@ -2977,6 +2977,19 @@
             "value": "Голосовые ассистенты",
             "start_pos": 0
           }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "IVA",
+            "start_pos": 26
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "ГА",
+            "start_pos": 22
+          }
         }
       ]
     },
@@ -42073,6 +42086,19 @@
             "value": "Голосовые ассистенты",
             "start_pos": 0
           }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "IVA",
+            "start_pos": 26
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "ГА",
+            "start_pos": 22
+          }
         }
       ]
     },
@@ -42126,6 +42152,19 @@
             "class": "Application",
             "value": "Голосовые виртуальные помощники",
             "start_pos": 0
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "ИВА",
+            "start_pos": 38
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Application",
+            "value": "ГВП",
+            "start_pos": 33
           }
         }
       ]

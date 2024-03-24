@@ -154,6 +154,7 @@ def calculate_scores(
         except Exception:
             progress.remove_task(group_task)
             progress.remove_task(sentence_task)
+
             return last_sent_id, False
 
         progress.remove_task(group_task)
@@ -277,6 +278,26 @@ def main():
         last_sent_id = 0
 
     tokens = [
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
+        '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',
         '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',
         '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',
         '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',
@@ -354,6 +375,7 @@ def main():
 
                 if no_move_count >= len(tokens):
                     print('No tokens are available.')
+                    progress.remove_task(token_task)
                     break
             else:
                 no_move_count = 0

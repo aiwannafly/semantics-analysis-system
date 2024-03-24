@@ -1351,12 +1351,12 @@
 
 # sent_id = 56
 # text =   Federated learning – направление ML, в котором отдельные модели учатся независимо друг от друга, а затем объединяются в единую модель (без централизации исходных данных), с поправками на редкие события, аномалии, персонализацию и т.д.
-# relations = "Method_includes_Method 1 0"
-1	Federated B-Method
-2	learning I-Method
+# relations = "Science_includes_Science 1 0"
+1	Federated B-Science
+2	learning I-Science
 3	– O
 4	направление O
-5	ML B-Method
+5	ML B-Science
 6	, O
 7	в O
 8	котором O

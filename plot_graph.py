@@ -23,6 +23,8 @@ def draw_labeled_multigraph(G, ax=None):
         G,
         pos,
         edge_color=(.3, .5, .2, .2),
+        arrowsize=40,
+        # arrowstyle='fancy',
         ax=ax
     )
 
@@ -69,5 +71,5 @@ def display_relation_graph(relations: List[Relation]):
 # sentences = read_sentences('tests/sentences.json')
 #
 # for sent in sentences:
-#     if len(sent.relations) > 0:
+#     if len(sent.relations) > 5:
 #         display_relation_graph(sent.relations)

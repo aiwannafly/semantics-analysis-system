@@ -183,6 +183,15 @@ def calculate_scores(
                     term1 = grouped_term.items[i]
                     term2 = grouped_term.items[j]
 
+                    term1_value = term1.value.lower()[:-1]  # drop word endings
+                    term2_value = term2.value.lower()[:-1]
+
+                    if len(term1_value) > len(term2_value):
+                        term1_value, term2_value = term2_value, term1_value
+
+                    if len(term1_value) >= 4 and term1_value in term2_value:
+                        continue  # the same terms
+
                     predicted_relations.add(Relation(term1, 'isAlternativeNameFor', term2))
 
         total_pairs = len(term_pairs)

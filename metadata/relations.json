@@ -587,7 +587,7 @@
     }
   },
   "Method_Method": {
-    "isExampleOf": {
+    "isPartOf": {
       "yes": {
         "description": "метод включает в себя другой метод",
         "examples": [

@@ -299,6 +299,8 @@ def main():
         last_sent_id = 0
 
     tokens = [
+        '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',
+        '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',
         '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',
         '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',
         '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',

@@ -56,7 +56,7 @@ for relation, scores in scores_by_relation.items():
     else:
         recall = 0
 
-    if recall == 0 or precision == 0:
+    if found + not_found == 0:
         continue
 
     recall = int(recall * 100) / 100.0

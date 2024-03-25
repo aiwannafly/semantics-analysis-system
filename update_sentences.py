@@ -23,7 +23,7 @@ for sent in sentences:
         else:
             new_relations.append(Relation(rel.term2, 'isExampleOf', rel.term1))
 
-    new_sentences.append(Sentence(sent.id, sent.text, sent.items, new_relations))
+    new_sentences.append(Sentence(sent.id, sent.text, sent.terms, new_relations))
 
 sentences_dict = {
     'sentences': [s.to_json() for s in new_sentences]

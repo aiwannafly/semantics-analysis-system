@@ -46,6 +46,28 @@ for rel, _, scores in results2:
         continue
     scores_by_rel[rel].append(scores)
 
+count1 = storage1['count']
+avg_recall1 = storage1['avg_recall']
+avg_precision1 = storage1['avg_precision']
+
+count2 = storage2['count']
+avg_recall2 = storage2['avg_recall']
+avg_precision2 = storage2['avg_precision']
+
+AVERAGE_REL_NAME = '~ AVERAGE'
+
+scores_by_rel[AVERAGE_REL_NAME] = [
+    {
+        'Recall': int(100 * avg_recall1 / count1) / 100,
+        'Precision': int(100 * avg_precision1 / count1) / 100
+    },
+    {
+        'Recall': int(100 * avg_recall2 / count2) / 100,
+        'Precision': int(100 * avg_precision2 / count2) / 100
+    },
+]
+
+
 BETTER_STYLE = 'green'
 WORSE_STYLE = 'red'
 CONFLICT_STYLE = 'yellow'
@@ -117,6 +139,16 @@ for rel, results in scores_by_rel.items():
             common_style = BETTER_STYLE
     else:
         common_style = None
+
+    if rel == AVERAGE_REL_NAME:
+        trailing_rows.append([
+            Text(rel, style=common_style),
+            Text(str(recall1)),
+            Text(str(recall2), style=recall2_style),
+            Text(str(precision1)),
+            Text(str(precision2), style=precision2_style)
+        ])
+        continue
 
     table.add_row(
         Text(rel, style=common_style),

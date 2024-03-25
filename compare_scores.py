@@ -22,7 +22,7 @@ results2 = parse_scores(scores2_path, None, storage2)
 
 table = Table(title="Scores comparison")
 
-table.add_column(header="Relation", justify="left", style="cyan", no_wrap=True)
+table.add_column(header="Relation", justify="left", no_wrap=True)
 table.add_column(header="Recall 1")
 table.add_column(header="Recall 2")
 table.add_column(header="Precision 1")
@@ -42,6 +42,7 @@ for rel, _, scores in results2:
 
 BETTER_STYLE = 'green'
 WORSE_STYLE = 'red'
+CONFLICT_STYLE = 'yellow'
 
 for rel, results in scores_by_rel.items():
     if len(results) == 1:
@@ -68,8 +69,29 @@ for rel, results in scores_by_rel.items():
     else:
         precision2_style = None
 
+    if not precision2_style and not recall2_style:
+        common_style = None
+    elif precision2_style and recall2_style:
+        styles = {precision2_style, recall2_style}
+
+        if len(styles) > 1:
+            common_style = CONFLICT_STYLE
+        elif WORSE_STYLE in styles:
+            common_style = WORSE_STYLE
+        else:
+            common_style = BETTER_STYLE
+    elif precision2_style or recall2_style:
+        styles = {precision2_style, recall2_style}
+
+        if WORSE_STYLE in styles:
+            common_style = WORSE_STYLE
+        else:
+            common_style = BETTER_STYLE
+    else:
+        common_style = None
+
     table.add_row(
-        rel,
+        Text(rel, style=common_style),
         Text(str(recall1)),
         Text(str(recall2), style=recall2_style),
         Text(str(precision1)),

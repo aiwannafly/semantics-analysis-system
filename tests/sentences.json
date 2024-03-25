@@ -498,7 +498,7 @@
             "value": "правила",
             "start_pos": 70
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "разметочные функции",
@@ -511,7 +511,7 @@
             "value": "правила",
             "start_pos": 70
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "labeling functions",
@@ -8360,7 +8360,7 @@
             "value": "GRU",
             "start_pos": 0
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "Recurrent Neural Network",
@@ -9889,7 +9889,7 @@
             "value": "кластеризация",
             "start_pos": 47
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "методом обучения без учителя",
@@ -9974,7 +9974,7 @@
             "value": "тематическим моделированием",
             "start_pos": 58
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "подход обучения без учителя",
@@ -10132,7 +10132,7 @@
             "value": "классификации",
             "start_pos": 142
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "методам обучения с учителем",
@@ -22036,7 +22036,7 @@
             "value": "word2vec",
             "start_pos": 113
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "методы построения",
@@ -22049,7 +22049,7 @@
             "value": "skip-gramm",
             "start_pos": 139
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "методы построения",
@@ -22186,7 +22186,7 @@
             "value": "анализом скрытой (латентной) семантики",
             "start_pos": 72
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "анализ семантики без учителя",
@@ -22217,7 +22217,7 @@
             "value": "латентно-семантическое индексирование",
             "start_pos": 66
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "латентно-семантическому анализу",
@@ -22303,7 +22303,7 @@
             "value": "техника вероятностного латентно-семантического индекса",
             "start_pos": 18
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "техника факторизации матрицы",
@@ -22339,7 +22339,7 @@
             "value": "сингулярного разложения",
             "start_pos": 52
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "классической факторизацией",
@@ -26333,7 +26333,7 @@
             "value": "методы использования новых данных для поддержания эффективности моделей",
             "start_pos": 103
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "Continuous Learning",
@@ -28307,7 +28307,7 @@
             "value": "word2vec",
             "start_pos": 48
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "статистический метод анализа текста",
@@ -30548,7 +30548,7 @@
             "value": "Искусственная нейронная сеть",
             "start_pos": 0
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "математическая модель",
@@ -30601,7 +30601,7 @@
             "value": "LSTM",
             "start_pos": 91
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "рекуррентными нейронными сетями",
@@ -30694,7 +30694,7 @@
             "value": "LSTM",
             "start_pos": 113
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "рекуррентных нейронных сетей",
@@ -36005,7 +36005,7 @@
             "value": "DeepWalk",
             "start_pos": 85
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "методы графовой репрезентации",
@@ -36018,7 +36018,7 @@
             "value": "Node2vec",
             "start_pos": 95
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "методы графовой репрезентации",
@@ -36031,7 +36031,7 @@
             "value": "Graph2vec",
             "start_pos": 105
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "методы графовой репрезентации",
@@ -40214,7 +40214,7 @@
             "value": "объектной тональностью",
             "start_pos": 39
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "сентимент анализа",
@@ -40330,7 +40330,7 @@
             "value": "feature-based/aspect-based sentiment analysis",
             "start_pos": 117
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "сентимент анализа",
@@ -40682,7 +40682,7 @@
             "value": "латентное размещение Дирихле",
             "start_pos": 284
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "алгоритмы семантической близости",
@@ -40708,7 +40708,7 @@
             "value": "латентно-семантический анализ",
             "start_pos": 247
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "алгоритмы семантической близости",
@@ -41621,7 +41621,7 @@
             "value": "Федеративное обучение",
             "start_pos": 0
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "метод машинного обучения",
@@ -42157,7 +42157,7 @@
             "value": "Transformer",
             "start_pos": 46
           },
-          "predicate": "isComponentOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Method",
             "value": "классификатора",

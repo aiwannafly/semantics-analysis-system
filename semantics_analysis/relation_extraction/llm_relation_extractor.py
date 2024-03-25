@@ -127,10 +127,12 @@ class LLMRelationExtractor(RelationExtractor):
         if term1.class_ == term2.class_ and not self.show_explanation:
             stop_tokens.append(',')
 
+        max_new_tokens = 100 if self.show_explanation else 40
+
         response = self.llm.text_generation(
             prompt,
             do_sample=False,
-            max_new_tokens=100,
+            max_new_tokens=max_new_tokens,
             stop_sequences=stop_tokens
         ).strip()
 

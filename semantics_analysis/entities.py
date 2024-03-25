@@ -78,26 +78,26 @@ class GroupedTerm:
         if not terms:
             raise ValueError('Terms must be non-empty.')
 
-        self.terms = terms
+        self.items = terms
         self.class_ = class_name
 
     def size(self) -> int:
-        return len(self.terms)
+        return len(self.items)
 
     def as_single(self) -> ClassifiedTerm:
-        return self.terms[0]
+        return self.items[0]
 
     def __repr__(self):
-        return f'GroupedTerm(class={self.class_}, terms={self.terms})'
+        return f'GroupedTerm(class={self.class_}, terms={self.items})'
 
     def __eq__(self, other):
         if isinstance(other, GroupedTerm):
-            return other.class_ == self.class_ and other.terms == self.terms
+            return other.class_ == self.class_ and other.items == self.items
 
         return False
 
     def __hash__(self):
-        return hash((self.class_, self.terms))
+        return hash((self.class_, self.items))
 
 
 class Relation:

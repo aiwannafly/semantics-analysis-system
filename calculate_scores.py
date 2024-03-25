@@ -9,7 +9,7 @@ from semantics_analysis.entities import read_sentences, Sentence, Relation
 from semantics_analysis.reference_resolution.llm_reference_resolver import LLMReferenceResolver
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
 from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
-from semantics_analysis.ontology_utils import predicates_by_class_pair, loaded_relation_ids
+from semantics_analysis.ontology_utils import loaded_relation_ids
 from rich.progress import Progress
 
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
@@ -170,14 +170,18 @@ def calculate_scores(
 
         predicted_relations = set()
 
+        group_by_term = {}
+
         for grouped_term in grouped_terms:
+            group_by_term[grouped_term.as_single()] = grouped_term.items
+
             if grouped_term.size() == 1:
                 continue
 
-            for i in range(len(grouped_term.terms)):
-                for j in range(i + 1, len(grouped_term.terms)):
-                    term1 = grouped_term.terms[i]
-                    term2 = grouped_term.terms[j]
+            for i in range(len(grouped_term.items)):
+                for j in range(i + 1, len(grouped_term.items)):
+                    term1 = grouped_term.items[i]
+                    term2 = grouped_term.items[j]
 
                     predicted_relations.add(Relation(term1, 'isAlternativeNameFor', term2))
 
@@ -203,12 +207,20 @@ def calculate_scores(
                 if rel:
                     predicted_relations.add(rel)
 
+                    # reference resolving
+                    for term1_option in group_by_term[rel.term1]:
+                        for term2_option in group_by_term[rel.term2]:
+                            rel_option = Relation(term1_option, rel.predicate, term2_option)
+
+                            if rel_option in expected_relations:
+                                predicted_relations.add(rel_option)
+
                 progress.update(
                     extract_rel_task,
                     description=f'[cyan]Term pair {pair_count}/{total_pairs}',
                     advance=1
                 )
-        except Exception:
+        except Exception as e:
             progress.remove_task(sentence_task)
             progress.remove_task(extract_rel_task)
             return last_sent_id, False

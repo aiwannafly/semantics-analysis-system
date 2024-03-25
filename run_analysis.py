@@ -36,7 +36,7 @@ def render_term(term: ClassifiedTerm) -> str:
 
 
 def render_grouped_term(term: GroupedTerm) -> str:
-    values = ', '.join([t.value for t in term.terms])
+    values = ', '.join([t.value for t in term.items])
 
     return f'{GROUPED_TERM_STYLE}({values}: {term.class_}){Style.RESET_ALL}'
 

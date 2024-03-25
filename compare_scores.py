@@ -31,22 +31,48 @@ table.add_column(header="Precision 2")
 
 scores_by_rel = {}
 
+rel1_set = set()
+rel2_set = set()
+
 for rel, _, scores in results1:
     scores_by_rel[rel] = [scores]
+    rel1_set.add(rel)
 
 for rel, _, scores in results2:
+    rel2_set.add(rel)
+
     if rel not in scores_by_rel:
-        print(f'Ignored {rel}')
+        scores_by_rel[rel] = [scores]
         continue
     scores_by_rel[rel].append(scores)
 
 BETTER_STYLE = 'green'
 WORSE_STYLE = 'red'
 CONFLICT_STYLE = 'yellow'
+OLD_STYLE = 'rgb(206,89,227)'
+NEW_STYLE = 'rgb(89,128,227)'
 
 for rel, results in scores_by_rel.items():
     if len(results) == 1:
-        print(f'Ignored {rel}')
+        scores = results[0]
+
+        recall1, recall2 = str(scores['Recall']), '—'
+        precision1, precision2 = str(scores['Precision']), '—'
+
+        if rel in rel2_set:
+            common_style = NEW_STYLE
+            recall1, recall2 = recall2, recall1
+            precision1, precision2 = precision2, precision1
+        else:
+            common_style = OLD_STYLE
+
+        table.add_row(
+            Text(rel, style=common_style),
+            Text(str(recall1)),
+            Text(str(recall2)),
+            Text(str(precision1)),
+            Text(str(precision2))
+        )
         continue
 
     scores1, scores2 = results

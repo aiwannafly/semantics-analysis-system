@@ -105,9 +105,12 @@ for relation, occurrences_count, scores in rel_cnt_scores:
 
     print()
 
+if relations_to_consider:
+    exit(0)
+
 print(f'{Style.DIM}—————————————————————————————————————————————————————————————{Style.RESET_ALL}')
 print()
-print(f'{Style.BRIGHT}[AVERAGE SCORES]{Style.RESET_ALL}\n')
+print(f'{Style.BRIGHT}[AVERAGE SCORES]{Style.RESET_ALL} for {count} relation classes:\n')
 
 scores = {
     'Recall': int(100 * avg_recall / count) / 100,

@@ -122,7 +122,19 @@ class LLMRelationExtractor(RelationExtractor):
         if self.log_prompts:
             print(f'[INPUT PROMPT]: {prompt}\n')
 
-        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=100, stop_sequences=['.']).strip()
+        stop_tokens = ['.']
+
+        if term1.class_ == term2.class_ and not self.show_explanation:
+            stop_tokens.append(',')
+
+        max_new_tokens = 100 if self.show_explanation else 40
+
+        response = self.llm.text_generation(
+            prompt,
+            do_sample=False,
+            max_new_tokens=max_new_tokens,
+            stop_sequences=stop_tokens
+        ).strip()
 
         if self.log_llm_responses:
             print(f'[LLM RESPONSE]: {response}\n')
@@ -142,12 +154,17 @@ class LLMRelationExtractor(RelationExtractor):
                 if term1.class_ != term2.class_:
                     return predicate, False
                 else:
-                    if term1.value not in response or term2.value not in response:
+                    response = response.lower()
+
+                    term1_value = term1.value.lower()
+                    term2_value = term2.value.lower()
+
+                    if term1_value not in response or term2_value not in response:
                         return None, False
 
-                    predicate_pos = response.index(predicate)
+                    predicate_pos = response.index(predicate.lower())
 
-                    term1_pos = response.index(term1.value)
+                    term1_pos = response.index(term1_value)
 
                     if term1_pos > predicate_pos:
                         return predicate, True

@@ -1423,7 +1423,7 @@
 
 # sent_id = 58
 # text =   Чатботы и искусственный интеллект для понимания естественного языка (NLU – Natural Language Understanding) тема достаточно горячая, про нее не раз говорилось на Хабре.
-# relations = "Task_isAlternativeNameFor_Task 1 0, Task_isAlternativeNameFor_Task 2 0, Application_isUsedForSolving_Task 0 0, Application_isUsedForSolving_Task 0 1, Application_isUsedForSolving_Task 0 2, Application_isUsedForSolving_Task 1 0, Application_isUsedForSolving_Task 1 1, Application_isUsedForSolving_Task 1 2"
+# relations = "Task_isAlternativeNameFor_Task 1 0, Task_isAlternativeNameFor_Task 2 0, Task_isAlternativeNameFor_Task 2 1, Application_isUsedForSolving_Task 0 0, Application_isUsedForSolving_Task 0 1, Application_isUsedForSolving_Task 0 2, Application_isUsedForSolving_Task 1 0, Application_isUsedForSolving_Task 1 1, Application_isUsedForSolving_Task 1 2"
 1	Чатботы B-Application
 2	и O
 3	искусственный B-Application
@@ -1500,7 +1500,7 @@
 
 # sent_id = 60
 # text =   Опуская историю, начавшуюся еще в 50-е годы с Алана Тьюринга и программы Элиза в 60-е годы, а также научные исследования в области лингвистики и машинного обучения 90-х годов, значимым событием более новой истории стало появление языка разметки AIML (Artificial Intelligence Markup Language), разработанной в 2001-м году Ричардом Уэлсом (Richard Wallace) и созданным на его основе чатботом A.L.I.C.E.
-# relations = "Application_isUsedIn_Science 0 0, Application_isUsedIn_Science 1 0, Application_hasAuthor_Person 1 1, Application_hasAuthor_Person 1 2, Method_isUsedIn_Application 0 1, Method_isUsedIn_Application 1 1, Method_hasAuthor_Person 0 1, Method_hasAuthor_Person 0 2, Method_hasAuthor_Person 1 1, Method_hasAuthor_Person 1 2, Date_isDateOf_Method 0 0, Date_isDateOf_Method 0 1, Method_isAlternativeNameFor_Method 1 0, Method_isUsedIn_Science 0 0, Method_isUsedIn_Science 1 0"
+# relations = "Person_isAlternativeNameFor_Person 2 1, Application_isUsedIn_Science 0 0, Application_isUsedIn_Science 1 0, Application_hasAuthor_Person 1 1, Application_hasAuthor_Person 1 2, Method_isUsedIn_Application 0 1, Method_isUsedIn_Application 1 1, Method_hasAuthor_Person 0 1, Method_hasAuthor_Person 0 2, Method_hasAuthor_Person 1 1, Method_hasAuthor_Person 1 2, Date_isDateOf_Method 0 0, Date_isDateOf_Method 0 1, Method_isAlternativeNameFor_Method 1 0, Method_isUsedIn_Science 0 0, Method_isUsedIn_Science 1 0"
 1	Опуская O
 2	историю O
 3	, O
@@ -1695,7 +1695,7 @@
 
 # sent_id = 64
 # text =   Голосовые ассистенты (IVA): Alexa от Amazon, Google Assistant от Google, Siri от Apple, Cortana от Microsoft, Алиса от Яндекса – они определяют интенты (намерения) пользователей и исполняют команды.
-# relations = "Application_isAppliedTo_Object 6 0, Application_isAppliedTo_Object 5 0, Application_isAppliedTo_Object 4 0, Application_isAppliedTo_Object 3 0, Application_isAppliedTo_Object 2 0, Application_isAppliedTo_Object 6 1, Application_isAppliedTo_Object 5 1, Application_isAppliedTo_Object 4 1, Application_isAppliedTo_Object 3 1, Application_isAppliedTo_Object 2 1, Application_hasAuthor_Organization 6 4, Application_hasAuthor_Organization 5 3, Application_hasAuthor_Organization 4 2, Application_hasAuthor_Organization 3 1, Application_hasAuthor_Organization 2 0, Application_isAlternativeNameFor_Application 1 0"
+# relations = "Object_isAlternativeNameFor_Object 1 0, Application_isAppliedTo_Object 6 0, Application_isAppliedTo_Object 5 0, Application_isAppliedTo_Object 4 0, Application_isAppliedTo_Object 3 0, Application_isAppliedTo_Object 2 0, Application_isAppliedTo_Object 6 1, Application_isAppliedTo_Object 5 1, Application_isAppliedTo_Object 4 1, Application_isAppliedTo_Object 3 1, Application_isAppliedTo_Object 2 1, Application_hasAuthor_Organization 6 4, Application_hasAuthor_Organization 5 3, Application_hasAuthor_Organization 4 2, Application_hasAuthor_Organization 3 1, Application_hasAuthor_Organization 2 0, Application_isAlternativeNameFor_Application 1 0"
 1	Голосовые B-Application
 2	ассистенты I-Application
 3	( O
@@ -1903,7 +1903,7 @@
 
 # sent_id = 70
 # text =   Алгоритм понимания естественного языка (Natural Language Understanding, NLU) Microsoft DeBERTa превзошел человеческие возможности в одном из самых сложных тестов для подобных алгоритмов SuperGLUE.
-# relations = "Application_isUsedForSolving_Task 0 0, Application_isUsedForSolving_Task 0 1, Application_isUsedForSolving_Task 0 2, Application_hasAuthor_Organization 0 0, Task_isAlternativeNameFor_Task 2 1"
+# relations = "Application_isUsedForSolving_Task 0 0, Application_isUsedForSolving_Task 0 1, Application_isUsedForSolving_Task 0 2, Application_hasAuthor_Organization 0 0, Task_isAlternativeNameFor_Task 2 1, Task_isAlternativeNameFor_Task 2 0, Task_isAlternativeNameFor_Task 1 0"
 1	Алгоритм O
 2	понимания B-Task
 3	естественного I-Task
@@ -2071,7 +2071,7 @@
 
 # sent_id = 76
 # text =   Кроме того, DeBERTa будет интегрирована в следующую версию Тьюринговой модели Microsoft Turing (Turing NLRv4).
-# relations = "Model_isModificationOf_Model 2 1"
+# relations = "Model_isAlternativeNameFor_Model 2 1"
 1	Кроме O
 2	того O
 3	, O
@@ -2093,7 +2093,7 @@
 
 # sent_id = 77
 # text =   Дополнительно, DeBERTa будет включена в следующую версию модели Microsoft Turing (Turing NLRv4) от Microsoft.
-# relations = "Model_isModificationOf_Model 2 1, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 0 0, Model_hasAuthor_Organization 2 0"
+# relations = "Model_isAlternativeNameFor_Model 2 1, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 0 0, Model_hasAuthor_Organization 2 0"
 1	Дополнительно O
 2	, O
 3	DeBERTa B-Model
@@ -2413,7 +2413,7 @@
 
 # sent_id = 86
 # text =   Из доступных средств для извлечения фактов из текста на основе контекстно-свободных грамматик, способных работать с русским языком, наше внимание привлекли Томита-парсер и библиотека Yagry на питоне.
-# relations = "Library_isAppliedTo_Object 0 0, Method_isUsedIn_Library 0 0, Application_isAppliedTo_Object 0 0, Method_isUsedIn_Application 0 0, Method_solves_Task 0 0, Object_isUsedInSolving_Task 0 0, Application_isUsedForSolving_Task 0 0, Method_isAppliedTo_Object 0 0"
+# relations = "Library_isUsedForSolving_Task 0 0, Library_isAppliedTo_Object 0 0, Method_isUsedIn_Library 0 0, Application_isAppliedTo_Object 0 0, Method_isUsedIn_Application 0 0, Method_solves_Task 0 0, Object_isUsedInSolving_Task 0 0, Application_isUsedForSolving_Task 0 0, Method_isAppliedTo_Object 0 0"
 1	Из O
 2	доступных O
 3	средств O
@@ -3966,7 +3966,7 @@
 
 # sent_id = 146
 # text =   Американский разработчик Мэтью Гинсберг (Matthew Ginsberg) создал программу под названием Dr Fill, которая справляется с кроссвордами гораздо лучше, чем абсолютное большинство людей, пишет New Scientist.
-# relations = "Application_isAppliedTo_Object 0 0, Application_hasAuthor_Person 0 0, Application_hasAuthor_Person 0 1"
+# relations = "Person_isAlternativeNameFor_Person 1 0, Application_isAppliedTo_Object 0 0, Application_hasAuthor_Person 0 0, Application_hasAuthor_Person 0 1"
 1	Американский O
 2	разработчик O
 3	Мэтью B-Person
@@ -4001,7 +4001,7 @@
 
 # sent_id = 147
 # text = Программа Dr Fill, разработанная американским специалистом Мэтью Гинсбергом (Matthew Ginsberg), согласно информации из издания New Scientist, проявляет более выдающуюся эффективность в решении кроссвордов по сравнению с абсолютным большинством людей.
-# relations = "Application_isAppliedTo_Object 0 0, Application_hasAuthor_Person 0 0, Application_hasAuthor_Person 0 1"
+# relations = "Person_isAlternativeNameFor_Person 1 0, Application_isAppliedTo_Object 0 0, Application_hasAuthor_Person 0 0, Application_hasAuthor_Person 0 1"
 1	Программа O
 2	Dr B-Technology
 3	Fill I-Technology
@@ -5071,7 +5071,7 @@
 
 # sent_id = 186
 # text =   Используя новый алгоритм упаковки, в Graphcore ускорили обработку естественного языка более чем в 2 раза при обучении BERT-Large.
-# relations = "Method_isUsedForTraining_Model 0 0, Method_hasAuthor_Organization 0 0"
+# relations = "Method_isAppliedTo_Object 0 0, Method_isUsedForTraining_Model 0 0, Method_hasAuthor_Organization 0 0"
 1	Используя B-Method_isUsedIn_Activity
 2	новый O
 3	алгоритм B-Method
@@ -5079,8 +5079,8 @@
 5	, O
 6	в O
 7	Graphcore B-Organization
-8	ускорили B-Activity
-9	обработку I-Activity
+8	ускорили O
+9	обработку O
 10	естественного B-Object
 11	языка I-Object
 12	более O
@@ -5112,8 +5112,8 @@
 12	геномике B-Science
 13	, O
 14	в O
-15	моделях B-Model
-16	фолдинга I-Model
+15	моделях O
+16	фолдинга O
 17	белков O
 18	и O
 19	других O
@@ -5158,9 +5158,9 @@
 18	но O
 19	и O
 20	в O
-21	моделях B-Model
-22	фолдинга I-Model
-23	белков I-Model
+21	моделях O
+22	фолдинга O
+23	белков O
 24	и O
 25	других O
 26	моделях O
@@ -6532,7 +6532,7 @@
 
 # sent_id = 251
 # text =   Кроме того, Emphasis содержит токенизатор, который может идентифицировать большинство эмодзи, эмотиконов и сложных выражений, а также даты, время, валюты и акронимы.
-# relations = "Method_solves_Task 0 0, Application_isUsedForSolving_Task 0 0, Method_isAppliedTo_Object 0 0, Object_isUsedInSolving_Task 0 0, Method_isAppliedTo_Object 0 1, Object_isUsedInSolving_Task 1 0, Method_isAppliedTo_Object 0 2, Object_isUsedInSolving_Task 2 0, Method_isAppliedTo_Object 0 3, Object_isUsedInSolving_Task 3 0, Method_isAppliedTo_Object 0 4, Object_isUsedInSolving_Task 4 0, Method_isAppliedTo_Object 0 5, Object_isUsedInSolving_Task 5 0, Method_isAppliedTo_Object 0 6, Object_isUsedInSolving_Task 6 0, Method_isUsedIn_Application 0 0"
+# relations = "Application_isAppliedTo_Object 0 0, Application_isAppliedTo_Object 0 1, Application_isAppliedTo_Object 0 2, Application_isAppliedTo_Object 0 3, Application_isAppliedTo_Object 0 4, Application_isAppliedTo_Object 0 5, Application_isAppliedTo_Object 0 6, Method_solves_Task 0 0, Application_isUsedForSolving_Task 0 0, Method_isAppliedTo_Object 0 0, Object_isUsedInSolving_Task 0 0, Method_isAppliedTo_Object 0 1, Object_isUsedInSolving_Task 1 0, Method_isAppliedTo_Object 0 2, Object_isUsedInSolving_Task 2 0, Method_isAppliedTo_Object 0 3, Object_isUsedInSolving_Task 3 0, Method_isAppliedTo_Object 0 4, Object_isUsedInSolving_Task 4 0, Method_isAppliedTo_Object 0 5, Object_isUsedInSolving_Task 5 0, Method_isAppliedTo_Object 0 6, Object_isUsedInSolving_Task 6 0, Method_isUsedIn_Application 0 0"
 1	Кроме O
 2	того O
 3	, O
@@ -9306,7 +9306,7 @@
 
 # sent_id = 347
 # text =  А на некоторых заданиях лучших результатов удалось достичь на few-shot, т. е. без дообучения модели (задача RCB и RuCoS, YaLM от Яндекса). 
-# relations = "Model_hasAuthor_Organization 0 0, Dataset_isTrainedForSolving_Task 0 0, Model_isTrainedOn_Dataset 0 0"
+# relations = "Model_isUsedForSolving_Task 0 0, Model_isUsedForSolving_Task 0 1, Model_hasAuthor_Organization 0 0, Dataset_isTrainedForSolving_Task 0 0, Model_isTrainedOn_Dataset 0 0"
 1	А O
 2	на O
 3	некоторых O
@@ -13622,7 +13622,7 @@
 
 # sent_id = 522
 # text =  Эмбеддинг (Embedding) – преобразования сложноструктурированных данных,  например слов, текстов, атрибутов событий, событий и их последовательностей, в машинно-читаемый набор чисел – числовой вектор.
-# relations = "Object_includes_Object 2 3, Object_includes_Object 2 4, Object_includes_Object 2 5, Object_includes_Object 2 6"
+# relations = "Object_isAlternativeNameFor_Object 1 0, Object_includes_Object 2 3, Object_includes_Object 2 4, Object_includes_Object 2 5, Object_includes_Object 2 6"
 1	Эмбеддинг B-Object
 2	( O
 3	Embedding B-Object
@@ -14517,7 +14517,7 @@
 
 # sent_id = 559
 # text =  Взвешивание (Weighting) - метод предназначен для коррекции известных перекосов выборок по социально-демографическим атрибутам.
-# relations = "Method_solves_Task 0 0, Method_solves_Task 1 0, Method_isAppliedTo_Object 0 0, Object_includes_Object 0 1, Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 1 0"
+# relations = "Method_isAlternativeNameFor_Method 1 0, Method_solves_Task 0 0, Method_solves_Task 1 0, Method_isAppliedTo_Object 0 0, Object_includes_Object 0 1, Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 1 0"
 1	Взвешивание B-Method
 2	( O
 3	Weighting B-Method
@@ -14538,7 +14538,7 @@
 
 # sent_id = 560
 # text =  Авторы оригинального исследования Pew Research рекомендуют использовать для корректировки онлайн-опросов модели случайных лесов (random forest).
-# relations = "Method_solves_Task 0 0, Method_solves_Task 1 0, Method_isAppliedTo_Object 0 0, Method_isAppliedTo_Object 1 0, Object_isUsedInSolving_Task 0 0"
+# relations = "Method_isAlternativeNameFor_Method 1 0, Method_solves_Task 0 0, Method_solves_Task 1 0, Method_isAppliedTo_Object 0 0, Method_isAppliedTo_Object 1 0, Object_isUsedInSolving_Task 0 0"
 1	Авторы O
 2	оригинального O
 3	исследования O
@@ -16310,7 +16310,7 @@
 
 # sent_id = 632
 # text =  «Сбер» представил mGPT — версию нейросети GPT-3, способную генерировать тексты на 61 языке 
-# relations = "Model_hasAuthor_Organization 0 0, Model_isModificationOf_Model 0 1"
+# relations = "Model_isUsedForSolving_Task 0 0, Model_hasAuthor_Organization 0 0, Model_isModificationOf_Model 0 1"
 1	« O
 2	Сбер B-Organization
 3	» O
@@ -17882,7 +17882,7 @@
 
 # sent_id = 687
 # text =   Изначально на этапе MVP (minimum viable product) мы применяли регулярные выражения для извлечения сущности.
-# relations = "Method_solves_Task 0 0"
+# relations = "Object_isAlternativeNameFor_Object 1 0, Method_solves_Task 0 0"
 1	Изначально O
 2	на O
 3	этапе O
@@ -18075,7 +18075,7 @@
 3	государственного I-Organization
 4	технического I-Organization
 5	университета I-Organization
-6	НЭТИ B-Organization
+6	НЭТИ iI-Organization
 7	завершают B-Application_hasAuthor_Organization
 8	разработку I-Application_hasAuthor_Organization
 9	системы B-App_system
@@ -19929,7 +19929,7 @@
 
 # sent_id = 773
 # text =   Оценка состояния диалога (DST — Dialogue State Traking) является основным компонентом в таких диалоговых системах.
-# relations = "Task_isAlternativeNameFor_Task 1 0, Task_isAlternativeNameFor_Task 2 0"
+# relations = "Task_isAlternativeNameFor_Task 1 0, Task_isAlternativeNameFor_Task 2 0, Task_isAlternativeNameFor_Task 2 1"
 1	Оценка B-Task
 2	состояния I-Task
 3	диалога I-Task
@@ -20169,7 +20169,7 @@
 
 # sent_id = 782
 # text =   Задача распознавания текста относится к сфере обработки естественного языка или NLP (natural language processing).
-# relations = "Task_isSolvedIn_Science 0 0, Task_isSolvedIn_Science 0 1, Task_isSolvedIn_Science 0 2, Science_isAlternativeNameFor_Science 2 0, Science_isAlternativeNameFor_Science 1 0"
+# relations = "Task_isSolvedIn_Science 0 0, Task_isSolvedIn_Science 0 1, Task_isSolvedIn_Science 0 2, Science_isAlternativeNameFor_Science 2 0, Science_isAlternativeNameFor_Science 2 1, Science_isAlternativeNameFor_Science 1 0"
 1	Задача B-Task
 2	распознавания I-Task
 3	текста I-Task
@@ -20190,7 +20190,7 @@
 
 # sent_id = 783
 # text = Распознавание текста входит в область обработки естественного языка, или NLP (Natural Language Processing).
-# relations = "Task_isSolvedIn_Science 0 0, Task_isSolvedIn_Science 0 1, Task_isSolvedIn_Science 0 2, Science_isAlternativeNameFor_Science 2 0, Science_isAlternativeNameFor_Science 1 0"
+# relations = "Task_isSolvedIn_Science 0 0, Task_isSolvedIn_Science 0 1, Task_isSolvedIn_Science 0 2, Science_isAlternativeNameFor_Science 2 0, Science_isAlternativeNameFor_Science 2 1, Science_isAlternativeNameFor_Science 1 0"
 1	Распознавание B-Task
 2	текста I-Task
 3	входит O
@@ -20745,7 +20745,7 @@
 
 # sent_id = 805
 # text =   Его появлению предшествовал ряд недавних разработок в области обработки естественного языка (BERT, ELMO и Ко в картинках — как в NLP пришло трансферное обучение): Semi-supervised Sequence learning (Andrew Dai и Quoc Le), ELMo (Matthew Peters и исследователи из AI2 и UW CSE), ULMFiT (Jeremy Howard и Sebastian Ruder), OpenAI Transformer (исследователи OpenAI Radford, Narasimhan, Salimans, и Sutskever) и Трансформер (Vaswani et al).
-# relations = "Model_hasAuthor_Person 3 2, Model_hasAuthor_Organization 5 2, Method_isUsedIn_Science 1 0, Model_hasAuthor_Person 6 8, Model_hasAuthor_Person 5 7, Model_hasAuthor_Person 5 6, Model_hasAuthor_Person 5 5, Model_hasAuthor_Organization 5 1, Model_hasAuthor_Person 4 4, Model_hasAuthor_Person 4 3, Model_hasAuthor_Organization 3 0, Model_hasAuthor_Organization 3 1, Model_hasAuthor_Person 3 2, Method_hasAuthor_Person 1 0, Method_hasAuthor_Person 1 1, Method_isUsedIn_Science 0 0"
+# relations = "Model_hasAuthor_Person 1 2, Model_hasAuthor_Organization 5 2, Method_isUsedIn_Science 1 0, Model_hasAuthor_Person 6 8, Model_hasAuthor_Person 5 7, Model_hasAuthor_Person 5 6, Model_hasAuthor_Person 5 5, Model_hasAuthor_Organization 5 1, Model_hasAuthor_Person 4 4, Model_hasAuthor_Person 4 3, Model_hasAuthor_Organization 3 0, Model_hasAuthor_Organization 3 1, Model_hasAuthor_Person 3 2, Method_hasAuthor_Person 1 0, Method_hasAuthor_Person 1 1, Method_isUsedIn_Science 0 0"
 1	Его O
 2	появлению O
 3	предшествовал O
@@ -20833,7 +20833,7 @@
 
 # sent_id = 806
 # text =  Трансформеры в машинном обучении — это семейство архитектур нейронных сетей, общая идея которых основана на так называемом «самовнимании» (self-attention).
-# relations = "Method_isUsedForTraining_Model 0 0, Method_isUsedForTraining_Model 1 0, Method_isUsedIn_Science 0 0, Method_isUsedIn_Science 1 0"
+# relations = "Method_isAlternativeNameFor_Method 1 0, Method_isUsedForTraining_Model 0 0, Method_isUsedForTraining_Model 1 0, Method_isUsedIn_Science 0 0, Method_isUsedIn_Science 1 0"
 1	Трансформеры B-Model
 2	в O
 3	машинном B-Science
@@ -21095,7 +21095,7 @@
 
 # sent_id = 817
 # text =   Эта статья будет интересна специалистам в области обработки естественного языка (Natural Language Processing, NLP).
-# relations = "Science_isAlternativeNameFor_Science 1 0, Science_isAlternativeNameFor_Science 2 0"
+# relations = "Science_isAlternativeNameFor_Science 1 0, Science_isAlternativeNameFor_Science 2 0, Science_isAlternativeNameFor_Science 2 1"
 1	Эта O
 2	статья O
 3	будет O
@@ -23242,7 +23242,7 @@
 
 # sent_id = 907
 # text =   Возможности этого сервиса в области анализа речи и естественного языка пока ограничиваются английским языком, однако многие другие сервисы поддерживают русский язык, например, полностью бесплатный wit.ai, приобретённый Facebook, и его российский конкурент api.ai (понимание текстовых и голосовых команд и вопросов на естественных языках, преобразование речи в текст), IBM AlchemyAPI (анализ тональности текста, выявление сущностей и ключевых слов), Google Natural Language API (классификация текстов, графы связей, извлечение информации из текстов, анализ тональности, намерений, извлечение инсайтов; поддерживает русский язык с помощью технологии машинного перевода Google Translate, использует глубокое обучение и word2vec).
-# relations = "Application_isAppliedTo_Object 3 0, Application_isUsedIn_Science 3 1, Application_isUsedIn_Science 4 1, Application_isUsedForSolving_Task 3 6, Application_isUsedForSolving_Task 3 5, Application_isUsedForSolving_Task 3 4, Application_isUsedForSolving_Task 2 3, Application_isUsedForSolving_Task 2 2, Application_isUsedForSolving_Task 1 1, Application_isUsedForSolving_Task 1 0, Application_isUsedIn_Science 0 0, Application_isUsedIn_Science 0 1, Application_isUsedIn_Science 2 0, Application_isUsedIn_Science 3 0, Application_isUsedIn_Science 4 0, Library_isUsedIn_Science 0 0"
+# relations = "Task_isSolvedIn_Science 0 0, Task_isSolvedIn_Science 1 0, Task_isSolvedIn_Science 2 0, Task_isSolvedIn_Science 3 0, Task_isSolvedIn_Science 4 0, Task_isSolvedIn_Science 5 0, Task_isSolvedIn_Science 6 0, Application_isAppliedTo_Object 3 0, Application_isUsedIn_Science 3 1, Application_isUsedIn_Science 4 1, Application_isUsedForSolving_Task 3 6, Application_isUsedForSolving_Task 3 5, Application_isUsedForSolving_Task 3 4, Application_isUsedForSolving_Task 2 3, Application_isUsedForSolving_Task 2 2, Application_isUsedForSolving_Task 1 1, Application_isUsedForSolving_Task 1 0, Application_isUsedIn_Science 0 0, Application_isUsedIn_Science 0 1, Application_isUsedIn_Science 2 0, Application_isUsedIn_Science 3 0, Application_isUsedIn_Science 4 0, Library_isUsedIn_Science 0 0"
 1	Возможности O
 2	этого O
 3	сервиса O
@@ -24234,7 +24234,7 @@
 
 # sent_id = 943
 # text =   Для русского языка тоже было создано немало разного рода бенчмарков NLU моделей:RussianSuperGLUE: бенчмарк "сложных" NLP задач; фокус на дообучаемых моделях.
-# relations = "Metric_isUsedFor_Model 0 0, Model_isUsedInSolving_Task 0 0, Metric_isUsedIn_Task 0 0"
+# relations = "Model_isUsedForSolving_Task 0 0, Metric_isUsedFor_Model 0 0, Model_isUsedInSolving_Task 0 0, Metric_isUsedIn_Task 0 0"
 1	Для O
 2	русского B-Lang
 3	языка O
@@ -24884,7 +24884,7 @@
 
 # sent_id = 961
 # text =   Для NLI я обучил трёхклассовую (entail/contradict/neutral) логистическую регрессию поверх косинусной близости, и измеряю её точность (accuracy).
-# relations = "Metric_isAlternativeNameFor_Metric 2 1, Metric_isUsedIn_Task 2 0, Metric_isUsedIn_Task 1 0, Metric_isUsedFor_Model 2 0, Metric_isUsedFor_Model 1 0, Metric_isUsedFor_Model 0 0, Model_isUsedForSolving_Task 0 0"
+# relations = "Metric_isAlternativeNameFor_Metric 2 1, Metric_isUsedIn_Task 2 0, Metric_isUsedIn_Task 1 0, Metric_isUsedIn_Task 0 0, Metric_isUsedFor_Model 2 0, Metric_isUsedFor_Model 1 0, Metric_isUsedFor_Model 0 0, Model_isUsedForSolving_Task 0 0"
 1	Для O
 2	NLI B-Task
 3	я O
@@ -24914,7 +24914,7 @@
 
 # sent_id = 962
 # text = Для задачи NLI я провел обучение логистической регрессии с тремя классами (entail/contradict/neutral) на основе косинусной близости и измеряю ее точность (accuracy).
-# relations = "Metric_isAlternativeNameFor_Metric 2 1, Metric_isUsedIn_Task 2 0, Metric_isUsedIn_Task 1 0, Metric_isUsedFor_Model 2 0, Metric_isUsedFor_Model 1 0, Metric_isUsedFor_Model 0 0, Model_isUsedForSolving_Task 0 0"
+# relations = "Metric_isUsedIn_Task 0 0, Metric_isAlternativeNameFor_Metric 2 1, Metric_isUsedIn_Task 2 0, Metric_isUsedIn_Task 1 0, Metric_isUsedFor_Model 2 0, Metric_isUsedFor_Model 1 0, Metric_isUsedFor_Model 0 0, Model_isUsedForSolving_Task 0 0"
 1	Для O
 2	задачи O
 3	NLI B-Task
@@ -26969,7 +26969,7 @@
 
 # sent_id = 1034
 # text =   С 27 по 30 мая в Российском государственном гуманитарном университете (РГГУ) пройдет международная научная конференция по компьютерной лингвистике «Диалог».
-# relations = "Organization_isAlternativeNameFor_Organization 1 0"
+# relations = "Organization_isAlternativeNameFor_Organization 1 0, Activity_isAlternativeNameFor_Activity 1 0"
 1	С O
 2	27 O
 3	по O
@@ -27871,7 +27871,7 @@
 11	применяемую O
 12	для O
 13	анализа B-Task
-14	последовательностей B-Task
+14	последовательностей I-Task
 15	в O
 16	данных O
 17	о O
@@ -27997,7 +27997,7 @@
 
 # sent_id = 1078
 # text = Голосовые ассистенты (ГА, IVA) распознают намерения пользователей и выполняют указания.
-# relations = "Application_isAlternativeNameFor_Application 1 0, Application_isAlternativeNameFor_Application 2 0, Application_isAlternativeNameFor_Application 2 1"
+# relations = "Application_isAppliedTo_Object 0 0, Application_isAlternativeNameFor_Application 1 0, Application_isAlternativeNameFor_Application 2 0, Application_isAlternativeNameFor_Application 2 1"
 1	Голосовые B-Application
 2	ассистенты I-Application
 3	( O
@@ -28015,7 +28015,7 @@
 
 # sent_id = 1079
 # text = Голосовые виртуальные помощники (ГВП, ИВА) распознают намерения пользователей и выполняют указания.
-# relations = "Application_isAlternativeNameFor_Application 1 0, Application_isAlternativeNameFor_Application 2 0, Application_isAlternativeNameFor_Application 2 1"
+# relations = "Application_isAppliedTo_Object 0 0, Application_isAlternativeNameFor_Application 1 0, Application_isAlternativeNameFor_Application 2 0, Application_isAlternativeNameFor_Application 2 1"
 1	Голосовые B-Application
 2	виртуальные I-Application
 3	помощники I-Application

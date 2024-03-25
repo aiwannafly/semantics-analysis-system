@@ -28,11 +28,6 @@ class LLMRelationExtractor(RelationExtractor):
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
 
-        self.stop_tokens = ['.', ',']
-
-        if self.show_explanation:
-            self.stop_tokens.remove(',')
-
     def __call__(self, text: str, terms: List[ClassifiedTerm]) -> Iterator[Relation]:
         # we seek only for binary relations
         # so every pair of terms can be checked
@@ -127,7 +122,17 @@ class LLMRelationExtractor(RelationExtractor):
         if self.log_prompts:
             print(f'[INPUT PROMPT]: {prompt}\n')
 
-        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=100, stop_sequences=self.stop_tokens).strip()
+        stop_tokens = ['.']
+
+        if term1.class_ == term2.class_ and not self.show_explanation:
+            stop_tokens.append(',')
+
+        response = self.llm.text_generation(
+            prompt,
+            do_sample=False,
+            max_new_tokens=100,
+            stop_sequences=stop_tokens
+        ).strip()
 
         if self.log_llm_responses:
             print(f'[LLM RESPONSE]: {response}\n')

@@ -52,6 +52,8 @@ CONFLICT_STYLE = 'yellow'
 OLD_STYLE = 'rgb(206,89,227)'
 NEW_STYLE = 'rgb(89,128,227)'
 
+trailing_rows = []
+
 for rel, results in scores_by_rel.items():
     if len(results) == 1:
         scores = results[0]
@@ -66,13 +68,13 @@ for rel, results in scores_by_rel.items():
         else:
             common_style = OLD_STYLE
 
-        table.add_row(
+        trailing_rows.append([
             Text(rel, style=common_style),
             Text(str(recall1)),
             Text(str(recall2)),
             Text(str(precision1)),
             Text(str(precision2))
-        )
+        ])
         continue
 
     scores1, scores2 = results
@@ -123,6 +125,9 @@ for rel, results in scores_by_rel.items():
         Text(str(precision1)),
         Text(str(precision2), style=precision2_style)
     )
+
+for row in trailing_rows:
+    table.add_row(*row)
 
 console = Console()
 console.print(table)

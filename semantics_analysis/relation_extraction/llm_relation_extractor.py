@@ -310,7 +310,7 @@ class LLMRelationExtractor(RelationExtractor):
 
                     examples_list += '```\n'
                     examples_list += (f'Текст: {example_text}\n'
-                                      f'Термины {class_}: ({example_term1}, {example_term2}) | ({example_term2}, {example_term1})\n'
+                                      f'Термины {class_}: {example_term1}, {example_term2}\n'
                                       f'Есть ли подходящее отношение между этими терминами в этом тексте? {reply}\n')
                     examples_list += '```\n'
 
@@ -322,7 +322,7 @@ class LLMRelationExtractor(RelationExtractor):
                 questions_list += f'   - {question}\n'
 
         input_text = (f'Текст: {text}\n'
-                      f'Термины {class_}: ({term1.value}, {term2.value}) | ({term2.value}, {term1.value})\n'
+                      f'Термины {class_}: {term1.value}, {term2.value}\n'
                       f'Есть ли подходящее отношение между этими терминами в этом тексте?')
 
         prompt = self.same_class_prompt_template

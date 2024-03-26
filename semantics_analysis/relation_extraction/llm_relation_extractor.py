@@ -209,9 +209,9 @@ class LLMRelationExtractor(RelationExtractor):
 
                     reply = ''
                     if answer == 'no':
-                        reply += 'нет'
+                        reply += 'Ответ: нет'
                     else:
-                        reply += f'да\n{predicate}'
+                        reply += f'Ответ: да\n{predicate}'
 
                     if not description and not self.show_explanation:
                         reply += '.'
@@ -227,7 +227,8 @@ class LLMRelationExtractor(RelationExtractor):
                     examples_list += (f'Текст: {example_text}\n'
                                       f'Термин {class1}: {example_term1}\n'
                                       f'Термин {class2}: {example_term2}\n'
-                                      f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}" в этом тексте? {reply}\n')
+                                      f'Есть ли подходящее отношение между терминами "{example_term1}" и "{example_term2}" в этом тексте?\n'
+                                      f'{reply}\n')
                     examples_list += '```\n'
 
                     counter += 1
@@ -240,11 +241,12 @@ class LLMRelationExtractor(RelationExtractor):
         input_text = (f'Текст: {text}\n'
                       f'Термин {class1}: {term1.value}\n'
                       f'Термин {class2}: {term2.value}\n'
-                      f'Есть ли подходящее отношение между терминами "{term1.value}" и "{term2.value}" в этом тексте?')
+                      f'Есть ли подходящее отношение между терминами "{term1.value}" и "{term2.value}" в этом тексте?\n'
+                      f'Ответ:')
 
         prompt = self.prompt_template
         if self.show_explanation:
-            prompt = prompt.replace('{explanation}', '\nОбъяснение: <объяснение>.')
+            prompt = prompt.replace('{explanation}', '\nОбъяснение: <объяснение>')
         else:
             prompt = prompt.replace('{explanation}', '')
 
@@ -293,9 +295,9 @@ class LLMRelationExtractor(RelationExtractor):
 
                     reply = ''
                     if answer == 'no':
-                        reply += 'нет'
+                        reply += 'Ответ: нет'
                     else:
-                        reply += f'да\n'
+                        reply += f'Ответ: да\n'
                         reply += f'{example_term1} {predicate} {example_term2}'
 
                     if not description and not self.show_explanation:
@@ -311,7 +313,8 @@ class LLMRelationExtractor(RelationExtractor):
                     examples_list += '```\n'
                     examples_list += (f'Текст: {example_text}\n'
                                       f'Термины {class_}: {example_term1}, {example_term2}\n'
-                                      f'Есть ли подходящее отношение между этими терминами в этом тексте? {reply}\n')
+                                      f'Есть ли подходящее отношение между этими терминами в этом тексте?\n'
+                                      f'{reply}\n')
                     examples_list += '```\n'
 
                     counter += 1
@@ -323,11 +326,12 @@ class LLMRelationExtractor(RelationExtractor):
 
         input_text = (f'Текст: {text}\n'
                       f'Термины {class_}: {term1.value}, {term2.value}\n'
-                      f'Есть ли подходящее отношение между этими терминами в этом тексте?')
+                      f'Есть ли подходящее отношение между этими терминами в этом тексте?\n'
+                      f'Ответ:')
 
         prompt = self.same_class_prompt_template
         if self.show_explanation:
-            prompt = prompt.replace('{explanation}', '\nОбъяснение: <объяснение>.')
+            prompt = prompt.replace('{explanation}', '\nОбъяснение: <объяснение>')
         else:
             prompt = prompt.replace('{explanation}', '')
 

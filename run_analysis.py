@@ -1,12 +1,14 @@
 from typing import List, Tuple, Dict
 
-from colorama import Fore, Style
+import inquirer
+import nltk
+from colorama import Style
 from colorama import init as colorama_init
-from rich.progress import Progress, TextColumn, BarColumn
+from rich.progress import Progress
 
 from plot_graph import display_relation_graph
 from semantics_analysis.config import load_config
-from semantics_analysis.entities import Relation, ClassifiedTerm, Term, GroupedTerm
+from semantics_analysis.entities import Term
 from semantics_analysis.reference_resolution.llm_reference_resolver import LLMReferenceResolver
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
 from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
@@ -19,56 +21,10 @@ from semantics_analysis.term_post_processing.computer_science_term_post_processo
     ComputerScienceTermPostProcessor
 from semantics_analysis.term_post_processing.merge_close_term_post_processor import MergeCloseTermPostProcessor
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
+from semantics_analysis.utils import log_class_predictions, log_grouped_terms, log_labeled_terms, log_extracted_terms
 from spinner import Spinner
-import inquirer
-import nltk
 
 LOG_STYLE = Style.DIM
-TERM_STYLE = Fore.LIGHTCYAN_EX
-LABELED_TERM_STYLE = Fore.CYAN
-GROUPED_TERM_STYLE = Fore.MAGENTA
-PREDICATE_STYLE = Style.BRIGHT
-SEPARATOR_STYLE = Style.DIM
-
-
-def render_term(term: ClassifiedTerm) -> str:
-    return f'{LABELED_TERM_STYLE}({term.value}: {term.class_}){Style.RESET_ALL}'
-
-
-def render_grouped_term(term: GroupedTerm) -> str:
-    values = ', '.join([t.value for t in term.items])
-
-    return f'{GROUPED_TERM_STYLE}({values}: {term.class_}){Style.RESET_ALL}'
-
-
-def render_relation(relation: Relation) -> str:
-    # some specific code to render relation in terminal
-
-    header_len = len('[      INPUT     ]:')
-
-    term1, term2 = relation.term1, relation.term2
-
-    term1_len, term2_len = len(f'({term1.value}: {term1.class_})'), len(f'({term2.value}: {term2.class_})')
-
-    space_len = 10
-
-    res = ''
-
-    edge_len = term1_len - int(term1_len / 2) - 1 + space_len + int(term2_len / 2)
-
-    edge_start_len = int((edge_len - len(relation.predicate)) / 2)
-
-    edge_end_len = edge_len - edge_start_len - len(relation.predicate)
-
-    edge = '—' * edge_start_len + relation.predicate + '—' * edge_end_len
-
-    res += ' ' * (int(term1_len / 2)) + '┌' + edge + '┐' + '\n'
-
-    res += ' ' * (header_len + int(term1_len / 2)) + '|' + ' ' * len(edge) + '|' + '\n'
-
-    res += ' ' * header_len + render_term(term1) + ' ' * space_len + render_term(term2)
-
-    return res
 
 
 def analyze_text(
@@ -80,105 +36,93 @@ def analyze_text(
         term_classifier: TermClassifier,
         reference_resolver: ReferenceResolver,
         relation_extractor: RelationExtractor,
-        term_postprocessors: List[TermPostProcessor]
+        term_postprocessors: List[TermPostProcessor],
 ):
     text = text.replace('�', '').strip()
 
-    print()
+    sentences = nltk.tokenize.sent_tokenize(text)
+
+    text = ' '.join(sentences)
 
     with Spinner():
         terms = term_extractor(text)
 
+    log_extracted_terms(text, terms)
+
     if not terms:
-        print(f'{LOG_STYLE}[ TERMS NOT FOUND]\n')
         return
 
-    offset = 0
-    labeled_text = text
+    sentence_idx_by_term = {}
 
-    for term in terms:
-        prev_len = len(labeled_text)
-        labeled_text = (labeled_text[:term.start_pos + offset] + f'{TERM_STYLE}{term.value}{Style.RESET_ALL}'
-                        + labeled_text[term.end_pos + offset:])
-        offset += len(labeled_text) - prev_len
+    text_offset = 0
+    curr_term_idx = 0
 
-    print(f'{LOG_STYLE}[   FOUND TERMS  ]{Style.RESET_ALL}: {labeled_text}\n')
+    for sent_idx, sent in enumerate(sentences):
+        text_offset += len(sent) + 1
+
+        for i in range(curr_term_idx, len(terms)):
+            if terms[i].end_pos <= text_offset:
+                sentence_idx_by_term[terms[i]] = sent_idx
+                curr_term_idx += 1
+            else:
+                break
+
+    terms_by_sent_idx = {}
+
+    for term, sent_idx in sentence_idx_by_term.items():
+        if sent_idx not in terms_by_sent_idx:
+            terms_by_sent_idx[sent_idx] = [term]
+        else:
+            terms_by_sent_idx[sent_idx].append(term)
 
     predictions_by_term: Dict[Term, List[Tuple[str, float]]] = {}
 
+    labeled_terms = []
+
     with Spinner():
-        labeled_terms = term_classifier.run_and_save_predictions(text, terms, predictions_by_term)
+        text_offset = 0
 
-        for term_postprocessor in term_postprocessors:
-            labeled_terms = term_postprocessor(labeled_terms)
+        for sent_idx in range(0, len(sentences)):
+            sent = sentences[sent_idx]
 
-    offset = 0
-    labeled_text = text
+            if sent_idx not in terms_by_sent_idx:
+                text_offset += len(sent) + 1
+                continue
 
-    for term in labeled_terms:
-        prev_len = len(labeled_text)
+            terms = terms_by_sent_idx[sent_idx]
 
-        labeled_text = (labeled_text[:term.start_pos + offset] + render_term(term) + labeled_text[term.end_pos + offset:])
+            for term in terms:
+                term.start_pos -= text_offset
+                term.end_pos -= text_offset
 
-        offset += len(labeled_text) - prev_len
+            sent_labeled_terms = term_classifier.run_and_save_predictions(sent, terms, predictions_by_term)
 
-    print(f'{LOG_STYLE}[CLASSIFIED TERMS]{Style.RESET_ALL}: {labeled_text}\n')
+            for term_postprocessor in term_postprocessors:
+                sent_labeled_terms = term_postprocessor(sent_labeled_terms)
+
+            for term in sent_labeled_terms:
+                term.start_pos += text_offset
+                term.end_pos += text_offset
+                labeled_terms.append(term)
+
+            text_offset += len(sent) + 1
+
+    log_labeled_terms(text, labeled_terms)
 
     if show_class_predictions:
-        colors = ['green', 'magenta', 'purple3']
+        log_class_predictions(predictions_by_term)
 
-        for term, predictions in predictions_by_term.items():
-            print()
-            print(f'{Style.DIM}—————————————————————————————————————————————————————————————{Style.RESET_ALL}')
-            print()
-            print(f'[{term.start_pos}] {TERM_STYLE}{term.value}{Style.RESET_ALL}\n')
+    with Progress() as progress:
+        grouped_terms = reference_resolver(labeled_terms, text, progress)
 
-            predictions = sorted(predictions, key=lambda pair: pair[1], reverse=True)[:len(colors)]
-
-            count = 0
-            for class_, p in predictions:
-                color = colors[count]
-                count += 1
-
-                p = int(p * 100) / 100.0
-
-                diff = 20 - len(f'{class_}: {p}')
-
-                description = f'[{color}]{class_}: {p}'
-
-                if diff > 0:
-                    description = ' ' * diff + description
-
-                with Progress(TextColumn(text_format=description, justify='right'),
-                              BarColumn(complete_style=color)) as progress:
-                    class_task = progress.add_task(total=1.0, description='')
-
-                    progress.update(class_task, description='', advance=p)
-
-            print()
-
-    with Spinner():
-        grouped_terms = reference_resolver(labeled_terms, text)
-
-    non_single_terms = [t for t in grouped_terms if t.size() > 1]
-
-    term_count = 1
-    for term in non_single_terms:
-        log_header = '[   GROUP    {: 4}]'.format(term_count)
-        term_count += 1
-
-        print(f'{LOG_STYLE}{log_header}{Style.RESET_ALL}: ' + render_grouped_term(term))
-        print()
+    log_grouped_terms(grouped_terms)
 
     labeled_terms = [t.as_single() for t in grouped_terms]
 
-    rel_count = 0
-
     if split_on_sentences:
         text_and_terms = []
-        text_parts = nltk.tokenize.sent_tokenize(text)
-        
-        for text_part in text_parts:
+
+        for text_part in sentences:
             start_pos = text.index(text_part)
             end_pos = start_pos + len(text_part)
 
@@ -190,26 +134,18 @@ def analyze_text(
 
     found_relations = []
     for text_part, labeled_terms in text_and_terms:
-        relations = relation_extractor(text_part, labeled_terms)
 
-        while True:
-            with Spinner():
-                relation = next(relations, None)
+        with Progress() as progress:
+            relations = relation_extractor(text_part, labeled_terms, progress)
 
-            if not relation:
-                break
+            found_relations = [r for r in relations]
 
-            rel_count += 1
-            found_relations.append(relation)
+    # log_found_relations(found_relations)
 
-            log_header = '[   RELATION {: 4}]'.format(rel_count)
-            print(f'{LOG_STYLE}{log_header}{Style.RESET_ALL}:' + render_relation(relation))
-            print()
-            print()
+    if not found_relations:
+        return
 
-    if rel_count == 0:
-        print(f'{LOG_STYLE}[  NO RELATIONS  ]{Style.RESET_ALL}\n')
-    elif display_graph:
+    if display_graph:
         display_relation_graph(found_relations)
 
 
@@ -245,6 +181,7 @@ def main():
 
     while True:
         text = input(f'{LOG_STYLE}[      INPUT     ]{Style.RESET_ALL}: ')
+        print()
 
         analyze_text(
             text,
@@ -255,7 +192,7 @@ def main():
             term_classifier,
             reference_resolver,
             relation_extractor,
-            term_postprocessors
+            term_postprocessors,
         )
 
         question = inquirer.questions.List(

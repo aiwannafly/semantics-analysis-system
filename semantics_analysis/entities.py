@@ -19,12 +19,12 @@ class Term:
 
     def __eq__(self, other):
         if isinstance(other, Term):
-            return other.value == self.value
+            return other.value == self.value and other.start_pos == self.start_pos
 
         return False
 
     def __hash__(self):
-        return hash(self.value)
+        return hash((self.value, self.start_pos))
 
 
 class ClassifiedTerm(Term):

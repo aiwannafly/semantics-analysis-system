@@ -1,6 +1,5 @@
 import sys
 
-from colorama import Fore, Style
 from rich.console import Console
 from rich.table import Table
 from rich.text import Text
@@ -19,14 +18,6 @@ storage2 = {}
 
 results1 = parse_scores(scores1_path, None, storage1)
 results2 = parse_scores(scores2_path, None, storage2)
-
-table = Table(title="Scores comparison")
-
-table.add_column(header="Relation", justify="left", no_wrap=True)
-table.add_column(header="Recall 1")
-table.add_column(header="Recall 2")
-table.add_column(header="Precision 1")
-table.add_column(header="Precision 2")
 
 
 scores_by_rel = {}
@@ -75,6 +66,14 @@ OLD_STYLE = 'rgb(206,89,227)'
 NEW_STYLE = 'rgb(89,128,227)'
 
 trailing_rows = []
+
+table = Table(title="Scores comparison")
+
+table.add_column(header="Relation", justify="left", no_wrap=True)
+table.add_column(header="Recall 1")
+table.add_column(header="Recall 2")
+table.add_column(header="Precision 1")
+table.add_column(header="Precision 2")
 
 for rel, results in scores_by_rel.items():
     if len(results) == 1:

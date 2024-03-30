@@ -7,6 +7,9 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from semantics_analysis.entities import Term, ClassifiedTerm
 from semantics_analysis.term_classification.term_classifier import TermClassifier
 
+THRESHOLD = 0.7
+
+
 label_list = [
     'Method',
     'Activity',
@@ -64,6 +67,9 @@ class RobertaTermClassifier(TermClassifier):
             probs = torch.squeeze(torch.softmax(outputs.logits, dim=1))
 
             predictions[term] = [(class_, p.item()) for class_, p in zip(label_list, probs)]
+
+            if max(probs) < THRESHOLD:
+                continue
 
             idx = outputs.logits.argmax(dim=1)[0].item()
 

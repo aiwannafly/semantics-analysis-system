@@ -168,7 +168,8 @@ def main():
         show_explanation=app_config.show_explanation,
         huggingface_hub_token=app_config.huggingface_hub_token,
         log_prompts=app_config.log_prompts,
-        log_llm_responses=app_config.log_llm_responses
+        log_llm_responses=app_config.log_llm_responses,
+        use_all_tokens=True
     )
 
     reference_resolver = LLMReferenceResolver(
@@ -176,7 +177,8 @@ def main():
         show_explanation=app_config.show_explanation,
         huggingface_hub_token=app_config.huggingface_hub_token,
         log_prompts=app_config.log_prompts,
-        log_llm_responses=app_config.log_llm_responses
+        log_llm_responses=app_config.log_llm_responses,
+        use_all_tokens=True
     )
 
     while True:

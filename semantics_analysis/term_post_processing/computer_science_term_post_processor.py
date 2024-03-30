@@ -3,7 +3,6 @@ from typing import List
 from semantics_analysis.entities import ClassifiedTerm
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 
-
 OS_NAMES = ['macOS', 'Linux', 'ChromeOS', 'Android', 'IOS', 'Unix',
             'Ubuntu', 'Fedora', 'Solaris', 'Symbian', 'Debian', 'Zorin', 'FreeBSD', 'MSDOS', 'AMSDOS',
             'Arch', 'Arch Linux', 'Redhat', 'GNU', 'OpenSolaris',

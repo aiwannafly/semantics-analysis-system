@@ -1,23 +1,20 @@
 from abc import ABC, abstractmethod
-from typing import List, Iterator, Optional, Tuple
+from typing import List, Iterator, Optional
 
-from semantics_analysis.entities import Relation, ClassifiedTerm, GroupedTerm
+from rich.progress import Progress
+
+from semantics_analysis.entities import Relation, ClassifiedTerm
 
 
 class RelationExtractor(ABC):
 
     @abstractmethod
-    def __call__(self, text: str, terms: List[ClassifiedTerm]) -> Iterator[Relation]:
-        pass
-
-    @abstractmethod
-    def get_pairs_to_consider(self, terms: List[ClassifiedTerm]) -> List[Tuple[ClassifiedTerm, ClassifiedTerm]]:
-        pass
-
-    @abstractmethod
-    def analyze_term_pairs(
+    def __call__(
             self,
             text: str,
-            term_pairs: List[Tuple[ClassifiedTerm, ClassifiedTerm]]
-    ) -> Iterator[Optional[Relation]]:
+            terms: List[ClassifiedTerm],
+            progress: Progress,
+            considered_class1: Optional[str] = None,
+            considered_class2: Optional[str] = None
+    ) -> Iterator[Relation]:
         pass

@@ -4,15 +4,16 @@ import sys
 from time import sleep
 from typing import List, Dict, Any, Set, Optional
 
+from rich.progress import Progress
+
 from semantics_analysis.config import load_config
 from semantics_analysis.entities import read_sentences, Sentence, Relation
+from semantics_analysis.ontology_utils import loaded_relation_ids
 from semantics_analysis.reference_resolution.llm_reference_resolver import LLMReferenceResolver
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
 from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
-from semantics_analysis.ontology_utils import loaded_relation_ids
-from rich.progress import Progress
-
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
+from semantics_analysis.tokens import tokens
 
 
 def update_scores(
@@ -147,26 +148,12 @@ def calculate_scores(
             progress.update(sentence_task, advance=1, description=f'[green]Sentence {counter}/{total_sentences}')
             continue
 
-        group_task = progress.add_task(description='Grouping terms')
-
         try:
-            grouped_terms = reference_resolver(sent.terms, sent.text)
+            grouped_terms = reference_resolver(sent.terms, sent.text, progress)
         except Exception:
-            progress.remove_task(group_task)
             progress.remove_task(sentence_task)
 
             return last_sent_id, False
-
-        progress.remove_task(group_task)
-
-        sent_terms = [t.as_single() for t in grouped_terms]
-
-        term_pairs = relation_extractor.get_pairs_to_consider(sent_terms)
-
-        if relation_to_consider:
-            class1, _, class2 = relation_to_consider.split('_')
-
-            term_pairs = [pair for pair in term_pairs if pair[0].class_ == class1 and pair[1].class_ == class2]
 
         predicted_relations = set()
 
@@ -194,47 +181,29 @@ def calculate_scores(
 
                     predicted_relations.add(Relation(term1, 'isAlternativeNameFor', term2))
 
-        total_pairs = len(term_pairs)
-        pair_count = 1
+        terms = [t.as_single() for t in grouped_terms]
 
-        extract_rel_task = progress.add_task(
-            description=f'[cyan]Term pair {pair_count}/{total_pairs}',
-            total=total_pairs
-        )
-
-        progress.update(
-            extract_rel_task,
-            description=f'[cyan]Term pair {pair_count}/{total_pairs}',
-            advance=1
-        )
         try:
-            relations = relation_extractor.analyze_term_pairs(sent.text, term_pairs)
+            if relation_to_consider:
+                class1, _, class2 = relation_to_consider.split('_')
+                relations = relation_extractor(sent.text, terms, progress, class1, class2)
+            else:
+                relations = relation_extractor(sent.text, terms, progress)
 
             for rel in relations:
-                pair_count += 1
+                predicted_relations.add(rel)
 
-                if rel:
-                    predicted_relations.add(rel)
+                # reference resolving
+                for term1_option in group_by_term[rel.term1]:
+                    for term2_option in group_by_term[rel.term2]:
+                        rel_option = Relation(term1_option, rel.predicate, term2_option)
 
-                    # reference resolving
-                    for term1_option in group_by_term[rel.term1]:
-                        for term2_option in group_by_term[rel.term2]:
-                            rel_option = Relation(term1_option, rel.predicate, term2_option)
+                        if rel_option in expected_relations:
+                            predicted_relations.add(rel_option)
 
-                            if rel_option in expected_relations:
-                                predicted_relations.add(rel_option)
-
-                progress.update(
-                    extract_rel_task,
-                    description=f'[cyan]Term pair {pair_count}/{total_pairs}',
-                    advance=1
-                )
         except Exception as e:
             progress.remove_task(sentence_task)
-            progress.remove_task(extract_rel_task)
             return last_sent_id, False
-
-        progress.remove_task(extract_rel_task)
 
         update_scores(sent, predicted_relations, expected_relations, ignored_relations, scores)
 
@@ -297,56 +266,6 @@ def main():
     except Exception:
         scores = {}
         last_sent_id = 0
-
-    tokens = [
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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',
-        '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'
-    ]
 
     token_idx = 0
     no_move_count = 0

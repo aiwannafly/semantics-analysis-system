@@ -1,6 +1,5 @@
 import sys
 
-from colorama import Fore, Style
 from rich.console import Console
 from rich.table import Table
 from rich.text import Text
@@ -20,14 +19,6 @@ storage2 = {}
 results1 = parse_scores(scores1_path, None, storage1)
 results2 = parse_scores(scores2_path, None, storage2)
 
-table = Table(title="Scores comparison")
-
-table.add_column(header="Relation", justify="left", no_wrap=True)
-table.add_column(header="Recall 1")
-table.add_column(header="Recall 2")
-table.add_column(header="Precision 1")
-table.add_column(header="Precision 2")
-
 
 scores_by_rel = {}
 
@@ -46,6 +37,28 @@ for rel, _, scores in results2:
         continue
     scores_by_rel[rel].append(scores)
 
+count1 = storage1['count']
+avg_recall1 = storage1['avg_recall']
+avg_precision1 = storage1['avg_precision']
+
+count2 = storage2['count']
+avg_recall2 = storage2['avg_recall']
+avg_precision2 = storage2['avg_precision']
+
+AVERAGE_REL_NAME = '~ AVERAGE'
+
+scores_by_rel[AVERAGE_REL_NAME] = [
+    {
+        'Recall': int(100 * avg_recall1 / count1) / 100,
+        'Precision': int(100 * avg_precision1 / count1) / 100
+    },
+    {
+        'Recall': int(100 * avg_recall2 / count2) / 100,
+        'Precision': int(100 * avg_precision2 / count2) / 100
+    },
+]
+
+
 BETTER_STYLE = 'green'
 WORSE_STYLE = 'red'
 CONFLICT_STYLE = 'yellow'
@@ -53,6 +66,14 @@ OLD_STYLE = 'rgb(206,89,227)'
 NEW_STYLE = 'rgb(89,128,227)'
 
 trailing_rows = []
+
+table = Table(title="Scores comparison")
+
+table.add_column(header="Relation", justify="left", no_wrap=True)
+table.add_column(header="Recall 1")
+table.add_column(header="Recall 2")
+table.add_column(header="Precision 1")
+table.add_column(header="Precision 2")
 
 for rel, results in scores_by_rel.items():
     if len(results) == 1:
@@ -117,6 +138,16 @@ for rel, results in scores_by_rel.items():
             common_style = BETTER_STYLE
     else:
         common_style = None
+
+    if rel == AVERAGE_REL_NAME:
+        trailing_rows.append([
+            Text(rel, style=common_style),
+            Text(str(recall1)),
+            Text(str(recall2), style=recall2_style),
+            Text(str(precision1)),
+            Text(str(precision2), style=precision2_style)
+        ])
+        continue
 
     table.add_row(
         Text(rel, style=common_style),

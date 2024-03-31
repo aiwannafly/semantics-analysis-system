@@ -21,7 +21,8 @@ from semantics_analysis.term_post_processing.computer_science_term_post_processo
     ComputerScienceTermPostProcessor
 from semantics_analysis.term_post_processing.merge_close_term_post_processor import MergeCloseTermPostProcessor
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
-from semantics_analysis.utils import log_class_predictions, log_grouped_terms, log_labeled_terms, log_extracted_terms
+from semantics_analysis.utils import log_class_predictions, log_grouped_terms, log_labeled_terms, log_extracted_terms, \
+    log_found_relations
 from spinner import Spinner
 
 LOG_STYLE = Style.DIM
@@ -140,13 +141,10 @@ def analyze_text(
 
             found_relations = [r for r in relations]
 
-    # log_found_relations(found_relations)
-
-    if not found_relations:
-        return
-
-    if display_graph:
+    if found_relations and display_graph:
         display_relation_graph(found_relations)
+    else:
+        log_found_relations(found_relations)
 
 
 def main():

@@ -17,8 +17,8 @@ def log(*messages: str):
     print(*messages)
 
 
-def render_term(term: ClassifiedTerm) -> str:
-    return f'{LABELED_TERM_STYLE}({term.value}: {term.class_}){Style.RESET_ALL}'
+def render_term(term: ClassifiedTerm, style: str = LABELED_TERM_STYLE) -> str:
+    return f'{style}({term.value}: {term.class_}){Style.RESET_ALL}'
 
 
 def render_grouped_term(term: GroupedTerm) -> str:
@@ -52,7 +52,10 @@ def render_relation(relation: Relation) -> str:
 
     res += ' ' * (header_len + int(term1_len / 2)) + '|' + ' ' * len(edge) + '|' + '\n'
 
-    res += ' ' * header_len + render_term(term1) + ' ' * space_len + render_term(term2)
+    res += (' ' * header_len
+            + render_term(term1, GROUPED_TERM_STYLE)
+            + ' ' * space_len
+            + render_term(term2, GROUPED_TERM_STYLE))
 
     return res
 

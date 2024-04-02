@@ -27,10 +27,17 @@ rel2_set = set()
 
 for rel, _, scores in results1:
     scores_by_rel[rel] = [scores]
+
+    for k, v in scores.items():
+        scores[k] = int(v * 100)
+
     rel1_set.add(rel)
 
 for rel, _, scores in results2:
     rel2_set.add(rel)
+
+    for k, v in scores.items():
+        scores[k] = int(v * 100)
 
     if rel not in scores_by_rel:
         scores_by_rel[rel] = [scores]
@@ -49,12 +56,12 @@ AVERAGE_REL_NAME = '~ AVERAGE'
 
 scores_by_rel[AVERAGE_REL_NAME] = [
     {
-        'Recall': int(100 * avg_recall1 / count1) / 100,
-        'Precision': int(100 * avg_precision1 / count1) / 100
+        'Recall': int(100 * avg_recall1 / count1),
+        'Precision': int(100 * avg_precision1 / count1)
     },
     {
-        'Recall': int(100 * avg_recall2 / count2) / 100,
-        'Precision': int(100 * avg_precision2 / count2) / 100
+        'Recall': int(100 * avg_recall2 / count2),
+        'Precision': int(100 * avg_precision2 / count2)
     },
 ]
 
@@ -102,6 +109,14 @@ for rel, results in scores_by_rel.items():
 
     recall1, recall2 = scores1['Recall'], scores2['Recall']
 
+    recall_diff = recall2 - recall1
+    if recall_diff == 0:
+        recall_diff = ''
+    elif recall_diff > 0:
+        recall_diff = f'(+{recall_diff})'
+    else:
+        recall_diff = f'(-{-recall_diff})'
+
     if recall2 < recall1:
         recall2_style = WORSE_STYLE
     elif recall2 > recall1:
@@ -110,6 +125,15 @@ for rel, results in scores_by_rel.items():
         recall2_style = None
 
     precision1, precision2 = scores1['Precision'], scores2['Precision']
+
+    precision_diff = precision2 - precision1
+
+    if precision_diff == 0:
+        precision_diff = ''
+    elif precision_diff > 0:
+        precision_diff = f'(+{precision_diff})'
+    else:
+        precision_diff = f'(-{-precision_diff})'
 
     if precision2 < precision1:
         precision2_style = WORSE_STYLE
@@ -139,22 +163,24 @@ for rel, results in scores_by_rel.items():
     else:
         common_style = None
 
+    changed_recall = str(recall2) if recall_diff == 0 else f'{recall2} ({recall_diff})'
+
     if rel == AVERAGE_REL_NAME:
         trailing_rows.append([
             Text(rel, style=common_style),
             Text(str(recall1)),
-            Text(str(recall2), style=recall2_style),
+            Text(f'{recall2} {recall_diff}', style=recall2_style),
             Text(str(precision1)),
-            Text(str(precision2), style=precision2_style)
+            Text(f'{precision2} {precision_diff}', style=precision2_style)
         ])
         continue
 
     table.add_row(
         Text(rel, style=common_style),
         Text(str(recall1)),
-        Text(str(recall2), style=recall2_style),
+        Text(f'{recall2} {recall_diff}', style=recall2_style),
         Text(str(precision1)),
-        Text(str(precision2), style=precision2_style)
+        Text(f'{precision2} {precision_diff}', style=precision2_style)
     )
 
 for row in trailing_rows:

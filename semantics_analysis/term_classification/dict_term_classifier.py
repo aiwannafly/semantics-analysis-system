@@ -2,6 +2,7 @@ import json
 from typing import List, Tuple, Dict
 
 import spacy
+from pymorphy3 import MorphAnalyzer
 
 from semantics_analysis.entities import Term, ClassifiedTerm
 from semantics_analysis.term_classification.term_classifier import TermClassifier
@@ -35,9 +36,14 @@ class DictTermClassifier(TermClassifier):
 
         classified_terms = []
 
+        morph = MorphAnalyzer(lang='ru')
+
         for term in potential_terms:
-            # TODO: add normalization
             value = term.value.lower()
+
+            # TODO: add normalization for phrases
+            if ' ' not in value:
+                value = morph.parse(value)[0].normal_form
 
             class_ = self.class_by_term.get(value, None)
 

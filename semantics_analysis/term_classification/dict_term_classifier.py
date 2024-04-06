@@ -50,8 +50,8 @@ class DictTermClassifier(TermClassifier):
             if class_:
                 if class_ == 'Subject':
                     class_ = 'Object'
-                
-                classified_terms.append(ClassifiedTerm.from_term(class_, term))
+
+                classified_terms.append(ClassifiedTerm.from_term(class_, term, source='dict'))
 
         return classified_terms
 

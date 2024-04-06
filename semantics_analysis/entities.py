@@ -34,14 +34,16 @@ class ClassifiedTerm(Term):
             term_class: str,
             value: str,
             end_pos: int,
-            text: str
+            text: str,
+            source: str = 'model'
     ):
         super().__init__(value, end_pos, text)
         self.class_ = term_class
+        self.source = source
 
     @classmethod
-    def from_term(cls, term_class: str, term: Term):
-        return cls(term_class, term.value, term.end_pos, term.text)
+    def from_term(cls, term_class: str, term: Term, source: str = 'model'):
+        return cls(term_class, term.value, term.end_pos, term.text, source)
 
     def to_json(self):
         return {
@@ -61,7 +63,7 @@ class ClassifiedTerm(Term):
         return ClassifiedTerm(class_, value, end_pos, text)
 
     def __repr__(self):
-        return f'ClassifiedTerm(class={self.class_}, value={self.value}, start_pos={self.start_pos})'
+        return f'ClassifiedTerm(class={self.class_}, value={self.value}, start_pos={self.start_pos}, source={self.source})'
 
     def __eq__(self, other):
         if isinstance(other, ClassifiedTerm):

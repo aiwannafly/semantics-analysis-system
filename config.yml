@@ -1,4 +1,5 @@
 app-config:
+  use-dict: true
   device: 'cpu'
   display-graph: true
   show-class-predictions: false

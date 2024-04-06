@@ -2,6 +2,7 @@ import yaml
 
 
 class Config:
+    use_dict: bool
     display_graph: bool
     show_class_predictions: bool
     llm: str
@@ -14,6 +15,7 @@ class Config:
 
     def __init__(
             self,
+            use_dict: bool,
             display_graph: bool,
             show_class_predictions: bool,
             llm: str,
@@ -24,6 +26,7 @@ class Config:
             log_prompts: bool,
             log_llm_responses: bool
     ):
+        self.use_dict = use_dict
         self.display_graph = display_graph
         self.show_class_predictions = show_class_predictions
         self.llm = llm
@@ -43,6 +46,7 @@ def load_config(file_path: str) -> Config:
         config_dict = yaml.safe_load(stream)['app-config']
 
     return Config(
+        config_dict['use-dict'],
         config_dict['display-graph'],
         config_dict['show-class-predictions'],
         config_dict['llm'],

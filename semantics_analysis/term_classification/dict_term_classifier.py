@@ -48,6 +48,9 @@ class DictTermClassifier(TermClassifier):
             class_ = self.class_by_term.get(value, None)
 
             if class_:
+                if class_ == 'Subject':
+                    class_ = 'Object'
+                
                 classified_terms.append(ClassifiedTerm.from_term(class_, term))
 
         return classified_terms

@@ -10,7 +10,7 @@ from semantics_analysis.term_classification.term_classifier import TermClassifie
 THRESHOLD = 0.7
 
 
-label_list = [
+LABEL_LIST = [
     'Method',
     'Activity',
     'Science',
@@ -29,16 +29,16 @@ label_list = [
     'Dataset'
 ]
 
-id2label = {i: label_list[i] for i in range(len(label_list))}
+id2label = {i: LABEL_LIST[i] for i in range(len(LABEL_LIST))}
 
-label2id = {label_list[i]: i for i in range(len(label_list))}
+label2id = {LABEL_LIST[i]: i for i in range(len(LABEL_LIST))}
 
 
 class RobertaTermClassifier(TermClassifier):
     tokenizer = AutoTokenizer.from_pretrained('ai-forever/ruRoberta-large')
     model = AutoModelForSequenceClassification.from_pretrained(
         'aiwannafly/semantics-analysis-term-classifier',
-        num_labels=len(label_list),
+        num_labels=len(LABEL_LIST),
         id2label=id2label,
         label2id=label2id
     )
@@ -63,7 +63,7 @@ class RobertaTermClassifier(TermClassifier):
 
             probs = torch.squeeze(torch.softmax(outputs.logits, dim=1))
 
-            predictions[term] = [(class_, p.item()) for class_, p in zip(label_list, probs)]
+            predictions[term] = [(class_, p.item()) for class_, p in zip(LABEL_LIST, probs)]
 
             if max(probs) < THRESHOLD:
                 continue

@@ -6,9 +6,10 @@ from rich.progress import Progress, TextColumn, BarColumn
 from semantics_analysis.entities import Term, GroupedTerm, ClassifiedTerm, Relation
 
 LOG_STYLE = Style.DIM
-TERM_STYLE = Fore.LIGHTCYAN_EX
+TERM_STYLE = Fore.CYAN
 LABELED_TERM_STYLE = Fore.CYAN
-GROUPED_TERM_STYLE = Fore.MAGENTA
+LABELED_DICT_TERM_STYLE = Fore.LIGHTMAGENTA_EX
+GROUPED_TERM_STYLE = Fore.LIGHTGREEN_EX
 PREDICATE_STYLE = Style.BRIGHT
 SEPARATOR_STYLE = Style.DIM
 
@@ -18,6 +19,9 @@ def log(*messages: str):
 
 
 def render_term(term: ClassifiedTerm, style: str = LABELED_TERM_STYLE) -> str:
+    if style == LABELED_TERM_STYLE and term.source == 'dict':
+        style = LABELED_DICT_TERM_STYLE
+
     return f'{style}({term.value}: {term.class_}){Style.RESET_ALL}'
 
 

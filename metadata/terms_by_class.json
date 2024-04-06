@@ -1,4 +1,19 @@
 {
+  "Model": [
+    "модель",
+    "model",
+    "language model",
+    "LLM",
+    "BLOOM",
+    "RoBERTa",
+    "BERT",
+    "T5",
+    "ruRoberta",
+    "ruBert",
+    "большая языковая модель",
+    "генеративная модель",
+    "нейронная сеть"
+  ],
   "Activity": [
     "дискурс",
     "discourse",
@@ -960,8 +975,6 @@
     "conversivity",
     "end-user",
     "конечный пользователь",
-    "модель",
-    "model",
     "ontology",
     "formal ontology",
     "онтология",
@@ -977,7 +990,6 @@
     "базовая единица синтеза речи",
     "basic unit of speech synthesis",
     "модель языка",
-    "language model",
     "диалект",
     "dialect",
     "sample",

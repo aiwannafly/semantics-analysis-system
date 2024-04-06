@@ -13,7 +13,9 @@ from semantics_analysis.reference_resolution.llm_reference_resolver import LLMRe
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
 from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
+from semantics_analysis.term_classification.hybrid_term_classifier import HybridTermClassifier
 from semantics_analysis.term_classification.roberta_term_classifier import RobertaTermClassifier
+from semantics_analysis.term_classification.dict_term_classifier import DictTermClassifier
 from semantics_analysis.term_classification.term_classifier import TermClassifier
 from semantics_analysis.term_extraction.roberta_term_extractor import RobertaTermExtractor
 from semantics_analysis.term_extraction.term_extractor import TermExtractor
@@ -96,7 +98,7 @@ def analyze_text(
                 term.start_pos -= text_offset
                 term.end_pos -= text_offset
 
-            sent_labeled_terms = term_classifier.run_and_save_predictions(sent, terms, predictions_by_term)
+            sent_labeled_terms = term_classifier(sent, terms, predictions_by_term)
 
             for term_postprocessor in term_postprocessors:
                 sent_labeled_terms = term_postprocessor(sent_labeled_terms)
@@ -159,7 +161,15 @@ def main():
         MergeCloseTermPostProcessor()
     ]
 
-    term_classifier = RobertaTermClassifier(app_config.device)
+    roberta_term_classifier = RobertaTermClassifier(app_config.device)
+
+    if app_config.use_dict:
+        term_classifier = HybridTermClassifier(
+            DictTermClassifier('metadata/terms_by_class.json'),
+            roberta_term_classifier
+        )
+    else:
+        term_classifier = roberta_term_classifier
 
     relation_extractor = LLMRelationExtractor(
         model=app_config.llm,

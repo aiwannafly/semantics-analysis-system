@@ -47,10 +47,7 @@ class RobertaTermClassifier(TermClassifier):
         self.device = device
         self.model.to(device)
 
-    def __call__(self, text: str, terms: List[Term]) -> List[ClassifiedTerm]:
-        return self.run_and_save_predictions(text, terms, {})
-
-    def run_and_save_predictions(
+    def __call__(
             self,
             text: str,
             terms: List[Term],

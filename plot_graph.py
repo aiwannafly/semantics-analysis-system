@@ -22,7 +22,7 @@ def display_relation_graph(relations: List[Relation]):
         first = f'{rel.term1.value}\n({rel.term1.class_})'
         second = f'{rel.term2.value}\n({rel.term2.class_})'
 
-        mass = 7
+        mass = 8
         color1 = colors[LABEL_LIST.index(rel.term1.class_)]
         color2 = colors[LABEL_LIST.index(rel.term2.class_)]
 

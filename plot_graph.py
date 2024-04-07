@@ -37,6 +37,7 @@ def display_relation_graph(relations: List[Relation]):
 
     nt.from_nx(nx_graph)
 
+    nt.show_buttons()
     nt.show('relations.html', notebook=False)
 
 

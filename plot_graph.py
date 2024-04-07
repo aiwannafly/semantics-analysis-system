@@ -58,7 +58,7 @@ def display_relation_graph(relations: List[Relation]):
         nx_graph.add_node(first, mass=mass, size=size, label=first, color=color1)
         nx_graph.add_node(second, mass=mass, size=size, label=second, color=color2)
 
-        nx_graph.add_edge(first, second, label=rel.predicate, opacity=0.5)
+        nx_graph.add_edge(first, second, label=rel.predicate, color='rgb(160,160,160)')
 
     nt = Network(width='100%', height='800px', notebook=False, directed=True)
 

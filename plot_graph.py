@@ -1,3 +1,4 @@
+import re
 from typing import List
 
 import networkx as nx
@@ -10,6 +11,21 @@ colors = [
     '#f44336', '#e81e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688',
     '#4caf50', '#8bc34a', '#cddc39', '#ffeb3b', '#ffc107', '#ff9800', '#ff5722'
 ]
+
+
+def add_physics_stop_to_html(filepath):
+    with open(filepath, 'r', encoding="utf-8") as file:
+        content = file.read()
+
+    # Search for the stabilizationIterationsDone event and insert the network.setOptions line
+    pattern = r'(network.once\("stabilizationIterationsDone", function\(\) {)'
+    replacement = r'\1\n\t\t\t\t\t\t  // Disable the physics after stabilization is done.\n\t\t\t\t\t\t  network.setOptions({ physics: false });'
+
+    new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+
+    # Write the modified content back to the file
+    with open(filepath, 'w', encoding="utf-8") as file:
+        file.write(new_content)
 
 
 def display_relation_graph(relations: List[Relation]):
@@ -35,13 +51,16 @@ def display_relation_graph(relations: List[Relation]):
         nx_graph.add_node(first, mass=mass, size=size, label=first, color=color1)
         nx_graph.add_node(second, mass=mass, size=size, label=second, color=color2)
 
-        nx_graph.add_edge(first, second, label=rel.predicate)
+        nx_graph.add_edge(first, second, label=rel.predicate, color='rgb(130,130,130)')
 
     nt = Network(width='100%', height='800px', notebook=False, directed=True)
 
     nt.from_nx(nx_graph)
 
-    nt.show_buttons()
+    nt.repulsion(node_distance=300)
+    # nt.barnes_hut(gravity=-200)
+
+    nt.show_buttons(filter_=['physics'])
     nt.show('relations.html', notebook=False)
 
 

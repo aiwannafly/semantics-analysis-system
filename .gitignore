@@ -4,3 +4,4 @@ __pycache__
 tests/last_stop.lock
 tests/*/
 relations.html
+examples

@@ -2,7 +2,6 @@ import re
 from time import sleep
 from typing import List
 
-import networkx as nx
 from pyvis.network import Network
 
 from semantics_analysis.entities import Relation, read_sentences
@@ -35,37 +34,58 @@ def get_color(class_: str):
     return '#000000'
 
 
+def image_by_class(class_: str):
+    return f'icons/{class_.lower()}.png'
+
+
 def display_relation_graph(relations: List[Relation]):
     if not relations:
         return
 
-    nx_graph = nx.MultiDiGraph()
+    nt = Network(width='100%', height='800px', notebook=False, directed=True)
 
-    mass = 10
+    mass = 5
 
     size = 20
 
     for rel in relations:
-        first = f'{rel.term1.value}\n({rel.term1.class_})'
-        second = f'{rel.term2.value}\n({rel.term2.class_})'
-
         color1 = get_color(rel.term1.class_)
         color2 = get_color(rel.term2.class_)
 
-        nx_graph.add_node(first, mass=mass, size=size, label=first, color=color1)
-        nx_graph.add_node(second, mass=mass, size=size, label=second, color=color2)
+        node1 = rel.term1.value
+        node2 = rel.term2.value
 
-        edge_color = '#' + color1[1:] + 'CC'
+        title1 = rel.term1.class_
+        title2 = rel.term2.class_
 
-        nx_graph.add_edge(first, second, label=rel.predicate, color=edge_color)
+        nt.add_node(
+            node1,
+            title=title1,
+            mass=mass,
+            size=size,
+            label=node1,
+            color=color1,
+            shape='image',
+            image=image_by_class(rel.term1.class_)
+        )
+        nt.add_node(
+            node2,
+            title=title2,
+            mass=mass,
+            size=size,
+            label=node2,
+            color=color2,
+            shape='image',
+            image=image_by_class(rel.term2.class_)
+        )
 
-    nt = Network(width='100%', height='800px', notebook=False, directed=True)
+        edge_color = '#' + color1[1:] + '77'
 
-    nt.from_nx(nx_graph)
+        nt.add_edge(node1, node2, label=rel.predicate, color=edge_color)
 
     # nt.repulsion(node_distance=300)
     # nt.barnes_hut(gravity=-200)
-    nt.force_atlas_2based(gravity=-50, central_gravity=0.03)
+    nt.force_atlas_2based(gravity=-50, central_gravity=0.02, spring_strength=0.09)
 
     nt.show_buttons(filter_=['physics'])
     nt.show('relations.html', notebook=False)

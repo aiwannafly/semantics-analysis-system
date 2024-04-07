@@ -38,6 +38,27 @@ def image_by_class(class_: str):
     return f'icons/{class_.lower()}.png'
 
 
+def preprocess_is_alternative_name(relations: List[Relation]) -> List[Relation]:
+    alt_rel = None
+
+    for rel in relations:
+        if rel.predicate == 'isAlternativeNameFor':
+            alt_rel = rel
+            break
+
+    if alt_rel is None:
+        return relations
+
+    new_relations = [alt_rel, alt_rel.inverse()]
+    alt_term = alt_rel.term2
+
+    for rel in relations:
+        if rel.term1 != alt_term and rel.term2 != alt_term:
+            new_relations.append(rel)
+
+    return new_relations
+
+
 def display_relation_graph(relations: List[Relation]):
     if not relations:
         return
@@ -106,8 +127,8 @@ def main():
     sentences = read_sentences('tests/sentences.json')
 
     for sent in sentences:
-        if len(sent.relations) > 10:
-            display_relation_graph(sent.relations)
+        if len(sent.relations) > 14:
+            display_relation_graph(preprocess_is_alternative_name(sent.relations))
             sleep(3)
             break
 

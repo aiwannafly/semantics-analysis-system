@@ -81,7 +81,18 @@ def display_relation_graph(relations: List[Relation]):
 
         edge_color = '#' + color1[1:] + '77'
 
-        nt.add_edge(node1, node2, title=rel.predicate, color=edge_color)
+        nt.add_edge(
+            node1,
+            node2,
+            label=rel.predicate,
+            title=rel.predicate,
+            color=edge_color,
+            arrowStrikethrough=False,
+            font={
+                'size': 10,
+                'align': 'top'
+            }
+        )
 
     # nt.repulsion(node_distance=300)
     # nt.barnes_hut(gravity=-200)
@@ -95,9 +106,10 @@ def main():
     sentences = read_sentences('tests/sentences.json')
 
     for sent in sentences:
-        if len(sent.relations) > 14:
+        if len(sent.relations) > 10:
             display_relation_graph(sent.relations)
             sleep(3)
+            break
 
 
 if __name__ == '__main__':

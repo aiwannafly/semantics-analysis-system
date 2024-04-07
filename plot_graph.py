@@ -63,7 +63,14 @@ def display_relation_graph(relations: List[Relation]):
     if not relations:
         return
 
-    nt = Network(width='100%', height='800px', notebook=False, directed=True)
+    nt = Network(
+        width='100%',
+        height='800px',
+        notebook=False,
+        directed=True,
+        font_color='#000000',
+        neighborhood_highlight=True
+    )
 
     mass = 5
 
@@ -100,7 +107,7 @@ def display_relation_graph(relations: List[Relation]):
             image=image_by_class(rel.term2.class_)
         )
 
-        edge_color = '#' + color1[1:] + '77'
+        edge_color = '#' + color1[1:] + '66'
 
         nt.add_edge(
             node1,

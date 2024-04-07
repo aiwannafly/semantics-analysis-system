@@ -58,7 +58,7 @@ def display_relation_graph(relations: List[Relation]):
         nx_graph.add_node(first, mass=mass, size=size, label=first, color=color1)
         nx_graph.add_node(second, mass=mass, size=size, label=second, color=color2)
 
-        nx_graph.add_edge(first, second, label=rel.predicate, color='rgb(130,130,130)')
+        nx_graph.add_edge(first, second, label=rel.predicate, opacity=0.5)
 
     nt = Network(width='100%', height='800px', notebook=False, directed=True)
 
@@ -72,9 +72,14 @@ def display_relation_graph(relations: List[Relation]):
     nt.show('relations.html', notebook=False)
 
 
-# sentences = read_sentences('tests/sentences.json')
-#
-# for sent in sentences:
-#     if len(sent.relations) > 14:
-#         display_relation_graph(sent.relations)
-#         sleep(5)
+def main():
+    sentences = read_sentences('tests/sentences.json')
+
+    for sent in sentences:
+        if len(sent.relations) > 14:
+            display_relation_graph(sent.relations)
+            sleep(3)
+
+
+if __name__ == '__main__':
+    main()

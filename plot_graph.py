@@ -36,8 +36,8 @@ def display_relation_graph(relations: List[Relation]):
 
     mass = 10
 
-    if len(relations) > 10:
-        mass = 15
+    # if len(relations) > 10:
+    #     mass = 15
 
     size = 20
 
@@ -57,8 +57,9 @@ def display_relation_graph(relations: List[Relation]):
 
     nt.from_nx(nx_graph)
 
-    nt.repulsion(node_distance=300)
+    # nt.repulsion(node_distance=300)
     # nt.barnes_hut(gravity=-200)
+    nt.force_atlas_2based(gravity=-40)
 
     nt.show_buttons(filter_=['physics'])
     nt.show('relations.html', notebook=False)

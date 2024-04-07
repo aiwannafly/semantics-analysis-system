@@ -32,7 +32,7 @@ def add_physics_stop_to_html(filepath):
 def get_color(class_: str):
     if class_ in LABEL_LIST:
         return colors[LABEL_LIST.index(class_)]
-    return 'black'
+    return '#000000'
 
 
 def display_relation_graph(relations: List[Relation]):
@@ -42,9 +42,6 @@ def display_relation_graph(relations: List[Relation]):
     nx_graph = nx.MultiDiGraph()
 
     mass = 10
-
-    # if len(relations) > 10:
-    #     mass = 15
 
     size = 20
 
@@ -58,7 +55,9 @@ def display_relation_graph(relations: List[Relation]):
         nx_graph.add_node(first, mass=mass, size=size, label=first, color=color1)
         nx_graph.add_node(second, mass=mass, size=size, label=second, color=color2)
 
-        nx_graph.add_edge(first, second, label=rel.predicate, color='rgb(160,160,160)')
+        edge_color = '#' + color1[1:] + 'CC'
+
+        nx_graph.add_edge(first, second, label=rel.predicate, color=edge_color)
 
     nt = Network(width='100%', height='800px', notebook=False, directed=True)
 

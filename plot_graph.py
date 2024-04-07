@@ -13,21 +13,6 @@ colors = [
 ]
 
 
-def add_physics_stop_to_html(filepath):
-    with open(filepath, 'r', encoding="utf-8") as file:
-        content = file.read()
-
-    # Search for the stabilizationIterationsDone event and insert the network.setOptions line
-    pattern = r'(network.once\("stabilizationIterationsDone", function\(\) {)'
-    replacement = r'\1\n\t\t\t\t\t\t  // Disable the physics after stabilization is done.\n\t\t\t\t\t\t  network.setOptions({ physics: false });'
-
-    new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-
-    # Write the modified content back to the file
-    with open(filepath, 'w', encoding="utf-8") as file:
-        file.write(new_content)
-
-
 def get_color(class_: str):
     if class_ in LABEL_LIST:
         return colors[LABEL_LIST.index(class_)]
@@ -107,7 +92,12 @@ def display_relation_graph(relations: List[Relation]):
             image=image_by_class(rel.term2.class_)
         )
 
-        edge_color = '#' + color1[1:] + '66'
+        if color1 in ['#ffeb3b', '#ffc107', '#ff9800']:
+            opacity = 'AA'
+        else:
+            opacity = '66'
+
+        edge_color = '#' + color1[1:] + opacity
 
         nt.add_edge(
             node1,
@@ -134,9 +124,9 @@ def main():
     sentences = read_sentences('tests/sentences.json')
 
     for sent in sentences:
-        if len(sent.relations) > 14:
+        if 6 < len(sent.relations) < 13:
             display_relation_graph(preprocess_is_alternative_name(sent.relations))
-            sleep(3)
+            sleep(1)
             # break
 
 

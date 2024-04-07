@@ -18,15 +18,19 @@ def display_relation_graph(relations: List[Relation]):
 
     nx_graph = nx.MultiDiGraph()
 
+    mass = 10
+
+    if len(relations) > 10:
+        mass = 15
+
+    size = 20
+
     for rel in relations:
         first = f'{rel.term1.value}\n({rel.term1.class_})'
         second = f'{rel.term2.value}\n({rel.term2.class_})'
 
-        mass = 10
         color1 = colors[LABEL_LIST.index(rel.term1.class_)]
         color2 = colors[LABEL_LIST.index(rel.term2.class_)]
-
-        size = 20
 
         nx_graph.add_node(first, mass=mass, size=size, label=first, color=color1)
         nx_graph.add_node(second, mass=mass, size=size, label=second, color=color2)
@@ -44,6 +48,6 @@ def display_relation_graph(relations: List[Relation]):
 # sentences = read_sentences('tests/sentences.json')
 #
 # for sent in sentences:
-#     if len(sent.relations) > 5:
+#     if len(sent.relations) > 12:
 #         display_relation_graph(sent.relations)
 #         break

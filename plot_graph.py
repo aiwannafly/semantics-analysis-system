@@ -9,7 +9,7 @@ from semantics_analysis.term_classification.roberta_term_classifier import LABEL
 
 colors = [
     '#f44336', '#e81e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688',
-    '#4caf50', '#8bc34a', '#cddc39', '#ffc107', '#ff9800', '#ffeb3b', '#ff5722'
+    '#4caf50', '#8bc34a', '#cddc39', '#ff5722', '#ffc107', '#ff9800', '#ffeb3b'
 ]
 
 
@@ -49,14 +49,14 @@ def preprocess_is_alternative_name(relations: List[Relation]) -> List[Relation]:
     if alt_rel is None:
         return relations
 
-    new_relations = [alt_rel, alt_rel.inverse()]
-    alt_term = alt_rel.term2
+    new_relations = [Relation(alt_rel.term1, 'alternativeNameFor', alt_rel.term2)]
+    alt_term = alt_rel.term1
 
     for rel in relations:
         if rel.term1 != alt_term and rel.term2 != alt_term:
             new_relations.append(rel)
 
-    return new_relations
+    return preprocess_is_alternative_name(new_relations)
 
 
 def display_relation_graph(relations: List[Relation]):
@@ -130,7 +130,7 @@ def main():
         if len(sent.relations) > 14:
             display_relation_graph(preprocess_is_alternative_name(sent.relations))
             sleep(3)
-            break
+            # break
 
 
 if __name__ == '__main__':

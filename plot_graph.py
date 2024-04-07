@@ -1,4 +1,5 @@
 import re
+from time import sleep
 from typing import List
 
 import networkx as nx
@@ -59,7 +60,7 @@ def display_relation_graph(relations: List[Relation]):
 
     # nt.repulsion(node_distance=300)
     # nt.barnes_hut(gravity=-200)
-    nt.force_atlas_2based(gravity=-40)
+    nt.force_atlas_2based(gravity=-40, central_gravity=0.02)
 
     nt.show_buttons(filter_=['physics'])
     nt.show('relations.html', notebook=False)
@@ -68,6 +69,6 @@ def display_relation_graph(relations: List[Relation]):
 # sentences = read_sentences('tests/sentences.json')
 #
 # for sent in sentences:
-#     if len(sent.relations) > 12:
+#     if len(sent.relations) > 14:
 #         display_relation_graph(sent.relations)
-#         break
+#         sleep(5)

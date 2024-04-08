@@ -15,7 +15,7 @@ PROGRAMMING_LANGUAGES = [
     'Python 2', 'Python 3', 'BASIC', 'Visual BASIC', 'Clojure', 'COBOL', 'Cython', 'Delphi', 'Erlang', 'F#', 'Scala',
     'Kotlin', 'Go', 'Java 8', 'Java 17', 'Java 21',
     'C#', 'Rust', 'flow9', 'Haskell', 'D', 'Dart', 'Javascript', 'Typescript', 'Groovy', 'SQL',
-    'питон', 'си', 'си++', 'джава'
+    'питон', 'си', 'си++', 'джава', 'C/C++', 'C\\C++'
 ]
 
 

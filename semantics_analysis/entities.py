@@ -1,5 +1,9 @@
 import json
 from typing import Dict, List, Optional, Any
+from pymorphy3 import MorphAnalyzer
+
+
+ru_morph = MorphAnalyzer(lang='ru')
 
 
 class Term:
@@ -80,8 +84,27 @@ class GroupedTerm:
         if not terms:
             raise ValueError('Terms must be non-empty.')
 
-        self.items = terms
+        self.items = []
         self.class_ = class_name
+
+        values = set()
+        for term in terms:
+            if ' ' in term.value:
+                value = term.value
+            else:
+                value = ru_morph.parse(term.value)[0].normal_form
+
+            if value in values:
+                continue
+            values.add(value)
+
+            if term.value.lower() == value:
+                value = term.value
+            elif term.value.istitle():
+                value = value[:1].upper() + value[1:]
+
+            term.value = value
+            self.items.append(term)
 
     def size(self) -> int:
         return len(self.items)

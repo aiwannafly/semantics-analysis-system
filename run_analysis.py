@@ -144,7 +144,7 @@ def analyze_text(
             found_relations = [r for r in relations]
 
     if found_relations and display_graph:
-        display_relation_graph(found_relations)
+        display_relation_graph(grouped_terms, found_relations)
     else:
         log_found_relations(found_relations)
 

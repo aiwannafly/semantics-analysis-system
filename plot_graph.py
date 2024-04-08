@@ -1,10 +1,9 @@
-import re
 from time import sleep
 from typing import List
 
 from pyvis.network import Network
 
-from semantics_analysis.entities import Relation, read_sentences, ClassifiedTerm
+from semantics_analysis.entities import Relation, read_sentences, ClassifiedTerm, GroupedTerm
 from semantics_analysis.term_classification.roberta_term_classifier import LABEL_LIST
 
 colors = [
@@ -62,7 +61,15 @@ def get_title(term: ClassifiedTerm) -> str:
             f'Context: {context}')
 
 
-def display_relation_graph(relations: List[Relation], output_file: str = 'relations.html'):
+def get_node(term: ClassifiedTerm) -> str:
+    return f'{term.value}, {term.class_}'
+
+
+def display_relation_graph(
+        grouped_terms: List[GroupedTerm],
+        relations: List[Relation],
+        output_file: str = 'relations.html'
+):
     if not relations:
         return
 
@@ -79,6 +86,48 @@ def display_relation_graph(relations: List[Relation], output_file: str = 'relati
 
     size = 20
 
+    for group_id, group in enumerate(grouped_terms):
+        for term in group.items:
+            nt.add_node(
+                get_node(term),
+                title=get_title(term),
+                mass=mass,
+                size=size,
+                label=term.value,
+                color=get_color(term.class_),
+                shape='image',
+                image=image_by_class(term.class_),
+                group=group_id
+            )
+
+        pairs = [p for p in zip(group.items[1:], group.items)]
+
+        if len(group.items) > 2:
+            pairs.append((group.items[0], group.items[-1]))
+
+        for term1, term2 in pairs:
+            color = get_color(term1.class_)
+
+            if color in ['#ffeb3b', '#ffc107', '#ff9800']:
+                opacity = 'AA'
+            else:
+                opacity = '66'
+
+            edge_color = '#' + color[1:] + opacity
+
+            nt.add_edge(
+                get_node(term1),
+                get_node(term2),
+                label='isAlternativeNameFor',
+                title='isAlternativeNameFor',
+                color=edge_color,
+                arrowStrikethrough=False,
+                font={
+                    'size': 10,
+                    'align': 'top'
+                }
+            )
+
     for rel in relations:
         color1 = get_color(rel.term1.class_)
         color2 = get_color(rel.term2.class_)
@@ -86,12 +135,9 @@ def display_relation_graph(relations: List[Relation], output_file: str = 'relati
         node1 = f'{rel.term1.value}, {rel.term1.class_}'
         node2 = f'{rel.term2.value}, {rel.term2.class_}'
 
-        title1 = get_title(rel.term1)
-        title2 = get_title(rel.term2)
-
         nt.add_node(
-            node1,
-            title=title1,
+            get_node(rel.term1),
+            title=get_title(rel.term1),
             mass=mass,
             size=size,
             label=rel.term1.value,
@@ -100,8 +146,8 @@ def display_relation_graph(relations: List[Relation], output_file: str = 'relati
             image=image_by_class(rel.term1.class_)
         )
         nt.add_node(
-            node2,
-            title=title2,
+            get_node(rel.term2),
+            title=get_title(rel.term2),
             mass=mass,
             size=size,
             label=rel.term2.value,

@@ -37,7 +37,7 @@ label2id = {LABEL_LIST[i]: i for i in range(len(LABEL_LIST))}
 class RobertaTermClassifier(TermClassifier):
     tokenizer = AutoTokenizer.from_pretrained('ai-forever/ruRoberta-large')
     model = AutoModelForSequenceClassification.from_pretrained(
-        'aiwannafly/semantics-analysis-term-classifier',
+        'aiwannafly/semantics-analysis-term-classifier-v.0.2',
         num_labels=len(LABEL_LIST),
         id2label=id2label,
         label2id=label2id

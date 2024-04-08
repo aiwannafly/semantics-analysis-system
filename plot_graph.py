@@ -73,6 +73,8 @@ def display_relation_graph(
     if not relations:
         return
 
+    relations = list(set(relations))
+
     nt = Network(
         width='100%',
         height='800px',
@@ -178,7 +180,7 @@ def display_relation_graph(
 
     # nt.repulsion(node_distance=300)
     # nt.barnes_hut(gravity=-200)
-    nt.force_atlas_2based(gravity=-50, central_gravity=0.02, spring_strength=0.09)
+    nt.force_atlas_2based(gravity=-70, central_gravity=0.02, spring_strength=0.09)
 
     nt.show_buttons(filter_=['physics'])
     nt.show(output_file, notebook=False)

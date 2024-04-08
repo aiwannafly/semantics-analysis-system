@@ -4,7 +4,7 @@ from typing import List
 
 from pyvis.network import Network
 
-from semantics_analysis.entities import Relation, read_sentences
+from semantics_analysis.entities import Relation, read_sentences, ClassifiedTerm
 from semantics_analysis.term_classification.roberta_term_classifier import LABEL_LIST
 
 colors = [
@@ -44,6 +44,24 @@ def preprocess_is_alternative_name(relations: List[Relation]) -> List[Relation]:
     return preprocess_is_alternative_name(new_relations)
 
 
+def get_title(term: ClassifiedTerm) -> str:
+    # highlighted_term = f'<b style="color:black">{term.value}</b>'
+    #
+    # context = term.text[:term.start_pos] + highlighted_term + term.text[term.end_pos:]
+    #
+    # header_style = '"color:black;font-size:16px"'
+    # body = (f'<p><b style={header_style}>Class</b>: {term.class_}</p>\n'
+    #         f'<p><b style={header_style}>Context</b>: {context}</p>')
+
+    window = 50
+    context = term.text[:term.start_pos][-window:] + term.value + term.text[term.end_pos:][:window]
+    context = '...' + context + '...'
+
+    return (f'Class: {term.class_}\n'
+            f'Value: {term.value}\n'
+            f'Context: {context}')
+
+
 def display_relation_graph(relations: List[Relation]):
     if not relations:
         return
@@ -68,8 +86,8 @@ def display_relation_graph(relations: List[Relation]):
         node1 = f'{rel.term1.value}, {rel.term1.class_}'
         node2 = f'{rel.term2.value}, {rel.term2.class_}'
 
-        title1 = rel.term1.class_
-        title2 = rel.term2.class_
+        title1 = get_title(rel.term1)
+        title2 = get_title(rel.term2)
 
         nt.add_node(
             node1,
@@ -127,7 +145,7 @@ def main():
         if 13 < len(sent.relations) < 100:
             display_relation_graph(preprocess_is_alternative_name(sent.relations))
             sleep(1)
-            # break
+            break
 
 
 if __name__ == '__main__':

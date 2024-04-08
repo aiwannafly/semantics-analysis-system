@@ -62,7 +62,7 @@ def get_title(term: ClassifiedTerm) -> str:
             f'Context: {context}')
 
 
-def display_relation_graph(relations: List[Relation]):
+def display_relation_graph(relations: List[Relation], output_file: str = 'relations.html'):
     if not relations:
         return
 
@@ -135,7 +135,7 @@ def display_relation_graph(relations: List[Relation]):
     nt.force_atlas_2based(gravity=-50, central_gravity=0.02, spring_strength=0.09)
 
     nt.show_buttons(filter_=['physics'])
-    nt.show('relations.html', notebook=False)
+    nt.show(output_file, notebook=False)
 
 
 def main():

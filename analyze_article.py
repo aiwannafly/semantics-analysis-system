@@ -226,7 +226,7 @@ def main():
     )
 
     print('Building relations graph...')
-    display_relation_graph(result.relations)
+    display_relation_graph(result.relations, output_file=f'article_{article_id}.html')
 
 
 if __name__ == '__main__':

@@ -65,8 +65,8 @@ def display_relation_graph(relations: List[Relation]):
         color1 = get_color(rel.term1.class_)
         color2 = get_color(rel.term2.class_)
 
-        node1 = rel.term1.value
-        node2 = rel.term2.value
+        node1 = f'{rel.term1.value}, {rel.term1.class_}'
+        node2 = f'{rel.term2.value}, {rel.term2.class_}'
 
         title1 = rel.term1.class_
         title2 = rel.term2.class_
@@ -76,7 +76,7 @@ def display_relation_graph(relations: List[Relation]):
             title=title1,
             mass=mass,
             size=size,
-            label=node1,
+            label=rel.term1.value,
             color=color1,
             shape='image',
             image=image_by_class(rel.term1.class_)
@@ -86,7 +86,7 @@ def display_relation_graph(relations: List[Relation]):
             title=title2,
             mass=mass,
             size=size,
-            label=node2,
+            label=rel.term2.value,
             color=color2,
             shape='image',
             image=image_by_class(rel.term2.class_)
@@ -124,7 +124,7 @@ def main():
     sentences = read_sentences('tests/sentences.json')
 
     for sent in sentences:
-        if 6 < len(sent.relations) < 13:
+        if 13 < len(sent.relations) < 100:
             display_relation_graph(preprocess_is_alternative_name(sent.relations))
             sleep(1)
             # break

@@ -3,5 +3,5 @@ __pycache__
 .idea
 tests/last_stop.lock
 tests/*/
-relations.html
+*.html
 examples

@@ -220,8 +220,18 @@ def calculate_scores(
 def main():
     relation_to_consider = None
 
-    if len(sys.argv) > 1:
-        relation_to_consider = sys.argv[1]
+    argv = sys.argv
+
+    sentences_file = 'tests/sentences.json'
+
+    for arg in argv:
+        if arg.endswith('.json'):
+            sentences_file = arg
+            argv.remove(arg)
+            break
+
+    if len(argv) > 1:
+        relation_to_consider = argv[1]
 
         if relation_to_consider not in loaded_relation_ids:
             print(f'Invalid relation id: {relation_to_consider}')
@@ -229,7 +239,9 @@ def main():
 
     config = load_config('config.yml')
 
-    sentences = read_sentences('tests/sentences.json')
+    print(f'Sentences file: {sentences_file}')
+    print()
+    sentences = read_sentences(sentences_file)
 
     if not relation_to_consider:
         sentences_to_check = sentences

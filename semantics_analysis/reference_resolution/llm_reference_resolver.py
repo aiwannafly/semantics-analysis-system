@@ -30,7 +30,7 @@ class LLMReferenceResolver(ReferenceResolver):
         self.use_all_tokens = use_all_tokens
         self.token_idx = 0
 
-    def __call__(self, terms: List[ClassifiedTerm], text: str, progress: Progress) -> List[GroupedTerm]:
+    def __call__(self, terms: List[ClassifiedTerm], text: str, progress: Progress, normalize: bool = True) -> List[GroupedTerm]:
         terms_by_class = {term.class_ : [] for term in terms}
 
         for term in terms:
@@ -43,7 +43,7 @@ class LLMReferenceResolver(ReferenceResolver):
             curr_group_id = 0
 
             if class_ in attribute_classes:  # these classes should not have grouping
-                grouped_terms.extend([GroupedTerm(class_, [t]) for t in terms if t not in group_by_term])
+                grouped_terms.extend([GroupedTerm(class_, [t], normalize) for t in terms if t not in group_by_term])
                 continue
 
             total = sum((k - 1) for k in range(2, len(terms) + 1))
@@ -91,7 +91,7 @@ class LLMReferenceResolver(ReferenceResolver):
             progress.remove_task(group_task)
 
             # add single terms
-            grouped_terms.extend([GroupedTerm(class_, [t]) for t in terms if t not in group_by_term])
+            grouped_terms.extend([GroupedTerm(class_, [t], normalize) for t in terms if t not in group_by_term])
 
             terms_by_group = {}
 
@@ -101,7 +101,7 @@ class LLMReferenceResolver(ReferenceResolver):
                 else:
                     terms_by_group[group].append(term)
 
-            grouped_terms.extend([GroupedTerm(class_, terms) for terms in terms_by_group.values()])
+            grouped_terms.extend([GroupedTerm(class_, terms, normalize) for terms in terms_by_group.values()])
         return grouped_terms
 
     def are_synonyms(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> bool:

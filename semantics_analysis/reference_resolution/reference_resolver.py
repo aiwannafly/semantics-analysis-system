@@ -9,5 +9,5 @@ from semantics_analysis.entities import ClassifiedTerm, GroupedTerm
 class ReferenceResolver(ABC):
 
     @abstractmethod
-    def __call__(self, terms: List[ClassifiedTerm], text: str, progress: Progress) -> List[GroupedTerm]:
+    def __call__(self, terms: List[ClassifiedTerm], text: str, progress: Progress, normalize: bool = True) -> List[GroupedTerm]:
         raise NotImplemented()

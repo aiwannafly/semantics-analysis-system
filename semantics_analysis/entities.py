@@ -80,7 +80,7 @@ class ClassifiedTerm(Term):
 
 
 class GroupedTerm:
-    def __init__(self, class_name: str, terms: List[ClassifiedTerm]):
+    def __init__(self, class_name: str, terms: List[ClassifiedTerm], normalize: bool = True):
         if not terms:
             raise ValueError('Terms must be non-empty.')
 
@@ -89,7 +89,7 @@ class GroupedTerm:
 
         values = set()
         for term in terms:
-            if ' ' in term.value:
+            if ' ' in term.value or not normalize:
                 value = term.value
             else:
                 value = ru_morph.parse(term.value)[0].normal_form

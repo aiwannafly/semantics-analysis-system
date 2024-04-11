@@ -149,7 +149,7 @@ def calculate_scores(
             continue
 
         try:
-            grouped_terms = reference_resolver(sent.terms, sent.text, progress)
+            grouped_terms = reference_resolver(sent.terms, sent.text, progress, normalize=False)
         except Exception:
             progress.remove_task(sentence_task)
 

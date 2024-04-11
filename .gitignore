@@ -5,3 +5,4 @@ tests/last_stop.lock
 tests/*/
 *.html
 examples
+lib

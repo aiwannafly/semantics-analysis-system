@@ -247,6 +247,19 @@
             "value": "DeBERTa",
             "start_pos": 519
           }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Методы позиционного кодирования",
+            "start_pos": 0
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 114
+          }
         }
       ]
     },
@@ -926,6 +939,58 @@
             "class": "Method",
             "value": "нативный метод",
             "start_pos": 201
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Memory-Efficient Attention",
+            "start_pos": 445
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "PyTorch",
+            "start_pos": 244
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "FlashAttention",
+            "start_pos": 122
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "PyTorch",
+            "start_pos": 244
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Fused C++",
+            "start_pos": 489
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "PyTorch",
+            "start_pos": 244
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "нативный метод",
+            "start_pos": 201
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Library",
+            "value": "PyTorch",
+            "start_pos": 244
           }
         }
       ]
@@ -3123,6 +3188,32 @@
             "class": "Object",
             "value": "эмбеддинги",
             "start_pos": 190
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "компрессии",
+            "start_pos": 217
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "трансформеры",
+            "start_pos": 143
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "компрессии",
+            "start_pos": 217
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "языковых моделей",
+            "start_pos": 79
           }
         }
       ]

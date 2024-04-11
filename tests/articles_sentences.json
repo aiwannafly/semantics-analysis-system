@@ -224,6 +224,19 @@
         },
         {
           "term1": {
+            "class": "Model",
+            "value": "DeBERTa",
+            "start_pos": 519
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "англоязычных",
+            "start_pos": 410
+          }
+        },
+        {
+          "term1": {
             "class": "Method",
             "value": "disentangled attention",
             "start_pos": 533
@@ -313,6 +326,32 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "cointegrated/rubert-tiny2",
+            "start_pos": 406
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русского языка",
+            "start_pos": 233
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "kazzand/ru-longformer-tiny-16384",
+            "start_pos": 449
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "русского языка",
+            "start_pos": 233
+          }
+        },
         {
           "term1": {
             "class": "Date",
@@ -818,9 +857,9 @@
           "start_pos": 304
         },
         {
-          "class": "Task",
-          "value": "вычисления внимания",
-          "start_pos": 58
+          "class": "Metho",
+          "value": "механизм вычисления внимания ",
+          "start_pos": 49
         }
       ],
       "relations": [
@@ -840,45 +879,6 @@
         {
           "term1": {
             "class": "Method",
-            "value": "xformers",
-            "start_pos": 109
-          },
-          "predicate": "isUsedForSolving",
-          "term2": {
-            "class": "Task",
-            "value": "вычисления внимания",
-            "start_pos": 58
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "FlashAttention",
-            "start_pos": 122
-          },
-          "predicate": "isUsedForSolving",
-          "term2": {
-            "class": "Task",
-            "value": "вычисления внимания",
-            "start_pos": 58
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "torch.nn.functional.scaled_dot_product_attention",
-            "start_pos": 254
-          },
-          "predicate": "solves",
-          "term2": {
-            "class": "Task",
-            "value": "вычисления внимания",
-            "start_pos": 58
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
             "value": "torch.nn.functional.scaled_dot_product_attention",
             "start_pos": 254
           },
@@ -887,6 +887,45 @@
             "class": "Library",
             "value": "PyTorch",
             "start_pos": 244
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Memory-Efficient Attention",
+            "start_pos": 445
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Method",
+            "value": "нативный метод",
+            "start_pos": 201
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "FlashAttention",
+            "start_pos": 122
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Method",
+            "value": "нативный метод",
+            "start_pos": 201
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "Fused C++",
+            "start_pos": 489
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Method",
+            "value": "нативный метод",
+            "start_pos": 201
           }
         }
       ]
@@ -1117,7 +1156,7 @@
           "start_pos": 11
         },
         {
-          "class": "Model",
+          "class": "Task",
           "value": "encodechka",
           "start_pos": 75
         },
@@ -1170,6 +1209,19 @@
           "term1": {
             "class": "Model",
             "value": "e5-base",
+            "start_pos": 22
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "STS",
+            "start_pos": 171
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "e5",
             "start_pos": 22
           },
           "predicate": "isUsedForSolving",
@@ -1266,6 +1318,45 @@
             "class": "Model",
             "value": "ai-forever/ruBert-base",
             "start_pos": 72
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RoPEBert",
+            "start_pos": 13
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 225
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ai-forever/ruBert-base",
+            "start_pos": 72
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 225
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ai-forever/ruRoberta-large",
+            "start_pos": 117
+          },
+          "predicate": "isUsedForSolving",
+          "term2": {
+            "class": "Task",
+            "value": "NER",
+            "start_pos": 225
           }
         }
       ]
@@ -1587,6 +1678,19 @@
             "class": "Model",
             "value": "Large Language Models",
             "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 49
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "Большие языковые модели",
+            "start_pos": 0
           }
         },
         {
@@ -2414,34 +2518,7 @@
           "start_pos": 776
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Model",
-            "value": "большие языковые модели",
-            "start_pos": 776
-          },
-          "predicate": "Language",
-          "term2": {
-            "class": "Lang",
-            "value": "русского",
-            "start_pos": 128
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "большие языковые модели",
-            "start_pos": 776
-          },
-          "predicate": "Language",
-          "term2": {
-            "class": "Lang",
-            "value": "английского",
-            "start_pos": 139
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 803980,
@@ -2700,6 +2777,19 @@
             "class": "InfoResource",
             "value": "Википедии",
             "start_pos": 45
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "английском языке",
+            "start_pos": 58
+          }
+        },
+        {
+          "term1": {
+            "class": "Dataset",
+            "value": "enwik8",
+            "start_pos": 9
           },
           "predicate": "Language",
           "term2": {

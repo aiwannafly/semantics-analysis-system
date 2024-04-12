@@ -123,7 +123,7 @@ class LLMRelationExtractor(RelationExtractor):
                     rel = Relation(term2, predicate, term1)
                 else:
                     rel = Relation(term1, predicate, term2)
-                    
+
                 # if classes are different then we do not need extra verification
                 if rel.term1.class_ != rel.term2.class_:
                     yield rel

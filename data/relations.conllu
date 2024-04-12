@@ -14597,7 +14597,7 @@
 
 # sent_id = 562
 # text =   В полку LLM прибыло: недавно специалисты из Французского национального центра научных исследований (French National Center for Scientific Research) объявили о релизе новой большой языковой модели под названием BLOOM (расшифровывается как BigScience Large Open-science Open-access Multilingual Language Model).
-# relations = "Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 1 1, Model_hasAuthor_Organization 2 1, Organization_isAlternativeNameFor_Organization 1 0, Model_isAlternativeNameFor_Model 1 2"
+# relations = "Model_includes_Model 0 1, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 1 1, Model_hasAuthor_Organization 2 1, Organization_isAlternativeNameFor_Organization 1 0, Model_isAlternativeNameFor_Model 1 2"
 1	В O
 2	полку O
 3	LLM B-Model
@@ -14782,7 +14782,7 @@
 
 # sent_id = 567
 # text =   Новая LLM с открытым исходным кодом в отличие от таких известных LLM, как GPT-3 от OpenAI и LaMDA от Google, BLOOM является открытой языковой моделью, а исследователи охотно делятся подробностями о тех данных, на которых она обучалась, рассказывают о проблемах в ее разработке и о том, как они оценивали производительность BLOOM.
-# relations = "Model_includes_Model 0 1, Model_includes_Model 0 2, Model_includes_Model 0 3, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 3 1"
+# relations = "Model_includes_Model 0 4, Model_includes_Model 0 2, Model_includes_Model 0 3, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 3 1"
 1	Новая O
 2	LLM B-Model
 3	с O
@@ -24430,7 +24430,7 @@
 
 # sent_id = 949
 # text =   Кроме этого, я добавил в бенчмарк разные T5 модели, т.к. они тоже должны хорошо понимать тексты: мои rut5-small, rut5-base, rut5-base-multitask, и rut5-base-paraphraser, и Сберовские ruT5-base и ruT5-large.
-# relations = "Model_hasAuthor_Organization 6 0, Model_hasAuthor_Organization 5 0"
+# relations = "Model_includes_Model 0 1, Model_includes_Model 0 2, Model_includes_Model 0 3, Model_includes_Model 0 4, Model_includes_Model 0 5, Model_includes_Model 0 6, Model_hasAuthor_Organization 6 0, Model_hasAuthor_Organization 5 0"
 1	Кроме O
 2	этого O
 3	, O

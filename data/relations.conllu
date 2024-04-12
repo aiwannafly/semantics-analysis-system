@@ -14517,7 +14517,7 @@
 
 # sent_id = 559
 # text =  Взвешивание (Weighting) - метод предназначен для коррекции известных перекосов выборок по социально-демографическим атрибутам.
-# relations = "Method_isAlternativeNameFor_Method 1 0, Method_solves_Task 0 0, Method_solves_Task 1 0, Method_isAppliedTo_Object 0 0, Object_includes_Object 0 1, Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 1 0"
+# relations = "Method_isAlternativeNameFor_Method 1 0, Method_solves_Task 0 0, Method_solves_Task 1 0, Method_isAppliedTo_Object 0 0, Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 1 0"
 1	Взвешивание B-Method
 2	( O
 3	Weighting B-Method
@@ -16142,7 +16142,7 @@
 
 # sent_id = 621
 # text =   Мы выбираем случайный базис из случайных векторов.
-# relations = "Object_includes_Object 0 1"
+# relations = "Object_includes_Object 1 0"
 1	Мы O
 2	выбираем O
 3	случайный O
@@ -21431,7 +21431,7 @@
 
 # sent_id = 832
 # text =   Сначала решается задача выделения симптомов (NER), после чего в текстах убираются все слова, не являющиеся симптомами.
-# relations = "Object_includes_Object 0 0, Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 0 1, Object_isUsedInSolving_Task 1 0, Object_isUsedInSolving_Task 1 1, Task_isAlternativeNameFor_Task 1 0"
+# relations = "Object_includes_Object 0 1, Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 0 1, Object_isUsedInSolving_Task 1 0, Object_isUsedInSolving_Task 1 1, Task_isAlternativeNameFor_Task 1 0"
 1	Сначала O
 2	решается O
 3	задача B-Task

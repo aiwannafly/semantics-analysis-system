@@ -19834,19 +19834,6 @@
         {
           "term1": {
             "class": "Object",
-            "value": "социально-демографическим атрибутам",
-            "start_pos": 90
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Object",
-            "value": "перекосов выборок",
-            "start_pos": 69
-          }
-        },
-        {
-          "term1": {
-            "class": "Object",
             "value": "перекосов выборок",
             "start_pos": 69
           },
@@ -22153,14 +22140,14 @@
         {
           "term1": {
             "class": "Object",
-            "value": "случайных векторов",
-            "start_pos": 31
+            "value": "базис",
+            "start_pos": 22
           },
           "predicate": "isPartOf",
           "term2": {
             "class": "Object",
-            "value": "базис",
-            "start_pos": 22
+            "value": "случайных векторов",
+            "start_pos": 31
           }
         }
       ]
@@ -32510,8 +32497,8 @@
         {
           "term1": {
             "class": "Object",
-            "value": "текстах",
-            "start_pos": 64
+            "value": "слова",
+            "start_pos": 86
           },
           "predicate": "isPartOf",
           "term2": {

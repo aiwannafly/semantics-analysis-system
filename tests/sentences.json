@@ -20082,6 +20082,19 @@
             "value": "BLOOM",
             "start_pos": 210
           },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "LLM",
+            "start_pos": 8
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BLOOM",
+            "start_pos": 210
+          },
           "predicate": "hasAuthor",
           "term2": {
             "class": "Organization",
@@ -20431,8 +20444,8 @@
         {
           "term1": {
             "class": "Model",
-            "value": "LLM",
-            "start_pos": 65
+            "value": "BLOOM",
+            "start_pos": 109
           },
           "predicate": "isExampleOf",
           "term2": {
@@ -37125,6 +37138,84 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-small",
+            "start_pos": 101
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-base",
+            "start_pos": 113
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-base-multitask",
+            "start_pos": 124
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rut5-base-paraphraser",
+            "start_pos": 147
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruT5-base",
+            "start_pos": 183
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruT5-large",
+            "start_pos": 195
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "T5 модели",
+            "start_pos": 41
+          }
+        },
         {
           "term1": {
             "class": "Model",

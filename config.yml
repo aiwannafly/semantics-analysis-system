@@ -1,11 +1,11 @@
 app-config:
   use-dict: true
   device: 'cpu'
-  display-graph: true
+  display-graph: false
   show-class-predictions: false
   llm: 'mistralai/Mixtral-8x7B-Instruct-v0.1'
   huggingface-hub-token: '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'
-  show-explanation: false
+  show-explanation: true
   split-on-sentences: false
-  log-prompts: false
-  log-llm-responses: false
+  log-prompts: true
+  log-llm-responses: true

@@ -34,6 +34,9 @@ class LLMRelationExtractor(RelationExtractor):
         with open('prompts/directed_relation_extraction.txt', 'r', encoding='utf-8') as f:
             self.same_class_prompt_template = f.read().strip()
 
+        with open('prompts/verification.txt', 'r', encoding='utf-8') as f:
+            self.verification_prompt_template = f.read().strip()
+
         self.show_explanation = show_explanation
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
@@ -117,10 +120,55 @@ class LLMRelationExtractor(RelationExtractor):
                     continue
 
                 if should_reverse:
-                    yield Relation(term2, predicate, term1)
+                    rel = Relation(term2, predicate, term1)
                 else:
-                    yield Relation(term1, predicate, term2)
+                    rel = Relation(term1, predicate, term2)
+                    
+                # if classes are different then we do not need extra verification
+                if rel.term1.class_ != rel.term2.class_:
+                    yield rel
+                    continue
+
+                if self.verify_relation(rel):
+                    yield rel
+
         progress.remove_task(relation_task)
+
+    def verify_relation(self, rel: Relation) -> bool:
+        text = rel.term1.text
+
+        relation_str = f'{rel.term1.value} {rel.predicate} {rel.term2.value}'
+
+        prompt = self.verification_prompt_template
+        prompt = prompt.replace('{input}', relation_str)
+        prompt = prompt.replace('{context}', text)
+
+        attempts = 0
+        while True:
+            try:
+                response = self.llm.text_generation(
+                    prompt,
+                    do_sample=False,
+                    max_new_tokens=2,
+                    stop_sequences=['.']
+                ).strip()
+            except Exception as e:
+                if not self.use_all_tokens or attempts >= len(tokens):
+                    raise e
+
+                response = None
+
+                attempts += 1
+                self.token_idx += 1
+                self.token_idx = self.token_idx % len(tokens)
+                self.llm = InferenceClient(model=self.model, timeout=8, token=tokens[self.token_idx])
+                continue
+            break
+
+        if response is None:
+            return True # can not proof that relation is bad
+
+        return 'да' in response.lower()
 
     def detect_predicate(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> (Optional[str], bool):
         predicates = predicates_by_class_pair[(term1.class_, term2.class_)]

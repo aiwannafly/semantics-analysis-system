@@ -66,6 +66,7 @@ class LLMReferenceResolver(ReferenceResolver):
                                 similar = self.are_synonyms(term1, term2, text)
                             except Exception as e:
                                 if not self.use_all_tokens or attempt >= len(tokens):
+                                    progress.remove_task(group_task)
                                     raise e
 
                                 attempt += 1

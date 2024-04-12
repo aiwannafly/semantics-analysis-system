@@ -11,6 +11,12 @@ from semantics_analysis.relation_extraction.relation_extractor import RelationEx
 from semantics_analysis.tokens import tokens
 from semantics_analysis.utils import log
 
+enhanced_predicate = {
+    'isExampleOf': 'является примером',
+    'isPartOf': 'является частью',
+    'isModificationOf': 'является модификацией'
+}
+
 
 class LLMRelationExtractor(RelationExtractor):
 
@@ -130,15 +136,15 @@ class LLMRelationExtractor(RelationExtractor):
                     yield rel
                     continue
 
-                if self.verify_relation(rel):
+                if self.verify_relation(text, rel):
                     yield rel
 
         progress.remove_task(relation_task)
 
-    def verify_relation(self, rel: Relation) -> bool:
-        text = rel.term1.text
+    def verify_relation(self, text: str, rel: Relation) -> bool:
+        predicate = enhanced_predicate.get(rel.predicate, rel.predicate)
 
-        relation_str = f'{rel.term1.value} {rel.predicate} {rel.term2.value}'
+        relation_str = f'{rel.term1.value} {predicate} {rel.term2.value}'
 
         prompt = self.verification_prompt_template
         prompt = prompt.replace('{input}', relation_str)
@@ -167,7 +173,7 @@ class LLMRelationExtractor(RelationExtractor):
             break
 
         if response is None:
-            return True # can not proof that relation is bad
+            return False  # can not proof that relation is bad
 
         return 'да' in response.lower()
 

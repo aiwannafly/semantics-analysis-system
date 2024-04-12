@@ -32166,6 +32166,11 @@
         },
         {
           "class": "Object",
+          "value": "текста",
+          "start_pos": 198
+        },
+        {
+          "class": "Object",
           "value": "токены",
           "start_pos": 205
         },
@@ -32176,6 +32181,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "токены",
+            "start_pos": 205
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "текста",
+            "start_pos": 198
+          }
+        },
         {
           "term1": {
             "class": "Object",
@@ -39947,6 +39965,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "минимальное остовное дерево",
+            "start_pos": 194
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "ориентированный граф",
+            "start_pos": 104
+          }
+        },
         {
           "term1": {
             "class": "Application",

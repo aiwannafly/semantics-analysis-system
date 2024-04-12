@@ -21195,7 +21195,7 @@
 
 # sent_id = 822
 # text =  В задаче NER использовался span-based F1-score, рассчитываемый следующим образом: для каждого текста берутся предсказанные индексы начала и конца размеченных признаков болезни, по ним выделяются из текста токены (отдельные слова, разделенные пробелом) и сравниваются с истинной (экспертной) разметкой.
-# relations = "Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 1 0, Object_isUsedInSolving_Task 2 0, Object_isUsedInSolving_Task 3 0, Metric_isUsedIn_Task 0 0"
+# relations = "Object_includes_Object 2 3, Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 1 0, Object_isUsedInSolving_Task 3 0, Object_isUsedInSolving_Task 4 0, Metric_isUsedIn_Task 0 0"
 1	В O
 2	задаче O
 3	NER B-Task
@@ -21226,7 +21226,7 @@
 28	ним O
 29	выделяются O
 30	из O
-31	текста O
+31	текста B-Object
 32	токены B-Object
 33	( O
 34	отдельные O
@@ -26063,7 +26063,7 @@
 
 # sent_id = 1008
 # text =   В архитектуре стенфордского парсера и Syntaxnet заложена другая концепия: сначала они генерируют полный ориентированный граф, и дальше работа алгоритма состоит в том, чтобы оставить тот скелет (минимальное остовное дерево), который будет наиболее вероятным.
-# relations = "Application_isAppliedTo_Object 0 0, Application_isAppliedTo_Object 0 1"
+# relations = "Object_includes_Object 0 1, Application_isAppliedTo_Object 0 0, Application_isAppliedTo_Object 0 1"
 1	В O
 2	архитектуре O
 3	стенфордского O

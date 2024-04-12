@@ -105,6 +105,7 @@ class LLMRelationExtractor(RelationExtractor):
                         predicate, should_reverse = self.detect_predicate(term1, term2, text)
                     except Exception as e:
                         if not self.use_all_tokens or attempts >= len(tokens):
+                            progress.remove_task(relation_task)
                             raise e
 
                         predicate, should_reverse = None, False

@@ -193,17 +193,17 @@
     },
     "isExampleOf": {
       "yes": {
-        "description": "класс моделей модель включает в себя другую модель",
+        "description": "модель включена в класс моделей",
         "examples": [
           {
             "text": "Релиз BERT стал переломной точкой в развитии NLP-моделей.",
-            "Model_2": "NLP-моделей",
-            "Model_1": "BERT"
+            "Model_2": "BERT",
+            "Model_1": "NLP-моделей"
           }
         ]
       },
       "no": {
-        "description": "модель не включает в себя другую модель",
+        "description": "модель не является частью другой модели",
         "examples": [
           {
             "text": "Мы рассматривали модели: sbert_large_nlu_ru, sbert_large_mt_nlu_ru, и ruRoberta-large .",

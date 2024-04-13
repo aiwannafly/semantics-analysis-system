@@ -495,32 +495,6 @@
         {
           "term1": {
             "class": "Method",
-            "value": "правила",
-            "start_pos": 70
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Method",
-            "value": "разметочные функции",
-            "start_pos": 2
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "правила",
-            "start_pos": 70
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Method",
-            "value": "labeling functions",
-            "start_pos": 23
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
             "value": "labeling functions",
             "start_pos": 23
           },
@@ -8876,12 +8850,12 @@
       "text": "Самыми популярными являются LSTM и GRU.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 28
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "GRU",
           "start_pos": 35
         }
@@ -8893,7 +8867,7 @@
       "text": "В дальнейшем, говоря о рекуррентном слое, я всегда буду подразумевать LSTM.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 70
         }
@@ -9218,7 +9192,7 @@
       "text": "В четвёртой части мы опишем архитектуру LSTM, которую мы использовали в соревновании.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 40
         }
@@ -9870,6 +9844,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "кластеры",
+            "start_pos": 136
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Object",
+            "value": "устойчивые группы",
+            "start_pos": 114
+          }
+        },
         {
           "term1": {
             "class": "Object",
@@ -12007,6 +11994,11 @@
           "start_pos": 61
         },
         {
+          "class": "Lang",
+          "value": "английскую",
+          "start_pos": 177
+        },
+        {
           "class": "Model",
           "value": "event2mind",
           "start_pos": 195
@@ -12034,6 +12026,19 @@
             "class": "Task",
             "value": "Common Sense Reasoning",
             "start_pos": 61
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "event2mind",
+            "start_pos": 195
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "английскую",
+            "start_pos": 177
           }
         },
         {
@@ -16864,14 +16869,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "архитектур – трансформеров",
-            "start_pos": 54
+            "value": "GPT3",
+            "start_pos": 40
           },
           "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
-            "value": "GPT3",
-            "start_pos": 40
+            "value": "архитектур – трансформеров",
+            "start_pos": 54
           }
         }
       ]
@@ -18235,6 +18240,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "числовой вектор",
+            "start_pos": 182
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Object",
+            "value": "машинно-читаемый набор чисел",
+            "start_pos": 151
+          }
+        },
         {
           "term1": {
             "class": "Object",
@@ -24239,6 +24257,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Method",
+            "value": "JARVIS",
+            "start_pos": 97
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "ruGPT-3",
+            "start_pos": 43
+          }
+        },
+        {
+          "term1": {
             "class": "Date",
             "value": "ноябре 2021 года",
             "start_pos": 2
@@ -24283,19 +24314,6 @@
             "start_pos": 2
           },
           "predicate": "isDateOf",
-          "term2": {
-            "class": "Model",
-            "value": "ruGPT-3",
-            "start_pos": 43
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "JARVIS",
-            "start_pos": 97
-          },
-          "predicate": "isUsedForTraining",
           "term2": {
             "class": "Model",
             "value": "ruGPT-3",
@@ -24332,6 +24350,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Method",
+            "value": "JARVIS",
+            "start_pos": 143
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "ruGPT-3",
+            "start_pos": 62
+          }
+        },
+        {
+          "term1": {
             "class": "Date",
             "value": "ноябре 2021 года",
             "start_pos": 2
@@ -24376,19 +24407,6 @@
             "start_pos": 2
           },
           "predicate": "isDateOf",
-          "term2": {
-            "class": "Model",
-            "value": "ruGPT-3",
-            "start_pos": 62
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "JARVIS",
-            "start_pos": 143
-          },
-          "predicate": "isUsedForTraining",
           "term2": {
             "class": "Model",
             "value": "ruGPT-3",
@@ -25801,7 +25819,7 @@
           "start_pos": 208
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "нейронные сети",
           "start_pos": 226
         },
@@ -25812,6 +25830,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 242
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "нейронные сети",
+            "start_pos": 226
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -30567,21 +30598,7 @@
           "start_pos": 35
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Method",
-            "value": "Искусственная нейронная сеть",
-            "start_pos": 0
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Method",
-            "value": "математическая модель",
-            "start_pos": 35
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 789,
@@ -30698,17 +30715,17 @@
           "start_pos": 18
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "рекуррентных нейронных сетей",
           "start_pos": 73
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 113
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "сети с долгой краткосрочной памятью",
           "start_pos": 119
         }
@@ -30716,13 +30733,39 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
+            "value": "рекуррентных нейронных сетей",
+            "start_pos": 73
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 113
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "рекуррентных нейронных сетей",
+            "start_pos": 73
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
-            "class": "Method",
+            "class": "Model",
+            "value": "сети с долгой краткосрочной памятью",
+            "start_pos": 119
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "точности",
+            "start_pos": 18
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
             "value": "рекуррентных нейронных сетей",
             "start_pos": 73
           }
@@ -30733,35 +30776,22 @@
             "value": "точности",
             "start_pos": 18
           },
-          "predicate": "isAppliedTo",
+          "predicate": "isUsedFor",
           "term2": {
-            "class": "Method",
-            "value": "рекуррентных нейронных сетей",
-            "start_pos": 73
-          }
-        },
-        {
-          "term1": {
-            "class": "Metric",
-            "value": "точности",
-            "start_pos": 18
-          },
-          "predicate": "isAppliedTo",
-          "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 113
           }
         },
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "сети с долгой краткосрочной памятью",
             "start_pos": 119
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 113
           }
@@ -30785,22 +30815,22 @@
       "text": "Описание упомянутых рекуррентных нейросетей (RNN), LSTM и GRU выходит за рамки темы статьи.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "рекуррентных нейросетей",
           "start_pos": 20
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "RNN",
           "start_pos": 45
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 51
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "GRU",
           "start_pos": 58
         }
@@ -30808,13 +30838,13 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "RNN",
             "start_pos": 45
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "рекуррентных нейросетей",
             "start_pos": 20
           }
@@ -30874,7 +30904,7 @@
       "text": "LSTM избегают проблемы долговременной зависимости, запоминая значения как на короткие, так и на длинные промежутки времени.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 0
         }
@@ -30886,7 +30916,7 @@
       "text": "Это объясняется тем, что LSTM не использует функцию активации внутри своих рекуррентных компонентов.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 25
         },
@@ -30903,7 +30933,7 @@
       "text": "LSTM часто используются в машинном переводе и в задачах генерирования текстов на естественном языке.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 0
         },
@@ -30921,7 +30951,7 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 0
           },
@@ -30934,11 +30964,11 @@
         },
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 0
           },
-          "predicate": "solves",
+          "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
             "value": "генерирования текстов",
@@ -30962,7 +30992,7 @@
           "start_pos": 36
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 86
         }
@@ -30970,7 +31000,7 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 86
           },
@@ -30983,11 +31013,11 @@
         },
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 86
           },
-          "predicate": "solves",
+          "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
             "value": "генерации текстов",
@@ -31731,7 +31761,7 @@
             "value": "энкодеров Трансформера",
             "start_pos": 40
           },
-          "predicate": "isModificationOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "BERT",
@@ -32851,7 +32881,7 @@
             "value": "CRF",
             "start_pos": 66
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "BiLSTM-сеть",
@@ -35224,14 +35254,14 @@
         {
           "term1": {
             "class": "Application",
-            "value": "wit.ai",
-            "start_pos": 197
+            "value": "api.ai",
+            "start_pos": 256
           },
           "predicate": "isUsedIn",
           "term2": {
             "class": "Science",
-            "value": "машинного перевода",
-            "start_pos": 648
+            "value": "области анализа речи и естественного языка",
+            "start_pos": 28
           }
         },
         {
@@ -35324,6 +35354,19 @@
             "class": "Application",
             "value": "Google Natural Language API",
             "start_pos": 0
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного перевода",
+            "start_pos": 76
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Google Translate",
+            "start_pos": 95
           },
           "predicate": "isUsedIn",
           "term2": {
@@ -39644,7 +39687,7 @@
             "value": "UDPipe",
             "start_pos": 0
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "transition-based",
@@ -40018,6 +40061,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "эмбеддинги слов",
+            "start_pos": 83
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Object",
+            "value": "векторы",
+            "start_pos": 73
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -40538,6 +40594,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "CRF",
+            "start_pos": 176
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Method",
+            "value": "статистические алгоритмы",
+            "start_pos": 140
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -41229,6 +41298,19 @@
             "value": "Российском государственном гуманитарном университете",
             "start_pos": 80
           }
+        },
+        {
+          "term1": {
+            "class": "Activity",
+            "value": "Диалог",
+            "start_pos": 63
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Activity",
+            "value": "Международная научная конференция по компьютерной лингвистике",
+            "start_pos": 0
+          }
         }
       ]
     },
@@ -41434,6 +41516,19 @@
         {
           "term1": {
             "class": "Method",
+            "value": "федеративное обучение",
+            "start_pos": 129
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Method",
+            "value": "Federated Phish Bowl",
+            "start_pos": 82
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "FPB",
             "start_pos": 110
           },
@@ -41542,24 +41637,69 @@
       "text": "Для работы с текстовыми последовательностями были придуманы рекуррентные нейронные сети (RNN, их улучшение - LSTM, которая бывает двунаправленной, когда последовательность обрабатывается в двух направлениях).",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
+          "value": "рекуррентные нейронные сети",
+          "start_pos": 60
+        },
+        {
+          "class": "Model",
           "value": "RNN",
           "start_pos": 89
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 109
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 89
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентные нейронные сети",
+            "start_pos": 60
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LSTM",
+            "start_pos": 109
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентные нейронные сети",
+            "start_pos": 60
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LSTM",
+            "start_pos": 109
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 89
+          }
+        }
+      ]
     },
     {
       "id": 1044,
       "text": "Например, сеть можно сделать двунаправленной (Bidirectional LSTM).",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "Bidirectional LSTM",
           "start_pos": 46
         }
@@ -41629,27 +41769,17 @@
           "start_pos": 65
         },
         {
-          "class": "Method",
-          "value": "сервер параметров",
-          "start_pos": 69
-        },
-        {
-          "class": "Method",
-          "value": "PS",
-          "start_pos": 88
-        },
-        {
           "class": "Model",
           "value": "глобальную модель",
           "start_pos": 107
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "DL",
           "start_pos": 126
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 187
         }
@@ -41683,28 +41813,15 @@
         },
         {
           "term1": {
-            "class": "Method",
-            "value": "LSTM",
-            "start_pos": 187
-          },
-          "predicate": "isAlternativeNameFor",
-          "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "DL",
             "start_pos": 126
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "PS",
-            "start_pos": 88
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
-            "value": "сервер параметров",
-            "start_pos": 69
+            "class": "Model",
+            "value": "глобальную модель",
+            "start_pos": 107
           }
         },
         {
@@ -42129,21 +42246,7 @@
           "start_pos": 46
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Method",
-            "value": "Transformer",
-            "start_pos": 46
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Method",
-            "value": "классификатора",
-            "start_pos": 11
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 1064,
@@ -42639,7 +42742,7 @@
             "value": "энкодеров Трансформера",
             "start_pos": 90
           },
-          "predicate": "isModificationOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "BERT",
@@ -42670,7 +42773,7 @@
             "value": "UDPipe",
             "start_pos": 0
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "transition-based",
@@ -42701,7 +42804,7 @@
             "value": "BiLSTM",
             "start_pos": 71
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "CRF",
@@ -42732,7 +42835,7 @@
             "value": "BiLSTM-архитектуру",
             "start_pos": 27
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "CRF",
@@ -43398,7 +43501,7 @@
           "start_pos": 104
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "CNN",
           "start_pos": 127
         }
@@ -43406,11 +43509,11 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "CNN",
             "start_pos": 127
           },
-          "predicate": "solves",
+          "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
             "value": "классификация тональности",
@@ -43428,19 +43531,6 @@
             "class": "Task",
             "value": "классификация тональности",
             "start_pos": 54
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "CNN",
-            "start_pos": 127
-          },
-          "predicate": "uses",
-          "term2": {
-            "class": "Model",
-            "value": "Word2vec",
-            "start_pos": 104
           }
         }
       ]

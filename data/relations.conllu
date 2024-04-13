@@ -435,7 +435,7 @@
 
 # sent_id = 23
 # text =   В разметочные функции (labeling functions) закодированы все возможные правила, по которым можно поставить какую-либо метку каждому примеру из набора данных.
-# relations = "Method_includes_Method 0 2, Method_includes_Method 1 2, Method_isAlternativeNameFor_Method 1 0"
+# relations = "Method_isAlternativeNameFor_Method 1 0"
 1	В O
 2	разметочные B-Method
 3	функции I-Method
@@ -6041,9 +6041,9 @@
 1	Самыми O
 2	популярными O
 3	являются O
-4	LSTM B-Method
+4	LSTM B-Model
 5	и O
-6	GRU B-Method
+6	GRU B-Model
 7	. O
 
 # sent_id = 232
@@ -6061,7 +6061,7 @@
 10	всегда O
 11	буду O
 12	подразумевать O
-13	LSTM B-Method
+13	LSTM B-Model
 14	. O
 
 # sent_id = 233
@@ -6263,7 +6263,7 @@
 4	мы O
 5	опишем O
 6	архитектуру O
-7	LSTM B-Method
+7	LSTM B-Model
 8	, O
 9	которую O
 10	мы O
@@ -6564,7 +6564,7 @@
 
 # sent_id = 252
 # text =   Типичным методом обучения без учителя является кластеризация, благодаря которому обучающая выборка разбивается на устойчивые группы или кластеры.
-# relations = "Object_includes_Object 0 1, Object_includes_Object 0 2, Method_includes_Method 0 1, Method_isAppliedTo_Object 0 0, Method_isAppliedTo_Object 1 0"
+# relations = "Object_isAlternativeNameFor_Object 2 1, Object_includes_Object 0 1, Object_includes_Object 0 2, Method_includes_Method 0 1, Method_isAppliedTo_Object 0 0, Method_isAppliedTo_Object 1 0"
 1	Типичным O
 2	методом B-Method
 3	обучения I-Method
@@ -8538,7 +8538,7 @@
 
 # sent_id = 319
 # text =  В этом посте мы расскажем, как мы создали датасет для задачи Common Sense Reasoning в одной из ее возможных формулировок, предложенной в статье event2mind, а также адаптировали английскую модель event2mind от AllenNLP для русского языка. 
-# relations = "Model_isUsedForSolving_Task 0 0, Model_Language_Lang 0 0, Model_hasAuthor_Organization 0 0"
+# relations = "Model_isUsedForSolving_Task 0 0, Model_Language_Lang 0 0, Model_Language_Lang 0 1, Model_hasAuthor_Organization 0 0"
 1	В O
 2	этом O
 3	посте O
@@ -8569,7 +8569,7 @@
 28	а O
 29	также O
 30	адаптировали O
-31	английскую O
+31	английскую B-Lang
 32	модель O
 33	event2mind B-Model
 34	от O
@@ -12475,7 +12475,7 @@
 
 # sent_id = 472
 # text = С появлением в 2020 году нейронной сети GPT3 и других архитектур – трансформеров, генерируемые тексты стали невероятно правдоподобными. 
-# relations = "Date_isDateOf_Model 0 0, Date_isDateOf_Model 0 1, Model_isExampleOf_Model 1 0"
+# relations = "Date_isDateOf_Model 0 0, Date_isDateOf_Model 0 1, Model_isExampleOf_Model 0 1"
 1	С O
 2	появлением O
 3	в O
@@ -13622,7 +13622,7 @@
 
 # sent_id = 522
 # text =  Эмбеддинг (Embedding) – преобразования сложноструктурированных данных,  например слов, текстов, атрибутов событий, событий и их последовательностей, в машинно-читаемый набор чисел – числовой вектор.
-# relations = "Object_isAlternativeNameFor_Object 1 0, Object_includes_Object 2 3, Object_includes_Object 2 4, Object_includes_Object 2 5, Object_includes_Object 2 6"
+# relations = "Object_isAlternativeNameFor_Object 8 7, Object_isAlternativeNameFor_Object 1 0, Object_includes_Object 2 3, Object_includes_Object 2 4, Object_includes_Object 2 5, Object_includes_Object 2 6"
 1	Эмбеддинг B-Object
 2	( O
 3	Embedding B-Object
@@ -16725,7 +16725,7 @@
 
 # sent_id = 642
 # text =   В ноябре 2021 года «Сбер» обучил нейросеть ruGPT-3 автоматически писать код и назвал эту функцию JARVIS.
-# relations = "Date_isDateOf_Method 0 0, Method_hasAuthor_Organization 0 0, Model_hasAuthor_Organization 0 0, Date_isDateOf_Model 0 0, Method_isUsedForTraining_Model 0 0"
+# relations = "Method_uses_Model 0 0, Date_isDateOf_Method 0 0, Method_hasAuthor_Organization 0 0, Model_hasAuthor_Organization 0 0, Date_isDateOf_Model 0 0"
 1	В O
 2	ноябре B-Date
 3	2021 I-Date
@@ -16748,7 +16748,7 @@
 
 # sent_id = 643
 # text = В ноябре 2021 года компания "Сбер" провела обучение нейросети ruGPT-3 для автоматического написания кода, представив эту функцию под названием JARVIS.
-# relations = "Date_isDateOf_Method 0 0, Method_hasAuthor_Organization 0 0, Model_hasAuthor_Organization 0 0, Date_isDateOf_Model 0 0, Method_isUsedForTraining_Model 0 0"
+# relations = "Method_uses_Model 0 0, Date_isDateOf_Method 0 0, Method_hasAuthor_Organization 0 0, Model_hasAuthor_Organization 0 0, Date_isDateOf_Model 0 0"
 1	В O
 2	ноябре B-Date
 3	2021 I-Date
@@ -17712,7 +17712,7 @@
 
 # sent_id = 682
 # text =   Чтобы определить, какие ещё есть потенциальные классы, мы повели так называемое тематическое моделирование, используя несколько подходов: начиная от пробалистических моделей (латентное распределение Дирихле, ARTM) и всё те же нейронные сети (BERT).
-# relations = "Method_isAlternativeNameFor_Method 2 1"
+# relations = "Model_isExampleOf_Model 2 1, Method_isAlternativeNameFor_Method 2 1"
 1	Чтобы O
 2	определить O
 3	, O
@@ -17748,8 +17748,8 @@
 33	всё O
 34	те O
 35	же O
-36	нейронные B-Method
-37	сети I-Method
+36	нейронные B-Model
+37	сети I-Model
 38	( O
 39	BERT B-Model
 40	) O
@@ -20301,7 +20301,7 @@
 
 # sent_id = 788
 # text =   Искусственная нейронная сеть — это математическая модель, а также ее программное или аппаратное воплощение, построенные по принципу организации и функционирования биологических нейронных сетей — сетей нервных клеток живого организма.
-# relations = "Method_includes_Method 1 0"
+# relations = ""
 1	Искусственная B-Method
 2	нейронная I-Method
 3	сеть I-Method
@@ -20376,7 +20376,7 @@
 
 # sent_id = 791
 # text =   Лучшие показатели точности в ее решении были достигнуты с использованием рекуррентных нейронных сетей, таких как LSTM (сети с долгой краткосрочной памятью).
-# relations = "Method_includes_Method 0 1, Metric_isAppliedTo_Method 0 0, Metric_isAppliedTo_Method 0 1, Method_isAlternativeNameFor_Method 2 1"
+# relations = "Model_isExampleOf_Model 0 1, Model_isExampleOf_Model 0 2, Metric_isUsedFor_Model 0 0, Metric_isUsedFor_Model 0 1, Model_isAlternativeNameFor_Model 2 1"
 1	Лучшие O
 2	показатели O
 3	точности B-Metric
@@ -20387,19 +20387,19 @@
 8	достигнуты O
 9	с O
 10	использованием O
-11	рекуррентных B-Method
-12	нейронных I-Method
-13	сетей I-Method
+11	рекуррентных B-Model
+12	нейронных I-Model
+13	сетей I-Model
 14	, O
 15	таких O
 16	как O
-17	LSTM B-Method
+17	LSTM B-Model
 18	( O
-19	сети B-Method
-20	с I-Method
-21	долгой I-Method
-22	краткосрочной I-Method
-23	памятью I-Method
+19	сети B-Model
+20	с I-Model
+21	долгой I-Model
+22	краткосрочной I-Model
+23	памятью I-Model
 24	) O
 25	. O
 
@@ -20422,18 +20422,18 @@
 
 # sent_id = 793
 # text =  Описание упомянутых рекуррентных нейросетей (RNN), LSTM и GRU выходит за рамки темы статьи.
-# relations = "Method_isAlternativeNameFor_Method 1 0"
+# relations = "Model_isAlternativeNameFor_Model 1 0"
 1	Описание O
 2	упомянутых O
-3	рекуррентных B-Method
-4	нейросетей I-Method
+3	рекуррентных B-Model
+4	нейросетей I-Model
 5	( O
-6	RNN B-Method
+6	RNN B-Model
 7	) O
 8	, O
-9	LSTM B-Method
+9	LSTM B-Model
 10	и O
-11	GRU B-Method
+11	GRU B-Model
 12	выходит O
 13	за O
 14	рамки O
@@ -20475,7 +20475,7 @@
 # sent_id = 796
 # text =  LSTM избегают проблемы долговременной зависимости, запоминая значения как на короткие, так и на длинные промежутки времени.
 # relations = ""
-1	LSTM B-Method
+1	LSTM B-Model
 2	избегают O
 3	проблемы O
 4	долговременной O
@@ -20503,7 +20503,7 @@
 3	тем O
 4	, O
 5	что O
-6	LSTM B-Method
+6	LSTM B-Model
 7	не O
 8	использует O
 9	функцию B-Method
@@ -20516,11 +20516,11 @@
 
 # sent_id = 798
 # text =   LSTM часто используются в машинном переводе и в задачах генерирования текстов на естественном языке.
-# relations = "Method_isUsedIn_Science 0 0, Method_solves_Task 0 0"
-1	LSTM B-Method
+# relations = "Model_isUsedIn_Science 0 0, Model_isUsedForSolving_Task 0 0"
+1	LSTM B-Model
 2	часто O
-3	используются B-Method_isUsedIn_Science
-4	в I-Method_isUsedIn_Science
+3	используются B-Model_isUsedIn_Science
+4	в I-Model_isUsedIn_Science
 5	машинном B-Science
 6	переводе I-Science
 7	и O
@@ -20535,7 +20535,7 @@
 
 # sent_id = 799
 # text = Часто в машинном переводе и задачах генерации текстов на естественном языке применяют LSTM.
-# relations = "Method_isUsedIn_Science 0 0, Method_solves_Task 0 0, Task_isSolvedIn_Science 0 0"
+# relations = "Model_isUsedIn_Science 0 0, Model_isUsedForSolving_Task 0 0, Task_isSolvedIn_Science 0 0"
 1	Часто O
 2	в O
 3	машинном B-Science
@@ -20547,8 +20547,8 @@
 9	на O
 10	естественном O
 11	языке O
-12	применяют B-Method_isUsedIn_Science
-13	LSTM B-Method
+12	применяют B-Model_isUsedIn_Science
+13	LSTM B-Model
 14	. O
 
 # sent_id = 800
@@ -20879,7 +20879,7 @@
 
 # sent_id = 808
 # text = По своей сути BERT — это обученный стек энкодеров Трансформера.
-# relations = "Model_isModificationOf_Model 1 0"
+# relations = "Model_isPartOf_Model 1 0"
 1	По O
 2	своей O
 3	сути O
@@ -23242,7 +23242,7 @@
 
 # sent_id = 907
 # text =   Возможности этого сервиса в области анализа речи и естественного языка пока ограничиваются английским языком, однако многие другие сервисы поддерживают русский язык, например, полностью бесплатный wit.ai, приобретённый Facebook, и его российский конкурент api.ai (понимание текстовых и голосовых команд и вопросов на естественных языках, преобразование речи в текст), IBM AlchemyAPI (анализ тональности текста, выявление сущностей и ключевых слов), Google Natural Language API (классификация текстов, графы связей, извлечение информации из текстов, анализ тональности, намерений, извлечение инсайтов; поддерживает русский язык с помощью технологии машинного перевода Google Translate, использует глубокое обучение и word2vec).
-# relations = "Task_isSolvedIn_Science 0 0, Task_isSolvedIn_Science 1 0, Task_isSolvedIn_Science 2 0, Task_isSolvedIn_Science 3 0, Task_isSolvedIn_Science 4 0, Task_isSolvedIn_Science 5 0, Task_isSolvedIn_Science 6 0, Application_isAppliedTo_Object 3 0, Application_isUsedIn_Science 3 1, Application_isUsedIn_Science 4 1, Application_isUsedForSolving_Task 3 6, Application_isUsedForSolving_Task 3 5, Application_isUsedForSolving_Task 3 4, Application_isUsedForSolving_Task 2 3, Application_isUsedForSolving_Task 2 2, Application_isUsedForSolving_Task 1 1, Application_isUsedForSolving_Task 1 0, Application_isUsedIn_Science 0 0, Application_isUsedIn_Science 0 1, Application_isUsedIn_Science 2 0, Application_isUsedIn_Science 3 0, Application_isUsedIn_Science 4 0, Library_isUsedIn_Science 0 0"
+# relations = "Task_isSolvedIn_Science 0 0, Task_isSolvedIn_Science 1 0, Task_isSolvedIn_Science 2 0, Task_isSolvedIn_Science 3 0, Task_isSolvedIn_Science 4 0, Task_isSolvedIn_Science 5 0, Task_isSolvedIn_Science 6 0, Application_isAppliedTo_Object 3 0, Application_isUsedIn_Science 3 1, Application_isUsedIn_Science 4 1, Application_isUsedForSolving_Task 3 6, Application_isUsedForSolving_Task 3 5, Application_isUsedForSolving_Task 3 4, Application_isUsedForSolving_Task 2 3, Application_isUsedForSolving_Task 2 2, Application_isUsedForSolving_Task 1 1, Application_isUsedForSolving_Task 1 0, Application_isUsedIn_Science 0 0, Application_isUsedIn_Science 1 0, Application_isUsedIn_Science 2 0, Application_isUsedIn_Science 3 0, Application_isUsedIn_Science 4 0, Library_isUsedIn_Science 0 0"
 1	Возможности O
 2	этого O
 3	сервиса O
@@ -23357,7 +23357,7 @@
 
 # sent_id = 908
 # text =   Google Natural Language API  поддерживает русский язык с помощью технологии машинного перевода Google Translate, использует глубокое обучение и word2vec.
-# relations = "Application_isUsedIn_Science 0 0, Library_isUsedIn_Science 0 0"
+# relations = "Application_isUsedIn_Science 0 0, Application_isUsedIn_Science 1 0, Library_isUsedIn_Science 0 0"
 1	Google B-Application
 2	Natural I-Application
 3	Language I-Application
@@ -26211,7 +26211,7 @@
 
 # sent_id = 1013
 # text =   Для ее решения обычно используют один из следующих инструментов: Готовые векторы / эмбеддинги слов [6]; Внутренние состояния CNN, натренированных на таких задачах как, как определение фальшивых предложений / языковое моделирование / классификация [7]; Комбинация выше перечисленных методов; Кроме того, уже много раз было показано [9], что в качестве хорошего бейслайна для эмбеддингов предложений можно взять и просто усредненные (с парой незначительных деталей, которые сейчас опустим) векторы слов.
-# relations = "Method_solves_Task 0 0, Method_solves_Task 0 1, Method_solves_Task 0 2"
+# relations = "Object_isAlternativeNameFor_Object 1 0, Method_solves_Task 0 0, Method_solves_Task 0 1, Method_solves_Task 0 2"
 1	Для O
 2	ее O
 3	решения O
@@ -26516,7 +26516,7 @@
 
 # sent_id = 1020
 # text =   Если же целью является определение тональности у определенного, заранее заданного объекта (нескольких объектов), то применяют более сложные статистические алгоритмы, такие как CRF [Антонова и Соловьев], алгоритмы семантической близости (например, латентно-семантический анализ – LSA, латентное размещение Дирихле — LDA) и др., а также методы, основанные на правилах [Пазельская и Соловьев].
-# relations = "Method_solves_Task 2 0, Method_solves_Task 3 0, Method_solves_Task 4 0, Method_solves_Task 5 0, Method_solves_Task 6 0, Method_solves_Task 7 0, Method_hasAuthor_Person 7 2, Method_hasAuthor_Person 7 3, Method_isAlternativeNameFor_Method 6 5, Method_includes_Method 2 5, Method_isAlternativeNameFor_Method 4 3, Method_includes_Method 2 3, Method_hasAuthor_Person 1 1, Method_hasAuthor_Person 1 0, Method_solves_Task 1 0, Method_solves_Task 0 0"
+# relations = "Method_includes_Method 0 1, Method_solves_Task 2 0, Method_solves_Task 3 0, Method_solves_Task 4 0, Method_solves_Task 5 0, Method_solves_Task 6 0, Method_solves_Task 7 0, Method_hasAuthor_Person 7 2, Method_hasAuthor_Person 7 3, Method_isAlternativeNameFor_Method 6 5, Method_includes_Method 2 5, Method_isAlternativeNameFor_Method 4 3, Method_includes_Method 2 3, Method_hasAuthor_Person 1 1, Method_hasAuthor_Person 1 0, Method_solves_Task 1 0, Method_solves_Task 0 0"
 1	Если O
 2	же O
 3	целью O
@@ -26997,7 +26997,7 @@
 
 # sent_id = 1035
 # text = Международная научная конференция по компьютерной лингвистике «Диалог» прошла в Российском государственном гуманитарном университете (РГГУ).
-# relations = "Organization_isAlternativeNameFor_Organization 1 0"
+# relations = "Organization_isAlternativeNameFor_Organization 1 0, Activity_isAlternativeNameFor_Activity 1 0"
 1	Международная B-Activity
 2	научная I-Activity
 3	конференция I-Activity
@@ -27202,7 +27202,7 @@
 
 # sent_id = 1042
 # text =   Поэтому в статье предлагается способ обнаружения фишинговых сообщений, называемый Federated Phish Bowl (далее FPB), использующий федеративное обучение и рекуррентную нейронную сеть с долгой краткосрочной памятью (LSTM).
-# relations = "Method_isAlternativeNameFor_Method 2 1, Model_isAlternativeNameFor_Model 1 0, Method_uses_Model 0 0, Method_uses_Model 1 0, Method_uses_Model 2 0, Method_uses_Model 0 1, Method_uses_Model 1 1, Method_uses_Model 2 1"
+# relations = "Method_isPartOf_Method 3 1, Method_isAlternativeNameFor_Method 2 1, Model_isAlternativeNameFor_Model 1 0, Method_uses_Model 0 0, Method_uses_Model 1 0, Method_uses_Model 2 0, Method_uses_Model 0 1, Method_uses_Model 1 1, Method_uses_Model 2 1"
 1	Поэтому O
 2	в O
 3	статье O
@@ -27239,7 +27239,7 @@
 
 # sent_id = 1043
 # text =   Для работы с текстовыми последовательностями были придуманы рекуррентные нейронные сети (RNN, их улучшение - LSTM, которая бывает двунаправленной, когда последовательность обрабатывается в двух направлениях).
-# relations = ""
+# relations = "Model_isAlternativeNameFor_Model 1 0, Model_isExampleOf_Model 2 0, Model_isExampleOf_Model 2 1"
 1	Для O
 2	работы O
 3	с O
@@ -27247,16 +27247,16 @@
 5	последовательностями O
 6	были O
 7	придуманы O
-8	рекуррентные O
-9	нейронные O
-10	сети O
+8	рекуррентные B-Model
+9	нейронные I-Model
+10	сети I-Model
 11	( O
-12	RNN B-Method
+12	RNN B-Model
 13	, O
 14	их O
 15	улучшение O
 16	- O
-17	LSTM B-Method
+17	LSTM B-Model
 18	, O
 19	которая O
 20	бывает O
@@ -27281,8 +27281,8 @@
 5	сделать O
 6	двунаправленной O
 7	( O
-8	Bidirectional B-Method
-9	LSTM I-Method
+8	Bidirectional B-Model
+9	LSTM I-Model
 10	) O
 11	. O
 
@@ -27333,7 +27333,7 @@
 
 # sent_id = 1047
 # text =   Для обучения модели FPB с использованием федеративного обучения (FL) сервер параметров (PS) инициализирует глобальную модель (DL) на основе вышеупомянутых двунаправленных нейронных сетей LSTM и отправляет глобальную модель с глобальной матрицей преобразования слов в векторы всем клиентам на первом этапе обучения.
-# relations = "Method_isUsedForTraining_Model 0 0, Method_isUsedForTraining_Model 1 0, Method_isAlternativeNameFor_Method 5 4, Method_isAlternativeNameFor_Method 3 2, Method_isAlternativeNameFor_Method 1 0"
+# relations = "Method_isUsedForTraining_Model 0 0, Method_isUsedForTraining_Model 1 0, Model_isAlternativeNameFor_Model 2 1, Method_isAlternativeNameFor_Method 1 0"
 1	Для O
 2	обучения O
 3	модели O
@@ -27345,16 +27345,16 @@
 9	( O
 10	FL B-Method
 11	) O
-12	сервер B-Method
-13	параметров I-Method
+12	сервер O
+13	параметров O
 14	( O
-15	PS B-Method
+15	PS O
 16	) O
 17	инициализирует O
 18	глобальную B-Model
 19	модель I-Model
 20	( O
-21	DL B-Method
+21	DL B-Model
 22	) O
 23	на O
 24	основе O
@@ -27362,7 +27362,7 @@
 26	двунаправленных O
 27	нейронных O
 28	сетей O
-29	LSTM B-Method
+29	LSTM B-Model
 30	и O
 31	отправляет O
 32	глобальную O
@@ -27664,7 +27664,7 @@
 
 # sent_id = 1063
 # text =   В качестве классификатора намерений применяем Transformer.
-# relations = "Method_includes_Method 0 1"
+# relations = ""
 1	В O
 2	качестве O
 3	классификатора B-Method
@@ -27882,7 +27882,7 @@
 
 # sent_id = 1073
 # text = Суть BERT заключается в том, что это предварительно обученная модель, основанная на стеке энкодеров Трансформера.
-# relations = "Model_isModificationOf_Model 1 0"
+# relations = "Model_includes_Model 0 1"
 1	Суть O
 2	BERT B-Model
 3	заключается O
@@ -28200,7 +28200,7 @@
 
 # sent_id = 1086
 # text = Давайте обратимся к этой статье, где была исследована классификация тональности с использованием модели Word2vec в архитектуре CNN.
-# relations = "Method_solves_Task 0 0, Model_isUsedForSolving_Task 0 0, Method_uses_Model 0 0"
+# relations = "Model_isUsedForSolving_Task 1 0, Model_isUsedForSolving_Task 0 0"
 1	Давайте O
 2	обратимся O
 3	к O
@@ -28218,7 +28218,7 @@
 15	Word2vec B-Model
 16	в O
 17	архитектуре O
-18	CNN B-Method
+18	CNN B-Model
 19	. O
 
 # sent_id = 1087

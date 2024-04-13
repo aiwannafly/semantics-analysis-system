@@ -32851,7 +32851,7 @@
             "value": "CRF",
             "start_pos": 66
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BiLSTM-сеть",
@@ -39644,7 +39644,7 @@
             "value": "UDPipe",
             "start_pos": 0
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "transition-based",
@@ -42670,7 +42670,7 @@
             "value": "UDPipe",
             "start_pos": 0
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "transition-based",
@@ -42701,7 +42701,7 @@
             "value": "BiLSTM",
             "start_pos": 71
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "CRF",
@@ -42732,7 +42732,7 @@
             "value": "BiLSTM-архитектуру",
             "start_pos": 27
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "CRF",

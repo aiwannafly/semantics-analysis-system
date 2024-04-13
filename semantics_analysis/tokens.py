@@ -1,4 +1,6 @@
 tokens = [
+    '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',
+    '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',
     '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',
     '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',
     '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',
@@ -45,5 +47,8 @@ tokens = [
     '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',
     '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',
     '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',
-    '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'
+    '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',
+    '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',
+    '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',
+    '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'
 ]

@@ -132,23 +132,21 @@ def log_term_predictions(term_predictions: Optional[List[Tuple[str, str, int, in
     table.add_column(header='I-TERM')
 
     for word, label, p1, p2, p3 in term_predictions:
-        style1, style2, style3 = None, None, None
+        style2, style3 = None, None
 
         max_p = max(p1, p2, p3)
 
-        max_style = 'rgb(206,89,227)'
+        max_style = 'rgb(9,176,179)'
 
-        if p1 == max_p:
-            style1 = max_style
-        elif p2 == max_p:
+        if p2 == max_p:
             style2 = max_style
-        else:
+        elif p3 == max_p:
             style3 = max_style
 
         table.add_row(
             word,
             label,
-            Text(str(p1), style=style1),
+            Text(str(p1)),
             Text(str(p2), style=style2),
             Text(str(p3), style=style3),
         )

@@ -1,7 +1,10 @@
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
 
 from colorama import Style, Fore
 from rich.progress import Progress, TextColumn, BarColumn
+from rich.table import Table
+from rich.console import Console
+from rich.text import Text
 
 from semantics_analysis.entities import Term, GroupedTerm, ClassifiedTerm, Relation
 
@@ -118,6 +121,40 @@ def log_found_relations(found_relations: List[Relation]):
         log(f'{LOG_STYLE}{log_header}{Style.RESET_ALL}:' + render_relation(relation))
         log()
         log()
+
+
+def log_term_predictions(term_predictions: Optional[List[Tuple[str, str, int, int, int]]]):
+    table = Table(title='Term predictions')
+    table.add_column(header='Word')
+    table.add_column(header='Predicted label')
+    table.add_column(header='O')
+    table.add_column(header='B-TERM')
+    table.add_column(header='I-TERM')
+
+    for word, label, p1, p2, p3 in term_predictions:
+        style1, style2, style3 = None, None, None
+
+        max_p = max(p1, p2, p3)
+
+        max_style = 'rgb(206,89,227)'
+
+        if p1 == max_p:
+            style1 = max_style
+        elif p2 == max_p:
+            style2 = max_style
+        else:
+            style3 = max_style
+
+        table.add_row(
+            word,
+            label,
+            Text(str(p1), style=style1),
+            Text(str(p2), style=style2),
+            Text(str(p3), style=style3),
+        )
+
+    console = Console()
+    console.print(table)
 
 
 def log_class_predictions(predictions_by_term: Dict[Term, List[Tuple[str, float]]]):

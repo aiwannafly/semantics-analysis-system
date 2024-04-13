@@ -4,6 +4,7 @@ import yaml
 class Config:
     use_dict: bool
     display_graph: bool
+    show_term_predictions: bool
     show_class_predictions: bool
     llm: str
     huggingface_hub_token: str
@@ -17,6 +18,7 @@ class Config:
             self,
             use_dict: bool,
             display_graph: bool,
+            show_term_predictions: bool,
             show_class_predictions: bool,
             llm: str,
             token: str,
@@ -28,6 +30,7 @@ class Config:
     ):
         self.use_dict = use_dict
         self.display_graph = display_graph
+        self.show_term_predictions = show_term_predictions
         self.show_class_predictions = show_class_predictions
         self.llm = llm
         self.huggingface_hub_token = token
@@ -48,6 +51,7 @@ def load_config(file_path: str) -> Config:
     return Config(
         config_dict['use-dict'],
         config_dict['display-graph'],
+        config_dict['show-term-predictions'],
         config_dict['show-class-predictions'],
         config_dict['llm'],
         config_dict['huggingface-hub-token'],

@@ -1,6 +1,6 @@
-from typing import List
+from typing import List, Optional, Tuple
 
-from torch import argmax, inference_mode
+from torch import argmax, inference_mode, softmax, squeeze
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 
 from semantics_analysis.entities import Term
@@ -33,7 +33,9 @@ class RobertaTermExtractor(TermExtractor):
     def __init__(self, device: str):
         self.model.to(device)
 
-    def __call__(self, text: str) -> List[Term]:
+    def __call__(self, text: str,
+                 predictions: Optional[List[Tuple[str, str, int, int, int]]] = None
+                 ) -> List[Term]:
         preprocessed_text = text
 
         for s in PUNCTUATION_SYMBOLS:
@@ -56,13 +58,22 @@ class RobertaTermExtractor(TermExtractor):
         predicted = argmax(model_output['logits'][0], dim=1)[1:-1]
         word_ids = tokenized_input.word_ids()[1:-1]
 
+        probs = squeeze(softmax(model_output['logits'][0], dim=1))
+
+        probs = [(p1.item(), p2.item(), p3.item()) for (p1, p2, p3) in probs]
+        probs = [(int(p1 * 100), int(p2 * 100), int(p3 * 100)) for (p1, p2, p3) in probs]
+
         curr_idx = 0
         labels = []
         for i in range(len(words)):
             counts = {k: 0 for k in LABEL_LIST}
+            word_predictions = []
             while curr_idx < len(predicted) and word_ids[curr_idx] == i:
-                counts[int2tag(predicted[curr_idx])] += 1
+                counts[int2tag(predicted[curr_idx].item())] += 1
                 curr_idx += 1
+
+                if predictions is not None:
+                    word_predictions.append(probs[curr_idx])
 
             if counts['I-TERM'] > 0:
                 predicted_tag = 'I-TERM'
@@ -71,6 +82,11 @@ class RobertaTermExtractor(TermExtractor):
             else:
                 predicted_tag = 'O'
             labels.append(predicted_tag)
+
+            if predictions is not None:
+                word = words[i]
+                for p1, p2, p3 in word_predictions:
+                    predictions.append((word, predicted_tag, p1, p2, p3))
 
         assert len(labels) == len(words)
 

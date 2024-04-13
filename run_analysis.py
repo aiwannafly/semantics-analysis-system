@@ -24,7 +24,7 @@ from semantics_analysis.term_post_processing.computer_science_term_post_processo
 from semantics_analysis.term_post_processing.merge_close_term_post_processor import MergeCloseTermPostProcessor
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 from semantics_analysis.utils import log_class_predictions, log_grouped_terms, log_labeled_terms, log_extracted_terms, \
-    log_found_relations
+    log_found_relations, log_term_predictions
 from spinner import Spinner
 
 LOG_STYLE = Style.DIM
@@ -33,6 +33,7 @@ LOG_STYLE = Style.DIM
 def analyze_text(
         text: str,
         display_graph: bool,
+        show_term_predictions: bool,
         show_class_predictions: bool,
         split_on_sentences: bool,
         term_extractor: TermExtractor,
@@ -47,10 +48,18 @@ def analyze_text(
 
     text = ' '.join(sentences)
 
+    if show_term_predictions:
+        term_predictions = []
+    else:
+        term_predictions = None
+
     with Spinner():
-        terms = term_extractor(text)
+        terms = term_extractor(text, term_predictions)
 
     log_extracted_terms(text, terms)
+
+    if show_term_predictions:
+        log_term_predictions(term_predictions)
 
     if not terms:
         return
@@ -196,6 +205,7 @@ def main():
         analyze_text(
             text,
             app_config.display_graph,
+            app_config.show_term_predictions,
             app_config.show_class_predictions,
             app_config.split_on_sentences,
             term_extractor,

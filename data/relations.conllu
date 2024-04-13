@@ -2904,7 +2904,7 @@
 
 # sent_id = 106
 # text =   Для задачи моделирования языка ULMFit использует архитектуру AWD-LSTM, которая предполагает активное использование dropout везде, где только можно и имеет смысл.
-# relations = "Model_isUsedForSolving_Task 1 0, Model_includes_Model 0 1"
+# relations = "Model_isUsedForSolving_Task 1 0"
 1	Для O
 2	задачи O
 3	моделирования B-Task

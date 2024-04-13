@@ -495,32 +495,6 @@
         {
           "term1": {
             "class": "Method",
-            "value": "правила",
-            "start_pos": 70
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Method",
-            "value": "разметочные функции",
-            "start_pos": 2
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "правила",
-            "start_pos": 70
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Method",
-            "value": "labeling functions",
-            "start_pos": 23
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
             "value": "labeling functions",
             "start_pos": 23
           },
@@ -9873,6 +9847,19 @@
         {
           "term1": {
             "class": "Object",
+            "value": "кластеры",
+            "start_pos": 136
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Object",
+            "value": "устойчивые группы",
+            "start_pos": 114
+          }
+        },
+        {
+          "term1": {
+            "class": "Object",
             "value": "устойчивые группы",
             "start_pos": 114
           },
@@ -12007,6 +11994,11 @@
           "start_pos": 61
         },
         {
+          "class": "Lang",
+          "value": "английскую",
+          "start_pos": 177
+        },
+        {
           "class": "Model",
           "value": "event2mind",
           "start_pos": 195
@@ -12034,6 +12026,19 @@
             "class": "Task",
             "value": "Common Sense Reasoning",
             "start_pos": 61
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "event2mind",
+            "start_pos": 195
+          },
+          "predicate": "Language",
+          "term2": {
+            "class": "Lang",
+            "value": "английскую",
+            "start_pos": 177
           }
         },
         {
@@ -16864,14 +16869,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "архитектур – трансформеров",
-            "start_pos": 54
+            "value": "GPT3",
+            "start_pos": 40
           },
           "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
-            "value": "GPT3",
-            "start_pos": 40
+            "value": "архитектур – трансформеров",
+            "start_pos": 54
           }
         }
       ]
@@ -18235,6 +18240,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "числовой вектор",
+            "start_pos": 182
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Object",
+            "value": "машинно-читаемый набор чисел",
+            "start_pos": 151
+          }
+        },
         {
           "term1": {
             "class": "Object",
@@ -24239,6 +24257,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Method",
+            "value": "JARVIS",
+            "start_pos": 97
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "ruGPT-3",
+            "start_pos": 43
+          }
+        },
+        {
+          "term1": {
             "class": "Date",
             "value": "ноябре 2021 года",
             "start_pos": 2
@@ -24283,19 +24314,6 @@
             "start_pos": 2
           },
           "predicate": "isDateOf",
-          "term2": {
-            "class": "Model",
-            "value": "ruGPT-3",
-            "start_pos": 43
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "JARVIS",
-            "start_pos": 97
-          },
-          "predicate": "isUsedForTraining",
           "term2": {
             "class": "Model",
             "value": "ruGPT-3",
@@ -24332,6 +24350,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Method",
+            "value": "JARVIS",
+            "start_pos": 143
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "ruGPT-3",
+            "start_pos": 62
+          }
+        },
+        {
+          "term1": {
             "class": "Date",
             "value": "ноябре 2021 года",
             "start_pos": 2
@@ -24376,19 +24407,6 @@
             "start_pos": 2
           },
           "predicate": "isDateOf",
-          "term2": {
-            "class": "Model",
-            "value": "ruGPT-3",
-            "start_pos": 62
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "JARVIS",
-            "start_pos": 143
-          },
-          "predicate": "isUsedForTraining",
           "term2": {
             "class": "Model",
             "value": "ruGPT-3",
@@ -25801,7 +25819,7 @@
           "start_pos": 208
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "нейронные сети",
           "start_pos": 226
         },
@@ -25812,6 +25830,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 242
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "нейронные сети",
+            "start_pos": 226
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -30567,21 +30598,7 @@
           "start_pos": 35
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Method",
-            "value": "Искусственная нейронная сеть",
-            "start_pos": 0
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Method",
-            "value": "математическая модель",
-            "start_pos": 35
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 789,
@@ -35237,14 +35254,14 @@
         {
           "term1": {
             "class": "Application",
-            "value": "wit.ai",
-            "start_pos": 197
+            "value": "api.ai",
+            "start_pos": 256
           },
           "predicate": "isUsedIn",
           "term2": {
             "class": "Science",
-            "value": "машинного перевода",
-            "start_pos": 648
+            "value": "области анализа речи и естественного языка",
+            "start_pos": 28
           }
         },
         {
@@ -35337,6 +35354,19 @@
             "class": "Application",
             "value": "Google Natural Language API",
             "start_pos": 0
+          },
+          "predicate": "isUsedIn",
+          "term2": {
+            "class": "Science",
+            "value": "машинного перевода",
+            "start_pos": 76
+          }
+        },
+        {
+          "term1": {
+            "class": "Application",
+            "value": "Google Translate",
+            "start_pos": 95
           },
           "predicate": "isUsedIn",
           "term2": {
@@ -40033,6 +40063,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Object",
+            "value": "эмбеддинги слов",
+            "start_pos": 83
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Object",
+            "value": "векторы",
+            "start_pos": 73
+          }
+        },
+        {
+          "term1": {
             "class": "Method",
             "value": "CNN",
             "start_pos": 125
@@ -41473,6 +41516,19 @@
         {
           "term1": {
             "class": "Method",
+            "value": "федеративное обучение",
+            "start_pos": 129
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Method",
+            "value": "Federated Phish Bowl",
+            "start_pos": 82
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "FPB",
             "start_pos": 110
           },
@@ -41713,16 +41769,6 @@
           "start_pos": 65
         },
         {
-          "class": "Method",
-          "value": "сервер параметров",
-          "start_pos": 69
-        },
-        {
-          "class": "Method",
-          "value": "PS",
-          "start_pos": 88
-        },
-        {
           "class": "Model",
           "value": "глобальную модель",
           "start_pos": 107
@@ -41776,19 +41822,6 @@
             "class": "Model",
             "value": "глобальную модель",
             "start_pos": 107
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "PS",
-            "start_pos": 88
-          },
-          "predicate": "isAlternativeNameFor",
-          "term2": {
-            "class": "Method",
-            "value": "сервер параметров",
-            "start_pos": 69
           }
         },
         {
@@ -42213,21 +42246,7 @@
           "start_pos": 46
         }
       ],
-      "relations": [
-        {
-          "term1": {
-            "class": "Method",
-            "value": "Transformer",
-            "start_pos": 46
-          },
-          "predicate": "isPartOf",
-          "term2": {
-            "class": "Method",
-            "value": "классификатора",
-            "start_pos": 11
-          }
-        }
-      ]
+      "relations": []
     },
     {
       "id": 1064,
@@ -42720,14 +42739,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "BERT",
-            "start_pos": 5
+            "value": "энкодеров Трансформера",
+            "start_pos": 90
           },
           "predicate": "isPartOf",
           "term2": {
             "class": "Model",
-            "value": "энкодеров Трансформера",
-            "start_pos": 90
+            "value": "BERT",
+            "start_pos": 5
           }
         }
       ]
@@ -43482,7 +43501,7 @@
           "start_pos": 104
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "CNN",
           "start_pos": 127
         }
@@ -43490,11 +43509,11 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "CNN",
             "start_pos": 127
           },
-          "predicate": "solves",
+          "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
             "value": "классификация тональности",
@@ -43512,19 +43531,6 @@
             "class": "Task",
             "value": "классификация тональности",
             "start_pos": 54
-          }
-        },
-        {
-          "term1": {
-            "class": "Method",
-            "value": "CNN",
-            "start_pos": 127
-          },
-          "predicate": "uses",
-          "term2": {
-            "class": "Model",
-            "value": "Word2vec",
-            "start_pos": 104
           }
         }
       ]

@@ -1,4 +1,6 @@
 tokens = [
+    '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',
+    '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',
     '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',
     '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',
     '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',

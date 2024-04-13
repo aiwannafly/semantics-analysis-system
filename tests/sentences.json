@@ -8876,12 +8876,12 @@
       "text": "Самыми популярными являются LSTM и GRU.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 28
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "GRU",
           "start_pos": 35
         }
@@ -8893,7 +8893,7 @@
       "text": "В дальнейшем, говоря о рекуррентном слое, я всегда буду подразумевать LSTM.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 70
         }
@@ -9218,7 +9218,7 @@
       "text": "В четвёртой части мы опишем архитектуру LSTM, которую мы использовали в соревновании.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 40
         }
@@ -30698,17 +30698,17 @@
           "start_pos": 18
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "рекуррентных нейронных сетей",
           "start_pos": 73
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 113
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "сети с долгой краткосрочной памятью",
           "start_pos": 119
         }
@@ -30716,13 +30716,39 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
+            "value": "рекуррентных нейронных сетей",
+            "start_pos": 73
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 113
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "рекуррентных нейронных сетей",
+            "start_pos": 73
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
-            "class": "Method",
+            "class": "Model",
+            "value": "сети с долгой краткосрочной памятью",
+            "start_pos": 119
+          }
+        },
+        {
+          "term1": {
+            "class": "Metric",
+            "value": "точности",
+            "start_pos": 18
+          },
+          "predicate": "isUsedFor",
+          "term2": {
+            "class": "Model",
             "value": "рекуррентных нейронных сетей",
             "start_pos": 73
           }
@@ -30733,35 +30759,22 @@
             "value": "точности",
             "start_pos": 18
           },
-          "predicate": "isAppliedTo",
+          "predicate": "isUsedFor",
           "term2": {
-            "class": "Method",
-            "value": "рекуррентных нейронных сетей",
-            "start_pos": 73
-          }
-        },
-        {
-          "term1": {
-            "class": "Metric",
-            "value": "точности",
-            "start_pos": 18
-          },
-          "predicate": "isAppliedTo",
-          "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 113
           }
         },
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "сети с долгой краткосрочной памятью",
             "start_pos": 119
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 113
           }
@@ -30785,22 +30798,22 @@
       "text": "Описание упомянутых рекуррентных нейросетей (RNN), LSTM и GRU выходит за рамки темы статьи.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "рекуррентных нейросетей",
           "start_pos": 20
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "RNN",
           "start_pos": 45
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 51
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "GRU",
           "start_pos": 58
         }
@@ -30808,13 +30821,13 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "RNN",
             "start_pos": 45
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "рекуррентных нейросетей",
             "start_pos": 20
           }
@@ -30874,7 +30887,7 @@
       "text": "LSTM избегают проблемы долговременной зависимости, запоминая значения как на короткие, так и на длинные промежутки времени.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 0
         }
@@ -30886,7 +30899,7 @@
       "text": "Это объясняется тем, что LSTM не использует функцию активации внутри своих рекуррентных компонентов.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 25
         },
@@ -30903,7 +30916,7 @@
       "text": "LSTM часто используются в машинном переводе и в задачах генерирования текстов на естественном языке.",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 0
         },
@@ -30921,7 +30934,7 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 0
           },
@@ -30934,11 +30947,11 @@
         },
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 0
           },
-          "predicate": "solves",
+          "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
             "value": "генерирования текстов",
@@ -30962,7 +30975,7 @@
           "start_pos": 36
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 86
         }
@@ -30970,7 +30983,7 @@
       "relations": [
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 86
           },
@@ -30983,11 +30996,11 @@
         },
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
             "value": "LSTM",
             "start_pos": 86
           },
-          "predicate": "solves",
+          "predicate": "isUsedForSolving",
           "term2": {
             "class": "Task",
             "value": "генерации текстов",
@@ -31731,7 +31744,7 @@
             "value": "энкодеров Трансформера",
             "start_pos": 40
           },
-          "predicate": "isModificationOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "BERT",
@@ -32851,7 +32864,7 @@
             "value": "CRF",
             "start_pos": 66
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "BiLSTM-сеть",
@@ -39644,7 +39657,7 @@
             "value": "UDPipe",
             "start_pos": 0
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "transition-based",
@@ -40541,6 +40554,19 @@
         {
           "term1": {
             "class": "Method",
+            "value": "CRF",
+            "start_pos": 176
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Method",
+            "value": "статистические алгоритмы",
+            "start_pos": 140
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "алгоритмы семантической близости",
             "start_pos": 203
           },
@@ -41229,6 +41255,19 @@
             "value": "Российском государственном гуманитарном университете",
             "start_pos": 80
           }
+        },
+        {
+          "term1": {
+            "class": "Activity",
+            "value": "Диалог",
+            "start_pos": 63
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Activity",
+            "value": "Международная научная конференция по компьютерной лингвистике",
+            "start_pos": 0
+          }
         }
       ]
     },
@@ -41542,24 +41581,69 @@
       "text": "Для работы с текстовыми последовательностями были придуманы рекуррентные нейронные сети (RNN, их улучшение - LSTM, которая бывает двунаправленной, когда последовательность обрабатывается в двух направлениях).",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
+          "value": "рекуррентные нейронные сети",
+          "start_pos": 60
+        },
+        {
+          "class": "Model",
           "value": "RNN",
           "start_pos": 89
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 109
         }
       ],
-      "relations": []
+      "relations": [
+        {
+          "term1": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 89
+          },
+          "predicate": "isAlternativeNameFor",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентные нейронные сети",
+            "start_pos": 60
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LSTM",
+            "start_pos": 109
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "рекуррентные нейронные сети",
+            "start_pos": 60
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "LSTM",
+            "start_pos": 109
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "RNN",
+            "start_pos": 89
+          }
+        }
+      ]
     },
     {
       "id": 1044,
       "text": "Например, сеть можно сделать двунаправленной (Bidirectional LSTM).",
       "terms": [
         {
-          "class": "Method",
+          "class": "Model",
           "value": "Bidirectional LSTM",
           "start_pos": 46
         }
@@ -41644,12 +41728,12 @@
           "start_pos": 107
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "DL",
           "start_pos": 126
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "LSTM",
           "start_pos": 187
         }
@@ -41683,15 +41767,15 @@
         },
         {
           "term1": {
-            "class": "Method",
-            "value": "LSTM",
-            "start_pos": 187
+            "class": "Model",
+            "value": "DL",
+            "start_pos": 126
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
-            "value": "DL",
-            "start_pos": 126
+            "class": "Model",
+            "value": "глобальную модель",
+            "start_pos": 107
           }
         },
         {
@@ -42636,14 +42720,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "энкодеров Трансформера",
-            "start_pos": 90
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
             "value": "BERT",
             "start_pos": 5
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Model",
+            "value": "энкодеров Трансформера",
+            "start_pos": 90
           }
         }
       ]
@@ -42670,7 +42754,7 @@
             "value": "UDPipe",
             "start_pos": 0
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "transition-based",
@@ -42701,7 +42785,7 @@
             "value": "BiLSTM",
             "start_pos": 71
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "CRF",
@@ -42732,7 +42816,7 @@
             "value": "BiLSTM-архитектуру",
             "start_pos": 27
           },
-          "predicate": "isExampleOf",
+          "predicate": "isPartOf",
           "term2": {
             "class": "Model",
             "value": "CRF",

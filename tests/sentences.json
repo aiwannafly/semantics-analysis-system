@@ -18538,7 +18538,7 @@
             "value": "SequenceEncoder",
             "start_pos": 0
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "рекурентно-нейронная сеть",
@@ -18551,7 +18551,7 @@
             "value": "SequenceEncoder",
             "start_pos": 0
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "RNN",
@@ -20056,7 +20056,7 @@
             "value": "BLOOM",
             "start_pos": 210
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "LLM",
@@ -20421,7 +20421,7 @@
             "value": "BLOOM",
             "start_pos": 109
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "LLM",
@@ -20434,7 +20434,7 @@
             "value": "GPT-3",
             "start_pos": 74
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "LLM",
@@ -20447,7 +20447,7 @@
             "value": "LaMDA",
             "start_pos": 92
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "LLM",
@@ -25463,7 +25463,7 @@
             "value": "BERT",
             "start_pos": 143
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "нейронные сети",
@@ -25476,7 +25476,7 @@
             "value": "Bidirectional Encoder Representations from Transformers",
             "start_pos": 149
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "нейронные сети",
@@ -31176,7 +31176,7 @@
             "value": "BERT",
             "start_pos": 6
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "NLP-моделей",
@@ -31230,7 +31230,7 @@
             "value": "BERT",
             "start_pos": 13
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "моделей обработки естественного языка",
@@ -32812,7 +32812,7 @@
             "value": "CRF",
             "start_pos": 66
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BiLSTM-сеть",
@@ -35824,7 +35824,7 @@
             "value": "StarSpace",
             "start_pos": 95
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "нейронную сеть",
@@ -36932,7 +36932,7 @@
             "value": "sbert_large_nlu_ru",
             "start_pos": 47
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -36945,7 +36945,7 @@
             "value": "sbert_large_mt_nlu_ru",
             "start_pos": 67
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -36958,7 +36958,7 @@
             "value": "ruRoberta-large",
             "start_pos": 92
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -36971,7 +36971,7 @@
             "value": "rubert-base-cased-sentence",
             "start_pos": 118
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -36984,7 +36984,7 @@
             "value": "rubert-base-cased-conversational",
             "start_pos": 146
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -36997,7 +36997,7 @@
             "value": "distilrubert-tiny-cased-conversational",
             "start_pos": 180
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -37010,7 +37010,7 @@
             "value": "distilrubert-base-cased-conversational",
             "start_pos": 222
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -37023,7 +37023,7 @@
             "value": "rubert-tiny",
             "start_pos": 282
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -37036,7 +37036,7 @@
             "value": "rubert-tiny2",
             "start_pos": 296
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -37049,7 +37049,7 @@
             "value": "LaBSE",
             "start_pos": 324
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -37062,7 +37062,7 @@
             "value": "LaBSE-en-ru",
             "start_pos": 353
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -37075,7 +37075,7 @@
             "value": "bert-base-multilingual-cased",
             "start_pos": 382
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "BERT-подобные модели",
@@ -37136,7 +37136,7 @@
             "value": "rut5-small",
             "start_pos": 101
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "T5 модели",
@@ -37149,7 +37149,7 @@
             "value": "rut5-base",
             "start_pos": 113
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "T5 модели",
@@ -37162,7 +37162,7 @@
             "value": "rut5-base-multitask",
             "start_pos": 124
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "T5 модели",
@@ -37175,7 +37175,7 @@
             "value": "rut5-base-paraphraser",
             "start_pos": 147
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "T5 модели",
@@ -37188,7 +37188,7 @@
             "value": "ruT5-base",
             "start_pos": 183
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "T5 модели",
@@ -37201,7 +37201,7 @@
             "value": "ruT5-large",
             "start_pos": 195
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "T5 модели",
@@ -39761,7 +39761,7 @@
             "value": "UDPipe",
             "start_pos": 0
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "transition-based",
@@ -42699,7 +42699,7 @@
             "value": "SequenceEncoder",
             "start_pos": 0
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "рекуррентную нейронную сеть",
@@ -42712,7 +42712,7 @@
             "value": "SequenceEncoder",
             "start_pos": 0
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "RNN",
@@ -42756,7 +42756,7 @@
             "value": "BERT",
             "start_pos": 5
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "энкодеров Трансформера",
@@ -42787,7 +42787,7 @@
             "value": "UDPipe",
             "start_pos": 0
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "transition-based",
@@ -42818,7 +42818,7 @@
             "value": "BiLSTM",
             "start_pos": 71
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "CRF",
@@ -42849,7 +42849,7 @@
             "value": "BiLSTM-архитектуру",
             "start_pos": 27
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "CRF",
@@ -42903,7 +42903,7 @@
             "value": "BERT",
             "start_pos": 17
           },
-          "predicate": "isPartOf",
+          "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
             "value": "моделей обработки естественного языка",

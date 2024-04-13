@@ -1494,6 +1494,19 @@
             "value": "GRU",
             "start_pos": 107
           }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "рекуррентную нейронную сеть",
+            "start_pos": 71
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Model",
+            "value": "Модель",
+            "start_pos": 0
+          }
         }
       ]
     },
@@ -3473,6 +3486,19 @@
         {
           "term1": {
             "class": "Model",
+            "value": "DeBERTa",
+            "start_pos": 15
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Model",
+            "value": "Microsoft Turing",
+            "start_pos": 64
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
             "value": "Turing NLRv4",
             "start_pos": 82
           },
@@ -4959,19 +4985,6 @@
             "class": "Task",
             "value": "моделирования",
             "start_pos": 11
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "AWD-LSTM",
-            "start_pos": 61
-          },
-          "predicate": "isExampleOf",
-          "term2": {
-            "class": "Model",
-            "value": "ULMFit",
-            "start_pos": 31
           }
         }
       ]
@@ -16846,6 +16859,19 @@
             "class": "Model",
             "value": "архитектур – трансформеров",
             "start_pos": 54
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "архитектур – трансформеров",
+            "start_pos": 54
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "GPT3",
+            "start_pos": 40
           }
         }
       ]
@@ -32166,6 +32192,11 @@
         },
         {
           "class": "Object",
+          "value": "текста",
+          "start_pos": 198
+        },
+        {
+          "class": "Object",
           "value": "токены",
           "start_pos": 205
         },
@@ -32176,6 +32207,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Object",
+            "value": "токены",
+            "start_pos": 205
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "текста",
+            "start_pos": 198
+          }
+        },
         {
           "term1": {
             "class": "Object",
@@ -36680,253 +36724,6 @@
             "value": "sbert_large_nlu_ru",
             "start_pos": 47
           },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "sbert_large_mt_nlu_ru",
-            "start_pos": 67
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "ruRoberta-large",
-            "start_pos": 92
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "rubert-base-cased-sentence",
-            "start_pos": 118
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "rubert-base-cased-conversational",
-            "start_pos": 146
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "distilrubert-tiny-cased-conversational",
-            "start_pos": 180
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "distilrubert-base-cased-conversational",
-            "start_pos": 222
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "rubert-tiny",
-            "start_pos": 282
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "rubert-tiny2",
-            "start_pos": 296
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "LaBSE",
-            "start_pos": 324
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "LaBSE-en-ru",
-            "start_pos": 353
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "bert-base-multilingual-cased",
-            "start_pos": 382
-          },
-          "predicate": "isModificationOf",
-          "term2": {
-            "class": "Model",
-            "value": "BERT-подобные модели",
-            "start_pos": 25
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "sbert_large_nlu_ru",
-            "start_pos": 47
-          },
-          "predicate": "hasAuthor",
-          "term2": {
-            "class": "Organization",
-            "value": "Сбера",
-            "start_pos": 111
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "sbert_large_mt_nlu_ru",
-            "start_pos": 67
-          },
-          "predicate": "hasAuthor",
-          "term2": {
-            "class": "Organization",
-            "value": "Сбера",
-            "start_pos": 111
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "ruRoberta-large",
-            "start_pos": 92
-          },
-          "predicate": "hasAuthor",
-          "term2": {
-            "class": "Organization",
-            "value": "Сбера",
-            "start_pos": 111
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "rubert-base-cased-sentence",
-            "start_pos": 118
-          },
-          "predicate": "hasAuthor",
-          "term2": {
-            "class": "Organization",
-            "value": "DeepPavlov",
-            "start_pos": 264
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "rubert-base-cased-conversational",
-            "start_pos": 146
-          },
-          "predicate": "hasAuthor",
-          "term2": {
-            "class": "Organization",
-            "value": "DeepPavlov",
-            "start_pos": 264
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "distilrubert-tiny-cased-conversational",
-            "start_pos": 180
-          },
-          "predicate": "hasAuthor",
-          "term2": {
-            "class": "Organization",
-            "value": "DeepPavlov",
-            "start_pos": 264
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "distilrubert-base-cased-conversational",
-            "start_pos": 222
-          },
-          "predicate": "hasAuthor",
-          "term2": {
-            "class": "Organization",
-            "value": "DeepPavlov",
-            "start_pos": 264
-          }
-        },
-        {
-          "term1": {
-            "class": "Model",
-            "value": "sbert_large_nlu_ru",
-            "start_pos": 47
-          },
           "predicate": "isExampleOf",
           "term2": {
             "class": "Model",
@@ -37075,6 +36872,97 @@
             "class": "Model",
             "value": "BERT-подобные модели",
             "start_pos": 25
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "sbert_large_nlu_ru",
+            "start_pos": 47
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Сбера",
+            "start_pos": 111
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "sbert_large_mt_nlu_ru",
+            "start_pos": 67
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Сбера",
+            "start_pos": 111
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "ruRoberta-large",
+            "start_pos": 92
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "Сбера",
+            "start_pos": 111
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rubert-base-cased-sentence",
+            "start_pos": 118
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "DeepPavlov",
+            "start_pos": 264
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "rubert-base-cased-conversational",
+            "start_pos": 146
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "DeepPavlov",
+            "start_pos": 264
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "distilrubert-tiny-cased-conversational",
+            "start_pos": 180
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "DeepPavlov",
+            "start_pos": 264
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
+            "value": "distilrubert-base-cased-conversational",
+            "start_pos": 222
+          },
+          "predicate": "hasAuthor",
+          "term2": {
+            "class": "Organization",
+            "value": "DeepPavlov",
+            "start_pos": 264
           }
         }
       ]
@@ -39949,6 +39837,19 @@
       "relations": [
         {
           "term1": {
+            "class": "Object",
+            "value": "минимальное остовное дерево",
+            "start_pos": 194
+          },
+          "predicate": "isPartOf",
+          "term2": {
+            "class": "Object",
+            "value": "ориентированный граф",
+            "start_pos": 104
+          }
+        },
+        {
+          "term1": {
             "class": "Application",
             "value": "Syntaxnet",
             "start_pos": 38
@@ -42735,14 +42636,14 @@
         {
           "term1": {
             "class": "Model",
-            "value": "BERT",
-            "start_pos": 5
-          },
-          "predicate": "isExampleOf",
-          "term2": {
-            "class": "Model",
             "value": "энкодеров Трансформера",
             "start_pos": 90
+          },
+          "predicate": "isModificationOf",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 5
           }
         }
       ]

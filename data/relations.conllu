@@ -954,7 +954,7 @@
 
 # sent_id = 42
 # text =  Модель, которую построил заказчик использовала вектора слов word2vec и рекуррентную нейронную сеть на базе GRU (gated recurrent unit) (Рис 1а).
-# relations = "Model_isAlternativeNameFor_Model 3 4, Model_isModificationOf_Model 2 3"
+# relations = "Model_isAlternativeNameFor_Model 3 4, Model_isModificationOf_Model 2 3, Model_includes_Model 0 2"
 1	Модель B-Model
 2	, O
 3	которую O
@@ -2093,7 +2093,7 @@
 
 # sent_id = 77
 # text =   Дополнительно, DeBERTa будет включена в следующую версию модели Microsoft Turing (Turing NLRv4) от Microsoft.
-# relations = "Model_isAlternativeNameFor_Model 2 1, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 0 0, Model_hasAuthor_Organization 2 0"
+# relations = "Model_includes_Model 1 0, Model_isAlternativeNameFor_Model 2 1, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 0 0, Model_hasAuthor_Organization 2 0"
 1	Дополнительно O
 2	, O
 3	DeBERTa B-Model
@@ -2904,7 +2904,7 @@
 
 # sent_id = 106
 # text =   Для задачи моделирования языка ULMFit использует архитектуру AWD-LSTM, которая предполагает активное использование dropout везде, где только можно и имеет смысл.
-# relations = "Model_isUsedForSolving_Task 1 0, Model_includes_Model 0 1"
+# relations = "Model_isUsedForSolving_Task 1 0"
 1	Для O
 2	задачи O
 3	моделирования B-Task
@@ -12475,7 +12475,7 @@
 
 # sent_id = 472
 # text = С появлением в 2020 году нейронной сети GPT3 и других архитектур – трансформеров, генерируемые тексты стали невероятно правдоподобными. 
-# relations = "Date_isDateOf_Model 0 0, Date_isDateOf_Model 0 1"
+# relations = "Date_isDateOf_Model 0 0, Date_isDateOf_Model 0 1, Model_isExampleOf_Model 1 0"
 1	С O
 2	появлением O
 3	в O
@@ -13859,7 +13859,7 @@
 
 # sent_id = 531
 # text =  SequenceEncoder – рекурентно-нейронная сеть (RNN), совместно используемая для транзакций и кликов.
-# relations = "Model_isAlternativeNameFor_Model 2 1, Model_includes_Model 1 0, Model_includes_Model 2 0"
+# relations = "Model_isAlternativeNameFor_Model 2 1, Model_isExampleOf_Model 0 1, Model_isExampleOf_Model 0 2"
 1	SequenceEncoder B-Model
 2	– O
 3	рекурентно B-Model
@@ -14597,7 +14597,7 @@
 
 # sent_id = 562
 # text =   В полку LLM прибыло: недавно специалисты из Французского национального центра научных исследований (French National Center for Scientific Research) объявили о релизе новой большой языковой модели под названием BLOOM (расшифровывается как BigScience Large Open-science Open-access Multilingual Language Model).
-# relations = "Model_includes_Model 0 1, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 1 1, Model_hasAuthor_Organization 2 1, Organization_isAlternativeNameFor_Organization 1 0, Model_isAlternativeNameFor_Model 1 2"
+# relations = "Model_isExampleOf_Model 1 0, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 1 1, Model_hasAuthor_Organization 2 1, Organization_isAlternativeNameFor_Organization 1 0, Model_isAlternativeNameFor_Model 1 2"
 1	В O
 2	полку O
 3	LLM B-Model
@@ -14782,7 +14782,7 @@
 
 # sent_id = 567
 # text =   Новая LLM с открытым исходным кодом в отличие от таких известных LLM, как GPT-3 от OpenAI и LaMDA от Google, BLOOM является открытой языковой моделью, а исследователи охотно делятся подробностями о тех данных, на которых она обучалась, рассказывают о проблемах в ее разработке и о том, как они оценивали производительность BLOOM.
-# relations = "Model_includes_Model 0 4, Model_includes_Model 0 2, Model_includes_Model 0 3, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 3 1"
+# relations = "Model_isExampleOf_Model 4 0, Model_isExampleOf_Model 2 0, Model_isExampleOf_Model 3 0, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 3 1"
 1	Новая O
 2	LLM B-Model
 3	с O
@@ -17548,7 +17548,7 @@
 
 # sent_id = 676
 # text =   На самом деле уже существуют продвинутые и проверенные методы ее обработки, использующие нейронные сети, с распознаванием смысла и контекста – BERT (Bidirectional Encoder Representations from Transformers).
-# relations = "Model_includes_Model 0 1, Model_includes_Model 0 2, Model_isAlternativeNameFor_Model 2 1, Model_isUsedForSolving_Task 2 0, Model_isUsedForSolving_Task 0 0, Model_isUsedForSolving_Task 1 0"
+# relations = "Model_isExampleOf_Model 1 0, Model_isExampleOf_Model 2 0, Model_isAlternativeNameFor_Model 2 1, Model_isUsedForSolving_Task 2 0, Model_isUsedForSolving_Task 0 0, Model_isUsedForSolving_Task 1 0"
 1	На O
 2	самом O
 3	деле O
@@ -20702,7 +20702,7 @@
 
 # sent_id = 803
 # text =  Релиз BERT в 2018 году стал некоторой переломной точкой в развитии NLP-моделей.
-# relations = "Date_isDateOf_Model 0 0, Model_includes_Model 1 0"
+# relations = "Date_isDateOf_Model 0 0, Model_isExampleOf_Model 0 1"
 1	Релиз O
 2	BERT B-Model
 3	в O
@@ -20721,7 +20721,7 @@
 
 # sent_id = 804
 # text =  Выход модели BERT в 2018 году стал своеобразным переломным моментом в развитии моделей обработки естественного языка (NLP).
-# relations = "Date_isDateOf_Model 0 0, Model_includes_Model 1 0"
+# relations = "Date_isDateOf_Model 0 0, Model_isExampleOf_Model 0 1"
 1	Выход O
 2	модели O
 3	BERT B-Model
@@ -21195,7 +21195,7 @@
 
 # sent_id = 822
 # text =  В задаче NER использовался span-based F1-score, рассчитываемый следующим образом: для каждого текста берутся предсказанные индексы начала и конца размеченных признаков болезни, по ним выделяются из текста токены (отдельные слова, разделенные пробелом) и сравниваются с истинной (экспертной) разметкой.
-# relations = "Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 1 0, Object_isUsedInSolving_Task 2 0, Object_isUsedInSolving_Task 3 0, Metric_isUsedIn_Task 0 0"
+# relations = "Object_includes_Object 2 3, Object_isUsedInSolving_Task 0 0, Object_isUsedInSolving_Task 1 0, Object_isUsedInSolving_Task 3 0, Object_isUsedInSolving_Task 4 0, Metric_isUsedIn_Task 0 0"
 1	В O
 2	задаче O
 3	NER B-Task
@@ -21226,7 +21226,7 @@
 28	ним O
 29	выделяются O
 30	из O
-31	текста O
+31	текста B-Object
 32	токены B-Object
 33	( O
 34	отдельные O
@@ -23845,7 +23845,7 @@
 
 # sent_id = 926
 # text =   При создании нашей системы рекомендации кандидатов на позиции мы использовали нейронную сеть — StarSpace.
-# relations = "Model_includes_Model 0 1"
+# relations = "Model_isExampleOf_Model 1 0"
 1	При O
 2	создании O
 3	нашей O
@@ -24339,7 +24339,7 @@
 
 # sent_id = 948
 # text =   В основу бенчмарка легли BERT-подобные модели: sbert_large_nlu_ru, sbert_large_mt_nlu_ru, и ruRoberta-large от Сбера; rubert-base-cased-sentence, rubert-base-cased-conversational, distilrubert-tiny-cased-conversational, и distilrubert-base-cased-conversational от DeepPavlov; мои   rubert-tiny и rubert-tiny2; мультиязычные LaBSE (плюс урезанная версия LaBSE-en-ru) и старый добрый bert-base-multilingual-cased.
-# relations = "Model_isModificationOf_Model 1 0, Model_isModificationOf_Model 2 0, Model_isModificationOf_Model 3 0, Model_isModificationOf_Model 4 0, Model_isModificationOf_Model 5 0, Model_isModificationOf_Model 6 0, Model_isModificationOf_Model 7 0, Model_isModificationOf_Model 8 0, Model_isModificationOf_Model 9 0, Model_isModificationOf_Model 10 0, Model_isModificationOf_Model 11 0, Model_isModificationOf_Model 12 0, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 3 0, Model_hasAuthor_Organization 4 1, Model_hasAuthor_Organization 5 1, Model_hasAuthor_Organization 6 1, Model_hasAuthor_Organization 7 1, Model_includes_Model 0 1, Model_includes_Model 0 2, Model_includes_Model 0 3, Model_includes_Model 0 4, Model_includes_Model 0 5, Model_includes_Model 0 6, Model_includes_Model 0 7, Model_includes_Model 0 8, Model_includes_Model 0 9, Model_includes_Model 0 10, Model_includes_Model 0 11, Model_includes_Model 0 12"
+# relations = "Model_isExampleOf_Model 1 0, Model_isExampleOf_Model 2 0, Model_isExampleOf_Model 3 0, Model_isExampleOf_Model 4 0, Model_isExampleOf_Model 5 0, Model_isExampleOf_Model 6 0, Model_isExampleOf_Model 7 0, Model_isExampleOf_Model 8 0, Model_isExampleOf_Model 9 0, Model_isExampleOf_Model 10 0, Model_isExampleOf_Model 11 0, Model_isExampleOf_Model 12 0, Model_hasAuthor_Organization 1 0, Model_hasAuthor_Organization 2 0, Model_hasAuthor_Organization 3 0, Model_hasAuthor_Organization 4 1, Model_hasAuthor_Organization 5 1, Model_hasAuthor_Organization 6 1, Model_hasAuthor_Organization 7 1"
 1	В O
 2	основу O
 3	бенчмарка O
@@ -24430,7 +24430,7 @@
 
 # sent_id = 949
 # text =   Кроме этого, я добавил в бенчмарк разные T5 модели, т.к. они тоже должны хорошо понимать тексты: мои rut5-small, rut5-base, rut5-base-multitask, и rut5-base-paraphraser, и Сберовские ruT5-base и ruT5-large.
-# relations = "Model_includes_Model 0 1, Model_includes_Model 0 2, Model_includes_Model 0 3, Model_includes_Model 0 4, Model_includes_Model 0 5, Model_includes_Model 0 6, Model_hasAuthor_Organization 6 0, Model_hasAuthor_Organization 5 0"
+# relations = "Model_isExampleOf_Model 1 0, Model_isExampleOf_Model 2 0, Model_isExampleOf_Model 3 0, Model_isExampleOf_Model 4 0, Model_isExampleOf_Model 5 0, Model_isExampleOf_Model 6 0, Model_hasAuthor_Organization 6 0, Model_hasAuthor_Organization 5 0"
 1	Кроме O
 2	этого O
 3	, O
@@ -26063,7 +26063,7 @@
 
 # sent_id = 1008
 # text =   В архитектуре стенфордского парсера и Syntaxnet заложена другая концепия: сначала они генерируют полный ориентированный граф, и дальше работа алгоритма состоит в том, чтобы оставить тот скелет (минимальное остовное дерево), который будет наиболее вероятным.
-# relations = "Application_isAppliedTo_Object 0 0, Application_isAppliedTo_Object 0 1"
+# relations = "Object_includes_Object 0 1, Application_isAppliedTo_Object 0 0, Application_isAppliedTo_Object 0 1"
 1	В O
 2	архитектуре O
 3	стенфордского O
@@ -27857,7 +27857,7 @@
 
 # sent_id = 1072
 # text = SequenceEncoder представляет собой рекуррентную нейронную сеть (RNN), применяемую для анализа последовательностей в данных о транзакциях и кликах.
-# relations = "Model_isAlternativeNameFor_Model 2 1, Model_includes_Model 1 0, Model_includes_Model 2 0, Model_isUsedForSolving_Task 0 0"
+# relations = "Model_isAlternativeNameFor_Model 2 1, Model_isExampleOf_Model 0 1, Model_isExampleOf_Model 0 2, Model_isUsedForSolving_Task 0 0"
 1	SequenceEncoder B-Model
 2	представляет O
 3	собой O
@@ -27882,7 +27882,7 @@
 
 # sent_id = 1073
 # text = Суть BERT заключается в том, что это предварительно обученная модель, основанная на стеке энкодеров Трансформера.
-# relations = "Model_includes_Model 1 0"
+# relations = "Model_isModificationOf_Model 1 0"
 1	Суть O
 2	BERT B-Model
 3	заключается O
@@ -27971,7 +27971,7 @@
 
 # sent_id = 1077
 # text = Появление модели BERT в 2018 году отметило своеобразный поворотный пункт в прогрессе развития моделей обработки естественного языка (NLP).
-# relations = "Date_isDateOf_Model 0 0, Model_includes_Model 1 0, Model_isUsedIn_Science 0 0"
+# relations = "Date_isDateOf_Model 0 0, Model_isExampleOf_Model 0 1, Model_isUsedIn_Science 0 0"
 1	Появление O
 2	модели O
 3	BERT B-Model

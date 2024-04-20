@@ -89,15 +89,7 @@ def display_relation_graph(
     size = 20
 
     for group_id, group in enumerate(grouped_terms):
-        items = []
-        values = set()
-
-        for term in group.items:
-            value = term.value.lower()
-
-            if value not in values:
-                items.append(term)
-                values.add(value)
+        items = group.items
 
         for term in items:
             nt.add_node(

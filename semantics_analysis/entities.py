@@ -90,8 +90,13 @@ class GroupedTerm:
         if not terms:
             raise ValueError('Terms must be non-empty.')
 
-        self.items = []
         self.class_ = class_name
+
+        if not normalize:
+            self.items = terms
+            return
+
+        self.items = []
 
         values = set()
         for term in terms:

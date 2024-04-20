@@ -55,6 +55,52 @@ def union_groups(
     return list(final_groups)
 
 
+def normalize_relations(groups: List[GroupedTerm], relations: List[Relation]) -> List[Relation]:
+    new_terms: Dict[Relation, Tuple[Optional[ClassifiedTerm], Optional[ClassifiedTerm]]] = {}
+
+    for rel in relations:
+        new_terms[rel] = (None, None)
+
+    for group in groups:
+        if len(group.items) < 2:
+            continue
+
+        main_item = group.items[0]
+        other_items = set(group.items[1:])
+
+        other_items_rels = [r for r in relations if r.term1 in other_items or r.term2 in other_items]
+
+        for rel in other_items_rels:
+            new_term1, new_term2 = new_terms[rel]
+
+            if rel.term1 in other_items:
+                new_term1 = main_item
+
+            if rel.term2 in other_items:
+                new_term2 = main_item
+            new_terms[rel] = new_term1, new_term2
+
+    norm_relations = []
+
+    rel_ids = set()
+
+    for rel in relations:
+        new_term1, new_term2 = new_terms[rel]
+
+        term1 = new_term1 if new_term1 else rel.term1
+        term2 = new_term2 if new_term2 else rel.term2
+
+        rel_id = (term1.class_, term1.value, rel.predicate, term2.class_, term2.value)
+
+        if rel_id in rel_ids:
+            continue
+        rel_ids.add(rel_id)
+        
+        norm_relations.append(Relation(term1, rel.predicate, term2))
+
+    return norm_relations
+
+
 def render_term(term: ClassifiedTerm, style: str = LABELED_TERM_STYLE) -> str:
     if style == LABELED_TERM_STYLE and term.source == 'dict':
         style = LABELED_DICT_TERM_STYLE

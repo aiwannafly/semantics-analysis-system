@@ -89,7 +89,17 @@ def display_relation_graph(
     size = 20
 
     for group_id, group in enumerate(grouped_terms):
+        items = []
+        values = set()
+
         for term in group.items:
+            value = term.value.lower()
+
+            if value not in values:
+                items.append(term)
+                values.add(value)
+
+        for term in items:
             nt.add_node(
                 get_node(term),
                 title=get_title(term),
@@ -102,10 +112,10 @@ def display_relation_graph(
                 group=group_id
             )
 
-        pairs = [p for p in zip(group.items[1:], group.items)]
+        pairs = [p for p in zip(items[1:], items)]
 
-        if len(group.items) > 2:
-            pairs.append((group.items[0], group.items[-1]))
+        if len(items) > 2:
+            pairs.append((items[0], items[-1]))
 
         for term1, term2 in pairs:
             color = get_color(term1.class_)
@@ -187,13 +197,35 @@ def display_relation_graph(
 
 
 def main():
-    sentences = read_sentences('tests/sentences.json')
+    # sentences = read_sentences('tests/sentences.json')
+    #
+    # for sent in sentences:
+    #     if 13 < len(sent.relations) < 100:
+    #         display_relation_graph([], preprocess_is_alternative_name(sent.relations))
+    #         sleep(5)
 
-    for sent in sentences:
-        if 13 < len(sent.relations) < 100:
-            display_relation_graph(preprocess_is_alternative_name(sent.relations))
-            sleep(1)
-            break
+    display_relation_graph([], relations=[
+        Relation(
+            term1=ClassifiedTerm(value='Mistral 8x7b', term_class='Model', end_pos=0, text=''),
+            predicate='является примером',
+            term2=ClassifiedTerm(value='LLM', term_class='Model', end_pos=0, text=''),
+        ),
+        Relation(
+            term1=ClassifiedTerm(value='Mistral 8x7b', term_class='Model', end_pos=0, text=''),
+            predicate='создана',
+            term2=ClassifiedTerm(value='декабрь 2023г.', term_class='Date', end_pos=0, text=''),
+        ),
+        Relation(
+            term1=ClassifiedTerm(value='Mistral 8x7b', term_class='Model', end_pos=0, text=''),
+            predicate='имеет автора',
+            term2=ClassifiedTerm(value='Mistral AI', term_class='Organization', end_pos=0, text=''),
+        ),
+        Relation(
+            term1=ClassifiedTerm(value='LLM', term_class='Model', end_pos=0, text=''),
+            predicate='решает задачу',
+            term2=ClassifiedTerm(value='извлечение отношений', term_class='Task', end_pos=0, text=''),
+        ),
+    ])
 
 
 if __name__ == '__main__':

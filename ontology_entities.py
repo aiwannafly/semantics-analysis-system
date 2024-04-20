@@ -336,7 +336,9 @@ def convert_to_ont_entities(
             if reverse:
                 obj1_id, obj2_id = obj2_id, obj1_id
 
-        ont_relations.append(OntRelation(obj1_id, predicate, obj2_id))
+        rel_name = f'{rel.term1.class_}_{predicate}_{rel.term2.class_}'
+
+        ont_relations.append(OntRelation(obj1_id, rel_name, obj2_id))
 
     return objects, ont_relations
 

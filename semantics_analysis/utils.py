@@ -82,23 +82,39 @@ def normalize_relations(groups: List[GroupedTerm], relations: List[Relation]) ->
 
     norm_relations = []
 
-    rel_ids = set()
-
     for rel in relations:
         new_term1, new_term2 = new_terms[rel]
 
         term1 = new_term1 if new_term1 else rel.term1
         term2 = new_term2 if new_term2 else rel.term2
 
-        rel_id = (term1.class_, term1.value, rel.predicate, term2.class_, term2.value)
-
-        if rel_id in rel_ids:
-            continue
-        rel_ids.add(rel_id)
-        
         norm_relations.append(Relation(term1, rel.predicate, term2))
 
     return norm_relations
+
+
+def normalize_groups(groups: List[GroupedTerm]) -> List[GroupedTerm]:
+    norm_groups = []
+
+    for group in groups:
+        if len(group.items) < 2:
+            norm_groups.append(group)
+            continue
+
+        items = []
+        values = set()
+
+        for item in group.items:
+            value = item.value.lower()
+
+            if value not in values:
+                values.add(value)
+
+                items.append(item)
+
+        norm_groups.append(GroupedTerm(group.class_, items, normalize=False))
+
+    return norm_groups
 
 
 def render_term(term: ClassifiedTerm, style: str = LABELED_TERM_STYLE) -> str:

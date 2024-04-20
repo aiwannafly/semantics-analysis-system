@@ -28,7 +28,7 @@ from semantics_analysis.term_post_processing.computer_science_term_post_processo
 from semantics_analysis.term_post_processing.merge_close_term_post_processor import MergeCloseTermPostProcessor
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 from semantics_analysis.utils import log_class_predictions, log_grouped_terms, log_labeled_terms, log_extracted_terms, \
-    log_found_relations, union_groups, normalize_relations
+    log_found_relations, union_groups, normalize_relations, normalize_groups
 
 
 class Result:
@@ -175,6 +175,7 @@ def analyze_article(
     # we need to union term groups from different paragraphs
     result.terms = union_groups(result.terms)
     result.relations = normalize_relations(result.terms, result.relations)
+    result.terms = normalize_groups(result.terms)
 
     return result
 

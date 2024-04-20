@@ -1,12 +1,11 @@
 from typing import List
 
-from huggingface_hub import InferenceClient
 from rich.progress import Progress
 
 from semantics_analysis.entities import ClassifiedTerm, GroupedTerm
+from semantics_analysis.llm_agent import LLMAgent
 from semantics_analysis.ontology_utils import attribute_classes
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
-from semantics_analysis.tokens import tokens
 from semantics_analysis.utils import log
 
 
@@ -23,7 +22,11 @@ class LLMReferenceResolver(ReferenceResolver):
             self.check_synonyms_prompt_template = f.read().strip()
 
         self.model = model
-        self.llm = InferenceClient(model=model, timeout=8, token=huggingface_hub_token)
+        self.llm_agent = LLMAgent(
+            model=model,
+            use_all_tokens=use_all_tokens,
+            huggingface_hub_token=huggingface_hub_token
+        )
         self.show_explanation = show_explanation
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
@@ -58,23 +61,7 @@ class LLMReferenceResolver(ReferenceResolver):
                     if term1.value.lower() == term2.value.lower():
                         similar = True
                     else:
-                        similar = False
-                        attempt = 0
-
-                        while True:
-                            try:
-                                similar = self.are_synonyms(term1, term2, text)
-                            except Exception as e:
-                                if not self.use_all_tokens or attempt >= len(tokens):
-                                    progress.remove_task(group_task)
-                                    raise e
-
-                                attempt += 1
-                                self.token_idx += 1
-                                self.token_idx = self.token_idx % len(tokens)
-                                self.llm = InferenceClient(model=self.model, timeout=8, token=tokens[self.token_idx])
-                                continue
-                            break
+                        similar = self.are_synonyms(term1, term2, text)
 
                     curr += 1
                     if similar:
@@ -119,7 +106,7 @@ class LLMReferenceResolver(ReferenceResolver):
         if self.log_prompts:
             log(f'[INPUT PROMPT]: {prompt}\n')
 
-        response = self.llm.text_generation(prompt, do_sample=False, max_new_tokens=2, stop_sequences=['.']).strip()
+        response = self.llm_agent(prompt, max_new_tokens=2, stop_sequences=['.']).strip()
 
         if self.log_llm_responses:
             log(f'[ SYNONYMS ]: {response}\n')

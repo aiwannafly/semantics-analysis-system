@@ -27,6 +27,12 @@ class Term:
 
         return False
 
+    def to_json(self):
+        return {
+            'value': self.value,
+            'start_pos': self.start_pos
+        }
+
     def __hash__(self):
         return hash((self.value, self.start_pos))
 
@@ -122,7 +128,7 @@ class GroupedTerm:
         return False
 
     def __hash__(self):
-        return hash((self.class_, self.items))
+        return hash((self.class_, tuple(self.items)))
 
 
 class Relation:

@@ -1,3 +1,4 @@
+import json
 from typing import List, Tuple, Dict
 
 import inquirer
@@ -6,6 +7,7 @@ from colorama import Style
 from colorama import init as colorama_init
 from rich.progress import Progress
 
+from ontology_entities import convert_to_ont_entities
 from plot_graph import display_relation_graph
 from semantics_analysis.config import load_config
 from semantics_analysis.entities import Term
@@ -151,6 +153,16 @@ def analyze_text(
             relations = relation_extractor(text_part, labeled_terms, progress)
 
             found_relations = [r for r in relations]
+
+    objects, ont_relations = convert_to_ont_entities(grouped_terms, found_relations)
+
+    ont_entities_json = {
+        'objects': [o.to_json() for o in objects],
+        'relations': [r.to_json() for r in ont_relations]
+    }
+
+    with open('ont_entities.json', 'w', encoding='utf-8') as wf:
+        json.dump(ont_entities_json, wf, ensure_ascii=False, indent=2)
 
     if found_relations and display_graph:
         display_relation_graph(grouped_terms, found_relations)

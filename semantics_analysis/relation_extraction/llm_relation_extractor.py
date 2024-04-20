@@ -1,14 +1,13 @@
 from typing import List, Optional, Iterator
 
 import nltk.tokenize
-from huggingface_hub import InferenceClient
 from rich.progress import Progress
 
 from semantics_analysis.entities import Relation, ClassifiedTerm
+from semantics_analysis.llm_agent import LLMAgent
 from semantics_analysis.ontology_utils import predicates_by_class_pair, \
     prompt_metadata_by_class_pair
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
-from semantics_analysis.tokens import tokens
 from semantics_analysis.utils import log
 
 enhanced_predicate = {
@@ -32,7 +31,11 @@ class LLMRelationExtractor(RelationExtractor):
         self.use_all_tokens = use_all_tokens
         self.token_idx = 0
 
-        self.llm = InferenceClient(model=model, timeout=8, token=huggingface_hub_token)
+        self.llm_agent = LLMAgent(
+            model=model,
+            use_all_tokens=use_all_tokens,
+            huggingface_hub_token=huggingface_hub_token
+        )
 
         with open('prompts/relation_extraction.txt', 'r', encoding='utf-8') as f:
             self.prompt_template = f.read().strip()
@@ -105,23 +108,11 @@ class LLMRelationExtractor(RelationExtractor):
                 if not predicates:
                     continue
 
-                attempts = 0
-                while True:
-                    try:
-                        predicate, should_reverse = self.detect_predicate(term1, term2, text)
-                    except Exception as e:
-                        if not self.use_all_tokens or attempts >= len(tokens):
-                            progress.remove_task(relation_task)
-                            raise e
-
-                        predicate, should_reverse = None, False
-
-                        attempts += 1
-                        self.token_idx += 1
-                        self.token_idx = self.token_idx % len(tokens)
-                        self.llm = InferenceClient(model=self.model, timeout=8, token=tokens[self.token_idx])
-                        continue
-                    break
+                try:
+                    predicate, should_reverse = self.detect_predicate(term1, term2, text)
+                except Exception as e:
+                    progress.remove_task(relation_task)
+                    raise e
 
                 if not predicate:
                     continue
@@ -150,30 +141,11 @@ class LLMRelationExtractor(RelationExtractor):
         prompt = prompt.replace('{input}', relation_str)
         prompt = prompt.replace('{context}', text)
 
-        attempts = 0
-        while True:
-            try:
-                response = self.llm.text_generation(
-                    prompt,
-                    do_sample=False,
-                    max_new_tokens=2,
-                    stop_sequences=['.']
-                ).strip()
-            except Exception as e:
-                if not self.use_all_tokens or attempts >= len(tokens):
-                    raise e
-
-                response = None
-
-                attempts += 1
-                self.token_idx += 1
-                self.token_idx = self.token_idx % len(tokens)
-                self.llm = InferenceClient(model=self.model, timeout=8, token=tokens[self.token_idx])
-                continue
-            break
-
-        if response is None:
-            return False  # can not proof that relation is bad
+        response = self.llm_agent(
+            prompt,
+            max_new_tokens=2,
+            stop_sequences=['.']
+        )
 
         return 'да' in response.lower()
 
@@ -195,12 +167,11 @@ class LLMRelationExtractor(RelationExtractor):
 
         max_new_tokens = 100 if self.show_explanation else 40
 
-        response = self.llm.text_generation(
+        response = self.llm_agent(
             prompt,
-            do_sample=False,
             max_new_tokens=max_new_tokens,
             stop_sequences=stop_tokens
-        ).strip()
+        )
 
         if self.log_llm_responses:
             log(f'[LLM RESPONSE]: {response}\n')

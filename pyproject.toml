@@ -22,6 +22,7 @@ spacy = "^3.7.4"
 ru_core_news_sm = {url = "https://github.com/explosion/spacy-models/releases/download/ru_core_news_sm-3.7.0/ru_core_news_sm-3.7.0.tar.gz"}
 pyvis = "^0.3.2"
 bs4 = "^0.0.2"
+alphabet-detector = "^0.0.7"
 
 [build-system]
 requires = ["poetry-core"]

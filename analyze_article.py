@@ -1,3 +1,4 @@
+import json
 import sys
 from typing import List, Tuple, Dict
 
@@ -7,6 +8,7 @@ from colorama import Style
 from colorama import init as colorama_init
 from rich.progress import Progress
 
+from ontology_entities import convert_to_ont_entities
 from parse_habr import Doc
 from plot_graph import display_relation_graph
 from semantics_analysis.config import load_config
@@ -224,6 +226,19 @@ def main():
         relation_extractor,
         term_postprocessors,
     )
+
+    objects, ont_relations = convert_to_ont_entities(result.terms, result.relations)
+
+    ont_entities_json = {
+        'objects': [o.to_json() for o in objects],
+        'relations': [r.to_json() for r in ont_relations]
+    }
+
+    with open('ont_entities.json', 'w', encoding='utf-8') as wf:
+        json.dump(ont_entities_json, wf, ensure_ascii=False, indent=2)
+
+    print('Saved ontology entities in "ont_entities.json".')
+    print()
 
     print('Building relations graph...')
     display_relation_graph(

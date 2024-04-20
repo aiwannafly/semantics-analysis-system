@@ -1,4 +1,4 @@
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Tuple, Optional, Set
 
 from colorama import Style, Fore
 from rich.progress import Progress, TextColumn, BarColumn
@@ -19,6 +19,40 @@ SEPARATOR_STYLE = Style.DIM
 
 def log(*messages: str):
     print(*messages)
+
+
+def union_groups(
+        considered_groups: List[GroupedTerm]
+) -> List[GroupedTerm]:
+    if len(considered_groups) < 2:
+        return considered_groups
+
+    final_groups: Set[GroupedTerm] = set()
+
+    for i in range(len(considered_groups)):
+        for j in range(i + 1, len(considered_groups)):
+            group1, group2 = considered_groups[i], considered_groups[j]
+
+            if group1.class_ != group2.class_:
+                final_groups.add(group1)
+                final_groups.add(group2)
+                continue
+
+            term_vals1 = set(t.value.lower() for t in group1.items)
+            term_vals2 = set(t.value.lower() for t in group2.items)
+
+            intersection = [t for t in term_vals1 if t in term_vals2]
+
+            if intersection:
+                final_groups.add(GroupedTerm(group1.class_, group1.items + group2.items, normalize=False))
+            else:
+                final_groups.add(group1)
+                final_groups.add(group2)
+
+    if len(final_groups) < len(considered_groups):
+        return union_groups(list(final_groups))
+
+    return list(final_groups)
 
 
 def render_term(term: ClassifiedTerm, style: str = LABELED_TERM_STYLE) -> str:

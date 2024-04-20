@@ -154,37 +154,6 @@ def term_to_attribute(
     return Attribute(term.class_, term.value, detect_lang(term.value, ad))
 
 
-def union_groups(
-        considered_groups: List[GroupedTerm]
-) -> List[GroupedTerm]:
-    if len(considered_groups) < 2:
-        return considered_groups
-
-    final_groups: Set[GroupedTerm] = set()
-
-    for i in range(len(considered_groups)):
-        for j in range(i + 1, len(considered_groups)):
-            group1, group2 = considered_groups[i], considered_groups[j]
-
-            if group1.class_ != group2.class_:
-                final_groups.add(group1)
-                final_groups.add(group2)
-                continue
-
-            intersection = [t for t in group1.items if t in group2.items]
-
-            if intersection:
-                final_groups.add(GroupedTerm(group1.class_, group1.items + group2.items, normalize=False))
-            else:
-                final_groups.add(group1)
-                final_groups.add(group2)
-
-    if len(final_groups) < len(considered_groups):
-        return union_groups(list(final_groups))
-
-    return list(final_groups)
-
-
 def add_person_attrs(
         terms: Set[ClassifiedTerm],
         attrs_by_term: Dict[ClassifiedTerm, List[Attribute]],
@@ -280,10 +249,7 @@ def convert_to_ont_entities(
 
     considered_groups = [g for g in groups if len(g.items) >= 2]
 
-    # recursive call to merge all groups
-    final_groups = union_groups(considered_groups)
-
-    for group in final_groups:
+    for group in considered_groups:
         term = group.items[0]
 
         alt_name_attrs = [Attribute('Alternative Name', t.value, detect_lang(t.value, ad)) for t in group.items[1:]]

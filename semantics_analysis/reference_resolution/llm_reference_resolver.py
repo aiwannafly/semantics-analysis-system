@@ -61,8 +61,12 @@ class LLMReferenceResolver(ReferenceResolver):
                     if term1.value.lower() == term2.value.lower():
                         similar = True
                     else:
-                        similar = self.are_synonyms(term1, term2, text)
-
+                        try:
+                            similar = self.are_synonyms(term1, term2, text)
+                        except Exception as e:
+                            progress.remove_task(group_task)
+                            raise e
+                        
                     curr += 1
                     if similar:
                         if term1 in group_by_term:

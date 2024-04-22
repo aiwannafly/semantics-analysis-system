@@ -66,7 +66,7 @@ class LLMReferenceResolver(ReferenceResolver):
                         except Exception as e:
                             progress.remove_task(group_task)
                             raise e
-                        
+
                     curr += 1
                     if similar:
                         if term1 in group_by_term:

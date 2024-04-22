@@ -6,7 +6,7 @@ from rich.progress import Progress
 from semantics_analysis.entities import Relation, ClassifiedTerm
 from semantics_analysis.llm_agent import LLMAgent
 from semantics_analysis.ontology_utils import predicates_by_class_pair, \
-    prompt_metadata_by_class_pair
+    relations_metadata_by_class_pair
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
 from semantics_analysis.utils import log
 
@@ -240,7 +240,7 @@ class LLMRelationExtractor(RelationExtractor):
         if class1 == class2:
             return self.create_llm_prompt_same_class(term1, term2, text)
 
-        prompt_metadata = prompt_metadata_by_class_pair[(class1, class2)]
+        prompt_metadata = relations_metadata_by_class_pair[(class1, class2)]
 
         relations_list = ''
         examples_list = ''
@@ -326,7 +326,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         class_ = term1.class_
 
-        prompt_metadata = prompt_metadata_by_class_pair[(class_, class_)]
+        prompt_metadata = relations_metadata_by_class_pair[(class_, class_)]
 
         relations_list = ''
         examples_list = ''

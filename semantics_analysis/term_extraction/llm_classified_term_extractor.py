@@ -148,10 +148,12 @@ class LLMClassifiedTermExtractor(ClassifiedTermExtractor):
                          f'```\n')
 
         examples = examples.strip()
+        description = metadata['description']
 
         prompt_template = self.base_extraction_prompt_template
         prompt_template = prompt_template.replace('{class}', class_name)
         prompt_template = prompt_template.replace('{examples}', examples)
+        prompt_template = prompt_template.replace('{description}', description)
 
         return prompt_template
 

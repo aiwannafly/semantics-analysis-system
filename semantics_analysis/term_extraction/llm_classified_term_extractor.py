@@ -47,9 +47,9 @@ class LLMClassifiedTermExtractor(ClassifiedTermExtractor):
                 progress.remove_task(extraction)
                 raise e
 
-            if term_class == 'Task':
-                print(prompt)
-                print(response)
+            # if term_class == 'Task':
+            #     print(prompt)
+            #     print(response)
 
             progress.update(extraction, description=f'Extracting terms by class {idx + 1}/{total}', advance=1)
 
@@ -143,8 +143,8 @@ class LLMClassifiedTermExtractor(ClassifiedTermExtractor):
             else:
                 terms += '.'
 
-            examples += (f'Текст: "{text}"\n'
-                         f'Термины класса "{class_name}": {terms}\n'
+            examples += (f'Текст: {text}\n'
+                         f'Термины "{class_name}": {terms}\n'
                          f'```\n')
 
         examples = examples.strip()

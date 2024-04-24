@@ -21,12 +21,14 @@ from semantics_analysis.term_classification.dict_term_classifier import DictTerm
 from semantics_analysis.term_classification.term_classifier import TermClassifier
 from semantics_analysis.term_extraction.roberta_term_extractor import RobertaTermExtractor
 from semantics_analysis.term_extraction.term_extractor import TermExtractor
+from semantics_analysis.term_normalization.llm_term_normalizer import LLMTermNormalizer
+from semantics_analysis.term_normalization.term_normalizer import TermNormalizer
 from semantics_analysis.term_post_processing.computer_science_term_post_processor import \
     ComputerScienceTermPostProcessor
 from semantics_analysis.term_post_processing.merge_close_term_post_processor import MergeCloseTermPostProcessor
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 from semantics_analysis.utils import log_class_predictions, log_grouped_terms, log_labeled_terms, log_extracted_terms, \
-    log_found_relations, log_term_predictions
+    log_found_relations, log_term_predictions, normalize_term_values
 from spinner import Spinner
 
 LOG_STYLE = Style.DIM
@@ -43,6 +45,7 @@ def analyze_text(
         reference_resolver: ReferenceResolver,
         relation_extractor: RelationExtractor,
         term_postprocessors: List[TermPostProcessor],
+        term_normalizer: TermNormalizer
 ):
     text = text.replace('�', '').strip()
 
@@ -154,6 +157,8 @@ def analyze_text(
 
             found_relations = [r for r in relations]
 
+    grouped_terms, found_relations = normalize_term_values(grouped_terms, found_relations, term_normalizer)
+
     objects, ont_relations = convert_to_ont_entities(grouped_terms, found_relations)
 
     ont_entities_json = {
@@ -210,6 +215,8 @@ def main():
         use_all_tokens=True
     )
 
+    term_normalizer = LLMTermNormalizer()
+
     while True:
         text = input(f'{LOG_STYLE}[      INPUT     ]{Style.RESET_ALL}: ')
         print()
@@ -225,6 +232,7 @@ def main():
             reference_resolver,
             relation_extractor,
             term_postprocessors,
+            term_normalizer
         )
 
         question = inquirer.questions.List(

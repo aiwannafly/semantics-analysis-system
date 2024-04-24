@@ -7,6 +7,7 @@ from rich.console import Console
 from rich.text import Text
 
 from semantics_analysis.entities import Term, GroupedTerm, ClassifiedTerm, Relation
+from semantics_analysis.term_normalization.term_normalizer import TermNormalizer
 
 LOG_STYLE = Style.DIM
 TERM_STYLE = Fore.CYAN
@@ -115,6 +116,37 @@ def normalize_groups(groups: List[GroupedTerm]) -> List[GroupedTerm]:
         norm_groups.append(GroupedTerm(group.class_, items, normalize=False))
 
     return norm_groups
+
+
+def normalize_term_values(
+        groups: List[GroupedTerm],
+        relations: List[Relation],
+        normalizer: TermNormalizer
+) -> Tuple[List[GroupedTerm], List[Relation]]:
+
+    norm_groups = []
+
+    for group in groups:
+        main = group.items[0]
+
+        others = group.items[1:]
+
+        norm_value = normalizer(main.value)
+
+        main = ClassifiedTerm(main.class_, norm_value, main.end_pos, main.text)
+
+        norm_groups.append(GroupedTerm(main.class_, [main] + others))
+
+    norm_relations = []
+
+    for rel in relations:
+        norm_term1 = ClassifiedTerm(rel.term1.class_, normalizer(rel.term1.value), rel.term1.end_pos, rel.term1.text)
+
+        norm_term2 = ClassifiedTerm(rel.term2.class_, normalizer(rel.term2.value), rel.term2.end_pos, rel.term2.text)
+
+        norm_relations.append(Relation(norm_term1, rel.predicate, norm_term2))
+
+    return norm_groups, norm_relations
 
 
 def render_term(term: ClassifiedTerm, style: str = LABELED_TERM_STYLE) -> str:

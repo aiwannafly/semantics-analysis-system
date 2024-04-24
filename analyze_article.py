@@ -183,6 +183,7 @@ def analyze_article(
     result.relations = normalize_relations(result.terms, result.relations)
     result.terms = normalize_groups(result.terms)
 
+    print('Normalizing terms...')
     result.terms, result.relations = normalize_term_values(result.terms, result.relations, term_normalizer)
 
     return result

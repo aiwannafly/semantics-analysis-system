@@ -1,6 +1,6 @@
 import json
 import sys
-from typing import List, Tuple, Dict
+from typing import List, Tuple, Dict, Optional
 
 import inquirer
 import nltk
@@ -23,12 +23,14 @@ from semantics_analysis.term_classification.dict_term_classifier import DictTerm
 from semantics_analysis.term_classification.term_classifier import TermClassifier
 from semantics_analysis.term_extraction.roberta_term_extractor import RobertaTermExtractor
 from semantics_analysis.term_extraction.term_extractor import TermExtractor
+from semantics_analysis.term_normalization.llm_term_normalizer import LLMTermNormalizer
+from semantics_analysis.term_normalization.term_normalizer import TermNormalizer
 from semantics_analysis.term_post_processing.computer_science_term_post_processor import \
     ComputerScienceTermPostProcessor
 from semantics_analysis.term_post_processing.merge_close_term_post_processor import MergeCloseTermPostProcessor
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 from semantics_analysis.utils import log_class_predictions, log_grouped_terms, log_labeled_terms, log_extracted_terms, \
-    log_found_relations, union_groups, normalize_relations, normalize_groups
+    log_found_relations, union_groups, normalize_relations, normalize_groups, normalize_term_values
 
 
 class Result:
@@ -44,7 +46,7 @@ def analyze_paragraph(
         text: str,
         term_extractor: TermExtractor,
         term_classifier: TermClassifier,
-        reference_resolver: ReferenceResolver,
+        reference_resolver: Optional[ReferenceResolver],
         relation_extractor: RelationExtractor,
         term_postprocessors: List[TermPostProcessor],
         progress: Progress
@@ -116,7 +118,10 @@ def analyze_paragraph(
 
         text_offset += len(sent) + 1
 
-    grouped_terms = reference_resolver(labeled_terms, text, progress)
+    if reference_resolver:
+        grouped_terms = reference_resolver(labeled_terms, text, progress)
+    else:
+        grouped_terms = [GroupedTerm(t.class_, [t], normalize=False) for t in labeled_terms]
 
     result.terms.extend(grouped_terms)
 
@@ -142,6 +147,7 @@ def analyze_article(
         reference_resolver: ReferenceResolver,
         relation_extractor: RelationExtractor,
         term_postprocessors: List[TermPostProcessor],
+        term_normalizer: TermNormalizer
 ) -> Result:
     doc = Doc.from_article(article_id)
 
@@ -176,6 +182,8 @@ def analyze_article(
     result.terms = union_groups(result.terms)
     result.relations = normalize_relations(result.terms, result.relations)
     result.terms = normalize_groups(result.terms)
+
+    result.terms, result.relations = normalize_term_values(result.terms, result.relations, term_normalizer)
 
     return result
 
@@ -224,6 +232,8 @@ def main():
         use_all_tokens=True
     )
 
+    term_normalizer = LLMTermNormalizer()
+
     result = analyze_article(
         article_id,
         term_extractor,
@@ -231,6 +241,7 @@ def main():
         reference_resolver,
         relation_extractor,
         term_postprocessors,
+        term_normalizer
     )
 
     objects, ont_relations = convert_to_ont_entities(result.terms, result.relations)

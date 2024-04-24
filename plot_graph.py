@@ -53,7 +53,7 @@ def get_title(term: ClassifiedTerm) -> str:
     #         f'<p><b style={header_style}>Context</b>: {context}</p>')
 
     window = 50
-    context = term.text[:term.start_pos][-window:] + term.value + term.text[term.end_pos:][:window]
+    context = term.text[:term.start_pos][-window:] + f'[{term.value}]' + term.text[term.end_pos:][:window]
     context = '...' + context + '...'
 
     return (f'Class: {term.class_}\n'

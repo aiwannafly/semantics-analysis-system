@@ -5172,7 +5172,7 @@
 
 # sent_id = 189
 # text =   В новой работе Graphcore представили высокоэффективный алгоритм гистограммной упаковки с неотрицательными наименьшими квадратами (или NNLSHP), а также алгоритм BERT, применяемый к упакованным последовательностям.
-# relations = "Method_isAlternativeNameFor_Method 1 0, Method_hasAuthor_Organization 0 0, Method_hasAuthor_Organization 1 0"
+# relations = "Method_isUsedForTraining_Model 0 0, Method_isAlternativeNameFor_Method 1 0, Method_hasAuthor_Organization 0 0, Method_hasAuthor_Organization 1 0"
 1	В O
 2	новой O
 3	работе O
@@ -5204,7 +5204,7 @@
 
 # sent_id = 190
 # text = В последнем исследовании от Graphcore был представлен эффективный алгоритм гистограммной упаковки с использованием неотрицательных наименьших квадратов (NNLSHP), а также алгоритм BERT, примененный к упакованным последовательностям.
-# relations = "Method_isAlternativeNameFor_Method 1 0, Method_hasAuthor_Organization 0 0, Method_hasAuthor_Organization 1 0"
+# relations = "Method_isUsedForTraining_Model 0 0, Method_isAlternativeNameFor_Method 1 0, Method_hasAuthor_Organization 0 0, Method_hasAuthor_Organization 1 0"
 1	В O
 2	последнем O
 3	исследовании O
@@ -17712,7 +17712,7 @@
 
 # sent_id = 682
 # text =   Чтобы определить, какие ещё есть потенциальные классы, мы повели так называемое тематическое моделирование, используя несколько подходов: начиная от пробалистических моделей (латентное распределение Дирихле, ARTM) и всё те же нейронные сети (BERT).
-# relations = "Model_isExampleOf_Model 2 1, Method_isAlternativeNameFor_Method 2 1"
+# relations = "Method_uses_Model 0 0, Method_uses_Model 0 3, Model_isExampleOf_Model 4 3, Model_isExampleOf_Model 1 0, Model_isAlternativeNameFor_Model 2 1"
 1	Чтобы O
 2	определить O
 3	, O
@@ -17738,11 +17738,11 @@
 23	пробалистических B-Model
 24	моделей I-Model
 25	( O
-26	латентное B-Method
-27	распределение I-Method
-28	Дирихле I-Method
+26	латентное B-Model
+27	распределение I-Model
+28	Дирихле I-Model
 29	, O
-30	ARTM B-Method
+30	ARTM B-Model
 31	) O
 32	и O
 33	всё O

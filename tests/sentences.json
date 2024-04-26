@@ -7792,6 +7792,19 @@
         {
           "term1": {
             "class": "Method",
+            "value": "алгоритм гистограммной упаковки с неотрицательными наименьшими квадратами",
+            "start_pos": 55
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 160
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "NNLSHP",
             "start_pos": 134
           },
@@ -7856,6 +7869,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "алгоритм гистограммной упаковки с использованием неотрицательных наименьших квадратов",
+            "start_pos": 66
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 179
+          }
+        },
         {
           "term1": {
             "class": "Method",
@@ -25809,12 +25835,12 @@
           "start_pos": 149
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "латентное распределение Дирихле",
           "start_pos": 175
         },
         {
-          "class": "Method",
+          "class": "Model",
           "value": "ARTM",
           "start_pos": 208
         },
@@ -25832,6 +25858,32 @@
       "relations": [
         {
           "term1": {
+            "class": "Method",
+            "value": "тематическое моделирование",
+            "start_pos": 80
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "пробалистических моделей",
+            "start_pos": 149
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
+            "value": "тематическое моделирование",
+            "start_pos": 80
+          },
+          "predicate": "uses",
+          "term2": {
+            "class": "Model",
+            "value": "нейронные сети",
+            "start_pos": 226
+          }
+        },
+        {
+          "term1": {
             "class": "Model",
             "value": "BERT",
             "start_pos": 242
@@ -25845,13 +25897,26 @@
         },
         {
           "term1": {
-            "class": "Method",
+            "class": "Model",
+            "value": "латентное распределение Дирихле",
+            "start_pos": 175
+          },
+          "predicate": "isExampleOf",
+          "term2": {
+            "class": "Model",
+            "value": "пробалистических моделей",
+            "start_pos": 149
+          }
+        },
+        {
+          "term1": {
+            "class": "Model",
             "value": "ARTM",
             "start_pos": 208
           },
           "predicate": "isAlternativeNameFor",
           "term2": {
-            "class": "Method",
+            "class": "Model",
             "value": "латентное распределение Дирихле",
             "start_pos": 175
           }

@@ -7792,6 +7792,19 @@
         {
           "term1": {
             "class": "Method",
+            "value": "алгоритм гистограммной упаковки с неотрицательными наименьшими квадратами",
+            "start_pos": 55
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 160
+          }
+        },
+        {
+          "term1": {
+            "class": "Method",
             "value": "NNLSHP",
             "start_pos": 134
           },
@@ -7856,6 +7869,19 @@
         }
       ],
       "relations": [
+        {
+          "term1": {
+            "class": "Method",
+            "value": "алгоритм гистограммной упаковки с использованием неотрицательных наименьших квадратов",
+            "start_pos": 66
+          },
+          "predicate": "isUsedForTraining",
+          "term2": {
+            "class": "Model",
+            "value": "BERT",
+            "start_pos": 179
+          }
+        },
         {
           "term1": {
             "class": "Method",

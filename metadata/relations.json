@@ -1140,7 +1140,7 @@
         "description": "метод не используется для обучения данной модели",
         "examples": [
           {
-            "text": "Его появлению предшествовал ряд недавних разработок в области обработки естественного языка: Semi-supervised Sequence learning, ELMo.",
+            "text": "Его появлению предшествовал ряд недавних разработок: Semi-supervised Sequence learning, ELMo.",
             "Method": "Semi-supervised Sequence learning",
             "Model": "ELMo",
             "description": "Semi-supervised Sequence learning используется на равне с моделью ELMo, а не для ее тренировки"
@@ -1169,7 +1169,8 @@
           {
             "text": "В статье предлагается способ обнаружения фишинговых сообщений, использующий федеративное обучение и LSTM.",
             "Method": "федеративное обучение",
-            "Model": "LSTM"
+            "Model": "LSTM",
+            "description": "федеративное обучение и LSTM"
           }
         ]
       },

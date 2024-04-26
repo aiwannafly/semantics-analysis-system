@@ -5172,7 +5172,7 @@
 
 # sent_id = 189
 # text =   В новой работе Graphcore представили высокоэффективный алгоритм гистограммной упаковки с неотрицательными наименьшими квадратами (или NNLSHP), а также алгоритм BERT, применяемый к упакованным последовательностям.
-# relations = "Method_isAlternativeNameFor_Method 1 0, Method_hasAuthor_Organization 0 0, Method_hasAuthor_Organization 1 0"
+# relations = "Method_isUsedForTraining_Model 0 0, Method_isAlternativeNameFor_Method 1 0, Method_hasAuthor_Organization 0 0, Method_hasAuthor_Organization 1 0"
 1	В O
 2	новой O
 3	работе O
@@ -5204,7 +5204,7 @@
 
 # sent_id = 190
 # text = В последнем исследовании от Graphcore был представлен эффективный алгоритм гистограммной упаковки с использованием неотрицательных наименьших квадратов (NNLSHP), а также алгоритм BERT, примененный к упакованным последовательностям.
-# relations = "Method_isAlternativeNameFor_Method 1 0, Method_hasAuthor_Organization 0 0, Method_hasAuthor_Organization 1 0"
+# relations = "Method_isUsedForTraining_Model 0 0, Method_isAlternativeNameFor_Method 1 0, Method_hasAuthor_Organization 0 0, Method_hasAuthor_Organization 1 0"
 1	В O
 2	последнем O
 3	исследовании O

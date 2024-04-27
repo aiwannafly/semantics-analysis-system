@@ -536,6 +536,11 @@
           "class": "Method",
           "value": "RoPE",
           "start_pos": 77
+        },
+        {
+          "class": "Method",
+          "value": "позиционным кодированием",
+          "start_pos": 39
         }
       ],
       "relations": []
@@ -544,6 +549,11 @@
       "id": 797574,
       "text": "Применив такое преобразование, мы сломаем модель почти полностью. Но это не мешает нам восстановить её способности, так как большинство весов мы не изменяли. Для этого, как простой вариант, нам потребуется просто предобучить модель в режиме RoBERTы — то есть учить MLM задачу, применив поверх модели соответствующую голову.",
       "terms": [
+        {
+          "class": "Model",
+          "value": "модель",
+          "start_pos": 42
+        },
         {
           "class": "Model",
           "value": "RoBERTы",
@@ -561,6 +571,11 @@
       "id": 797575,
       "text": "Но также, мы хотим именно восстановить способности модели, а не просто обучить её на новом датасете — это значит, дистиллировать оригинальную модель-учитель, в нашего RoPE-ученика. Мне кажется, сейчас уместнее это называть клонированием, так как размеры и архитектура остаются одинаковыми. Для того чтобы это осуществить, достаточно к MLM-лоссу добавить дистилляционный лосс, который может быть, по большому счёту, любым, кроме KL-дивергенции, так как MLM-головы никто не кладёт с весами модели, и распределения учителя на токены у нас не будет. Я решил использовать 2 лосса, по отдельности: Cosine Similarity усредненый по токенам, для каждого слоя, и InfoNCE, в симметричном режиме, только для последнего слоя, именно он используется в CLIP для сближения модальностей текста и картинок. В обоих лоссах также подбиралась и своя температура для увеличения важности близости.",
       "terms": [
+        {
+          "class": "Method",
+          "value": "RoPE",
+          "start_pos": 167
+        },
         {
           "class": "Model",
           "value": "модели",
@@ -623,6 +638,11 @@
       "terms": [
         {
           "class": "Model",
+          "value": "модель",
+          "start_pos": 6
+        },
+        {
+          "class": "Model",
           "value": "hivaze/ru-e5-base",
           "start_pos": 30
         },
@@ -657,6 +677,11 @@
           "class": "Metric",
           "value": "косинусную близость",
           "start_pos": 297
+        },
+        {
+          "class": "Metric",
+          "value": "InfoNCE лоссом",
+          "start_pos": 89
         }
       ],
       "relations": []
@@ -674,6 +699,11 @@
           "class": "Model",
           "value": "Roformer",
           "start_pos": 297
+        },
+        {
+          "class": "Method",
+          "value": "позиционного кодирования",
+          "start_pos": 231
         }
       ],
       "relations": []
@@ -690,12 +720,12 @@
       "terms": [
         {
           "class": "Method",
-          "value": "интерполяция",
+          "value": "интерполяции",
           "start_pos": -1
         },
         {
           "class": "Method",
-          "value": "экстраполяция",
+          "value": "экстраполяции",
           "start_pos": -1
         },
         {
@@ -746,6 +776,11 @@
           "class": "Method",
           "value": "Dynamic-NTK",
           "start_pos": 124
+        },
+        {
+          "class": "Model",
+          "value": "модели",
+          "start_pos": 217
         }
       ],
       "relations": []
@@ -1013,6 +1048,11 @@
           "class": "Method",
           "value": "нативного Flash",
           "start_pos": 231
+        },
+        {
+          "class": "Model",
+          "value": "модель",
+          "start_pos": 201
         }
       ],
       "relations": [
@@ -1056,6 +1096,11 @@
           "class": "Method",
           "value": "sdpa",
           "start_pos": 46
+        },
+        {
+          "class": "Model",
+          "value": "модель",
+          "start_pos": 84
         }
       ],
       "relations": []
@@ -1109,6 +1154,11 @@
           "class": "Task",
           "value": "семантическое представление предложений",
           "start_pos": 314
+        },
+        {
+          "class": "Model",
+          "value": "модели",
+          "start_pos": 287
         }
       ],
       "relations": [
@@ -1254,6 +1304,11 @@
           "class": "Organization",
           "value": "OpenAI",
           "start_pos": 485
+        },
+        {
+          "class": "Model",
+          "value": "модели",
+          "start_pos": 444
         }
       ],
       "relations": [
@@ -1369,6 +1424,11 @@
           "class": "Task",
           "value": "NER",
           "start_pos": 225
+        },
+        {
+          "class": "Model",
+          "value": "e5",
+          "start_pos": 255
         }
       ],
       "relations": [
@@ -1439,6 +1499,11 @@
           "class": "Task",
           "value": "STS",
           "start_pos": 60
+        },
+        {
+          "class": "Model",
+          "value": "модели",
+          "start_pos": 119
         }
       ],
       "relations": []
@@ -1637,6 +1702,11 @@
           "class": "Model",
           "value": "Большие языковые модели",
           "start_pos": 171
+        },
+        {
+          "class": "Application",
+          "value": "искусственный интеллект",
+          "start_pos": 20
         }
       ],
       "relations": []
@@ -2056,6 +2126,11 @@
           "class": "Corpus",
           "value": "корпусами",
           "start_pos": 332
+        },
+        {
+          "class": "Lang",
+          "value": "английским",
+          "start_pos": 347
         },
         {
           "class": "Lang",
@@ -2581,6 +2656,16 @@
           "class": "Model",
           "value": "большие языковые модели",
           "start_pos": 776
+        },
+        {
+          "class": "Lang",
+          "value": "русским",
+          "start_pos": 349
+        },
+        {
+          "class": "Lang",
+          "value": "английским",
+          "start_pos": 359
         }
       ],
       "relations": []
@@ -2981,6 +3066,11 @@
           "class": "Model",
           "value": "модели",
           "start_pos": 908
+        },
+        {
+          "class": "Model",
+          "value": "декодерами",
+          "start_pos": 537
         }
       ],
       "relations": [

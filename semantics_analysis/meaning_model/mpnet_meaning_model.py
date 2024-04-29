@@ -67,9 +67,14 @@ def main():
 
     print('Meanings are loaded.\n')
 
+    print(f'Press q to quit.\n')
+
     while True:
 
-        example = input('Enter phrase: ')
+        example = input('Enter phrase: ').strip()
+
+        if example == 'q':
+            break
 
         example_meaning = model.get_meaning(example)
 

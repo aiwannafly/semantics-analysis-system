@@ -6,3 +6,4 @@ tests/*/
 examples
 lib
 ont_entities.json
+metadata/meaning_by_term.json

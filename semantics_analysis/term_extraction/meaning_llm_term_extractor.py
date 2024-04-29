@@ -1,0 +1,270 @@
+import json
+from typing import List, Optional, Dict, Tuple
+
+import spacy
+from rich.progress import Progress
+from tqdm import tqdm
+
+from semantics_analysis.entities import ClassifiedTerm
+from semantics_analysis.llm_agent import LLMAgent
+from semantics_analysis.meaning_model.meaning import Meaning
+from semantics_analysis.meaning_model.mpnet_meaning_model import MpnetMeaningModel
+from semantics_analysis.ontology_utils import term_metadata_by_class
+from semantics_analysis.term_extraction.classified_term_extractor import ClassifiedTermExtractor
+
+
+CONSIDERED_POS = ['NOUN', 'ADJ', 'PROPN', 'X']
+MIN_SIMILARITY = 0.3
+EXAMPLES_PER_CLASS = 2
+MAX_CLASSES_IN_PROMPT = 6
+
+
+class MeaningLLMTermExtractor(ClassifiedTermExtractor):
+
+    def __init__(self, llm_agent: Optional[LLMAgent] = None):
+        if llm_agent:
+            self.llm_agent = llm_agent
+        else:
+            self.llm_agent = LLMAgent(use_all_tokens=True)
+
+        self.nlp = spacy.load("ru_core_news_sm")
+        self.nlp.disable_pipes(["parser", "attribute_ruler", "lemmatizer"])
+
+        self.meaning_model = MpnetMeaningModel()
+
+        with open('prompts/define_term_class.txt', 'r', encoding='utf-8') as f:
+            self.classification_prompt_template = f.read().strip()
+
+        with open('metadata/terms_by_class.json', 'r', encoding='utf-8') as f:
+            terms_by_class = json.load(f)
+
+        self.class_by_term = {}
+
+        try:
+            with open('metadata/meaning_by_term.json', 'r', encoding='utf-8') as f:
+                vector_by_term = json.load(f)
+        except IOError as _:
+
+            # file not found
+            vector_by_term = {}
+            for class_, terms in terms_by_class.items():
+
+                for term in tqdm(terms):
+                    vector_by_term[term] = self.meaning_model.get_meaning(term).values
+
+            with open('metadata/meaning_by_term.json', 'w', encoding='utf-8') as wf:
+                json.dump(vector_by_term, wf, indent=2, ensure_ascii=False)
+
+        for class_, terms in terms_by_class.items():
+
+            for term in terms:
+                self.class_by_term[term] = class_
+
+        self.meaning_by_term = {}
+        for term, vector in vector_by_term.items():
+            self.meaning_by_term[term] = Meaning(term, vector)
+
+    def __call__(self, text: str, progress: Progress) -> List[ClassifiedTerm]:
+
+        phrases = self._extract_phrases(text)
+
+        # print(phrases)
+
+        if not phrases:
+            return []
+
+        found_terms = []
+
+        total = len(phrases)
+        resolving = progress.add_task(description=f'Resolving terms 0/{total}', total=total)
+
+        checked_phrases = set()
+
+        for idx, phrase in enumerate(phrases):
+            if phrase in checked_phrases:
+                continue
+            else:
+                checked_phrases.add(phrase)
+
+            examples_by_class = self._find_potential_classes(phrase)
+
+            try:
+                response = self._resolve_class(text, phrase, examples_by_class)
+            except Exception as e:
+                progress.remove_task(resolving)
+                raise e
+
+            progress.update(resolving, description=f'Resolving terms {idx + 1}/{total}', advance=1)
+
+            if not response:
+                continue
+
+            class_, term = response
+
+            found_terms.append(ClassifiedTerm(class_, term, len(text), text))
+
+        progress.remove_task(resolving)
+
+        return list(set(found_terms))
+
+    def _resolve_class(self, text: str, term: str, examples_by_class: Dict[str, List[str]]) -> Optional[Tuple[str, str]]:
+        class_descriptions = ''
+        for class_, examples in examples_by_class.items():
+            desc = term_metadata_by_class[class_]['description']
+            name = term_metadata_by_class[class_]['name']
+
+            examples = ', '.join(examples)
+
+            class_descriptions += (f'- {class_}:\n'
+                                   f'    Название: {name}\n'
+                                   f'    Описание: {desc}\n'
+                                   f'    Примеры: {examples}\n\n')
+
+        class_descriptions = class_descriptions.strip()
+
+        prompt = self.classification_prompt_template
+        prompt = prompt.replace('{context}', text)
+        prompt = prompt.replace('{term}', term)
+        prompt = prompt.replace('{class_descriptions}', class_descriptions)
+        prompt = prompt.replace('{classes}', ', '.join(examples_by_class))
+
+        response = self.llm_agent(
+            prompt,
+            max_new_tokens=20,
+            stop_sequences=['.', '(']
+        ).replace('(', '').strip()
+
+        # print(prompt)
+        # print(term)
+        # print(response)
+
+        if response.startswith('нет'):
+            return None
+
+        while response.endswith('.'):
+            response = response[:len(response) - 1]
+
+        response = response.replace('да\n', '').strip()
+
+        sep_idx = response.rfind(':')
+
+        if sep_idx == -1:
+            for class_ in examples_by_class:
+                if class_ in response:
+                    return class_, term
+            return None
+
+        term = response[sep_idx+1:].strip()
+
+        class_part = response[:sep_idx].strip()
+
+        for class_ in examples_by_class:
+            if class_ in class_part:
+                return class_, term
+
+        # failed to get correct response from LLM
+        return None
+
+    def _find_potential_classes(self, phrase: str) -> Dict[str, List[str]]:
+        phrase_meaning = self.meaning_model.get_meaning(phrase)
+
+        candidates_classes = set()
+
+        examples_by_class = {}
+
+        similarity_by_term = {}
+
+        for term, class_ in self.class_by_term.items():
+            term_meaning = self.meaning_by_term.get(term, None)
+
+            if not term_meaning:
+                continue
+
+            similarity = term_meaning.calculate_similarity(phrase_meaning)
+
+            if similarity < MIN_SIMILARITY:
+                continue
+
+            similarity_by_term[term] = similarity
+
+            candidates_classes.add(class_)
+
+            if class_ not in examples_by_class:
+                examples_by_class[class_] = [term]
+            else:
+                examples_by_class[class_].append(term)
+
+        similarity_by_class = {}
+        sorted_examples_by_class = {}
+        for class_, examples in examples_by_class.items():
+            sorted_examples_by_class[class_] = sorted(examples, key=lambda ex: similarity_by_term[ex], reverse=True)[:EXAMPLES_PER_CLASS]
+
+            similarity_by_class[class_] = max(similarity_by_term[ex] for ex in sorted_examples_by_class[class_])
+
+        sorted_classes = sorted(candidates_classes, key=lambda c: similarity_by_class[c], reverse=True)[:MAX_CLASSES_IN_PROMPT]
+
+        return {class_: sorted_examples_by_class[class_] for class_ in sorted_classes}
+
+    def _extract_phrases(self, text: str) -> List[str]:
+        doc = self.nlp(text)
+
+        found_phrases = []
+
+        curr_text = ''
+        curr_term = ''
+
+        adj_only = True
+        for token in doc:
+            remain_text = text[len(curr_text):]
+
+            if token.pos_ in CONSIDERED_POS:
+                is_under_term = True
+
+                if token.pos_ != 'ADJ':
+                    adj_only = False
+            else:
+                is_under_term = False
+
+                if curr_term:
+                    if not adj_only:
+                        found_phrases.append(curr_term.strip())
+
+                    curr_term = ''
+                    adj_only = True
+
+            for i in range(len(remain_text)):
+                curr_text += remain_text[i]
+
+                if is_under_term:
+                    curr_term += remain_text[i]
+
+                if curr_text.endswith(token.text):
+                    break
+
+        if curr_term and not adj_only:
+            found_phrases.append(curr_term.strip())
+
+        return found_phrases
+
+
+def main():
+    extractor = MeaningLLMTermExtractor()
+
+    print('Press q to stop.')
+
+    while True:
+        text = input("Enter text: ").strip()
+
+        if text == 'q':
+            break
+
+        with Progress() as progress:
+            found_terms = extractor(text, progress)
+
+        for term in found_terms:
+            print(f'{term.value} -> {term.class_}')
+
+        print()
+
+if __name__ == '__main__':
+    main()

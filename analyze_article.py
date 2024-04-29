@@ -49,7 +49,8 @@ def analyze_paragraph(
         reference_resolver: Optional[ReferenceResolver],
         relation_extractor: RelationExtractor,
         term_postprocessors: List[TermPostProcessor],
-        progress: Progress
+        progress: Progress,
+        extract_relations: bool = True
 ) -> Result:
     text = text.replace('�', '').strip()
 
@@ -117,6 +118,10 @@ def analyze_paragraph(
             labeled_terms.append(term)
 
         text_offset += len(sent) + 1
+
+    if not extract_relations:
+        grouped_terms = [GroupedTerm(t.class_, [t], normalize=False) for t in labeled_terms]
+        return Result(grouped_terms, [])
 
     if reference_resolver:
         grouped_terms = reference_resolver(labeled_terms, text, progress)

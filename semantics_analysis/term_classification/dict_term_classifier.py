@@ -34,6 +34,8 @@ class DictTermClassifier(TermClassifier):
     ) -> List[ClassifiedTerm]:
         potential_terms = self._extract_potential_terms(text)
 
+        print(potential_terms)
+
         classified_terms = []
 
         morph = MorphAnalyzer(lang='ru')

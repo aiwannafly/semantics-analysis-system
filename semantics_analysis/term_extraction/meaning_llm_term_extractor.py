@@ -1,6 +1,7 @@
 import json
 from typing import List, Optional, Dict, Tuple
 
+import nltk
 import spacy
 from rich.progress import Progress
 from tqdm import tqdm
@@ -66,6 +67,26 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
     def __call__(self, text: str, progress: Progress) -> List[ClassifiedTerm]:
 
+        sentences = nltk.tokenize.sent_tokenize(text)
+
+        if len(sentences) > 1:
+            all_terms = []
+            total = len(sentences)
+            sentences_task = progress.add_task(description=f'Sentence 0/{total}', total=total)
+
+            for idx, sent in enumerate(sentences):
+                try:
+                    all_terms.extend(self(sent, progress))
+                except Exception as e:
+                    progress.remove_task(sentences_task)
+                    raise e
+
+                progress.update(sentences_task, description=f'Sentence {idx + 1}/{total}', advance=1)
+
+            progress.remove_task(sentences_task)
+
+            return list(set(all_terms))
+
         phrases = self._extract_phrases(text)
 
         # print(phrases)
@@ -130,7 +151,7 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
         response = self.llm_agent(
             prompt,
-            max_new_tokens=20,
+            max_new_tokens=30,
             stop_sequences=['.', '(']
         ).replace('(', '').strip()
 

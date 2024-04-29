@@ -1,5 +1,6 @@
 import json
 
+from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModel
 import torch
 import torch.nn.functional as F
@@ -53,8 +54,20 @@ def main():
         terms_by_class = json.load(f)
     class_by_term = {}
 
-    with open('metadata/meaning_by_term.json', 'r', encoding='utf-8') as f:
-        vector_by_term = json.load(f)
+    try:
+        with open('metadata/meaning_by_term.json', 'r', encoding='utf-8') as f:
+            vector_by_term = json.load(f)
+    except IOError as _:
+
+        # file not found
+        vector_by_term = {}
+        for class_, terms in terms_by_class.items():
+
+            for term in tqdm(terms):
+                vector_by_term[term] = model.get_meaning(term).values
+
+        with open('metadata/meaning_by_term.json', 'w', encoding='utf-8') as wf:
+            json.dump(vector_by_term, wf, indent=2, ensure_ascii=False)
 
     for class_, terms in terms_by_class.items():
 

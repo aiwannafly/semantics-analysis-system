@@ -36,6 +36,9 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
         with open('prompts/define_term_class.txt', 'r', encoding='utf-8') as f:
             self.classification_prompt_template = f.read().strip()
 
+        with open('prompts/verify_term.txt', 'r', encoding='utf-8') as f:
+            self.verification_prompt_template = f.read().strip()
+
         with open('metadata/terms_by_class.json', 'r', encoding='utf-8') as f:
             terms_by_class = json.load(f)
 
@@ -122,11 +125,36 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
             class_, term = response
 
-            found_terms.append(ClassifiedTerm(class_, term, len(text), text))
+            try:
+                verified = self._verify_term(text, term, class_)
+            except Exception as e:
+                progress.remove_task(resolving)
+                raise e
+
+            if verified:
+                found_terms.append(ClassifiedTerm(class_, term, len(text), text))
 
         progress.remove_task(resolving)
 
         return list(set(found_terms))
+
+    def _verify_term(self, text: str, term: str, class_: str) -> bool:
+        desc = term_metadata_by_class[class_]['description']
+        class_name = term_metadata_by_class[class_]['name']
+
+        prompt = self.verification_prompt_template
+        prompt = prompt.replace('{class}', class_name)
+        prompt = prompt.replace('{description}', desc)
+        prompt = prompt.replace('{text}', text)
+        prompt = prompt.replace('{term}', term)
+
+        response = self.llm_agent(
+            prompt,
+            max_new_tokens=1,
+            stop_sequences=['.', '\n']
+        )
+
+        return 'да' in response.lower()
 
     def _resolve_class(self, text: str, term: str, examples_by_class: Dict[str, List[str]]) -> Optional[Tuple[str, str]]:
         class_descriptions = ''

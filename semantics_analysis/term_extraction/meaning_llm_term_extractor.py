@@ -2,7 +2,6 @@ import json
 from typing import List, Optional, Dict, Tuple
 
 import nltk
-import spacy
 from rich.progress import Progress
 from tqdm import tqdm
 
@@ -12,9 +11,8 @@ from semantics_analysis.meaning_model.meaning import Meaning
 from semantics_analysis.meaning_model.mpnet_meaning_model import MpnetMeaningModel
 from semantics_analysis.ontology_utils import term_metadata_by_class
 from semantics_analysis.term_extraction.classified_term_extractor import ClassifiedTermExtractor
+from semantics_analysis.term_extraction.phrase_extractor import PhraseExtractor
 
-
-CONSIDERED_POS = ['NOUN', 'ADJ', 'PROPN', 'X']
 MIN_SIMILARITY = 0.3
 EXAMPLES_PER_CLASS = 2
 MAX_CLASSES_IN_PROMPT = 6
@@ -28,8 +26,7 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
         else:
             self.llm_agent = LLMAgent(use_all_tokens=True)
 
-        self.nlp = spacy.load("ru_core_news_sm")
-        self.nlp.disable_pipes(["parser", "attribute_ruler", "lemmatizer"])
+        self.phrase_extractor = PhraseExtractor()
 
         self.meaning_model = MpnetMeaningModel()
 
@@ -90,7 +87,7 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
             return list(set(all_terms))
 
-        phrases = self._extract_phrases(text)
+        phrases = self.phrase_extractor(text)
 
         # print(phrases)
 
@@ -254,47 +251,6 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
         return {class_: sorted_examples_by_class[class_] for class_ in sorted_classes}
 
-    def _extract_phrases(self, text: str) -> List[str]:
-        doc = self.nlp(text)
-
-        found_phrases = []
-
-        curr_text = ''
-        curr_term = ''
-
-        adj_only = True
-        for token in doc:
-            remain_text = text[len(curr_text):]
-
-            if token.pos_ in CONSIDERED_POS:
-                is_under_term = True
-
-                if token.pos_ != 'ADJ':
-                    adj_only = False
-            else:
-                is_under_term = False
-
-                if curr_term:
-                    if not adj_only:
-                        found_phrases.append(curr_term.strip())
-
-                    curr_term = ''
-                    adj_only = True
-
-            for i in range(len(remain_text)):
-                curr_text += remain_text[i]
-
-                if is_under_term:
-                    curr_term += remain_text[i]
-
-                if curr_text.endswith(token.text):
-                    break
-
-        if curr_term and not adj_only:
-            found_phrases.append(curr_term.strip())
-
-        return found_phrases
-
 
 def main():
     extractor = MeaningLLMTermExtractor()
@@ -314,6 +270,7 @@ def main():
             print(f'{term.value} -> {term.class_}')
 
         print()
+
 
 if __name__ == '__main__':
     main()

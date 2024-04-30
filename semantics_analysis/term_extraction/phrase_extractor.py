@@ -235,14 +235,41 @@ class PhraseExtractor:
 
 
 def main():
+    # nlp = spacy.load("ru_core_news_sm")
+    # nlp.disable_pipes(["parser", "attribute_ruler", "lemmatizer"])
+    #
+    # text = "Мы использовали выбранный датасет"
+    #
+    # doc = nlp(text)
+    #
+    # for token in doc:
+    #     pos = token.pos_
+    #     cases = token.morph.get('Case')
+    #     numbers = token.morph.get('Number')
+    #
+    #     number = None if not numbers else numbers[0]
+    #
+    #     case = None if not cases else cases[0]
+    #
+    #     print(token.text, pos, case, number)
+
     extractor = PhraseExtractor()
 
-    text = 'Мы взяли enwik8 — аккуратно очищенные статьи Википедии на английском языке. Эти тексты мы прогнали через изучаемые модели, сохраняя все промежуточные активации (для каждого токена и с каждого слоя). Так мы получили «пространство эмбеддингов» или, другими словами, многомерное облако точек, с которым и стали дальше работать.'
+    # text = 'Мы взяли enwik8 — аккуратно очищенные статьи Википедии на английском языке. Эти тексты мы прогнали через изучаемые модели, сохраняя все промежуточные активации (для каждого токена и с каждого слоя). Так мы получили «пространство эмбеддингов» или, другими словами, многомерное облако точек, с которым и стали дальше работать.'
     # text = 'Мы использовали Tomita parser, в конечном итоге F1-мера составила 67,3%.'
 
-    phrases = extractor(text)
+    print('Press q to stop.')
 
-    print(phrases)
+    while True:
+
+        text = input('Enter text to find phrases: ').strip()
+
+        if text == 'q':
+            break
+
+        phrases = extractor(text)
+
+        print(phrases)
 
 
 if __name__ == '__main__':

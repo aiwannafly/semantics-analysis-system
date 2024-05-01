@@ -30,8 +30,11 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
         self.meaning_model = MpnetMeaningModel()
 
-        with open('prompts/define_term_class.txt', 'r', encoding='utf-8') as f:
-            self.classification_prompt_template = f.read().strip()
+        with open('prompts/classify_word.txt', 'r', encoding='utf-8') as f:
+            self.word_classification_prompt_template = f.read().strip()
+
+        with open('prompts/classify_phrase.txt', 'r', encoding='utf-8') as f:
+            self.phrase_classification_prompt_template = f.read().strip()
 
         with open('prompts/verify_term.txt', 'r', encoding='utf-8') as f:
             self.verification_prompt_template = f.read().strip()
@@ -133,7 +136,25 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
         progress.remove_task(resolving)
 
-        return list(set(found_terms))
+        sorted_terms = sorted(found_terms, key=lambda t: len(t.value))
+
+        filtered_terms = set()
+
+        for i in range(len(sorted_terms)):
+            smaller_term = sorted_terms[i]
+            is_part_of_bigger = False
+
+            for j in range(i + 1, len(sorted_terms)):
+                bigger_term = sorted_terms[j]
+
+                if smaller_term.class_ == bigger_term.class_ and smaller_term.value in bigger_term.value:
+                    is_part_of_bigger = True
+                    break
+
+            if not is_part_of_bigger:
+                filtered_terms.add(smaller_term)
+
+        return list(filtered_terms)
 
     def _verify_term(self, text: str, term: str, class_: str) -> bool:
         desc = term_metadata_by_class[class_]['description']
@@ -168,15 +189,19 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
         class_descriptions = class_descriptions.strip()
 
-        prompt = self.classification_prompt_template
-        prompt = prompt.replace('{context}', text)
+        if ' ' in term:
+            prompt = self.phrase_classification_prompt_template
+        else:
+            prompt = self.word_classification_prompt_template
+
+        prompt = prompt.replace('{text}', text)
         prompt = prompt.replace('{term}', term)
         prompt = prompt.replace('{class_descriptions}', class_descriptions)
         prompt = prompt.replace('{classes}', ', '.join(examples_by_class))
 
         response = self.llm_agent(
             prompt,
-            max_new_tokens=30,
+            max_new_tokens=6,
             stop_sequences=['.', '(']
         ).replace('(', '').strip()
 
@@ -190,22 +215,8 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
         while response.endswith('.'):
             response = response[:len(response) - 1]
 
-        response = response.replace('да\n', '').strip()
-
-        sep_idx = response.rfind(':')
-
-        if sep_idx == -1:
-            for class_ in examples_by_class:
-                if class_ in response:
-                    return class_, term
-            return None
-
-        term = response[sep_idx+1:].strip()
-
-        class_part = response[:sep_idx].strip()
-
         for class_ in examples_by_class:
-            if class_ in class_part:
+            if class_ in response:
                 return class_, term
 
         # failed to get correct response from LLM

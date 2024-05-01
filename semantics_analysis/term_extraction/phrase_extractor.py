@@ -150,8 +150,8 @@ class PhraseExtractor:
                         part_already_taken = True
                         break
 
-                if part_already_taken:
-                    continue
+                # if part_already_taken:
+                #     continue
 
                 matches = True
                 for rule_morph, text_morph in zip(rule_morphs, text_morphs):

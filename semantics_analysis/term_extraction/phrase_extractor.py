@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 import spacy
 from alphabet_detector import AlphabetDetector
@@ -122,8 +122,8 @@ class PhraseExtractor:
         self.rules = sorted(rules, key=len, reverse=True)
         self.ad = AlphabetDetector()
 
-    def __call__(self, text: str) -> List[str]:
-        found_phrases = []
+    def __call__(self, text: str) -> Dict[str, List[int]]:
+        found_phrases = {}
 
         doc = self.nlp(text)
 
@@ -179,20 +179,31 @@ class PhraseExtractor:
                         num, symbol = text_morphs[0].value, text_morphs[1].value
 
                         if f'{num} {symbol}' not in text:
-                            found_phrases.append(f'{num}{symbol}')
+                            value = f'{num}{symbol}'
                         else:
-                            found_phrases.append(f'{num} {symbol}')
+                            value = f'{num} {symbol}'
                     else:
-                        found_phrases.append(' '.join(t.value for t in text_morphs))
+                        value = ' '.join(t.value for t in text_morphs)
 
-        return found_phrases + self._find_english_phrases(doc)
+                    value = value.replace(' - ', '-')
+                    value = value.replace(' -', '-')
+                    value = value.replace('- ', '-')
+
+                    found_phrases[value] = list(range(i, i + rule_len))
+
+        eng_phrases = self._find_english_phrases(doc)
+
+        for p in eng_phrases:
+            found_phrases[p] = []
+
+        return found_phrases
 
     def _find_english_phrases(self, doc) -> List[str]:
         english_phrases = []
 
         curr_phrase = []
 
-        for token in doc:
+        for idx, token in enumerate(doc):
             if token.pos_ == UNKNOWN:
                 curr_phrase.append(token.text)
             elif curr_phrase:

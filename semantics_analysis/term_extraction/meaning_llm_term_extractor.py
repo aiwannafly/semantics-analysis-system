@@ -90,7 +90,9 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
             return list(set(all_terms))
 
-        phrases = self.phrase_extractor(text)
+        ids_by_phrase = self.phrase_extractor(text)
+
+        phrases = list(ids_by_phrase.keys())
 
         # print(phrases)
 
@@ -105,7 +107,7 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
         checked_phrases = set()
 
         for idx, phrase in enumerate(phrases):
-            if phrase in checked_phrases:
+            if phrase in checked_phrases or phrase.startswith('-') or phrase.endswith('-'):
                 continue
             else:
                 checked_phrases.add(phrase)
@@ -135,6 +137,54 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
                 found_terms.append(ClassifiedTerm(class_, term, len(text), text))
 
         progress.remove_task(resolving)
+
+        merged_terms = set()
+
+        for i in range(len(found_terms)):
+            for j in range(i + 1, len(found_terms)):
+                term1, term2 = found_terms[i], found_terms[j]
+
+                if term1.class_ != term2.class_:
+                    continue
+
+                ids1, ids2 = ids_by_phrase[term1.value], ids_by_phrase[term2.value]
+
+                intersection = [n for n in ids1 if n in ids2]
+
+                if not intersection:
+                    continue
+
+                if len(intersection) == len(ids1) or len(intersection) == len(ids2):
+                    continue
+
+                if ids2[0] < ids1[0]:
+                    term1, term2 = term2, term1
+                    ids1, ids2 = ids2, ids1
+
+                words1 = term1.value.split()
+                words2 = term2.value.split()
+
+                taken_ids = set()
+                words = words1 + words2
+
+                ids = ids1 + ids2
+
+                if len(words) != len(ids):
+                    continue
+
+                final_words = []
+                for idx, word in zip(ids, words):
+                    if idx in taken_ids:
+                        continue
+                    taken_ids.add(idx)
+                    final_words.append(word)
+
+                value = ' '.join(final_words)
+
+                merged_terms.add(ClassifiedTerm(term1.class_, value, len(text), text))
+
+        for t in merged_terms:
+            found_terms.append(t)
 
         sorted_terms = sorted(found_terms, key=lambda t: len(t.value))
 
@@ -206,8 +256,8 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
         ).replace('(', '').strip()
 
         # print(prompt)
-        # print(term)
-        # print(response)
+        print(term)
+        print(response)
 
         if response.startswith('нет'):
             return None

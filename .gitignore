@@ -1,5 +1,6 @@
 __pycache__
 .idea
+tests/scores*
 tests/last_stop.lock
 tests/*/
 *.html

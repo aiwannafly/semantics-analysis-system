@@ -109,7 +109,9 @@ rules = [
     Rule(Number(), Symbol()),
     Rule(Number()),
 
-    Rule(Noun())
+    Rule(Noun()),
+
+    Rule(Adjective())
 ]
 
 
@@ -246,23 +248,24 @@ class PhraseExtractor:
 
 
 def main():
-    # nlp = spacy.load("ru_core_news_sm")
-    # nlp.disable_pipes(["parser", "attribute_ruler", "lemmatizer"])
-    #
-    # text = "Мы использовали выбранный датасет"
-    #
-    # doc = nlp(text)
-    #
-    # for token in doc:
-    #     pos = token.pos_
-    #     cases = token.morph.get('Case')
-    #     numbers = token.morph.get('Number')
-    #
-    #     number = None if not numbers else numbers[0]
-    #
-    #     case = None if not cases else cases[0]
-    #
-    #     print(token.text, pos, case, number)
+    nlp = spacy.load("ru_core_news_sm")
+    nlp.disable_pipes(["parser", "attribute_ruler", "lemmatizer"])
+
+    text = "Модели Gemma можно использовать в коммерческих проектах."
+
+    doc = nlp(text)
+
+    for token in doc:
+        pos = token.pos_
+        cases = token.morph.get('Case')
+        numbers = token.morph.get('Number')
+
+        number = None if not numbers else numbers[0]
+
+        case = None if not cases else cases[0]
+
+        print(token.text, pos, case, number)
+    exit(0)
 
     extractor = PhraseExtractor()
 

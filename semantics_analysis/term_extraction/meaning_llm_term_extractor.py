@@ -10,6 +10,7 @@ from semantics_analysis.llm_agent import LLMAgent
 from semantics_analysis.meaning_model.meaning import Meaning
 from semantics_analysis.meaning_model.mpnet_meaning_model import MpnetMeaningModel
 from semantics_analysis.ontology_utils import term_metadata_by_class
+from semantics_analysis.term_classification.roberta_term_classifier import LABEL_LIST
 from semantics_analysis.term_extraction.classified_term_extractor import ClassifiedTermExtractor
 from semantics_analysis.term_extraction.phrase_extractor import PhraseExtractor
 
@@ -128,7 +129,7 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
             class_, term = response
 
             try:
-                verified = self._verify_term(text, term, class_)
+                verified = self.verify_term(text, term, class_)
             except Exception as e:
                 progress.remove_task(resolving)
                 raise e
@@ -206,15 +207,35 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
         return list(filtered_terms)
 
-    def _verify_term(self, text: str, term: str, class_: str) -> bool:
+    def verify_term(self, text: str, term: str, class_: str) -> bool:
         desc = term_metadata_by_class[class_]['description']
         class_name = term_metadata_by_class[class_]['name']
+
+        positive_list = ''
+        for positive_example in term_metadata_by_class[class_]['examples']['positive']:
+            p_value = positive_example['value']
+            p_desc = positive_example['description']
+
+            positive_list += f' - {p_value}: {p_desc}\n'
+
+        positive_list = positive_list.strip()
+
+        negative_list = ''
+        for negative_example in term_metadata_by_class[class_]['examples']['negative']:
+            p_value = negative_example['value']
+            p_desc = negative_example['description']
+
+            negative_list += f' - {p_value}: {p_desc}\n'
+
+        negative_list = negative_list.strip()
 
         prompt = self.verification_prompt_template
         prompt = prompt.replace('{class}', class_name)
         prompt = prompt.replace('{description}', desc)
         prompt = prompt.replace('{text}', text)
         prompt = prompt.replace('{term}', term)
+        prompt = prompt.replace('{positive}', positive_list)
+        prompt = prompt.replace('{negative}', negative_list)
 
         response = self.llm_agent(
             prompt,
@@ -252,14 +273,14 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
         response = self.llm_agent(
             prompt,
             max_new_tokens=6,
-            stop_sequences=['.', '(']
+            stop_sequences=['.', '(', 'не', '\n']
         ).replace('(', '').strip()
 
         # print(prompt)
-        print(term)
-        print(response)
+        # print(term)
+        # print(response)
 
-        if response.startswith('нет'):
+        if response.startswith('не'):
             return None
 
         while response.endswith('.'):

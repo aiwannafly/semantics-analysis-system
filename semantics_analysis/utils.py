@@ -121,21 +121,28 @@ def normalize_groups(groups: List[GroupedTerm]) -> List[GroupedTerm]:
 def normalize_term_values(
         groups: List[GroupedTerm],
         relations: List[Relation],
-        normalizer: TermNormalizer
+        normalizer: TermNormalizer,
+        progress: Progress
 ) -> Tuple[List[GroupedTerm], List[Relation]]:
 
     norm_groups = []
 
-    for group in groups:
+    total = len(groups)
+    normalize_terms = progress.add_task(description=f'Normalizing terms 0/{total}', total=total)
+    for idx, group in enumerate(groups):
         main = group.items[0]
 
         others = group.items[1:]
 
         norm_value = normalizer(main.value)
 
+        progress.update(normalize_terms, description=f'Normalizing terms {idx+1}/{total}', advance=1)
+
         main = ClassifiedTerm(main.class_, norm_value, main.end_pos, main.text)
 
         norm_groups.append(GroupedTerm(main.class_, [main] + others))
+
+    progress.remove_task(normalize_terms)
 
     norm_relations = []
 

@@ -109,6 +109,7 @@ def analyze_text(
             terms = terms_by_sent_idx[sent_idx]
 
             for term in terms:
+                term.text = sent
                 term.start_pos -= text_offset
                 term.end_pos -= text_offset
 
@@ -157,7 +158,13 @@ def analyze_text(
 
             found_relations = [r for r in relations]
 
-    grouped_terms, found_relations = normalize_term_values(grouped_terms, found_relations, term_normalizer)
+    with Progress() as progress:
+        grouped_terms, found_relations = normalize_term_values(
+            grouped_terms,
+            found_relations,
+            term_normalizer,
+            progress
+        )
 
     objects, ont_relations = convert_to_ont_entities(grouped_terms, found_relations)
 

@@ -43,9 +43,10 @@ class RobertaTermClassifier(TermClassifier):
         label2id=label2id
     )
 
-    def __init__(self, device: str):
+    def __init__(self, device: str, threshold: float = THRESHOLD):
         self.device = device
         self.model.to(device)
+        self.threshold = threshold
 
     def __call__(
             self,
@@ -65,7 +66,7 @@ class RobertaTermClassifier(TermClassifier):
 
             predictions[term] = [(class_, p.item()) for class_, p in zip(LABEL_LIST, probs)]
 
-            if max(probs) < THRESHOLD:
+            if max(probs) < self.threshold:
                 continue
 
             idx = outputs.logits.argmax(dim=1)[0].item()

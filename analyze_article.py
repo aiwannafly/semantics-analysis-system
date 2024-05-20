@@ -2,10 +2,7 @@ import json
 import sys
 from typing import List, Tuple, Dict, Optional
 
-import inquirer
 import nltk
-from colorama import Style
-from colorama import init as colorama_init
 from rich.progress import Progress
 
 from ontology_entities import convert_to_ont_entities
@@ -21,6 +18,7 @@ from semantics_analysis.term_classification.hybrid_term_classifier import Hybrid
 from semantics_analysis.term_classification.roberta_term_classifier import RobertaTermClassifier
 from semantics_analysis.term_classification.dict_term_classifier import DictTermClassifier
 from semantics_analysis.term_classification.term_classifier import TermClassifier
+from semantics_analysis.term_classification.verified_term_classifier import VerifiedTermClassifier
 from semantics_analysis.term_extraction.roberta_term_extractor import RobertaTermExtractor
 from semantics_analysis.term_extraction.term_extractor import TermExtractor
 from semantics_analysis.term_normalization.llm_term_normalizer import LLMTermNormalizer
@@ -29,8 +27,7 @@ from semantics_analysis.term_post_processing.computer_science_term_post_processo
     ComputerScienceTermPostProcessor
 from semantics_analysis.term_post_processing.merge_close_term_post_processor import MergeCloseTermPostProcessor
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
-from semantics_analysis.utils import log_class_predictions, log_grouped_terms, log_labeled_terms, log_extracted_terms, \
-    log_found_relations, union_groups, normalize_relations, normalize_groups, normalize_term_values
+from semantics_analysis.utils import union_groups, normalize_relations, normalize_groups, normalize_term_values
 
 
 class Result:
@@ -104,6 +101,7 @@ def analyze_paragraph(
         terms = terms_by_sent_idx[sent_idx]
 
         for term in terms:
+            term.text = sent
             term.start_pos -= text_offset
             term.end_pos -= text_offset
 
@@ -113,8 +111,10 @@ def analyze_paragraph(
             sent_labeled_terms = term_postprocessor(sent_labeled_terms)
 
         for term in sent_labeled_terms:
+            term.text = text
             term.start_pos += text_offset
             term.end_pos += text_offset
+
             labeled_terms.append(term)
 
         text_offset += len(sent) + 1
@@ -164,9 +164,12 @@ def analyze_article(
     with Progress() as progress:
         paragraph_task = progress.add_task(description=f'Paragraph 0/{len(doc.paragraphs)}', total=len(doc.paragraphs))
         count = 1
-        for p in doc.paragraphs:
+
+        term_classifier = VerifiedTermClassifier(base_classifier=term_classifier, progress=progress)
+
+        for paragraph in doc.paragraphs:
             p_result = analyze_paragraph(
-                p,
+                paragraph,
                 term_extractor,
                 term_classifier,
                 reference_resolver,
@@ -183,13 +186,18 @@ def analyze_article(
 
         progress.remove_task(paragraph_task)
 
-    # we need to union term groups from different paragraphs
-    result.terms = union_groups(result.terms)
-    result.relations = normalize_relations(result.terms, result.relations)
-    result.terms = normalize_groups(result.terms)
+        # we need to union term groups from different paragraphs
+        result.terms = union_groups(result.terms)
+        result.relations = normalize_relations(result.terms, result.relations)
+        result.terms = normalize_groups(result.terms)
 
-    print('Normalizing terms...')
-    result.terms, result.relations = normalize_term_values(result.terms, result.relations, term_normalizer)
+        print('Normalizing terms...')
+        result.terms, result.relations = normalize_term_values(
+            result.terms,
+            result.relations,
+            term_normalizer,
+            progress
+        )
 
     return result
 
@@ -210,15 +218,13 @@ def main():
         MergeCloseTermPostProcessor()
     ]
 
-    roberta_term_classifier = RobertaTermClassifier(app_config.device)
-
     if app_config.use_dict:
         term_classifier = HybridTermClassifier(
             DictTermClassifier('metadata/terms_by_class.json'),
-            roberta_term_classifier
+            RobertaTermClassifier(app_config.device, threshold=0.1)
         )
     else:
-        term_classifier = roberta_term_classifier
+        term_classifier = RobertaTermClassifier(app_config.device, threshold=0.1)
 
     relation_extractor = LLMRelationExtractor(
         model=app_config.llm,

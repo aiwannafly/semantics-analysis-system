@@ -1,7 +1,13 @@
 from typing import Optional
 
+import spacy
+
 from semantics_analysis.llm_agent import LLMAgent
 from semantics_analysis.term_normalization.term_normalizer import TermNormalizer
+
+
+NON_LEADING_POS = {'ADV', 'ADP', 'CCONJ', 'PUNCT'}
+NON_TRAILING_POS = {'VERB', 'ADV', 'ADP', 'CCONJ', 'PUNCT'}
 
 
 class LLMTermNormalizer(TermNormalizer):
@@ -17,6 +23,9 @@ class LLMTermNormalizer(TermNormalizer):
         with open('prompts/normalization.txt', 'r', encoding='utf-8') as f:
             self.prompt_template = f.read()
 
+        self.nlp = spacy.load("ru_core_news_sm")
+        self.nlp.disable_pipes(["parser", "attribute_ruler", "lemmatizer"])
+
     def __call__(self, term: str) -> str:
         if not term:
             return term
@@ -25,6 +34,25 @@ class LLMTermNormalizer(TermNormalizer):
 
         if cached_result is not None:
             return cached_result
+
+        pos_tags = [token.pos_ for token in self.nlp(term)]
+
+        if not pos_tags:
+            return term
+
+        while pos_tags and pos_tags[0] in NON_LEADING_POS:
+            pos_tags.pop(0)
+            term = term[term.find(' '):].strip()
+
+        if not pos_tags:
+            return term
+
+        while pos_tags and pos_tags[-1] in NON_TRAILING_POS:
+            pos_tags.pop()
+            term = term[:term.rfind(' ')].strip()
+
+        if not pos_tags:
+            return term
 
         prompt = self.prompt_template.replace('{input}', term)
 

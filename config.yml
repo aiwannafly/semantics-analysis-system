@@ -1,8 +1,8 @@
 app-config:
   use-dict: true
   device: 'cpu'
-  display-graph: false
-  show-term-predictions: true
+  display-graph: true
+  show-term-predictions: false
   show-class-predictions: false
   llm: 'mistralai/Mixtral-8x7B-Instruct-v0.1'
   huggingface-hub-token: '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'

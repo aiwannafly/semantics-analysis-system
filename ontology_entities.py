@@ -281,7 +281,8 @@ def convert_to_ont_entities(
                 term.value,
                 term.class_,
                 detect_lang(term.value, ad),
-                attrs)
+                attrs
+            )
         )
 
         id_by_term[term] = curr_obj_id

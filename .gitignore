@@ -7,3 +7,6 @@ examples
 lib
 ont_entities.json
 metadata/meaning_by_term.json
+calc_class_predictions.py
+calc_term_rel_scores.py
+fillup_dict.py

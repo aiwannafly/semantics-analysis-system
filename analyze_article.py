@@ -3,6 +3,8 @@ import sys
 from typing import List, Tuple, Dict, Optional
 
 import nltk
+from rich.theme import Theme
+from rich.console import Console
 from rich.progress import Progress
 
 from ontology_entities import convert_to_ont_entities
@@ -161,7 +163,10 @@ def analyze_article(
     if len(doc.paragraphs) == 0:
         return result
 
-    with Progress() as progress:
+    custom_theme = Theme({"bar.complete": "rgb(89,128,227)"})
+    console = Console(theme=custom_theme)
+
+    with Progress(console=console) as progress:
         paragraph_task = progress.add_task(description=f'Paragraph 0/{len(doc.paragraphs)}', total=len(doc.paragraphs))
         count = 1
 

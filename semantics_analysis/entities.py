@@ -1,31 +1,24 @@
 import json
-from typing import Dict, List, Optional, Any
-from pymorphy3 import MorphAnalyzer
+from typing import Dict, List, Optional, Any, TypeVar, Generic, Iterator
 
 
-ru_morph = MorphAnalyzer(lang='ru')
-
-
-class Term:
+class TermMention:
     def __init__(
             self,
             value: str,
+            ontology_class: str,
             end_pos: int,
-            text: str
+            text: str,
+            norm_value: Optional[str] = None,
+            source: str = 'roberta'
     ):
         self.value = value
+        self.class_ = ontology_class
         self.start_pos = end_pos - len(value)
         self.end_pos = end_pos
         self.text = text
-
-    def __repr__(self):
-        return f'Term(value={self.value}, start_pos={self.start_pos}, end_pos={self.end_pos})'
-
-    def __eq__(self, other):
-        if isinstance(other, Term):
-            return other.value == self.value and other.start_pos == self.start_pos
-
-        return False
+        self.norm_value = norm_value
+        self.source = source
 
     def to_json(self):
         return {
@@ -33,33 +26,48 @@ class Term:
             'start_pos': self.start_pos
         }
 
+    def __repr__(self):
+        return f'TermMention(value={self.value}, start_pos={self.start_pos}, end_pos={self.end_pos})'
+
+    def __eq__(self, other):
+        if not isinstance(other, TermMention):
+            return False
+
+        return other.value == self.value and other.start_pos == self.start_pos and self.text == other.text
+
     def __hash__(self):
-        return hash((self.value, self.start_pos))
+        return hash((self.value, self.start_pos, self.text))
 
 
-class ClassifiedTerm(Term):
-
+class Term:
     def __init__(
             self,
-            term_class: str,
+            ontology_class: str,
             value: str,
-            end_pos: int,
-            text: str,
-            source: str = 'model'
+            mentions: List[TermMention],
+            source: str = 'roberta'
     ):
-        super().__init__(value, end_pos, text)
-        self.class_ = term_class
+        self.value = value
+        self.class_ = ontology_class
         self.source = source
+        self.mentions = []
 
-    @classmethod
-    def from_term(cls, term_class: str, term: Term, source: str = 'model'):
-        return cls(term_class, term.value, term.end_pos, term.text, source)
+        prev_mentions = set()
+
+        for mention in mentions:
+            lower = mention.norm_value.lower()
+
+            if lower in prev_mentions:
+                continue
+
+            prev_mentions.add(lower)
+            self.mentions.append(mention)
 
     def to_json(self):
         return {
             'class': self.class_,
             'value': self.value,
-            'start_pos': self.start_pos
+            'mentions': [m.to_json() for m in self.mentions]
         }
 
     @staticmethod
@@ -70,74 +78,23 @@ class ClassifiedTerm(Term):
 
         end_pos = start_pos + len(value)
 
-        return ClassifiedTerm(class_, value, end_pos, text)
+        return Term(class_, value, mentions=[TermMention(value, class_, end_pos, text)])
 
     def __repr__(self):
-        return f'ClassifiedTerm(class={self.class_}, value={self.value}, start_pos={self.start_pos}, source={self.source})'
+        return f'Term(class={self.class_}, value={self.value}, source={self.source})'
 
     def __eq__(self, other):
-        if isinstance(other, ClassifiedTerm):
-            return other.class_ == self.class_ and other.value == self.value
+        if not isinstance(other, Term):
+            return False
 
-        return False
+        return other.class_ == self.class_ and other.value == self.value
 
     def __hash__(self):
         return hash((self.class_, self.value))
 
 
-class GroupedTerm:
-    def __init__(self, class_name: str, terms: List[ClassifiedTerm], normalize: bool = True):
-        if not terms:
-            raise ValueError('Terms must be non-empty.')
-
-        self.class_ = class_name
-
-        if not normalize:
-            self.items = terms
-            return
-
-        self.items = []
-
-        values = set()
-        for term in terms:
-            if ' ' in term.value or not normalize:
-                value = term.value
-            else:
-                value = ru_morph.parse(term.value)[0].normal_form
-
-            if value in values:
-                continue
-            values.add(value)
-
-            if term.value.lower() == value:
-                value = term.value
-            elif term.value.istitle():
-                value = value[:1].upper() + value[1:]
-
-            term.value = value
-            self.items.append(term)
-
-    def size(self) -> int:
-        return len(self.items)
-
-    def as_single(self) -> ClassifiedTerm:
-        return self.items[0]
-
-    def __repr__(self):
-        return f'GroupedTerm(class={self.class_}, terms={self.items})'
-
-    def __eq__(self, other):
-        if isinstance(other, GroupedTerm):
-            return other.class_ == self.class_ and other.items == self.items
-
-        return False
-
-    def __hash__(self):
-        return hash((self.class_, tuple(self.items)))
-
-
 class Relation:
-    def __init__(self, term1: ClassifiedTerm, predicate: str, term2: ClassifiedTerm):
+    def __init__(self, term1: Term, predicate: str, term2: Term):
         self.term1 = term1
         self.term2 = term2
         self.predicate = predicate
@@ -173,8 +130,8 @@ class Relation:
 
     @staticmethod
     def from_json(rel_json: Dict[str, Any], text: str = ''):
-        term1 = ClassifiedTerm.from_json(rel_json['term1'], text)
-        term2 = ClassifiedTerm.from_json(rel_json['term2'], text)
+        term1 = Term.from_json(rel_json['term1'], text)
+        term2 = Term.from_json(rel_json['term2'], text)
 
         return Relation(
             term1=term1,
@@ -187,7 +144,7 @@ class Sentence:
     def __init__(self,
                  sent_id: int,
                  text: str,
-                 terms: List[ClassifiedTerm],
+                 terms: List[Term],
                  relations: List[Relation]):
         self.id = sent_id
         self.text = text
@@ -222,7 +179,7 @@ class Sentence:
     def from_json(sent_json: Dict[str, Any]):
         text = sent_json['text']
         id = sent_json['id']
-        terms = [ClassifiedTerm.from_json(t, text) for t in sent_json['terms']]
+        terms = [Term.from_json(t, text) for t in sent_json['terms']]
         relations = [Relation.from_json(r, text) for r in sent_json['relations']]
         return Sentence(id, text, terms, relations)
 
@@ -238,3 +195,15 @@ def read_sentences(file_name: str) -> List[Sentence]:
         sentences_json = json.load(f)
 
         return [Sentence.from_json(s) for s in sentences_json['sentences']]
+
+
+GenType = TypeVar('GenType')
+
+
+class BoundedIterator(Generic[GenType]):
+    total: int
+    items: Iterator[GenType]
+
+    def __init__(self, total: int, items: Iterator[GenType]):
+        self.total = total
+        self.items = items

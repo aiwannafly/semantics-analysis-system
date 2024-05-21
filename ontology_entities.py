@@ -2,7 +2,7 @@ import json
 import re
 from typing import Dict, List, Any, Set, Tuple
 
-from semantics_analysis.entities import Relation, GroupedTerm, ClassifiedTerm
+from semantics_analysis.entities import Relation, Term
 from alphabet_detector import AlphabetDetector
 
 from semantics_analysis.llm_agent import LLMAgent
@@ -148,15 +148,15 @@ def detect_lang(value: str, ad: AlphabetDetector) -> str:
 
 
 def term_to_attribute(
-        term: ClassifiedTerm,
+        term: Term,
         ad: AlphabetDetector
 ) -> Attribute:
     return Attribute(term.class_, term.value, detect_lang(term.value, ad))
 
 
 def add_person_attrs(
-        terms: Set[ClassifiedTerm],
-        attrs_by_term: Dict[ClassifiedTerm, List[Attribute]],
+        terms: Set[Term],
+        attrs_by_term: Dict[Term, List[Attribute]],
         ad: AlphabetDetector
 ):
     persons = [t for t in terms if t.class_ == 'Person']
@@ -173,8 +173,8 @@ def add_person_attrs(
         lang = detect_lang(person.value, ad)
 
         prompt = prompt_template.replace('{lang}', lang)
-        prompt = prompt.replace('{context}', person.text)
-        prompt = prompt.replace('{input}', person.value)
+        prompt = prompt.replace('{context}', person.mentions[0].text)
+        prompt = prompt.replace('{input}', person.mentions[0].value)
 
         response = llm_agent(prompt, max_new_tokens=20, stop_sequences=['.', 'Персона:', '```', '('])
 
@@ -202,18 +202,18 @@ def add_person_attrs(
 
 
 def convert_to_ont_entities(
-        groups: List[GroupedTerm],
+        terms: List[Term],
         relations: List[Relation]
 ) -> Tuple[List[Object], List[OntRelation]]:
     ad = AlphabetDetector()
 
     # consider only those terms that are in a relation
 
-    considered_terms: Set[ClassifiedTerm] = set()
+    considered_terms: Set[Term] = set()
 
     considered_relations: Set[Relation] = set()
 
-    attrs_by_term: Dict[ClassifiedTerm, List[Attribute]] = dict()
+    attrs_by_term: Dict[Term, List[Attribute]] = dict()
 
     for rel in relations:
         term1, term2 = rel.term1, rel.term2
@@ -247,19 +247,15 @@ def convert_to_ont_entities(
     # we should also consider Alternative Name attribute
     # there can be group intersecting each other, we should unite them
 
-    considered_groups = [g for g in groups if len(g.items) >= 2]
+    considered_term_mentions = [term for term in terms if len(term.mentions) >= 2]
 
-    for group in considered_groups:
-        term = group.items[0]
-
-        alt_name_attrs = [Attribute('Alternative Name', t.value, detect_lang(t.value, ad)) for t in group.items[1:]]
+    for term in considered_term_mentions:
+        alt_name_attrs = [Attribute('Alternative Name', t.value, detect_lang(t.value, ad)) for t in term.mentions[1:]]
 
         if term in attrs_by_term:
             attrs_by_term[term].extend(alt_name_attrs)
         else:
             attrs_by_term[term] = alt_name_attrs
-
-        considered_terms.add(term)
 
     # we should also add names and surnames as attrs for persons
     add_person_attrs(considered_terms, attrs_by_term, ad)
@@ -270,7 +266,7 @@ def convert_to_ont_entities(
 
     objects: List[Object] = []
 
-    id_by_term: Dict[ClassifiedTerm, int] = dict()
+    id_by_term: Dict[Term, int] = dict()
 
     for term in considered_terms:
         attrs = attrs_by_term.get(term, [])

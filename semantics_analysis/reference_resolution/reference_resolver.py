@@ -1,13 +1,11 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from rich.progress import Progress
-
-from semantics_analysis.entities import ClassifiedTerm, GroupedTerm
+from semantics_analysis.entities import TermMention, Term
 
 
 class ReferenceResolver(ABC):
 
     @abstractmethod
-    def __call__(self, terms: List[ClassifiedTerm], text: str, progress: Progress, normalize: bool = True) -> List[GroupedTerm]:
+    def __call__(self, terms: List[TermMention], text: str) -> List[Term]:
         raise NotImplemented()

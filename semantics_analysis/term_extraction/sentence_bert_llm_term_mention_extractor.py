@@ -5,27 +5,28 @@ import nltk
 from rich.progress import Progress
 from tqdm import tqdm
 
-from semantics_analysis.entities import ClassifiedTerm
+from semantics_analysis.entities import TermMention
 from semantics_analysis.llm_agent import LLMAgent
 from semantics_analysis.meaning_model.meaning import Meaning
 from semantics_analysis.meaning_model.mpnet_meaning_model import MpnetMeaningModel
 from semantics_analysis.ontology_utils import term_metadata_by_class
-from semantics_analysis.term_classification.roberta_term_classifier import LABEL_LIST
-from semantics_analysis.term_extraction.classified_term_extractor import ClassifiedTermExtractor
-from semantics_analysis.term_extraction.phrase_extractor import PhraseExtractor
+from semantics_analysis.phrase_extractor import PhraseExtractor
+from semantics_analysis.term_extraction.llm_term_verifier import LLMTermVerifier
 
 MIN_SIMILARITY = 0.3
 EXAMPLES_PER_CLASS = 2
 MAX_CLASSES_IN_PROMPT = 6
 
 
-class MeaningLLMTermExtractor(ClassifiedTermExtractor):
+class SentenceBERTLLMTermExtractor:
 
     def __init__(self, llm_agent: Optional[LLMAgent] = None):
         if llm_agent:
             self.llm_agent = llm_agent
         else:
             self.llm_agent = LLMAgent(use_all_tokens=True)
+
+        self.term_verifier = LLMTermVerifier(llm_agent)
 
         self.phrase_extractor = PhraseExtractor()
 
@@ -36,9 +37,6 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
         with open('prompts/classify_phrase.txt', 'r', encoding='utf-8') as f:
             self.phrase_classification_prompt_template = f.read().strip()
-
-        with open('prompts/verify_term.txt', 'r', encoding='utf-8') as f:
-            self.verification_prompt_template = f.read().strip()
 
         with open('metadata/terms_by_class.json', 'r', encoding='utf-8') as f:
             terms_by_class = json.load(f)
@@ -69,7 +67,7 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
         for term, vector in vector_by_term.items():
             self.meaning_by_term[term] = Meaning(term, vector)
 
-    def __call__(self, text: str, progress: Progress) -> List[ClassifiedTerm]:
+    def __call__(self, text: str, progress: Progress) -> List[TermMention]:
 
         sentences = nltk.tokenize.sent_tokenize(text)
 
@@ -129,13 +127,13 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
             class_, term = response
 
             try:
-                verified = self.verify_term(text, term, class_)
+                verified = self.term_verifier(term, class_, text)
             except Exception as e:
                 progress.remove_task(resolving)
                 raise e
 
             if verified:
-                found_terms.append(ClassifiedTerm(class_, term, len(text), text))
+                found_terms.append(TermMention(class_, term, len(text), text))
 
         progress.remove_task(resolving)
 
@@ -182,7 +180,7 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
                 value = ' '.join(final_words)
 
-                merged_terms.add(ClassifiedTerm(term1.class_, value, len(text), text))
+                merged_terms.add(TermMention(term1.class_, value, len(text), text))
 
         for t in merged_terms:
             found_terms.append(t)
@@ -206,44 +204,6 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
                 filtered_terms.add(smaller_term)
 
         return list(filtered_terms)
-
-    def verify_term(self, text: str, term: str, class_: str) -> bool:
-        desc = term_metadata_by_class[class_]['description']
-        class_name = term_metadata_by_class[class_]['name']
-
-        positive_list = ''
-        for positive_example in term_metadata_by_class[class_]['examples']['positive']:
-            p_value = positive_example['value']
-            p_desc = positive_example['description']
-
-            positive_list += f' - {p_value}: {p_desc}\n'
-
-        positive_list = positive_list.strip()
-
-        negative_list = ''
-        for negative_example in term_metadata_by_class[class_]['examples']['negative']:
-            p_value = negative_example['value']
-            p_desc = negative_example['description']
-
-            negative_list += f' - {p_value}: {p_desc}\n'
-
-        negative_list = negative_list.strip()
-
-        prompt = self.verification_prompt_template
-        prompt = prompt.replace('{class}', class_name)
-        prompt = prompt.replace('{description}', desc)
-        prompt = prompt.replace('{text}', text)
-        prompt = prompt.replace('{term}', term)
-        prompt = prompt.replace('{positive}', positive_list)
-        prompt = prompt.replace('{negative}', negative_list)
-
-        response = self.llm_agent(
-            prompt,
-            max_new_tokens=1,
-            stop_sequences=['.', '\n']
-        )
-
-        return 'да' in response.lower()
 
     def _resolve_class(self, text: str, term: str, examples_by_class: Dict[str, List[str]]) -> Optional[Tuple[str, str]]:
         class_descriptions = ''
@@ -335,7 +295,7 @@ class MeaningLLMTermExtractor(ClassifiedTermExtractor):
 
 
 def main():
-    extractor = MeaningLLMTermExtractor()
+    extractor = SentenceBERTLLMTermExtractor()
 
     print('Press q to stop.')
 

@@ -5,7 +5,7 @@ import conllu
 import os
 from conllu import TokenList
 
-from semantics_analysis.entities import ClassifiedTerm, Relation, Sentence
+from semantics_analysis.entities import Term, Relation, Sentence
 
 
 def preprocess_label(label_: str) -> str:
@@ -36,13 +36,13 @@ def parse_sentence(sent_bio: TokenList) -> Sentence:
             is_under_term = True
 
             if curr_term:
-                terms.append(ClassifiedTerm(term_class=curr_label, value=curr_term.strip(), text=text, end_pos=len(curr_text)))
+                terms.append(Term(ontology_class=curr_label, value=curr_term.strip(), text=text, end_pos=len(curr_text)))
                 curr_term = ''
             curr_label = preprocess_label(label[2:])
         elif label == 'O':
             is_under_term = False
             if curr_term:
-                terms.append(ClassifiedTerm(term_class=curr_label, value=curr_term.strip(), text=text, end_pos=len(curr_text)))
+                terms.append(Term(ontology_class=curr_label, value=curr_term.strip(), text=text, end_pos=len(curr_text)))
                 curr_term = ''
 
         for i in range(len(remain_text)):
@@ -55,7 +55,7 @@ def parse_sentence(sent_bio: TokenList) -> Sentence:
                 break
 
     if curr_term:
-        terms.append(ClassifiedTerm(term_class=curr_label, value=curr_term.strip(), text=text, end_pos=len(curr_text)))
+        terms.append(Term(ontology_class=curr_label, value=curr_term.strip(), text=text, end_pos=len(curr_text)))
 
     cleared_terms = []
 

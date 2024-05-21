@@ -133,8 +133,6 @@ class PhraseExtractor:
 
         morphs_len = len(found_morphs)
 
-        already_taken = [False] * morphs_len
-
         for rule in self.rules:
             rule_len = len(rule.morphs)
             rule_morphs = rule.morphs
@@ -144,16 +142,6 @@ class PhraseExtractor:
 
                 if None in text_morphs:
                     continue
-
-                part_already_taken = False
-
-                for j in range(i, i + rule_len):
-                    if already_taken[j]:
-                        part_already_taken = True
-                        break
-
-                # if part_already_taken:
-                #     continue
 
                 matches = True
                 for rule_morph, text_morph in zip(rule_morphs, text_morphs):
@@ -174,9 +162,6 @@ class PhraseExtractor:
                         break
 
                 if matches:
-                    for j in range(i, i + rule_len):
-                        already_taken[j] = True
-
                     if rule_len == 2 and rule_morphs[1].pos == SYMBOL:
                         num, symbol = text_morphs[0].value, text_morphs[1].value
 
@@ -251,7 +236,7 @@ def main():
     nlp = spacy.load("ru_core_news_sm")
     nlp.disable_pipes(["parser", "attribute_ruler", "lemmatizer"])
 
-    text = "Модели Gemma можно использовать в коммерческих проектах."
+    text = "Мы учтем это в будущем"
 
     doc = nlp(text)
 
@@ -265,7 +250,6 @@ def main():
         case = None if not cases else cases[0]
 
         print(token.text, pos, case, number)
-    exit(0)
 
     extractor = PhraseExtractor()
 

@@ -1,19 +1,19 @@
 from typing import List
 
-from semantics_analysis.entities import ClassifiedTerm
+from semantics_analysis.entities import Term, TermMention
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 
 
 #  The postprocessor merges terms with the same class that stand right close to each other.
-class MergeCloseTermPostProcessor(TermPostProcessor):
+class MergeCloseTerms(TermPostProcessor):
 
-    def __call__(self, terms: List[ClassifiedTerm]) -> List[ClassifiedTerm]:
+    def __call__(self, terms: List[TermMention]) -> List[TermMention]:
         if not terms:
             return []
 
         orig_count = len(terms)
 
-        terms: List[ClassifiedTerm] = sorted(terms, key=lambda t: t.end_pos)
+        terms: List[TermMention] = sorted(terms, key=lambda t: t.end_pos)
 
         processed_terms = []
 
@@ -31,19 +31,19 @@ class MergeCloseTermPostProcessor(TermPostProcessor):
                 continue
 
             if term.end_pos == next_term.start_pos:
-                processed_terms.append(ClassifiedTerm(
+                processed_terms.append(TermMention(
                     value=term.value + next_term.value,
                     end_pos=next_term.end_pos,
-                    term_class=term.class_,
+                    ontology_class=term.class_,
                     text=term.text
                 ))
                 merged_prev_term = True
             elif term.end_pos + 1 == next_term.start_pos:
                 merge_symbol = term.text[term.end_pos]
-                processed_terms.append(ClassifiedTerm(
+                processed_terms.append(TermMention(
                     value=term.value + merge_symbol + next_term.value,
                     end_pos=next_term.end_pos,
-                    term_class=term.class_,
+                    ontology_class=term.class_,
                     text=term.text
                 ))
                 merged_prev_term = True

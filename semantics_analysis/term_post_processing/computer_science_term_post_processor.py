@@ -1,6 +1,6 @@
 from typing import List
 
-from semantics_analysis.entities import ClassifiedTerm
+from semantics_analysis.entities import TermMention
 from semantics_analysis.term_post_processing.term_post_processor import TermPostProcessor
 
 OS_NAMES = ['macOS', 'Linux', 'ChromeOS', 'Android', 'IOS', 'Unix',
@@ -19,10 +19,10 @@ PROGRAMMING_LANGUAGES = [
 ]
 
 
-class ComputerScienceTermPostProcessor(TermPostProcessor):
+class ResolveLibraries(TermPostProcessor):
     environment_terms = set([t.lower() for t in OS_NAMES + PROGRAMMING_LANGUAGES])
 
-    def __call__(self, terms: List[ClassifiedTerm]) -> List[ClassifiedTerm]:
+    def __call__(self, terms: List[TermMention]) -> List[TermMention]:
         processed_terms = []
 
         # some environment terms actually have 'Library' class
@@ -34,9 +34,9 @@ class ComputerScienceTermPostProcessor(TermPostProcessor):
             if term.value.lower() in self.environment_terms:
                 processed_terms.append(term)
             else:
-                processed_terms.append(ClassifiedTerm(
+                processed_terms.append(TermMention(
                     value=term.value,
-                    term_class='Library',
+                    ontology_class='Library',
                     end_pos=term.end_pos,
                     text=term.text
                 ))

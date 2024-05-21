@@ -2,7 +2,7 @@ from typing import List
 
 from rich.progress import Progress
 
-from semantics_analysis.entities import ClassifiedTerm, GroupedTerm
+from semantics_analysis.entities import Term, TermMention
 from semantics_analysis.llm_agent import LLMAgent
 from semantics_analysis.ontology_utils import attribute_classes
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
@@ -12,51 +12,55 @@ from semantics_analysis.utils import log
 class LLMReferenceResolver(ReferenceResolver):
 
     def __init__(self,
-                 huggingface_hub_token: str,
-                 model: str = 'mistralai/Mistral-7B-Instruct-v0.2',
+                 progress: Progress,
+                 model: str = 'mistralai/Mixtral-8x7B-Instruct-v0.1',
                  show_explanation: bool = False,
                  log_prompts: bool = False,
                  log_llm_responses: bool = False,
                  use_all_tokens: bool = False):
-        with open('prompts/synonyms.txt', 'r', encoding='utf-8') as f:
+        with open('prompts/resolve_reference.txt', 'r', encoding='utf-8') as f:
             self.check_synonyms_prompt_template = f.read().strip()
 
         self.model = model
         self.llm_agent = LLMAgent(
             model=model,
-            use_all_tokens=use_all_tokens,
-            huggingface_hub_token=huggingface_hub_token
+            use_all_tokens=use_all_tokens
         )
         self.show_explanation = show_explanation
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
         self.use_all_tokens = use_all_tokens
         self.token_idx = 0
+        self.progress = progress
 
-    def __call__(self, terms: List[ClassifiedTerm], text: str, progress: Progress, normalize: bool = True) -> List[GroupedTerm]:
-        terms_by_class = {term.class_ : [] for term in terms}
+    def __call__(self, term_mentions: List[TermMention], text: str) -> List[Term]:
+        term_mentions_by_class = {term.class_ : [] for term in term_mentions}
 
-        for term in terms:
-            terms_by_class[term.class_].append(term)
+        for term in term_mentions:
+            term_mentions_by_class[term.class_].append(term)
 
-        grouped_terms = []
-        for class_, terms in terms_by_class.items():
+        terms = []
+        for class_, term_mentions in term_mentions_by_class.items():
             group_by_term = {}
 
             curr_group_id = 0
 
             if class_ in attribute_classes:  # these classes should not have grouping
-                grouped_terms.extend([GroupedTerm(class_, [t], normalize) for t in terms if t not in group_by_term])
+                terms.extend([
+                    Term(class_, mention.norm_value if mention.norm_value else mention.value, mentions=[mention])
+
+                    for mention in term_mentions if mention not in group_by_term
+                ])
                 continue
 
-            total = sum((k - 1) for k in range(2, len(terms) + 1))
+            total = sum((k - 1) for k in range(2, len(term_mentions) + 1))
 
-            group_task = progress.add_task(description=f'Grouping terms 1/{total}', total=total)
+            group_task = self.progress.add_task(description=f'Grouping terms 1/{total}', total=total)
             curr = 0
 
-            for i in range(len(terms)):
-                for j in range(i + 1, len(terms)):
-                    term1, term2 = terms[i], terms[j]
+            for i in range(len(term_mentions)):
+                for j in range(i + 1, len(term_mentions)):
+                    term1, term2 = term_mentions[i], term_mentions[j]
 
                     if term1.value.lower() == term2.value.lower():
                         similar = True
@@ -64,7 +68,7 @@ class LLMReferenceResolver(ReferenceResolver):
                         try:
                             similar = self.are_synonyms(term1, term2, text)
                         except Exception as e:
-                            progress.remove_task(group_task)
+                            self.progress.remove_task(group_task)
                             raise e
 
                     curr += 1
@@ -78,12 +82,16 @@ class LLMReferenceResolver(ReferenceResolver):
                             group_by_term[term2] = curr_group_id
                             curr_group_id += 1
 
-                    progress.update(group_task, description=f'Grouping terms {curr}/{total}', advance=1)
+                    self.progress.update(group_task, description=f'Grouping terms {curr}/{total}', advance=1)
 
-            progress.remove_task(group_task)
+            self.progress.remove_task(group_task)
 
             # add single terms
-            grouped_terms.extend([GroupedTerm(class_, [t], normalize) for t in terms if t not in group_by_term])
+            terms.extend([
+                Term(class_, mention.norm_value if mention.norm_value else mention.value, mentions=[mention])
+
+                for mention in term_mentions if mention not in group_by_term
+            ])
 
             terms_by_group = {}
 
@@ -93,15 +101,19 @@ class LLMReferenceResolver(ReferenceResolver):
                 else:
                     terms_by_group[group].append(term)
 
-            grouped_terms.extend([GroupedTerm(class_, terms, normalize) for terms in terms_by_group.values()])
-        return grouped_terms
+            terms.extend([
+                Term(class_, mentions[0].norm_value if mentions[0].norm_value else mentions[0].value, mentions)
 
-    def are_synonyms(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> bool:
+                for mentions in terms_by_group.values()
+            ])
+        return terms
+
+    def are_synonyms(self, term1: TermMention, term2: TermMention, text: str) -> bool:
         if term1.class_ != term2.class_:
             return False
 
         input_text = (f'Текст: {text}\n'
-                      f'Являются ли "{term1.value}" и "{term2.value}" названиями одной и той же сущности в этом тексте?\n'
+                      f'Являются ли "{term1.norm_value}" и "{term2.norm_value}" названиями одной и той же сущности в этом тексте?\n'
                       f'Ответ:')
 
         prompt = self.check_synonyms_prompt_template

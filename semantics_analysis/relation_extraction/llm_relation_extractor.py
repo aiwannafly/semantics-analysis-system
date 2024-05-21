@@ -1,16 +1,15 @@
 from typing import List, Optional, Iterator
 
 import nltk.tokenize
-from rich.progress import Progress
 
-from semantics_analysis.entities import Relation, ClassifiedTerm
+from semantics_analysis.entities import Relation, Term, BoundedIterator
 from semantics_analysis.llm_agent import LLMAgent
 from semantics_analysis.ontology_utils import predicates_by_class_pair, \
     relations_metadata_by_class_pair
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
 from semantics_analysis.utils import log
 
-enhanced_predicate = {
+ru_by_en_predicate = {
     'isExampleOf': 'является примером',
     'isPartOf': 'является частью',
     'isModificationOf': 'является модификацией'
@@ -20,12 +19,14 @@ enhanced_predicate = {
 class LLMRelationExtractor(RelationExtractor):
 
     def __init__(self,
-                 huggingface_hub_token: str,
-                 model: str = 'mistralai/Mistral-7B-Instruct-v0.2',
+                 model: str = 'mistralai/Mixtral-8x7B-Instruct-v0.1',
                  show_explanation: bool = False,
                  log_prompts: bool = False,
                  log_llm_responses: bool = False,
-                 use_all_tokens: bool = False):
+                 use_all_tokens: bool = False,
+                 considered_class1: Optional[str] = None,
+                 considered_class2: Optional[str] = None
+                 ):
 
         self.model = model
         self.use_all_tokens = use_all_tokens
@@ -33,8 +34,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         self.llm_agent = LLMAgent(
             model=model,
-            use_all_tokens=use_all_tokens,
-            huggingface_hub_token=huggingface_hub_token
+            use_all_tokens=use_all_tokens
         )
 
         with open('prompts/relation_extraction.txt', 'r', encoding='utf-8') as f:
@@ -43,21 +43,16 @@ class LLMRelationExtractor(RelationExtractor):
         with open('prompts/directed_relation_extraction.txt', 'r', encoding='utf-8') as f:
             self.same_class_prompt_template = f.read().strip()
 
-        with open('prompts/verification.txt', 'r', encoding='utf-8') as f:
+        with open('prompts/verify_relation.txt', 'r', encoding='utf-8') as f:
             self.verification_prompt_template = f.read().strip()
 
         self.show_explanation = show_explanation
         self.log_prompts = log_prompts
         self.log_llm_responses = log_llm_responses
+        self.considered_class1 = considered_class1
+        self.considered_class2 = considered_class2
 
-    def __call__(
-            self,
-            text: str,
-            terms: List[ClassifiedTerm],
-            progress: Progress,
-            considered_class1: Optional[str] = None,
-            considered_class2: Optional[str] = None
-    ) -> Iterator[Relation]:
+    def __call__(self, text: str, terms: List[Term]) -> BoundedIterator[Optional[Relation]]:
         # we seek only for binary relations
         # so every pair of terms can be checked
 
@@ -67,33 +62,36 @@ class LLMRelationExtractor(RelationExtractor):
         # so its normal to check for relation between Task and Method,
         # but it does not make sense to check for relation between InfoResource and Metric
 
-        terms_count = len(terms)
-
         total = sum((k - 1) for k in range(2, len(terms) + 1))
+
+        return BoundedIterator(total, self._predict_relations(text, terms))
+
+    def _predict_relations(self, text: str, terms: List[Term]) -> Iterator[Optional[Relation]]:
         curr = 0
 
-        relation_task = progress.add_task(description=f'Extracting relations {curr}/{total}', total=total)
+        terms_count = len(terms)
 
         for i in range(terms_count):
             for j in range(i + 1, terms_count):
                 term1, term2 = terms[i], terms[j]
                 curr += 1
 
-                progress.update(relation_task, description=f'Extracting relations {curr}/{total}', advance=1)
-
                 class1, class2 = term1.class_, term2.class_
 
-                if considered_class1 and considered_class1 != class1:
+                if self.considered_class1 and self.considered_class1 != class1:
+                    yield None
                     continue
 
-                if considered_class2 and considered_class2 != class2:
+                if self.considered_class2 and self.considered_class2 != class2:
+                    yield None
                     continue
 
-                start_pos = min(term1.start_pos, term2.start_pos)
+                start_pos = min(term1.mentions[0].start_pos, term2.mentions[0].start_pos)
 
-                end_pos = max(term1.end_pos, term2.end_pos)
+                end_pos = max(term1.mentions[0].end_pos, term2.mentions[0].end_pos)
 
                 if end_pos - start_pos >= 300:
+                    yield None
                     continue
 
                 if (class1, class2) in predicates_by_class_pair:
@@ -106,15 +104,16 @@ class LLMRelationExtractor(RelationExtractor):
                     predicates = []
 
                 if not predicates:
+                    yield None
                     continue
 
                 try:
                     predicate, should_reverse = self.detect_predicate(term1, term2, text)
                 except Exception as e:
-                    progress.remove_task(relation_task)
                     raise e
 
                 if not predicate:
+                    yield None
                     continue
 
                 if should_reverse:
@@ -129,11 +128,10 @@ class LLMRelationExtractor(RelationExtractor):
 
                 if self.verify_relation(text, rel):
                     yield rel
-
-        progress.remove_task(relation_task)
+                    continue
 
     def verify_relation(self, text: str, rel: Relation) -> bool:
-        predicate = enhanced_predicate.get(rel.predicate, rel.predicate)
+        predicate = ru_by_en_predicate.get(rel.predicate, rel.predicate)
 
         relation_str = f'{rel.term1.value} {predicate} {rel.term2.value}'
 
@@ -143,13 +141,13 @@ class LLMRelationExtractor(RelationExtractor):
 
         response = self.llm_agent(
             prompt,
-            max_new_tokens=2,
-            stop_sequences=['.']
+            max_new_tokens=1,
+            stop_sequences=['.', '\n']
         )
 
         return 'да' in response.lower()
 
-    def detect_predicate(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> (Optional[str], bool):
+    def detect_predicate(self, term1: Term, term2: Term, text: str) -> (Optional[str], bool):
         predicates = predicates_by_class_pair[(term1.class_, term2.class_)]
 
         if not predicates:
@@ -210,14 +208,14 @@ class LLMRelationExtractor(RelationExtractor):
 
         return None, False
 
-    def create_llm_prompt(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> str:
+    def create_llm_prompt(self, term1: Term, term2: Term, text: str) -> str:
         class1, class2 = term1.class_, term2.class_
 
         sentences = nltk.tokenize.sent_tokenize(text)
 
-        start_pos = min(term1.start_pos, term2.start_pos)
+        start_pos = min(term1.mentions[0].start_pos, term2.mentions[0].start_pos)
 
-        end_pos = max(term1.end_pos, term2.end_pos)
+        end_pos = max(term1.mentions[0].end_pos, term2.mentions[0].end_pos)
 
         offset = 0
 
@@ -321,7 +319,7 @@ class LLMRelationExtractor(RelationExtractor):
 
         return prompt.strip()
 
-    def create_llm_prompt_same_class(self, term1: ClassifiedTerm, term2: ClassifiedTerm, text: str) -> str:
+    def create_llm_prompt_same_class(self, term1: Term, term2: Term, text: str) -> str:
         assert term1.class_ == term2.class_
 
         class_ = term1.class_

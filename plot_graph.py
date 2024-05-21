@@ -1,10 +1,9 @@
-from time import sleep
-from typing import List
+from typing import List, Union
 
 from pyvis.network import Network
 
-from semantics_analysis.entities import Relation, read_sentences, ClassifiedTerm, GroupedTerm
-from semantics_analysis.term_classification.roberta_term_classifier import LABEL_LIST
+from semantics_analysis.entities import Relation, Term, TermMention
+from semantics_analysis.term_extraction.roberta_classified_term_mention_extractor import LABEL_LIST
 
 colors = [
     '#f44336', '#e81e63', '#9c27b0', '#673ab7', '#3f51b5', '#2196f3', '#03a9f4', '#00bcd4', '#009688',
@@ -43,17 +42,19 @@ def preprocess_is_alternative_name(relations: List[Relation]) -> List[Relation]:
     return preprocess_is_alternative_name(new_relations)
 
 
-def get_title(term: ClassifiedTerm) -> str:
-    # highlighted_term = f'<b style="color:black">{term.value}</b>'
-    #
-    # context = term.text[:term.start_pos] + highlighted_term + term.text[term.end_pos:]
-    #
-    # header_style = '"color:black;font-size:16px"'
-    # body = (f'<p><b style={header_style}>Class</b>: {term.class_}</p>\n'
-    #         f'<p><b style={header_style}>Context</b>: {context}</p>')
-
+def get_title(term: Union[Term, TermMention]) -> str:
     window = 50
-    context = term.text[:term.start_pos][-window:] + f'[{term.value}]' + term.text[term.end_pos:][:window]
+
+    if isinstance(term, Term) and not term.mentions:
+        return (f'Class: {term.class_}\n'
+                f'Value: {term.value}')
+
+    if isinstance(term, TermMention):
+        mention = term
+    else:
+        mention = term.mentions[0]
+
+    context = mention.text[:mention.start_pos][-window:] + f'[{term.value}]' + mention.text[mention.end_pos:][:window]
     context = '...' + context + '...'
 
     return (f'Class: {term.class_}\n'
@@ -61,12 +62,15 @@ def get_title(term: ClassifiedTerm) -> str:
             f'Context: {context}')
 
 
-def get_node(term: ClassifiedTerm) -> str:
+def get_node(term: Union[Term, TermMention]) -> str:
+    if isinstance(term, TermMention):
+        return f'{term.norm_value}, {term.class_}'
+
     return f'{term.value}, {term.class_}'
 
 
 def display_relation_graph(
-        grouped_terms: List[GroupedTerm],
+        terms: List[Term],
         relations: List[Relation],
         output_file: str = 'relations.html'
 ):
@@ -88,59 +92,21 @@ def display_relation_graph(
 
     size = 20
 
-    for group_id, group in enumerate(grouped_terms):
-        items = group.items
+    considered_terms = set()
 
-        for term in items:
-            nt.add_node(
-                get_node(term),
-                title=get_title(term),
-                mass=mass,
-                size=size,
-                label=term.value,
-                color=get_color(term.class_),
-                shape='image',
-                image=image_by_class(term.class_),
-                group=group_id
-            )
-
-        pairs = [p for p in zip(items[1:], items)]
-
-        if len(items) > 2:
-            pairs.append((items[0], items[-1]))
-
-        for term1, term2 in pairs:
-            color = get_color(term1.class_)
-
-            if color in ['#ffeb3b', '#ffc107', '#ff9800']:
-                opacity = 'AA'
-            else:
-                opacity = '66'
-
-            edge_color = '#' + color[1:] + opacity
-
-            nt.add_edge(
-                get_node(term1),
-                get_node(term2),
-                label='isAlternativeNameFor',
-                title='isAlternativeNameFor',
-                color=edge_color,
-                arrowStrikethrough=False,
-                font={
-                    'size': 10,
-                    'align': 'top'
-                }
-            )
-
+    # display relations
     for rel in relations:
         color1 = get_color(rel.term1.class_)
         color2 = get_color(rel.term2.class_)
 
-        node1 = f'{rel.term1.value}, {rel.term1.class_}'
-        node2 = f'{rel.term2.value}, {rel.term2.class_}'
+        node1 = get_node(rel.term1)
+        node2 = get_node(rel.term2)
+
+        considered_terms.add(rel.term1)
+        considered_terms.add(rel.term2)
 
         nt.add_node(
-            get_node(rel.term1),
+            node1,
             title=get_title(rel.term1),
             mass=mass,
             size=size,
@@ -150,7 +116,7 @@ def display_relation_graph(
             image=image_by_class(rel.term1.class_)
         )
         nt.add_node(
-            get_node(rel.term2),
+            node2,
             title=get_title(rel.term2),
             mass=mass,
             size=size,
@@ -180,6 +146,53 @@ def display_relation_graph(
             }
         )
 
+    for term_id, term in enumerate(terms):
+        if term not in considered_terms:
+            continue
+
+        mentions = term.mentions
+
+        for mention in mentions:
+            nt.add_node(
+                get_node(mention),
+                title=get_title(mention),
+                mass=mass,
+                size=size,
+                label=mention.norm_value,
+                color=get_color(term.class_),
+                shape='image',
+                image=image_by_class(term.class_),
+                group=term_id
+            )
+
+        pairs = [p for p in zip(mentions[1:], mentions)]
+
+        if len(mentions) > 2:
+            pairs.append((mentions[0], mentions[-1]))
+
+        for term1, term2 in pairs:
+            color = get_color(term1.class_)
+
+            if color in ['#ffeb3b', '#ffc107', '#ff9800']:
+                opacity = 'AA'
+            else:
+                opacity = '66'
+
+            edge_color = '#' + color[1:] + opacity
+
+            nt.add_edge(
+                get_node(term1),
+                get_node(term2),
+                label='isAlternativeNameFor',
+                title='isAlternativeNameFor',
+                color=edge_color,
+                arrowStrikethrough=False,
+                font={
+                    'size': 10,
+                    'align': 'top'
+                }
+            )
+
     # nt.repulsion(node_distance=300)
     # nt.barnes_hut(gravity=-200)
     nt.force_atlas_2based(gravity=-70, central_gravity=0.02, spring_strength=0.09)
@@ -198,24 +211,24 @@ def main():
 
     display_relation_graph([], relations=[
         Relation(
-            term1=ClassifiedTerm(value='Mistral 8x7b', term_class='Model', end_pos=0, text=''),
+            term1=Term(value='Mistral 8x7b', ontology_class='Model', mentions=[]),
             predicate='является примером',
-            term2=ClassifiedTerm(value='LLM', term_class='Model', end_pos=0, text=''),
+            term2=Term(value='LLM', ontology_class='Model', mentions=[]),
         ),
         Relation(
-            term1=ClassifiedTerm(value='Mistral 8x7b', term_class='Model', end_pos=0, text=''),
+            term1=Term(value='Mistral 8x7b', ontology_class='Model', mentions=[]),
             predicate='создана',
-            term2=ClassifiedTerm(value='декабрь 2023г.', term_class='Date', end_pos=0, text=''),
+            term2=Term(value='декабрь 2023г.', ontology_class='Date', mentions=[]),
         ),
         Relation(
-            term1=ClassifiedTerm(value='Mistral 8x7b', term_class='Model', end_pos=0, text=''),
+            term1=Term(value='Mistral 8x7b', ontology_class='Model', mentions=[]),
             predicate='имеет автора',
-            term2=ClassifiedTerm(value='Mistral AI', term_class='Organization', end_pos=0, text=''),
+            term2=Term(value='Mistral AI', ontology_class='Organization', mentions=[]),
         ),
         Relation(
-            term1=ClassifiedTerm(value='LLM', term_class='Model', end_pos=0, text=''),
+            term1=Term(value='LLM', ontology_class='Model', mentions=[]),
             predicate='решает задачу',
-            term2=ClassifiedTerm(value='извлечение отношений', term_class='Task', end_pos=0, text=''),
+            term2=Term(value='извлечение отношений', ontology_class='Task', mentions=[]),
         ),
     ])
 

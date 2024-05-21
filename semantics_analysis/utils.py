@@ -1,12 +1,12 @@
-from typing import Dict, List, Tuple, Optional, Set
+from typing import Dict, List, Tuple, Optional, Set, TypeVar, Callable, Union, Any
 
 from colorama import Style, Fore
-from rich.progress import Progress, TextColumn, BarColumn
+from rich.progress import Progress, TextColumn, BarColumn, ProgressColumn, GetTimeCallable, TaskID
 from rich.table import Table
 from rich.console import Console
 from rich.text import Text
 
-from semantics_analysis.entities import Term, GroupedTerm, ClassifiedTerm, Relation
+from semantics_analysis.entities import TermMention, Term, Relation, BoundedIterator
 from semantics_analysis.term_normalization.term_normalizer import TermNormalizer
 
 LOG_STYLE = Style.DIM
@@ -16,58 +16,138 @@ LABELED_DICT_TERM_STYLE = Fore.LIGHTMAGENTA_EX
 GROUPED_TERM_STYLE = Fore.LIGHTGREEN_EX
 PREDICATE_STYLE = Style.BRIGHT
 SEPARATOR_STYLE = Style.DIM
+T = TypeVar('T')
 
 
 def log(*messages: str):
     print(*messages)
 
 
-def union_groups(
-        considered_groups: List[GroupedTerm]
-) -> List[GroupedTerm]:
-    if len(considered_groups) < 2:
-        return considered_groups
+def _align_description(desc: str):
+    if len(desc) < 30:
+        desc += ' ' * (30 - len(desc))
 
-    final_groups: Set[GroupedTerm] = set()
+    return desc
 
-    for i in range(len(considered_groups)):
-        for j in range(i + 1, len(considered_groups)):
-            group1, group2 = considered_groups[i], considered_groups[j]
 
-            if group1.class_ != group2.class_:
-                final_groups.add(group1)
-                final_groups.add(group2)
+class AlignedProgress(Progress):
+
+    def __init__(self, *columns: Union[str, ProgressColumn], console: Optional[Console] = None,
+                 auto_refresh: bool = True, refresh_per_second: float = 10, speed_estimate_period: float = 30.0,
+                 transient: bool = False, redirect_stdout: bool = True, redirect_stderr: bool = True,
+                 get_time: Optional[GetTimeCallable] = None, disable: bool = False, expand: bool = False) -> None:
+        super().__init__(*columns, console=console, auto_refresh=auto_refresh, refresh_per_second=refresh_per_second,
+                         speed_estimate_period=speed_estimate_period, transient=transient,
+                         redirect_stdout=redirect_stdout, redirect_stderr=redirect_stderr, get_time=get_time,
+                         disable=disable, expand=expand)
+
+    def add_task(self, description: str, start: bool = True, total: Optional[float] = 100.0, completed: int = 0,
+                 visible: bool = True, **fields: Any) -> TaskID:
+        return super().add_task(_align_description(description), start, total, completed, visible, **fields)
+
+    def update(self, task_id: TaskID, *, total: Optional[float] = None, completed: Optional[float] = None,
+               advance: Optional[float] = None, description: Optional[str] = None, visible: Optional[bool] = None,
+               refresh: bool = False, **fields: Any) -> None:
+        super().update(task_id, total=total, completed=completed, advance=advance,
+                       description=_align_description(description), visible=visible, refresh=refresh, **fields)
+
+    def advance(self, task_id: TaskID, advance: float = 1) -> None:
+        super().advance(task_id, advance)
+
+
+def log_iterations(
+        description: str,
+        iterator: BoundedIterator[T],
+        progress: Progress,
+        item_handler: Callable[[T], None]
+):
+    step = 0
+
+    task = progress.add_task(
+        description=f'{description} {step}/{iterator.total}',
+        total=iterator.total
+    )
+
+    try:
+        for item in iterator.items:
+            step += 1
+
+            item_handler(item)
+
+            progress.update(
+                task,
+                description=f'{description} {step}/{iterator.total}',
+                advance=1
+            )
+    except Exception as e:
+        progress.remove_task(task)
+        raise e
+
+    progress.remove_task(task)
+
+
+def union_term_mentions(
+        considered_terms: List[Term]
+) -> List[Term]:
+    if len(considered_terms) < 2:
+        return considered_terms
+
+    final_terms: Set[Term] = set()
+
+    for i in range(len(considered_terms)):
+        for j in range(i + 1, len(considered_terms)):
+            term1, term2 = considered_terms[i], considered_terms[j]
+
+            if term1.class_ != term2.class_:
+                final_terms.add(term1)
+                final_terms.add(term2)
                 continue
 
-            term_vals1 = set(t.value.lower() for t in group1.items)
-            term_vals2 = set(t.value.lower() for t in group2.items)
+            term_vals1 = set(t.value.lower() for t in term1.mentions)
+            term_vals2 = set(t.value.lower() for t in term2.mentions)
 
             intersection = [t for t in term_vals1 if t in term_vals2]
 
             if intersection:
-                final_groups.add(GroupedTerm(group1.class_, group1.items + group2.items, normalize=False))
+                all_mentions = term1.mentions + term2.mentions
+
+                prev_mentions = set()
+
+                mentions = []
+                for mention in all_mentions:
+                    lower = mention.norm_value.lower()
+
+                    if lower in prev_mentions:
+                        continue
+                    prev_mentions.add(lower)
+                    mentions.append(mention)
+
+                term1.mentions = mentions
+                term2.mentions = mentions
+                term2.value = term1.value
+                final_terms.add(term1)
             else:
-                final_groups.add(group1)
-                final_groups.add(group2)
+                final_terms.add(term1)
+                final_terms.add(term2)
 
-    if len(final_groups) < len(considered_groups):
-        return union_groups(list(final_groups))
+    if len(final_terms) < len(considered_terms):
+        return union_term_mentions(list(final_terms))
 
-    return list(final_groups)
+    return list(final_terms)
 
 
-def normalize_relations(groups: List[GroupedTerm], relations: List[Relation]) -> List[Relation]:
-    new_terms: Dict[Relation, Tuple[Optional[ClassifiedTerm], Optional[ClassifiedTerm]]] = {}
+def normalize_relations(groups: List[Term], relations: List[Relation]) -> List[Relation]:
+    new_terms: Dict[Relation, Tuple[Optional[Term], Optional[Term]]] = {}
 
     for rel in relations:
         new_terms[rel] = (None, None)
 
     for group in groups:
-        if len(group.items) < 2:
+        if len(group.mentions) < 2:
             continue
 
-        main_item = group.items[0]
-        other_items = set(group.items[1:])
+        main_item = group.mentions[0]
+        other_items = set(group.mentions[1:])
 
         other_items_rels = [r for r in relations if r.term1 in other_items or r.term2 in other_items]
 
@@ -94,18 +174,18 @@ def normalize_relations(groups: List[GroupedTerm], relations: List[Relation]) ->
     return norm_relations
 
 
-def normalize_groups(groups: List[GroupedTerm]) -> List[GroupedTerm]:
+def normalize_groups(groups: List[Term]) -> List[Term]:
     norm_groups = []
 
-    for group in groups:
-        if len(group.items) < 2:
-            norm_groups.append(group)
+    for term in groups:
+        if len(term.mentions) < 2:
+            norm_groups.append(term)
             continue
 
         items = []
         values = set()
 
-        for item in group.items:
+        for item in term.mentions:
             value = item.value.lower()
 
             if value not in values:
@@ -113,17 +193,17 @@ def normalize_groups(groups: List[GroupedTerm]) -> List[GroupedTerm]:
 
                 items.append(item)
 
-        norm_groups.append(GroupedTerm(group.class_, items, normalize=False))
+        norm_groups.append(Term(term.class_, term.value, term.mentions))
 
     return norm_groups
 
 
 def normalize_term_values(
-        groups: List[GroupedTerm],
+        groups: List[Term],
         relations: List[Relation],
         normalizer: TermNormalizer,
         progress: Progress
-) -> Tuple[List[GroupedTerm], List[Relation]]:
+) -> Tuple[List[Term], List[Relation]]:
 
     norm_groups = []
 
@@ -138,33 +218,33 @@ def normalize_term_values(
 
         progress.update(normalize_terms, description=f'Normalizing terms {idx+1}/{total}', advance=1)
 
-        main = ClassifiedTerm(main.class_, norm_value, main.end_pos, main.text)
+        main = Term(main.class_, norm_value, main.end_pos, main.text)
 
-        norm_groups.append(GroupedTerm(main.class_, [main] + others))
+        norm_groups.append(Term(main.class_, [main] + others))
 
     progress.remove_task(normalize_terms)
 
     norm_relations = []
 
     for rel in relations:
-        norm_term1 = ClassifiedTerm(rel.term1.class_, normalizer(rel.term1.value), rel.term1.end_pos, rel.term1.text)
+        norm_term1 = Term(rel.term1.class_, normalizer(rel.term1.value), rel.term1.end_pos, rel.term1.text)
 
-        norm_term2 = ClassifiedTerm(rel.term2.class_, normalizer(rel.term2.value), rel.term2.end_pos, rel.term2.text)
+        norm_term2 = Term(rel.term2.class_, normalizer(rel.term2.value), rel.term2.end_pos, rel.term2.text)
 
         norm_relations.append(Relation(norm_term1, rel.predicate, norm_term2))
 
     return norm_groups, norm_relations
 
 
-def render_term(term: ClassifiedTerm, style: str = LABELED_TERM_STYLE) -> str:
+def render_term(term: TermMention, style: str = LABELED_TERM_STYLE) -> str:
     if style == LABELED_TERM_STYLE and term.source == 'dict':
         style = LABELED_DICT_TERM_STYLE
 
     return f'{style}({term.value}: {term.class_}){Style.RESET_ALL}'
 
 
-def render_grouped_term(term: GroupedTerm) -> str:
-    values = ', '.join([t.value for t in term.items])
+def render_grouped_term(term: Term) -> str:
+    values = ', '.join([t.norm_value for t in term.mentions])
 
     return f'{GROUPED_TERM_STYLE}({values}: {term.class_}){Style.RESET_ALL}'
 
@@ -202,8 +282,8 @@ def render_relation(relation: Relation) -> str:
     return res
 
 
-def log_grouped_terms(grouped_terms: List[GroupedTerm]):
-    non_single_terms = [t for t in grouped_terms if t.size() > 1]
+def log_grouped_terms(grouped_terms: List[Term]):
+    non_single_terms = [t for t in grouped_terms if len(t.mentions) > 1]
 
     term_count = 1
     for term in non_single_terms:
@@ -214,7 +294,7 @@ def log_grouped_terms(grouped_terms: List[GroupedTerm]):
         log()
 
 
-def log_extracted_terms(text: str, terms: List[Term]):
+def log_extracted_terms(text: str, terms: List[TermMention]):
     if not terms:
         log(f'{LOG_STYLE}[ TERMS NOT FOUND]\n')
         return
@@ -231,7 +311,7 @@ def log_extracted_terms(text: str, terms: List[Term]):
     log(f'{LOG_STYLE}[   FOUND TERMS  ]{Style.RESET_ALL}: {labeled_text}\n')
 
 
-def log_labeled_terms(text: str, labeled_terms: List[ClassifiedTerm]):
+def log_labeled_terms(text: str, labeled_terms: List[TermMention]):
     offset = 0
     labeled_text = text
 
@@ -290,7 +370,7 @@ def log_term_predictions(term_predictions: Optional[List[Tuple[str, str, int, in
     console.print(table)
 
 
-def log_class_predictions(predictions_by_term: Dict[Term, List[Tuple[str, float]]]):
+def log_class_predictions(predictions_by_term: Dict[TermMention, List[Tuple[str, float]]]):
     colors = ['green', 'magenta', 'purple3']
 
     for term, predictions in predictions_by_term.items():

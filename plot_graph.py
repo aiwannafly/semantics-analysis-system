@@ -54,7 +54,7 @@ def get_title(term: Union[Term, TermMention]) -> str:
     else:
         mention = term.mentions[0]
 
-    context = mention.text[:mention.start_pos][-window:] + f'[{term.value}]' + mention.text[mention.end_pos:][:window]
+    context = mention.text[:mention.start_pos][-window:] + f'[{mention.value}]' + mention.text[mention.end_pos:][:window]
     context = '...' + context + '...'
 
     return (f'Class: {term.class_}\n'

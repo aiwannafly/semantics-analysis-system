@@ -55,7 +55,11 @@ def analyze_text(app_config: Config, term_predictor: Optional[TermMentionExtract
 
             PredictTerms(term_predictor),
 
-            PreprocessTerms(ResolveLibraries(), MergeCloseTerms()),
+            PreprocessTerms(
+                ResolveLibraries(),
+
+                MergeCloseTerms()
+            ),
 
             LogLabeledTerms(),
 

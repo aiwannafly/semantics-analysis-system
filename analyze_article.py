@@ -63,7 +63,11 @@ def analyze_article(article_id: int, app_config: Config) -> AnalysisResult:
         semantics_analysis = SequencePipeline(
             PredictTerms(term_predictor),
 
-            PreprocessTerms(ResolveLibraries(), MergeCloseTerms()),
+            PreprocessTerms(
+                ResolveLibraries(),
+
+                MergeCloseTerms()
+            ),
 
             VerifyTerms(LLMTermVerifier(), progress),
 

@@ -74,6 +74,8 @@ def analyze_text(app_config: Config, roberta_term_predictor: Optional[TermMentio
 
             NormalizeTerms(llm_term_normalizer, progress),
 
+            NormalizeLanguages(),
+
             LogNormalizedTerms(),
 
             ResolveReference(llm_reference_resolver, progress),

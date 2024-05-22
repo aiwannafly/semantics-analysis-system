@@ -9,7 +9,7 @@ from parse_habr import Doc
 from plot_graph import display_relation_graph
 from semantics_analysis.config import load_config, Config
 from semantics_analysis.pipelines import AnalysisResult, SequencePipeline, PredictTerms, PreprocessTerms, VerifyTerms, \
-    NormalizeTerms, ResolveReference, PredictSemanticRelations
+    NormalizeTerms, ResolveReference, PredictSemanticRelations, NormalizeLanguages
 from semantics_analysis.reference_resolution.llm_reference_resolver import LLMReferenceResolver
 from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.term_extraction.dict_term_mention_extractor import DictTermExtractor
@@ -79,6 +79,8 @@ def analyze_article(article_id: int, app_config: Config) -> AnalysisResult:
             VerifyTerms(llm_term_verifier, progress),
 
             NormalizeTerms(llm_term_normalizer, progress),
+
+            NormalizeLanguages(),
 
             ResolveReference(llm_reference_resolver, progress),
 

@@ -150,6 +150,16 @@ class NormalizeTerms(Pipeline):
         return state
 
 
+class NormalizeLanguages(Pipeline):
+
+    def __call__(self, state: AnalysisResult) -> AnalysisResult:
+        for term in state.term_mentions:
+            if term.class_ == 'Lang' and term.norm_value.endswith(' язык'):
+                term.norm_value = term.norm_value[:-5].strip()
+
+        return state
+
+
 class LogNormalizedTerms(Pipeline):
 
     def __call__(self, state: AnalysisResult) -> AnalysisResult:

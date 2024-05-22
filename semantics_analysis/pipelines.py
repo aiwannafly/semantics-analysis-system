@@ -160,6 +160,18 @@ class NormalizeLanguages(Pipeline):
         return state
 
 
+class DropEmptyTermMentions(Pipeline):
+
+    def __call__(self, state: AnalysisResult) -> AnalysisResult:
+        state.term_mentions = [
+            m for m in state.term_mentions
+
+            if m.norm_value and m.value
+        ]
+
+        return state
+
+
 class LogNormalizedTerms(Pipeline):
 
     def __call__(self, state: AnalysisResult) -> AnalysisResult:

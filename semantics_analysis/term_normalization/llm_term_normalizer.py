@@ -37,6 +37,9 @@ class LLMTermNormalizer(TermNormalizer):
         while normalized.endswith('.'):
             normalized = normalized[:-1]
 
+        if len(normalized) == 1:
+            normalized = term
+
         self.cached_results[term] = normalized
         return normalized
 

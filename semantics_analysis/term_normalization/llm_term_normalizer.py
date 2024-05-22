@@ -32,13 +32,15 @@ class LLMTermNormalizer(TermNormalizer):
             prompt,
             stop_sequences=['\n', '(', '.'],
             max_new_tokens=50
-        ).replace('(', '')
+        ).replace('(', '').strip()
 
         while normalized.endswith('.'):
             normalized = normalized[:-1]
 
         if len(normalized) == 1:
             normalized = term
+
+        normalized = normalized.strip()
 
         self.cached_results[term] = normalized
         return normalized

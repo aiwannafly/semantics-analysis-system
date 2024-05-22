@@ -7,7 +7,7 @@ from rich.console import Console
 from rich.text import Text
 
 from semantics_analysis.entities import TermMention, Term, Relation, BoundedIterator
-from semantics_analysis.ontology_utils import class_aliases
+from semantics_analysis.ontology_utils import CLASS_ALIASES
 from semantics_analysis.term_normalization.term_normalizer import TermNormalizer
 
 LOG_STYLE = Style.DIM
@@ -110,7 +110,7 @@ def union_term_mentions(
             intersection = set(t for t in term_vals1 if t in term_vals2)
 
             # ignore common terms like 'модель', intersection should be specific
-            intersection -= class_aliases
+            intersection -= CLASS_ALIASES
 
             if intersection:
                 all_mentions = term1.mentions + term2.mentions

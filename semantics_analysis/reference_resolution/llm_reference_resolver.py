@@ -4,7 +4,7 @@ from rich.progress import Progress
 
 from semantics_analysis.entities import Term, TermMention
 from semantics_analysis.llm_agent import LLMAgent
-from semantics_analysis.ontology_utils import attribute_classes, class_aliases
+from semantics_analysis.ontology_utils import attribute_classes, CLASS_ALIASES
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
 from semantics_analysis.utils import log
 
@@ -64,7 +64,7 @@ class LLMReferenceResolver(ReferenceResolver):
 
                     if term1.norm_value.lower() == term2.norm_value.lower():
                         similar = True
-                    elif term1.norm_value.lower() in class_aliases or term2.norm_value.lower() in class_aliases:
+                    elif term1.norm_value.lower() in CLASS_ALIASES or term2.norm_value.lower() in CLASS_ALIASES:
                         similar = False
                     else:
                         try:

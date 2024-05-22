@@ -29,7 +29,11 @@ def analyze_article(article_id: int, app_config: Config) -> AnalysisResult:
     roberta_term_predictor = CombinedTermExtractor(
         DictTermExtractor('metadata/terms_by_class.json'),
 
-        RobertaTermExtractor(app_config.device, term_threshold=0.2, class_threshold=0.5)
+        RobertaTermExtractor(
+            app_config.device,
+            term_threshold=0.2,
+            class_threshold=0.5
+        )
     )
 
     llm_relation_predictor = LLMRelationExtractor(

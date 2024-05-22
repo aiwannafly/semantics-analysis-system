@@ -8,6 +8,11 @@ loaded_relation_ids = set()
 
 attribute_classes = {'Date', 'Lang', 'Value'}
 
+class_aliases = {
+    'модель', 'метод', 'задача', 'объект', 'язык', 'организация', 'приложение', 'метрика',
+    'персона', 'набор данных', 'проект', 'исследование', 'библиотека'
+}
+
 with open('metadata/term_classes.json', 'r', encoding='utf-8') as f:
     term_metadata_by_class = json.load(f)
 

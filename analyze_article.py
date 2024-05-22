@@ -27,12 +27,12 @@ from semantics_analysis.utils import union_term_mentions, AlignedProgress
 def analyze_article(article_id: int, app_config: Config) -> AnalysisResult:
     doc = Doc.from_article(article_id)
 
-    term_predictor = CombinedTermExtractor(
+    roberta_term_predictor = CombinedTermExtractor(
         DictTermExtractor('metadata/terms_by_class.json'),
         RobertaTermExtractor(app_config.device, term_threshold=0.2, class_threshold=0.5)
     )
 
-    relation_predictor = LLMRelationExtractor(
+    llm_relation_predictor = LLMRelationExtractor(
         show_explanation=app_config.show_explanation,
         log_prompts=app_config.log_prompts,
         log_llm_responses=app_config.log_llm_responses,
@@ -47,11 +47,14 @@ def analyze_article(article_id: int, app_config: Config) -> AnalysisResult:
     custom_theme = Theme({"bar.complete": "rgb(206,89,227)"})
     console = Console(theme=custom_theme)
 
+    llm_term_verifier = LLMTermVerifier()
+    llm_term_normalizer = LLMTermNormalizer()
+
     with AlignedProgress(console=console) as progress:
         paragraph_task = progress.add_task(description=f'Paragraph 0/{len(doc.paragraphs)}', total=len(doc.paragraphs))
         count = 1
 
-        reference_resolver = LLMReferenceResolver(
+        llm_reference_resolver = LLMReferenceResolver(
             model=app_config.llm,
             show_explanation=app_config.show_explanation,
             log_prompts=app_config.log_prompts,
@@ -61,7 +64,7 @@ def analyze_article(article_id: int, app_config: Config) -> AnalysisResult:
         )
 
         semantics_analysis = SequencePipeline(
-            PredictTerms(term_predictor),
+            PredictTerms(roberta_term_predictor),
 
             PreprocessTerms(
                 ResolveLibraries(),
@@ -69,13 +72,13 @@ def analyze_article(article_id: int, app_config: Config) -> AnalysisResult:
                 MergeCloseTerms()
             ),
 
-            VerifyTerms(LLMTermVerifier(), progress),
+            VerifyTerms(llm_term_verifier, progress),
 
-            NormalizeTerms(LLMTermNormalizer(), progress),
+            NormalizeTerms(llm_term_normalizer, progress),
 
-            ResolveReference(reference_resolver, progress),
+            ResolveReference(llm_reference_resolver, progress),
 
-            PredictSemanticRelations(relation_predictor, progress),
+            PredictSemanticRelations(llm_relation_predictor, progress),
 
             progress=progress
         )

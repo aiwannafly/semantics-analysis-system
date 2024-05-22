@@ -7,7 +7,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 from semantics_analysis.entities import TermMention
 from semantics_analysis.term_extraction.term_mention_extractor import TermMentionExtractor, PredictionsType
 
-NON_LEADING_POS = {'ADV', 'ADP', 'CCONJ', 'PUNCT', 'PRON'}
+NON_LEADING_POS = {'ADV', 'ADP', 'CCONJ', 'PUNCT', 'PRON', 'DET', 'AUX', 'PART'}
 NON_TRAILING_POS = NON_LEADING_POS.union('VERB')
 
 LABEL_LIST = ['O', 'B-TERM', 'I-TERM']
@@ -117,6 +117,9 @@ class RobertaUnclassifiedTermExtractor(TermMentionExtractor):
             is_term_end = 'TERM' in label and (is_last or labels[i + 1] == 'O')
 
             if is_term_end and pos_tag in NON_TRAILING_POS:
+                labels[i] = 'O'
+
+            if is_term_end and label == 'I-TERM' and pos_tag == 'ADJ':
                 labels[i] = 'O'
 
         terms = []

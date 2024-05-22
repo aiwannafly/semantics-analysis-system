@@ -236,7 +236,7 @@ def main():
     nlp = spacy.load("ru_core_news_sm")
     nlp.disable_pipes(["parser", "attribute_ruler", "lemmatizer"])
 
-    text = "Мы учтем это в будущем"
+    text = "Мы все же там не были"
 
     doc = nlp(text)
 

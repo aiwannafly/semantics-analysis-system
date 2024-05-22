@@ -23,14 +23,17 @@ from semantics_analysis.utils import log_found_relations, AlignedProgress
 LOG_STYLE = Style.DIM
 
 
-def analyze_text(app_config: Config, term_predictor: Optional[TermMentionExtractor] = None):
-    if not term_predictor:
-        term_predictor = CombinedTermExtractor(
+def analyze_text(app_config: Config, roberta_term_predictor: Optional[TermMentionExtractor] = None):
+    if not roberta_term_predictor:
+        roberta_term_predictor = CombinedTermExtractor(
             DictTermExtractor('metadata/terms_by_class.json'),
             RobertaTermExtractor(app_config.device, term_threshold=0.2, class_threshold=0.5)
         )
 
-    relation_predictor = LLMRelationExtractor(
+    llm_term_verifier = LLMTermVerifier()
+    llm_term_normalizer = LLMTermNormalizer()
+
+    llm_relation_predictor = LLMRelationExtractor(
         show_explanation=app_config.show_explanation,
         log_prompts=app_config.log_prompts,
         log_llm_responses=app_config.log_llm_responses,
@@ -41,7 +44,7 @@ def analyze_text(app_config: Config, term_predictor: Optional[TermMentionExtract
     print()
 
     with AlignedProgress() as progress:
-        reference_resolver = LLMReferenceResolver(
+        llm_reference_resolver = LLMReferenceResolver(
             model=app_config.llm,
             show_explanation=app_config.show_explanation,
             log_prompts=app_config.log_prompts,
@@ -53,7 +56,7 @@ def analyze_text(app_config: Config, term_predictor: Optional[TermMentionExtract
         semantics_analysis = SequencePipeline(
             Log(message='Predicting terms...'),
 
-            PredictTerms(term_predictor),
+            PredictTerms(roberta_term_predictor),
 
             PreprocessTerms(
                 ResolveLibraries(),
@@ -63,21 +66,21 @@ def analyze_text(app_config: Config, term_predictor: Optional[TermMentionExtract
 
             LogLabeledTerms(),
 
-            VerifyTerms(LLMTermVerifier(), progress),
+            VerifyTerms(llm_term_verifier, progress),
 
             Log(message='Verified terms'),
 
             LogLabeledTerms(),
 
-            NormalizeTerms(LLMTermNormalizer(), progress),
+            NormalizeTerms(llm_term_normalizer, progress),
 
             LogNormalizedTerms(),
 
-            ResolveReference(reference_resolver, progress),
+            ResolveReference(llm_reference_resolver, progress),
 
             LogGroupedTerms(),
 
-            PredictSemanticRelations(relation_predictor, progress),
+            PredictSemanticRelations(llm_relation_predictor, progress),
 
             progress=progress
         )
@@ -111,7 +114,7 @@ def main():
     )
 
     while True:
-        analyze_text(app_config, term_predictor=term_predictor)
+        analyze_text(app_config, roberta_term_predictor=term_predictor)
 
         question = inquirer.questions.List(
             name='answer',

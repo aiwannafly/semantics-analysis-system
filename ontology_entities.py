@@ -250,7 +250,13 @@ def convert_to_ont_entities(
     considered_term_mentions = [term for term in terms if len(term.mentions) >= 2]
 
     for term in considered_term_mentions:
-        alt_name_attrs = [Attribute('Alternative Name', t.value, detect_lang(t.value, ad)) for t in term.mentions[1:]]
+        alt_name_attrs = [
+            Attribute('Alternative Name', t.norm_value, detect_lang(t.value, ad))
+
+            for t in term.mentions[1:]
+
+            if t.norm_value != term.value
+        ]
 
         if term in attrs_by_term:
             attrs_by_term[term].extend(alt_name_attrs)

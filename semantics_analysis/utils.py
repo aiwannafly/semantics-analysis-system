@@ -103,8 +103,8 @@ def union_term_mentions(
                 final_terms.add(term2)
                 continue
 
-            term_vals1 = set(t.value.lower() for t in term1.mentions)
-            term_vals2 = set(t.value.lower() for t in term2.mentions)
+            term_vals1 = set(t.norm_value.lower() for t in term1.mentions)
+            term_vals2 = set(t.norm_value.lower() for t in term2.mentions)
 
             intersection = [t for t in term_vals1 if t in term_vals2]
 

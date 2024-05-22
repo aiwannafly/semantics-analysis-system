@@ -150,7 +150,8 @@ def display_relation_graph(
         if term not in considered_terms:
             continue
 
-        mentions = [term.mentions[0]] + [m for m in term.mentions[1:] if m.norm_value != term.value]
+        first_mention = term.mentions[0]
+        mentions = [first_mention] + [m for m in term.mentions[1:] if m.norm_value != first_mention.norm_value]
 
         for mention in mentions:
             nt.add_node(

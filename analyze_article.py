@@ -2,7 +2,6 @@ import json
 import sys
 
 from rich.console import Console
-from rich.progress import Progress
 from rich.theme import Theme
 
 from ontology_entities import convert_to_ont_entities
@@ -29,6 +28,7 @@ def analyze_article(article_id: int, app_config: Config) -> AnalysisResult:
 
     roberta_term_predictor = CombinedTermExtractor(
         DictTermExtractor('metadata/terms_by_class.json'),
+
         RobertaTermExtractor(app_config.device, term_threshold=0.2, class_threshold=0.5)
     )
 

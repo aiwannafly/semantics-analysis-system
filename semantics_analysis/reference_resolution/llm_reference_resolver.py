@@ -62,7 +62,7 @@ class LLMReferenceResolver(ReferenceResolver):
                 for j in range(i + 1, len(term_mentions)):
                     term1, term2 = term_mentions[i], term_mentions[j]
 
-                    if term1.value.lower() == term2.value.lower():
+                    if term1.norm_value.lower() == term2.norm_value.lower():
                         similar = True
                     else:
                         try:

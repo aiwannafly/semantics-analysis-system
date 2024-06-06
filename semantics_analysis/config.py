@@ -7,7 +7,6 @@ class Config:
     show_term_predictions: bool
     show_class_predictions: bool
     llm: str
-    huggingface_hub_token: str
     device: str
     show_explanation: bool
     split_on_sentences: bool
@@ -21,7 +20,6 @@ class Config:
             show_term_predictions: bool,
             show_class_predictions: bool,
             llm: str,
-            token: str,
             device: str,
             show_explanation: bool,
             split_on_sentences: bool,
@@ -33,7 +31,6 @@ class Config:
         self.show_term_predictions = show_term_predictions
         self.show_class_predictions = show_class_predictions
         self.llm = llm
-        self.huggingface_hub_token = token
         self.device = device
         self.show_explanation = show_explanation
         self.split_on_sentences = split_on_sentences
@@ -54,7 +51,6 @@ def load_config(file_path: str) -> Config:
         config_dict['show-term-predictions'],
         config_dict['show-class-predictions'],
         config_dict['llm'],
-        config_dict['huggingface-hub-token'],
         config_dict['device'],
         config_dict['show-explanation'],
         config_dict['split-on-sentences'],

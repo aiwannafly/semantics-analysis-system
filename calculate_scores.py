@@ -1,7 +1,6 @@
 import json
 import os
 import sys
-from time import sleep
 from typing import List, Dict, Any, Set, Optional
 
 from rich.progress import Progress
@@ -13,7 +12,6 @@ from semantics_analysis.reference_resolution.llm_reference_resolver import LLMRe
 from semantics_analysis.reference_resolution.reference_resolver import ReferenceResolver
 from semantics_analysis.relation_extraction.llm_relation_extractor import LLMRelationExtractor
 from semantics_analysis.relation_extraction.relation_extractor import RelationExtractor
-from semantics_analysis.tokens import tokens
 
 
 def update_scores(
@@ -279,27 +277,17 @@ def main():
         scores = {}
         last_sent_id = 0
 
-    token_idx = 0
-    no_move_count = 0
-
     with Progress() as progress:
-        token_task = progress.add_task(
-            total=len(tokens),
-            description=f'Token {token_idx}/{len(tokens)}',
-            completed=token_idx
-        )
-
         while True:
             prev_last_sent_id = last_sent_id
 
             relation_extractor = LLMRelationExtractor(
                 model=config.llm,
-                huggingface_hub_token=tokens[token_idx]
             )
 
             reference_resolver = LLMReferenceResolver(
+                progress,
                 model=config.llm,
-                huggingface_hub_token=tokens[token_idx]
             )
 
             last_sent_id, finished = calculate_scores(
@@ -321,32 +309,13 @@ def main():
                 print('Scores were saved.')
                 break
 
-            token_idx = (token_idx + 1) % len(tokens)
-            progress.update(token_task, description=f'Token {token_idx}/{len(tokens)}', completed=token_idx)
-
-            if prev_last_sent_id == last_sent_id:
-                no_move_count += 1
-
-                if no_move_count >= len(tokens):
-                    print('No tokens are available.')
-                    progress.remove_task(token_task)
-                    break
-            else:
-                no_move_count = 0
+            if prev_last_sent_id != last_sent_id:
                 with open(lock_path, 'w', encoding='utf-8') as f:
                     f.write(f'{last_sent_id}')
 
                 with open(scores_path, 'w', encoding='utf-8') as f:
                     json.dump(scores, f, ensure_ascii=False, indent=2)
-
-                sleep_time_secs = 5
-
-                wait_task = progress.add_task(description='Token reset...', total=sleep_time_secs, completed=1)
-
-                for i in range(sleep_time_secs):
-                    sleep(1)
-                    progress.update(wait_task, description='Token reset...', advance=1)
-                progress.remove_task(wait_task)
+                print('Scores were saved.')
 
 
 if __name__ == '__main__':
